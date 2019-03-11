@@ -3,8 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "braft-editor": "^2.2.9",
+    "eslint-plugin-react": "^7.12.4",
+    "isomorphic-fetch": "^2.2.1",
+    "js-cookie": "^2.2.0",
+    "mdbreact": "git+https://oauth2:HA3Lyzg_ziCJX8WTS113@git.mdbootstrap.com/mdb/react/re-pro.git",
+    "prop-types": "^15.7.2",
+    "query-string": "^6.3.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.8"
   },
   "scripts": {
