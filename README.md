@@ -1,5 +1,13 @@
 # frontend
 
+### Get Started
+
+1. Make sure commands `git`, `node` and `yarn` are available.
+2. Fork the repository to your GitHub account.
+3. **Clone the forked repository.**
+4. Change directory to the local repository.
+5. Execute `./init.sh`.
+
 ### Environment
 
 ``` bash

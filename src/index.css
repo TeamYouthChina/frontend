@@ -1,14 +1,89 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+/*
+  MOBILE
+
+  device:        - 480px
+  content: 320px - 480px
+*/
+@media screen and (max-width: 992px) {
+  .cell-wall {
+    display: flex;
+    justify-content: center;
+  }
+
+  .cell-membrane {
+    flex-basis: 480px;
+  }
+}
+
+/*
+  MOBILE PAD
+
+  device:  480px - 992px
+  content: 480px - 992px
+*/
+@media screen and (min-width: 480px) and (max-width: 992px) {
+  .cell-wall {
+    display: flex;
+    justify-content: center;
+  }
+
+  .cell-membrane {
+    flex-basis: 992px;
+  }
+}
+
+/*
+  DESKTOP 720P
+
+  device:  992px - 1488px
+  content: 992px - 1080px
+*/
+@media screen and (min-width: 992px) and (max-width: 1488px) {
+  .cell-wall {
+    display: flex;
+    justify-content: center;
+  }
+
+  .cell-membrane {
+    flex-basis: 1080px;
+  }
+}
+
+/*
+  DESKTOP 1080P
+
+  device:  1488px - 1984px
+  content: 1488px - 1620px
+*/
+@media screen and (min-width: 1488px) and (max-width: 1984px) {
+  .cell-wall {
+    display: flex;
+    justify-content: center;
+  }
+
+  .cell-membrane {
+    flex-basis: 1620px;
+  }
+}
+
+/*
+  DESKTOP 2K
+
+  device:  1984px -
+  content: 1984px - 2160px
+*/
+@media screen and (min-width: 1984px) {
+  .cell-wall {
+    display: flex;
+    justify-content: center;
+  }
+
+  .cell-membrane {
+    flex-basis: 2160px;
+  }
 }

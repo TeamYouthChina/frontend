@@ -3,4 +3,5 @@
 set -u
 SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 
-./node_modules/eslint/bin/eslint.js --fix .
+# The script is executed on the root directory of the repo.
+./eslint.sh --fix .
