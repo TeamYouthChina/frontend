@@ -5,6 +5,7 @@ import {Redirect} from 'react-router-dom';
 
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
+import * as deviceHelper from '../../../tool/device-helper';
 
 class ZhichengReact extends React.Component {
   constructor(props) {
@@ -28,7 +29,20 @@ class ZhichengReact extends React.Component {
           <div
             className="cell-membrane"
           >
-
+            <p>逻辑分辨率：{this.props.bodyClientWidth}px</p>
+            <p>
+              设备类型：
+              {
+                (() => {
+                  switch (deviceHelper.getType(this.props.bodyClientWidth)) {
+                    case deviceHelper.MOBILE:
+                      return '移动端';
+                    case deviceHelper.DESKTOP:
+                      return '桌面端';
+                  }
+                })()
+              }
+            </p>
           </div>
         </div>
       </div>

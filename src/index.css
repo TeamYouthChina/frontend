@@ -3,87 +3,29 @@ body {
   padding: 0;
 }
 
+.cell-wall {
+  display: flex;
+  justify-content: center;
+}
+
 /*
   MOBILE
 
-  device:        - 480px
-  content: 320px - 480px
+  device: < 480px
 */
-@media screen and (max-width: 992px) {
-  .cell-wall {
-    display: flex;
-    justify-content: center;
-  }
-
+@media screen and (max-width: 480px) {
   .cell-membrane {
-    flex-basis: 480px;
+    flex-basis: 90vw;
   }
 }
 
 /*
-  MOBILE PAD
+  DESKTOP
 
-  device:  480px - 992px
-  content: 480px - 992px
+  device: > 480px
 */
-@media screen and (min-width: 480px) and (max-width: 992px) {
-  .cell-wall {
-    display: flex;
-    justify-content: center;
-  }
-
+@media screen and (min-width: 480px) {
   .cell-membrane {
-    flex-basis: 992px;
-  }
-}
-
-/*
-  DESKTOP 720P
-
-  device:  992px - 1488px
-  content: 992px - 1080px
-*/
-@media screen and (min-width: 992px) and (max-width: 1488px) {
-  .cell-wall {
-    display: flex;
-    justify-content: center;
-  }
-
-  .cell-membrane {
-    flex-basis: 1080px;
-  }
-}
-
-/*
-  DESKTOP 1080P
-
-  device:  1488px - 1984px
-  content: 1488px - 1620px
-*/
-@media screen and (min-width: 1488px) and (max-width: 1984px) {
-  .cell-wall {
-    display: flex;
-    justify-content: center;
-  }
-
-  .cell-membrane {
-    flex-basis: 1620px;
-  }
-}
-
-/*
-  DESKTOP 2K
-
-  device:  1984px -
-  content: 1984px - 2160px
-*/
-@media screen and (min-width: 1984px) {
-  .cell-wall {
-    display: flex;
-    justify-content: center;
-  }
-
-  .cell-membrane {
-    flex-basis: 2160px;
+    flex-basis: 83.125vw;
   }
 }
