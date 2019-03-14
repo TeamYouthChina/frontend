@@ -28,6 +28,9 @@ class ZhichengReact extends React.Component {
         >
           <div
             className="cell-membrane"
+            style={{
+              backgroundColor: 'yellow'
+            }}
           >
             <p>逻辑分辨率：{this.props.bodyClientWidth}px</p>
             <p>
