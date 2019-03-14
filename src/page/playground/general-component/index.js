@@ -62,6 +62,10 @@ class GeneralComponentReact extends React.Component {
               {/* insert component here */}
             </div>
             <div className={classes.space}>
+              <p>user-card-bar-auth</p>
+              {/* insert component here */}
+            </div>
+            <div className={classes.space}>
               <p>user-card-square-auth</p>
               {/* insert component here */}
             </div>
