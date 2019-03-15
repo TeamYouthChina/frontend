@@ -49,7 +49,7 @@ FooterReact.propTypes = {
 export const Footer = withRouter(connect(
   (state) => {
     return {
-      bodyClientWidth: state.bodyClientWidth
+      bodyClientWidth: state.initial.bodyClientWidth
     };
   }
 )(FooterReact));

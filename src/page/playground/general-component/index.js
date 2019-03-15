@@ -103,7 +103,7 @@ GeneralComponentReact.propTypes = {
 export const GeneralComponent = connect(
   (state) => {
     return {
-      bodyClientWidth: state.bodyClientWidth
+      bodyClientWidth: state.initial.bodyClientWidth
     };
   }
 )(GeneralComponentReact);

@@ -6,6 +6,8 @@ import {Redirect} from 'react-router-dom';
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 
+import Zhenyi from './components';
+
 class ZhenyiReact extends React.Component {
   constructor(props) {
     super(props);
@@ -28,7 +30,7 @@ class ZhenyiReact extends React.Component {
           <div
             className="cell-membrane"
           >
-
+            <Zhenyi />
           </div>
         </div>
       </div>
@@ -52,10 +54,10 @@ ZhenyiReact.propTypes = {
   bodyClientWidth: PropTypes.number.isRequired
 };
 
-export const Zhenyi = connect(
+export const ZhenyiWrapper = connect(
   (state) => {
     return {
-      bodyClientWidth: state.bodyClientWidth
+      bodyClientWidth: state.initial.bodyClientWidth
     };
   }
 )(ZhenyiReact);
