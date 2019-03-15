@@ -25,6 +25,7 @@ class YuweiReact extends React.Component {
         <div
           className="cell-wall"
         >
+          Hello world! 
           <div
             className="cell-membrane"
           >
