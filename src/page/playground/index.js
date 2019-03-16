@@ -6,7 +6,7 @@ import {GeneralComponent} from './general-component';
 import {Yutong} from './yutong';
 import {Yuwei} from './yuwei';
 import {Zepei} from './zepei';
-import {Zhenyi} from './zhenyi';
+import {ZhenyiWrapper} from './zhenyi';
 import {Zhicheng} from './zhicheng';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 
@@ -42,7 +42,7 @@ export class Playground extends React.Component {
         />
         <Route
           path={`${this.props.match.url}/zhenyi`}
-          component={routeProps => <Zhenyi {...routeProps} />}
+          component={routeProps => <ZhenyiWrapper {...routeProps} />}
         />
         <Route
           path={`${this.props.match.url}/zhicheng`}
