@@ -13,7 +13,7 @@ export const getAnswerData = () => {
   return async (dispatch) => {
     try{
       // const result = await getAsync(`/questions/${id}`);
-      const result = data
+      const result = data;
       dispatch(changeAnswerData(result.content));
     } catch (e) {
       // console.log(e);
@@ -39,7 +39,7 @@ export const changeBottomStyle = (isCollapsed) => {
       }
     };
   }
-}
+};
 
 export const dealScroll = (collapsed, discount) => {
   if(collapsed) {
@@ -48,7 +48,7 @@ export const dealScroll = (collapsed, discount) => {
       showBottom:discount < 250,
     };
   }
-}
+};
 
 export const showComments = (commentsText, counts) => {
   let commentsTextNow = commentsText === `${counts}条评论` ? '收起评论' : `${counts}条评论`;
@@ -56,4 +56,4 @@ export const showComments = (commentsText, counts) => {
     type:'IF_SHOW_COMMENTS',
     commentsText:commentsTextNow
   };
-}
+};

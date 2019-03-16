@@ -82,6 +82,6 @@ const data = {
     'code': 2000,
     'reason': ''
   }
-}
+};
 
 export default data;
