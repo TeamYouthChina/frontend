@@ -25,30 +25,33 @@ export const changeBottomStyle = (isCollapsed) => {
   if(isCollapsed) {
     return {
       type:'CHANGE_BOTTOM_STYLE',
-      stickyRow: {background: '#FFFFFF'},
-      isCollapsed: true
-    };
-  } else {
-    return {
-      type:'CHANGE_BOTTOM_STYLE',
-      isCollapsed: false,
       stickyRow: {
         background: '#FFFFFF',
         position: 'sticky',
         bottom: '0px'
+      },
+      isCollapsed: false
+    };
+  } else {
+    return {
+      type:'CHANGE_BOTTOM_STYLE',
+      isCollapsed: true,
+      stickyRow: {
+        background: '#FFFFFF',
+        
       }
     };
   }
 };
 
-export const dealScroll = (collapsed, discount) => {
-  if(collapsed) {
-    return {
-      type:'DEAL_SCROLL',
-      showBottom:discount < 250,
-    };
-  }
-};
+// export const dealScroll = (collapsed, discount) => {
+//   if(collapsed) {
+//     return {
+//       type:'DEAL_SCROLL',
+//       showBottom:discount < 250,
+//     };
+//   }
+// };
 
 export const showComments = (commentsText, counts) => {
   let commentsTextNow = commentsText === `${counts}条评论` ? '收起评论' : `${counts}条评论`;

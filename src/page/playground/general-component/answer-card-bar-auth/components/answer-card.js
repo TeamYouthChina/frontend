@@ -7,7 +7,7 @@ import {languageHelper} from '../../../../../tool/language-helper';
 
 import Title from '../containers/title';
 import UserInfor from '../containers/user-infor';
-// import Footer from '../containers/footer';
+import Footer from '../containers/footer';
 
 import {action} from '../store';
 import {connect} from 'react-redux';
@@ -17,6 +17,7 @@ export class AnswerCard extends React.Component {
     super(props);
     this.state = {
       editorState: null,
+      showBottom:false
     };
     this.sliceText = this.sliceText.bind(this);
     this.orderScroll = this.orderScroll.bind(this);
@@ -44,7 +45,18 @@ export class AnswerCard extends React.Component {
       discount = document.documentElement.clientHeight - this.scrollSpan.getBoundingClientRect().top;
     }
     setTimeout(() => {
-      this.props.orderScroll(this.props.isCollapsed, discount);
+      if(!this.props.isCollapsed) {
+        if(discount > 250) {
+          this.setState({
+            showBottom:true,
+          });
+        } else if(discount < 240){
+          this.setState({
+            showBottom:false,
+          });
+        }
+        
+      }
     }, 100);
   }
 
@@ -72,33 +84,42 @@ export class AnswerCard extends React.Component {
   // }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.props.orderScroll);
+    window.removeEventListener('scroll', this.orderScroll);
   }
 
   render() {
     return (this.props.backend !== null) ? (
       <React.Fragment>
         <div style={{background: '#FFFFFF', padding: '20px 30px', borderRadius: '2px'}}
-          ref={(span) => this.scrollSpan = span}>
+             ref={(span) => this.scrollSpan = span}>
+          <Title
+            title={this.props.backend.title}
+            basicFont={this.props.basicFont} />
+          <UserInfor
+            score={5}
+            user={this.props.backend.creator.username}
+            description={'weYouth负责人'}
+            readingTime={6}
+            isCollapsed={this.props.isCollapsed}
+            short={this.sliceText(this.props.backend.answers)}
+            handleSpanClick={this.props.handleSpanClick}
+            basicFont={this.props.basicFont}
+            // editorState={this.state.editorState.toHTML()}
+            liBasicNoLine={this.props.liBasicNoLine}
+            ulBasicNoLine={this.props.ulBasicNoLine} />
+          {this.state.showBottom || this.props.isCollapsed ? (
+            <Footer
+              editTime={'1'}
+              commentsText={this.props.commentsText}
+              isCollapsed={this.props.isCollapsed}
+              showComments={this.props.showComments}
+              handleSpanClick={this.props.handleSpanClick}
+              basicFont={this.props.basicFont}
+              stickyRow={this.props.stickyRow} />
+          ) : null}
         </div>
-        <Title
-          title={this.props.backend.title}
-          basicFont={this.props.basicFont} />
-        <UserInfor
-          score={5}
-          user={this.props.backend.creator.username}
-          description={'weYouth负责人'}
-          readingTime={6}
-          isCollapsed={this.props.isCollapsed}
-          short={this.sliceText(this.props.backend.answers)}
-          handleSpanClick={this.props.handleSpanClick}
-          basicFont={this.props.basicFont}
-          // editorState={this.state.editorState.toHTML()}
-          liBasicNoLine={this.props.liBasicNoLine}
-          ulBasicNoLine={this.props.ulBasicNoLine} />
-        {/*{this.props.showBottom || this.props.isCollapsed ? (*/}
-        {/*/!*<Footer></Footer>*!/*/}
-        {/*) : null}*/}
+        
+        
         {/*{this.state.showComments ? (*/}
         {/*<div style={{marginTop: '15px', background: '#FFFFFF', padding: '19px 32px', borderRadius: '2px'}}>*/}
         {/*<MDBRow style={{*/}
@@ -190,11 +211,7 @@ const mapDispatchToProps = (dispatch) => ({
   changeAnswerData: () => {
     dispatch(action.changeAnswerData());
   },
-
-  orderScroll: (isCollapsed, discount) => {
-    dispatch(action.dealScroll(isCollapsed, discount));
-  },
-
+  
   handleSpanClick: (isCollapsed) => {
     dispatch(action.changeBottomStyle(isCollapsed));
   },
@@ -207,15 +224,18 @@ const mapDispatchToProps = (dispatch) => ({
 
 AnswerCard.propTypes = {
   questionId: PropTypes.string,
+  commentsText: PropTypes.string,
   backend: PropTypes.object,
 
   basicFont: PropTypes.object,
   liBasicNoLine: PropTypes.object,
   ulBasicNoLine: PropTypes.object,
+  stickyRow: PropTypes.object,
 
   changeAnswerData: PropTypes.func,
   handleSpanClick: PropTypes.func,
   orderScroll: PropTypes.func,
+  showComments: PropTypes.func,
 
   showBottom: PropTypes.bool,
   isCollapsed: PropTypes.bool,

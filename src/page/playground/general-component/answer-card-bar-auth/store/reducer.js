@@ -1,9 +1,8 @@
 const defaultState = {
   backend: null,
   isCollapsed: true,
-  showBottom: true,
   showComments: false,
-  commentsText: null,
+  commentsText: '6条评论',
   pageConfig: {
     totalPage: 14 //总页码
   },
@@ -30,8 +29,6 @@ export default (state = defaultState, action) => {
       return {...state, backend: action.answerData};
     case 'CHANGE_BOTTOM_STYLE':
       return {...state, stickyRow: action.stickyRow, isCollapsed:action.isCollapsed};
-    case 'DEAL_SCROLL':
-      return {...state, showBottom: action.showBottom};
     case 'IF_SHOW_COMMENTS':
       return {...state, commentsText: action.commentsText};
     default:
