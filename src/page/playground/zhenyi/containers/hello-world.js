@@ -9,6 +9,10 @@ const HelloWorld = (props) => {
 	
 };
 
+HelloWorld.defaultProps = {
+  testValue: ''
+};
+
 HelloWorld.propTypes = {
   
   testValue: PropTypes.string.isRequired,

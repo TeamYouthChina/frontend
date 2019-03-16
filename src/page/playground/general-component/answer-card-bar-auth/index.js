@@ -42,7 +42,7 @@ AnswerCardBarAuthReact.propTypes = {
 export const AnswerCardBarAuth = withRouter(connect(
   (state) => {
     return {
-      bodyClientWidth: state.bodyClientWidth
+      bodyClientWidth: state.initial.bodyClientWidth
     };
   }
 )(AnswerCardBarAuthReact));

@@ -8,6 +8,8 @@ import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 
 import Zhenyi from './components';
 
+import AnswerCard  from '../general-component/answer-card-bar-auth/components/answer-card';
+
 class ZhenyiReact extends React.Component {
   constructor(props) {
     super(props);
@@ -31,6 +33,7 @@ class ZhenyiReact extends React.Component {
             className="cell-membrane"
           >
             <Zhenyi />
+            <AnswerCard questionId={'1'} />
           </div>
         </div>
       </div>
