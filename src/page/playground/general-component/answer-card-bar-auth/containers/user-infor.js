@@ -86,7 +86,7 @@ export const UserInfor = (props) => (
       </span>
     )}
   </div>
-)
+);
 
 
 UserInfor.defaultProps = {
