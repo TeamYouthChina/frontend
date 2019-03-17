@@ -7,8 +7,8 @@ import {connect} from 'react-redux';
 import {SignedIn} from './signed-in';
 import {SignedOut} from './signed-out';
 import classes from './index.module.css';
-import {isLogin} from '../../tool/api-helper';
-import {languageHelper} from '../../tool/language-helper';
+import {isLogin} from '../../../../tool/api-helper';
+import {languageHelper} from '../../../../tool/language-helper';
 
 class HeaderReact extends React.Component {
   constructor(props) {
