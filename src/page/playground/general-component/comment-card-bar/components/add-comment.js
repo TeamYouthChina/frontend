@@ -43,17 +43,17 @@ export class AddComment extends React.Component {
             height: '37px',
             ...this.props.basicFont,
           }} 
-                 placeholder="发表你的评论..." 
-                 onChange={(e) => (this.handleInput(e))} value={this.state.inputValue} 
-                 onKeyDown={(e)=>{
-                   if(e.keyCode === 13) {
-                     e.stopPropagation();
-                     this.props.addComments(this.state.inputValue);
-                     this.setState({
-                       inputValue:''
-                     });
-                   }
-                 }}
+          placeholder="发表你的评论..." 
+          onChange={(e) => (this.handleInput(e))} value={this.state.inputValue} 
+          onKeyDown={(e)=>{
+            if(e.keyCode === 13) {
+              e.stopPropagation();
+              this.props.addComments(this.state.inputValue);
+              this.setState({
+                inputValue:''
+              });
+            }
+          }}
           />
         </div>
         <MDBBtn onClick={(e) => {

@@ -46,7 +46,7 @@ export const changeBottomStyle = (isCollapsed) => {
 
 export const showComments = (commentsText, counts) => {
   let commentsTextNow = commentsText === `${counts}条评论` ? '收起评论' : `${counts}条评论`;
-  let showComments = commentsText === `${counts}条评论`
+  let showComments = commentsText === `${counts}条评论`;
   return {
     type:'IF_SHOW_COMMENTS',
     commentsText:commentsTextNow,
