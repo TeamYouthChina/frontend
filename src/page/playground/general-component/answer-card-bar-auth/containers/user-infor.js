@@ -35,7 +35,7 @@ export const UserInfor = (props) => (
         {/*<span style={{color: '#3E4850', fontSize: '14px', ...basicFont}}>{this.state.backend.user}</span>:*/}
         <ul style={props.ulBasicNoLine}>
           {/*<li style={{color: '#8D9AAF', fontSize: '14px', ...props.liBasicNoLine, margin: '10px 0px'}}>*/}
-            {/*预计阅读时间: {props.readingTime}分钟*/}
+          {/*预计阅读时间: {props.readingTime}分钟*/}
           {/*</li>*/}
           <li style={{color: '#31394D', fontSize: '14px', ...props.liBasicNoLine, ...props.basicFont}}>
             {props.short}
