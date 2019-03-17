@@ -9,6 +9,11 @@ import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 import Zhenyi from './components';
 
 import AnswerCard  from '../general-component/answer-card-bar-auth/components/answer-card';
+import AnswerCardWithoutAuth  from '../general-component/answer-card-bar-unauth';
+import ReviewCard  from '../general-component/review-card-bar-auth';
+import ReviewCardWithoutAuth  from '../general-component/review-card-bar-unauth';
+import ArticleCard  from '../general-component/article-card-bar-auth';
+import {VideoCardSearch}  from '../general-component/video-card-bar-auth';
 
 class ZhenyiReact extends React.Component {
   constructor(props) {
@@ -25,7 +30,7 @@ class ZhenyiReact extends React.Component {
       return (<Redirect to={pathname} />);
     }
     return (
-      <div>
+      <div style={{background:'#E5E5E5'}}>
         <div
           className="cell-wall"
         >
@@ -33,7 +38,17 @@ class ZhenyiReact extends React.Component {
             className="cell-membrane"
           >
             <Zhenyi />
-            <AnswerCard questionId={'1'} />
+            <AnswerCard answerId={1} />
+            <br />
+            <AnswerCardWithoutAuth fullText={{1:1}}/>
+            <br />
+            <ReviewCard reviewId={1} />
+            <br />
+            <ReviewCardWithoutAuth fullText={{1:1}} />
+            <br />
+            <ArticleCard articleId={1} />
+            <br />
+            <VideoCardSearch></VideoCardSearch>
           </div>
         </div>
       </div>

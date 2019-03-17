@@ -1,0 +1,94 @@
+.page-container:after {
+  content: '.';
+  display: block;
+  height: 0;
+  overflow: hidden;
+  clear: both;
+}
+.page-container {
+  zoom: 1
+}
+
+.page-container li {
+  list-style: none;
+  float: left;
+  padding: 3px;
+  cursor: pointer;
+  height:25px;
+  width:25px;
+  border: 1px solid #DBE5F7;
+  box-sizing: border-box;
+  box-shadow: 0px 1px 20px rgba(141, 154, 175, 0.15);
+  border-radius: 2px;
+  font-family: PingFang SC;
+  line-height: normal;
+  font-size: 14px;
+  text-align: center;
+  color: #8D9AAF;
+}
+
+.page-container li:last-child {
+  margin-right: 0px;
+}
+
+/*当前页样式*/
+.activePage {
+  padding:3px!important;
+  height:25px!important;
+  width:25px!important;
+  border: 1px solid #333B4F!important;
+  box-sizing: border-box!important;
+  box-shadow: 0px 1px 20px rgba(141, 154, 175, 0.15)!important;
+  border-radius: 2px!important;
+  font-family: PingFang SC!important;
+  line-height: normal!important;
+  font-size: 14px!important;
+  text-align: center!important;
+  color: #31394D!important;
+}
+
+/*没有上一页和下一页时样式*/
+.nomore {
+  border: 1px solid #DBE5F7!important;
+  box-sizing: border-box!important;
+  box-shadow: 0px 1px 20px rgba(141, 154, 175, 0.15)!important;
+  border-radius: 2px!important;
+  font-family: PingFang SC!important;
+  line-height: normal!important;
+  font-size: 14px!important;
+  text-align: center!important;
+
+  color: #8D9AAF!important;
+}
+.Pagenomore {
+  list-style: none!important;
+  float: left!important;
+  padding:3px!important;
+  height:25px!important;
+  width:50px!important;
+  border: none!important;
+  box-sizing: border-box!important;
+  box-shadow: none!important;
+  border-radius: 2px!important;
+  font-family: PingFang SC!important;
+  line-height: normal!important;
+  font-size: 14px!important;
+  text-align: center!important;
+  color: #31394D!important;
+}
+.changePage {
+  list-style: none!important;
+  float: left!important;
+  padding:3px!important;
+  height:25px!important;
+  width:50px!important;
+  border:none!important;
+  box-sizing: border-box!important;
+  box-shadow: none!important;
+  border-radius: 2px!important;
+  font-family: PingFang SC!important;
+  line-height: normal!important;
+  font-size: 14px!important;
+  text-align: center!important;
+  color: #31394D!important;
+}
