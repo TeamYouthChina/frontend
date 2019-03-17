@@ -153,7 +153,7 @@ HeaderReact.propTypes = {
 export const Header = withRouter(connect(
   (state) => {
     return {
-      bodyClientWidth: state.bodyClientWidth
+      bodyClientWidth: state.initial.bodyClientWidth
     };
   }
 )(HeaderReact));

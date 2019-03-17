@@ -52,7 +52,7 @@ SignedOutReact.propTypes = {
 export const SignedOut = withRouter(connect(
   (state) => {
     return {
-      bodyClientWidth: state.bodyClientWidth
+      bodyClientWidth: state.initial.bodyClientWidth
     };
   }
 )(SignedOutReact));
