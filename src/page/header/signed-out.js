@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
-import {languageHelper} from '../../../../tool/language-helper';
+import {languageHelper} from '../../tool/language-helper';
 
 class SignedOutReact extends React.Component {
   constructor(props) {
