@@ -7,6 +7,7 @@ import {languageHelper} from '../../../../../tool/language-helper';
 
 import Title from '../containers/title';
 import UserInfor from '../containers/user-infor';
+import Comments from '../../comment-card-bar';
 import Footer from '../containers/footer';
 
 import {action} from '../store';
@@ -17,10 +18,11 @@ export class AnswerCard extends React.Component {
     super(props);
     this.state = {
       editorState: null,
-      showBottom:false
+      showBottom: false
     };
     this.sliceText = this.sliceText.bind(this);
     this.orderScroll = this.orderScroll.bind(this);
+    this.getCurrentPage = this.getCurrentPage.bind(this);
     // 多语言
     this.text = AnswerCard.i18n[languageHelper()];
   }
@@ -45,17 +47,17 @@ export class AnswerCard extends React.Component {
       discount = document.documentElement.clientHeight - this.scrollSpan.getBoundingClientRect().top;
     }
     setTimeout(() => {
-      if(!this.props.isCollapsed) {
-        if(discount > 250) {
+      if (!this.props.isCollapsed) {
+        if (discount > 250) {
           this.setState({
-            showBottom:true,
+            showBottom: true,
           });
-        } else if(discount < 240){
+        } else if (discount < 240) {
           this.setState({
-            showBottom:false,
+            showBottom: false,
           });
         }
-        
+
       }
     }, 100);
   }
@@ -79,9 +81,9 @@ export class AnswerCard extends React.Component {
   // }
 
   // todo,拿到点击好的页吗
-  // getCurrentPage(currentPage) {
-  //
-  // }
+  getCurrentPage() {
+
+  }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.orderScroll);
@@ -90,8 +92,7 @@ export class AnswerCard extends React.Component {
   render() {
     return (this.props.backend !== null) ? (
       <React.Fragment>
-        <div style={{background: '#FFFFFF', padding: '20px 30px', borderRadius: '2px'}}
-          ref={(span) => this.scrollSpan = span}>
+        <div style={{background: '#FFFFFF', padding: '20px 30px', borderRadius: '2px'}} ref={(span) => this.scrollSpan = span}>
           <Title
             title={this.props.backend.title}
             basicFont={this.props.basicFont} />
@@ -109,81 +110,24 @@ export class AnswerCard extends React.Component {
             ulBasicNoLine={this.props.ulBasicNoLine} />
           {this.state.showBottom || this.props.isCollapsed ? (
             <Footer
-              editTime={'1'}
+              editTime={'1天前'}
               commentsText={this.props.commentsText}
               isCollapsed={this.props.isCollapsed}
-              showComments={this.props.showComments}
+              showComments={this.props.showCommentsFunc}
               handleSpanClick={this.props.handleSpanClick}
               basicFont={this.props.basicFont}
               stickyRow={this.props.stickyRow} />
           ) : null}
         </div>
-        
-        
-        {/*{this.state.showComments ? (*/}
-        {/*<div style={{marginTop: '15px', background: '#FFFFFF', padding: '19px 32px', borderRadius: '2px'}}>*/}
-        {/*<MDBRow style={{*/}
-        {/*margin: '0px 0px 11px 0px',*/}
-        {/*fontSize: '16px',*/}
-        {/*color: '#8D9AAF', ...basicFont*/}
-        {/*}}>{this.state.backend.commonLists.length}条评论</MDBRow>*/}
-        {/*<MDBRow style={{margin: '0px', display: 'flex'}}>*/}
-        {/*<MDBAvatar style={{height: '100%', margin: '6px 11px 6px 0px', flexGrow: '0'}}>*/}
-        {/*<img*/}
-        {/*style={{width: '32px', background: '#F4F4F4'}}*/}
-        {/*src={this.state.backend.img}*/}
-        {/*alt=""*/}
-        {/*className="rounded-circle"*/}
-        {/*/>*/}
-        {/*</MDBAvatar>*/}
-        {/*<div style={{marginTop: '5px', flexGrow: '1',}}>*/}
-        {/*<input style={{*/}
-        {/*width: '100%',*/}
-        {/*background: '#FFFFFF',*/}
-        {/*border: '1px solid #DBE5F7',*/}
-        {/*boxSizing: 'border-box',*/}
-        {/*borderRadius: '2px',*/}
-        {/*padding: '8px 0px 8px 20px',*/}
-        {/*fontSize: '14px',*/}
-        {/*color: '#B3C1DB',*/}
-        {/*height: '37px',*/}
-        {/*...basicFont,*/}
-        {/*}} ref={(input) => (this.input = input)} placeholder="发表你的评论..."/>*/}
-
-        {/*</div>*/}
 
 
-        {/*<MDBBtn onClick={(e) => this.addComments(e)} flat*/}
-        {/*style={{*/}
-        {/*flexGrow: '0',*/}
-        {/*background: '#C4C4C4',*/}
-        {/*padding: '8px 20px',*/}
-        {/*color: '#FFFFFF', ...basicFont,*/}
-        {/*margin: '6px 6px 5px 6px',*/}
-        {/*}}>*/}
-        {/*发布*/}
-        {/*</MDBBtn>*/}
-
-        {/*</MDBRow>*/}
-        {/*/!*{this.state.backend.commonLists.map((item) => (*!/*/}
-        {/*/!*<CommentsCard key={item} message={item}></CommentsCard>*!/*/}
-        {/**/}
-        {/*/!*))}*!/*/}
-        {/*/!*{this.state.backend.commonLists.length !== 0 ? (*!/*/}
-        {/*/!*<MDBRow center style={{marginTop: '10px'}}>*!/*/}
-        {/*/!*<PaginationUse pageConfig={{totalPage: Math.ceil(this.state.backend.commonLists.length / 3)}}*!/*/}
-        {/*/!*pageCallbackFn={this.getCurrentPage}></PaginationUse>*!/*/}
-        {/*/!*</MDBRow>*!/*/}
-        {/*/!*) : null}*!/*/}
-        {/*<MDBRow center style={{marginTop: '9px'}}>*/}
-        {/*<MDBBtn onClick={this.showComments} flat*/}
-        {/*style={{margin: '0px', padding: '5px 10px', fontSize: '14px', color: '#8D9AAF', ...basicFont}}>*/}
-        {/*收起评论<MDBIcon style={{marginLeft: '5px'}} icon="arrow-up"/>*/}
-        {/*</MDBBtn>*/}
-        {/*</MDBRow>*/}
-        {/*</div>*/}
-
-        {/*) : null}*/}
+        {this.props.showComments ? (
+          <Comments 
+            showComments={this.props.showCommentsFunc} 
+            getCurrentPage={this.getCurrentPage}
+            commentsText={this.props.commentsText}
+          />
+        ) : null}
       </React.Fragment>
     ) : (
       <div>
@@ -194,16 +138,16 @@ export class AnswerCard extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  backend: state.answerReducer.backend,
-  editorState: state.answerReducer.editorState,
-  isCollapsed: state.answerReducer.isCollapsed,
-  showBottom: state.answerReducer.showBottom,
-  showComments: state.answerReducer.showComments,
-  commentsText: state.answerReducer.commentsText,
-  pageConfig: state.answerReducer.pageConfig,
-  stickyRow: state.answerReducer.stickyRow,
-  liBasicNoLine: state.answerReducer.liBasicNoLine,
-  ulBasicNoLine: state.answerReducer.ulBasicNoLine
+  backend: state.answer.backend,
+  editorState: state.answer.editorState,
+  isCollapsed: state.answer.isCollapsed,
+  showBottom: state.answer.showBottom,
+  showComments: state.answer.showComments,
+  commentsText: state.answer.commentsText,
+  pageConfig: state.answer.pageConfig,
+  stickyRow: state.answer.stickyRow,
+  liBasicNoLine: state.answer.liBasicNoLine,
+  ulBasicNoLine: state.answer.ulBasicNoLine
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -211,12 +155,12 @@ const mapDispatchToProps = (dispatch) => ({
   changeAnswerData: () => {
     dispatch(action.changeAnswerData());
   },
-  
+
   handleSpanClick: (isCollapsed) => {
     dispatch(action.changeBottomStyle(isCollapsed));
   },
 
-  showComments: (commentsText, counts) => {
+  showCommentsFunc: (commentsText, counts) => {
     dispatch(action.showComments(commentsText, counts));
   },
 
@@ -235,10 +179,11 @@ AnswerCard.propTypes = {
   changeAnswerData: PropTypes.func,
   handleSpanClick: PropTypes.func,
   orderScroll: PropTypes.func,
-  showComments: PropTypes.func,
+  showCommentsFunc: PropTypes.func,
 
   showBottom: PropTypes.bool,
   isCollapsed: PropTypes.bool,
+  showComments: PropTypes.bool,
 };
 
 AnswerCard.i18n = [

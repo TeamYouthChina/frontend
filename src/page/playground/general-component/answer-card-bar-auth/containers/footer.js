@@ -25,7 +25,7 @@ const Footer = (props) => (
           <MDBBtn flat style={{padding: '5px 10px', fontSize: '14px', color: '#8D9AAF', ...props.basicFont}}>
             <MDBIcon style={{marginRight: '5px'}} icon="heart"/>收藏
           </MDBBtn>
-          <MDBBtn onClick={()=>(props.showComments(props.commentsText, 6))} flat style={{padding: '5px 10px', fontSize: '14px', color: '#8D9AAF', ...props.basicFont}}>
+          <MDBBtn onClick={()=>(props.showComments(props.commentsText, 2))} flat style={{padding: '5px 10px', fontSize: '14px', color: '#8D9AAF', ...props.basicFont}}>
             <MDBIcon style={{marginRight: '5px'}} far icon="comment"/>{props.commentsText}
           </MDBBtn>
           <MDBBtn flat style={{padding: '5px 10px', fontSize: '14px', color: '#8D9AAF', ...props.basicFont}}>

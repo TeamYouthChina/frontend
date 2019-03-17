@@ -8,7 +8,7 @@ export const UserInfor = (props) => (
       <MDBAvatar style={{height: '100%', margin: '6px 11px 6px 0px'}}>
         <img
           style={{width: '32px', background: '#F4F4F4'}}
-          src={props.img}
+          src={'https://s3.amazonaws.com/youthchina/WechatIMG29.jpeg'}
           alt="123"
           className="rounded-circle"
         />

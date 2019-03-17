@@ -8,7 +8,7 @@ export const changeAnswerData = () => {
     answerData:data.content
   };
 };
-//todo,
+//todo,现在不支持异步的方法
 export const getAnswerData = () => {
   return async (dispatch) => {
     try{
@@ -44,19 +44,12 @@ export const changeBottomStyle = (isCollapsed) => {
   }
 };
 
-// export const dealScroll = (collapsed, discount) => {
-//   if(collapsed) {
-//     return {
-//       type:'DEAL_SCROLL',
-//       showBottom:discount < 250,
-//     };
-//   }
-// };
-
 export const showComments = (commentsText, counts) => {
   let commentsTextNow = commentsText === `${counts}条评论` ? '收起评论' : `${counts}条评论`;
+  let showComments = commentsText === `${counts}条评论`
   return {
     type:'IF_SHOW_COMMENTS',
-    commentsText:commentsTextNow
+    commentsText:commentsTextNow,
+    showComments
   };
 };

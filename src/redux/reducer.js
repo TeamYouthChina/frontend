@@ -5,6 +5,7 @@ import { combineReducers } from 'redux';
 
 import { reducer as zhenYiReducer } from '../page/playground/zhenyi/store';
 import { reducer as answerReducer } from '../page/playground/general-component/answer-card-bar-auth/store';
+import { reducer as commentReducer } from '../page/playground/general-component/comment-card-bar/store';
 
 const initialReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -24,5 +25,6 @@ const initialReducer = (state = initialState, action) => {
 export default combineReducers({
   initial:initialReducer,
   zhenYiReducer,
-  answerReducer
+  answer:answerReducer,
+  comment:commentReducer
 });
