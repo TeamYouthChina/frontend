@@ -18,13 +18,44 @@ export class AnswerCard extends React.Component {
     super(props);
     this.state = {
       editorState: null,
-      showBottom: false
+      showBottom: false,
+      isCollapsed: true,
+      showComments: false,
+      commentsText: '2条评论',
+      pageConfig: {
+        totalPage: 14 //总页码
+      },
+      stickyRow: {background: '#FFFFFF'},
     };
     this.sliceText = this.sliceText.bind(this);
     this.orderScroll = this.orderScroll.bind(this);
     this.getCurrentPage = this.getCurrentPage.bind(this);
+    this.handleSpanClick = this.handleSpanClick.bind(this);
+    this.showCommentsFunc = this.showCommentsFunc.bind(this);
     // 多语言
     this.text = AnswerCard.i18n[languageHelper()];
+  }
+
+  handleSpanClick() {
+    // console.log(this.props.type,1)
+    let isCollapsed = !this.state.isCollapsed;
+    if (isCollapsed) {
+      // this.divNow.style.height='100px'
+      this.setState({
+        stickyRow: {background: '#FFFFFF'},
+        isCollapsed: true
+      });
+    } else {
+      // this.divNow.style.height='400px'
+      this.setState({
+        isCollapsed: false,
+        stickyRow: {
+          background: '#FFFFFF',
+          position: 'sticky',
+          bottom: '0px'
+        }
+      });
+    }
   }
 
   sliceText(answers) {
@@ -47,7 +78,7 @@ export class AnswerCard extends React.Component {
       discount = document.documentElement.clientHeight - this.scrollSpan.getBoundingClientRect().top;
     }
     setTimeout(() => {
-      if (!this.props.isCollapsed) {
+      if (!this.state.isCollapsed) {
         if (discount > 250) {
           this.setState({
             showBottom: true,
@@ -60,6 +91,15 @@ export class AnswerCard extends React.Component {
 
       }
     }, 100);
+  }
+
+  showCommentsFunc() {
+    let commentsTextNow = this.state.commentsText === '2条评论' ? '收起评论' : '2条评论';
+    let showComments = this.state.commentsText === '2条评论';
+    this.setState({
+      commentsText:commentsTextNow,
+      showComments
+    });
   }
 
   componentDidMount() {
@@ -101,31 +141,30 @@ export class AnswerCard extends React.Component {
             user={this.props.backend.creator.username}
             description={'weYouth负责人'}
             readingTime={6}
-            isCollapsed={this.props.isCollapsed}
+            isCollapsed={this.state.isCollapsed}
             short={this.sliceText(this.props.backend.answers)}
-            handleSpanClick={this.props.handleSpanClick}
+            handleSpanClick={this.handleSpanClick}
             basicFont={this.props.basicFont}
             // editorState={this.state.editorState.toHTML()}
             liBasicNoLine={this.props.liBasicNoLine}
             ulBasicNoLine={this.props.ulBasicNoLine} />
-          {this.state.showBottom || this.props.isCollapsed ? (
+          {this.state.showBottom || this.state.isCollapsed ? (
             <Footer
               editTime={'1天前'}
-              commentsText={this.props.commentsText}
-              isCollapsed={this.props.isCollapsed}
-              showComments={this.props.showCommentsFunc}
-              handleSpanClick={this.props.handleSpanClick}
+              commentsText={this.state.commentsText}
+              isCollapsed={this.state.isCollapsed}
+              showComments={this.showCommentsFunc}
+              handleSpanClick={this.handleSpanClick}
               basicFont={this.props.basicFont}
-              stickyRow={this.props.stickyRow} />
+              stickyRow={this.state.stickyRow} />
           ) : null}
         </div>
 
-
-        {this.props.showComments ? (
-          <Comments 
-            showComments={this.props.showCommentsFunc} 
+        {this.state.showComments ? (
+          <Comments
+            showComments={this.showCommentsFunc}
             getCurrentPage={this.getCurrentPage}
-            commentsText={this.props.commentsText}
+            commentsText={this.state.commentsText}
           />
         ) : null}
       </React.Fragment>
@@ -140,12 +179,7 @@ export class AnswerCard extends React.Component {
 const mapStateToProps = (state) => ({
   backend: state.answer.backend,
   editorState: state.answer.editorState,
-  isCollapsed: state.answer.isCollapsed,
-  showBottom: state.answer.showBottom,
-  showComments: state.answer.showComments,
-  commentsText: state.answer.commentsText,
-  pageConfig: state.answer.pageConfig,
-  stickyRow: state.answer.stickyRow,
+
   liBasicNoLine: state.answer.liBasicNoLine,
   ulBasicNoLine: state.answer.ulBasicNoLine
 });
@@ -155,35 +189,19 @@ const mapDispatchToProps = (dispatch) => ({
   changeAnswerData: () => {
     dispatch(action.changeAnswerData());
   },
-
-  handleSpanClick: (isCollapsed) => {
-    dispatch(action.changeBottomStyle(isCollapsed));
-  },
-
-  showCommentsFunc: (commentsText, counts) => {
-    dispatch(action.showComments(commentsText, counts));
-  },
-
+  
 });
 
 AnswerCard.propTypes = {
-  questionId: PropTypes.string,
-  commentsText: PropTypes.string,
+  answerId: PropTypes.number.isRequired,
   backend: PropTypes.object,
 
   basicFont: PropTypes.object,
   liBasicNoLine: PropTypes.object,
   ulBasicNoLine: PropTypes.object,
-  stickyRow: PropTypes.object,
 
-  changeAnswerData: PropTypes.func,
-  handleSpanClick: PropTypes.func,
-  orderScroll: PropTypes.func,
-  showCommentsFunc: PropTypes.func,
-
-  showBottom: PropTypes.bool,
-  isCollapsed: PropTypes.bool,
-  showComments: PropTypes.bool,
+  changeAnswerData: PropTypes.func.isRequired,
+  
 };
 
 AnswerCard.i18n = [

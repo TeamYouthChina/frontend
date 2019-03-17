@@ -64,7 +64,7 @@ export const UserInfor = (props) => (
           <li style={{color: '#31394D', fontSize: '14px', ...props.liBasicNoLine, ...props.basicFont}}>
             {props.short}
           </li>
-          <li onClick={() => (props.handleSpanClick(props.isCollapsed))} style={{
+          <li onClick={props.handleSpanClick} style={{
             color: '#4F65E1',
             fontSize: '14px', ...props.liBasicNoLine, ...props.basicFont,
             margin: '10px 0px 0px 0px'
@@ -102,19 +102,18 @@ UserInfor.defaultProps = {
 UserInfor.propTypes = {
   // self-data
   score: PropTypes.number,
-  user: PropTypes.string,
-  description: PropTypes.string,
-  readingTime: PropTypes.number,
-  isCollapsed: PropTypes.bool,
-  img: PropTypes.string,
-  short: PropTypes.string,
+  user: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  readingTime: PropTypes.number.isRequired,
+  isCollapsed: PropTypes.bool.isRequired,
+  short: PropTypes.string.isRequired,
   // func
-  handleSpanClick: PropTypes.func,
+  handleSpanClick: PropTypes.func.isRequired,
   //style
-  basicFont: PropTypes.object,
-  editorState: PropTypes.object,
-  liBasicNoLine: PropTypes.object,
-  ulBasicNoLine: PropTypes.object,
+  basicFont: PropTypes.object.isRequired,
+  // editorState: PropTypes.object,
+  liBasicNoLine: PropTypes.object.isRequired,
+  ulBasicNoLine: PropTypes.object.isRequired,
 
 };
 

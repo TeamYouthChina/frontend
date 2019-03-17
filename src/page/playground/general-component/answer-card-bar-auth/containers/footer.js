@@ -13,7 +13,7 @@ const Footer = (props) => (
         </span>
       </MDBCol>
       <MDBCol size="9">
-        <div style={{float: 'right'}}>
+        <div style={{float: 'right',marginRight:'-15px'}}>
           <MDBBtn flat style={{
             padding: '5px 10px',
             marginLeft: '15px',
@@ -25,7 +25,7 @@ const Footer = (props) => (
           <MDBBtn flat style={{padding: '5px 10px', fontSize: '14px', color: '#8D9AAF', ...props.basicFont}}>
             <MDBIcon style={{marginRight: '5px'}} icon="heart"/>收藏
           </MDBBtn>
-          <MDBBtn onClick={()=>(props.showComments(props.commentsText, 2))} flat style={{padding: '5px 10px', fontSize: '14px', color: '#8D9AAF', ...props.basicFont}}>
+          <MDBBtn onClick={props.showComments} flat style={{padding: '5px 10px', fontSize: '14px', color: '#8D9AAF', ...props.basicFont}}>
             <MDBIcon style={{marginRight: '5px'}} far icon="comment"/>{props.commentsText}
           </MDBBtn>
           <MDBBtn flat style={{padding: '5px 10px', fontSize: '14px', color: '#8D9AAF', ...props.basicFont}}>
@@ -36,7 +36,7 @@ const Footer = (props) => (
           {/*举报*/}
           {/*</MDBBtn>*/}
           {props.isCollapsed ? null :
-            <MDBBtn onClick={()=>(props.handleSpanClick(props.isCollapsed))} flat style={{padding: '5px 10px', color: '#4F65E1', fontSize: '14px', ...props.basicFont}}>
+            <MDBBtn onClick={props.handleSpanClick} flat style={{padding: '5px 10px', color: '#4F65E1', fontSize: '14px', ...props.basicFont}}>
               收起
               {/*<MDBIcon style={{marginRight: '5px'}} icon="arrow-up"/>*/}
             </MDBBtn>}
@@ -58,15 +58,15 @@ Footer.defaultProps = {
 
 Footer.propTypes = {
   // self-data
-  editTime: PropTypes.string,
-  commentsText: PropTypes.string,
-  isCollapsed: PropTypes.bool,
+  editTime: PropTypes.string.isRequired,
+  commentsText: PropTypes.string.isRequired,
+  isCollapsed: PropTypes.bool.isRequired,
   // func
-  showComments: PropTypes.func,
-  handleSpanClick: PropTypes.func,
+  showComments: PropTypes.func.isRequired,
+  handleSpanClick: PropTypes.func.isRequired,
   // style
-  basicFont:PropTypes.object,
-  stickyRow: PropTypes.object,
+  basicFont:PropTypes.object.isRequired,
+  stickyRow: PropTypes.object.isRequired,
 };
 
 export default Footer;

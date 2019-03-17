@@ -52,7 +52,7 @@ class Comments extends React.Component {
           </MDBRow>
         ) : null}
         <MDBRow center style={{marginTop: '9px'}}>
-          <MDBBtn onClick={() => this.props.showComments(this.props.commentsText, 2)} flat style={{margin: '0px', padding: '5px 10px', fontSize: '14px', color: '#8D9AAF', ...this.props.basicFont}}>
+          <MDBBtn onClick={this.props.showComments} flat style={{margin: '0px', padding: '5px 10px', fontSize: '14px', color: '#8D9AAF', ...this.props.basicFont}}>
             收起评论<MDBIcon style={{marginLeft: '5px'}} icon="arrow-up" />
           </MDBBtn>
         </MDBRow>
