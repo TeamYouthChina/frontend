@@ -1,42 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {MDBAvatar, MDBIcon, MDBRow} from 'mdbreact';
+import {MDBIcon} from 'mdbreact';
 
 export const UserInfor = (props) => (
   <div>
-    <MDBRow style={{margin: '10px 0px'}}>
-      <MDBAvatar style={{height: '100%', margin: '6px 11px 6px 0px'}}>
-        <img
-          style={{width: '32px', background: '#F4F4F4'}}
-          src={'https://s3.amazonaws.com/youthchina/WechatIMG29.jpeg'}
-          alt="123"
-          className="rounded-circle"
-        />
-      </MDBAvatar>
-      <span style={{
-        marginRight: '10px',
-        padding: '10px 0px',
-        color: '#31394D',
-        fontSize: '14px', ...props.basicFont
-      }}>
-        {props.user}
-      </span>
-      <span style={{
-        padding: '10px 0px',
-        color: '#8D9AAF',
-        justifyContent: 'flex-start',
-        fontSize: '14px', ...props.basicFont
-      }}>{props.description}
-      </span>
-    </MDBRow>
-
     {props.isCollapsed ? (
       <div>
         {/*<span style={{color: '#3E4850', fontSize: '14px', ...basicFont}}>{this.state.backend.user}</span>:*/}
         <ul style={props.ulBasicNoLine}>
-          {/*<li style={{color: '#8D9AAF', fontSize: '14px', ...props.liBasicNoLine, margin: '10px 0px'}}>*/}
-            {/*预计阅读时间: {props.readingTime}分钟*/}
-          {/*</li>*/}
+          <li style={{color: '#8D9AAF', fontSize: '14px', ...props.liBasicNoLine, margin: '10px 0px'}}>
+          预计阅读时间: {props.readingTime}分钟
+          </li>
           <li style={{color: '#31394D', fontSize: '14px', ...props.liBasicNoLine, ...props.basicFont}}>
             {props.short}
           </li>
@@ -77,9 +51,7 @@ UserInfor.defaultProps = {
 
 UserInfor.propTypes = {
   // self-data
-  user: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  // readingTime: PropTypes.number.isRequired,
+  readingTime: PropTypes.number.isRequired,
   isCollapsed: PropTypes.bool.isRequired,
   short: PropTypes.string.isRequired,
   // func

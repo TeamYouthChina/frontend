@@ -137,7 +137,6 @@ export class AnswerCardWithoutAuth extends React.Component {
             title={this.props.backend.title}
             basicFont={this.props.basicFont} />
           <UserInfor
-            score={5}
             user={this.props.backend.creator.username}
             description={'weYouth负责人'}
             readingTime={6}
@@ -193,7 +192,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 AnswerCardWithoutAuth.propTypes = {
-  answerId: PropTypes.number.isRequired,
+  fullText: PropTypes.object.isRequired,
   backend: PropTypes.object,
 
   basicFont: PropTypes.object,

@@ -2,8 +2,6 @@ import React from 'react';
 // import BraftEditor from 'braft-editor';
 import PropTypes from 'prop-types';
 import {languageHelper} from '../../../../../tool/language-helper';
-// import {CommentsCard} from '../question/comment-test'
-// import {PaginationUse} from '../question/pagination-test'
 
 import Title from '../containers/title';
 import UserInfor from '../containers/user-infor';
