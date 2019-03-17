@@ -2,12 +2,11 @@ import React from 'react';
 // import BraftEditor from 'braft-editor';
 import PropTypes from 'prop-types';
 import {languageHelper} from '../../../../../tool/language-helper';
-// import {CommentsCard} from '../question/comment-test'
-// import {PaginationUse} from '../question/pagination-test'
 
 import Title from '../containers/title';
 import UserInfor from '../containers/user-infor';
-// import Footer from '../containers/footer';
+import Comments from '../../comment-card-bar';
+import Footer from '../containers/footer';
 
 import {action} from '../store';
 import {connect} from 'react-redux';
@@ -17,11 +16,44 @@ export class AnswerCard extends React.Component {
     super(props);
     this.state = {
       editorState: null,
+      showBottom: false,
+      isCollapsed: true,
+      showComments: false,
+      commentsText: '2条评论',
+      pageConfig: {
+        totalPage: 14 //总页码
+      },
+      stickyRow: {background: '#FFFFFF'},
     };
     this.sliceText = this.sliceText.bind(this);
     this.orderScroll = this.orderScroll.bind(this);
+    this.getCurrentPage = this.getCurrentPage.bind(this);
+    this.handleSpanClick = this.handleSpanClick.bind(this);
+    this.showCommentsFunc = this.showCommentsFunc.bind(this);
     // 多语言
     this.text = AnswerCard.i18n[languageHelper()];
+  }
+
+  handleSpanClick() {
+    // console.log(this.props.type,1)
+    let isCollapsed = !this.state.isCollapsed;
+    if (isCollapsed) {
+      // this.divNow.style.height='100px'
+      this.setState({
+        stickyRow: {background: '#FFFFFF'},
+        isCollapsed: true
+      });
+    } else {
+      // this.divNow.style.height='400px'
+      this.setState({
+        isCollapsed: false,
+        stickyRow: {
+          background: '#FFFFFF',
+          position: 'sticky',
+          bottom: '0px'
+        }
+      });
+    }
   }
 
   sliceText(answers) {
@@ -44,8 +76,28 @@ export class AnswerCard extends React.Component {
       discount = document.documentElement.clientHeight - this.scrollSpan.getBoundingClientRect().top;
     }
     setTimeout(() => {
-      this.props.orderScroll(this.props.isCollapsed, discount);
+      if (!this.state.isCollapsed) {
+        if (discount > 250) {
+          this.setState({
+            showBottom: true,
+          });
+        } else if (discount < 240) {
+          this.setState({
+            showBottom: false,
+          });
+        }
+
+      }
     }, 100);
+  }
+
+  showCommentsFunc() {
+    let commentsTextNow = this.state.commentsText === '2条评论' ? '收起评论' : '2条评论';
+    let showComments = this.state.commentsText === '2条评论';
+    this.setState({
+      commentsText:commentsTextNow,
+      showComments
+    });
   }
 
   componentDidMount() {
@@ -67,102 +119,52 @@ export class AnswerCard extends React.Component {
   // }
 
   // todo,拿到点击好的页吗
-  // getCurrentPage(currentPage) {
-  //
-  // }
+  getCurrentPage() {
+
+  }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.props.orderScroll);
+    window.removeEventListener('scroll', this.orderScroll);
   }
 
   render() {
     return (this.props.backend !== null) ? (
       <React.Fragment>
-        <div style={{background: '#FFFFFF', padding: '20px 30px', borderRadius: '2px'}}
-          ref={(span) => this.scrollSpan = span}>
+        <div style={{background: '#FFFFFF', padding: '20px 30px', borderRadius: '2px'}} ref={(span) => this.scrollSpan = span}>
+          <Title
+            title={this.props.backend.title}
+            basicFont={this.props.basicFont} />
+          <UserInfor
+            score={5}
+            user={this.props.backend.creator.username}
+            description={'weYouth负责人'}
+            readingTime={6}
+            isCollapsed={this.state.isCollapsed}
+            short={this.sliceText(this.props.backend.answers)}
+            handleSpanClick={this.handleSpanClick}
+            basicFont={this.props.basicFont}
+            // editorState={this.state.editorState.toHTML()}
+            liBasicNoLine={this.props.liBasicNoLine}
+            ulBasicNoLine={this.props.ulBasicNoLine} />
+          {this.state.showBottom || this.state.isCollapsed ? (
+            <Footer
+              editTime={'1天前'}
+              commentsText={this.state.commentsText}
+              isCollapsed={this.state.isCollapsed}
+              showComments={this.showCommentsFunc}
+              handleSpanClick={this.handleSpanClick}
+              basicFont={this.props.basicFont}
+              stickyRow={this.state.stickyRow} />
+          ) : null}
         </div>
-        <Title
-          title={this.props.backend.title}
-          basicFont={this.props.basicFont} />
-        <UserInfor
-          score={5}
-          user={this.props.backend.creator.username}
-          description={'weYouth负责人'}
-          readingTime={6}
-          isCollapsed={this.props.isCollapsed}
-          short={this.sliceText(this.props.backend.answers)}
-          handleSpanClick={this.props.handleSpanClick}
-          basicFont={this.props.basicFont}
-          // editorState={this.state.editorState.toHTML()}
-          liBasicNoLine={this.props.liBasicNoLine}
-          ulBasicNoLine={this.props.ulBasicNoLine} />
-        {/*{this.props.showBottom || this.props.isCollapsed ? (*/}
-        {/*/!*<Footer></Footer>*!/*/}
-        {/*) : null}*/}
-        {/*{this.state.showComments ? (*/}
-        {/*<div style={{marginTop: '15px', background: '#FFFFFF', padding: '19px 32px', borderRadius: '2px'}}>*/}
-        {/*<MDBRow style={{*/}
-        {/*margin: '0px 0px 11px 0px',*/}
-        {/*fontSize: '16px',*/}
-        {/*color: '#8D9AAF', ...basicFont*/}
-        {/*}}>{this.state.backend.commonLists.length}条评论</MDBRow>*/}
-        {/*<MDBRow style={{margin: '0px', display: 'flex'}}>*/}
-        {/*<MDBAvatar style={{height: '100%', margin: '6px 11px 6px 0px', flexGrow: '0'}}>*/}
-        {/*<img*/}
-        {/*style={{width: '32px', background: '#F4F4F4'}}*/}
-        {/*src={this.state.backend.img}*/}
-        {/*alt=""*/}
-        {/*className="rounded-circle"*/}
-        {/*/>*/}
-        {/*</MDBAvatar>*/}
-        {/*<div style={{marginTop: '5px', flexGrow: '1',}}>*/}
-        {/*<input style={{*/}
-        {/*width: '100%',*/}
-        {/*background: '#FFFFFF',*/}
-        {/*border: '1px solid #DBE5F7',*/}
-        {/*boxSizing: 'border-box',*/}
-        {/*borderRadius: '2px',*/}
-        {/*padding: '8px 0px 8px 20px',*/}
-        {/*fontSize: '14px',*/}
-        {/*color: '#B3C1DB',*/}
-        {/*height: '37px',*/}
-        {/*...basicFont,*/}
-        {/*}} ref={(input) => (this.input = input)} placeholder="发表你的评论..."/>*/}
 
-        {/*</div>*/}
-
-
-        {/*<MDBBtn onClick={(e) => this.addComments(e)} flat*/}
-        {/*style={{*/}
-        {/*flexGrow: '0',*/}
-        {/*background: '#C4C4C4',*/}
-        {/*padding: '8px 20px',*/}
-        {/*color: '#FFFFFF', ...basicFont,*/}
-        {/*margin: '6px 6px 5px 6px',*/}
-        {/*}}>*/}
-        {/*发布*/}
-        {/*</MDBBtn>*/}
-
-        {/*</MDBRow>*/}
-        {/*/!*{this.state.backend.commonLists.map((item) => (*!/*/}
-        {/*/!*<CommentsCard key={item} message={item}></CommentsCard>*!/*/}
-        {/**/}
-        {/*/!*))}*!/*/}
-        {/*/!*{this.state.backend.commonLists.length !== 0 ? (*!/*/}
-        {/*/!*<MDBRow center style={{marginTop: '10px'}}>*!/*/}
-        {/*/!*<PaginationUse pageConfig={{totalPage: Math.ceil(this.state.backend.commonLists.length / 3)}}*!/*/}
-        {/*/!*pageCallbackFn={this.getCurrentPage}></PaginationUse>*!/*/}
-        {/*/!*</MDBRow>*!/*/}
-        {/*/!*) : null}*!/*/}
-        {/*<MDBRow center style={{marginTop: '9px'}}>*/}
-        {/*<MDBBtn onClick={this.showComments} flat*/}
-        {/*style={{margin: '0px', padding: '5px 10px', fontSize: '14px', color: '#8D9AAF', ...basicFont}}>*/}
-        {/*收起评论<MDBIcon style={{marginLeft: '5px'}} icon="arrow-up"/>*/}
-        {/*</MDBBtn>*/}
-        {/*</MDBRow>*/}
-        {/*</div>*/}
-
-        {/*) : null}*/}
+        {this.state.showComments ? (
+          <Comments
+            showComments={this.showCommentsFunc}
+            getCurrentPage={this.getCurrentPage}
+            commentsText={this.state.commentsText}
+          />
+        ) : null}
       </React.Fragment>
     ) : (
       <div>
@@ -173,16 +175,11 @@ export class AnswerCard extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  backend: state.answerReducer.backend,
-  editorState: state.answerReducer.editorState,
-  isCollapsed: state.answerReducer.isCollapsed,
-  showBottom: state.answerReducer.showBottom,
-  showComments: state.answerReducer.showComments,
-  commentsText: state.answerReducer.commentsText,
-  pageConfig: state.answerReducer.pageConfig,
-  stickyRow: state.answerReducer.stickyRow,
-  liBasicNoLine: state.answerReducer.liBasicNoLine,
-  ulBasicNoLine: state.answerReducer.ulBasicNoLine
+  backend: state.answer.backend,
+  editorState: state.answer.editorState,
+
+  liBasicNoLine: state.answer.liBasicNoLine,
+  ulBasicNoLine: state.answer.ulBasicNoLine
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -190,35 +187,19 @@ const mapDispatchToProps = (dispatch) => ({
   changeAnswerData: () => {
     dispatch(action.changeAnswerData());
   },
-
-  orderScroll: (isCollapsed, discount) => {
-    dispatch(action.dealScroll(isCollapsed, discount));
-  },
-
-  handleSpanClick: (isCollapsed) => {
-    dispatch(action.changeBottomStyle(isCollapsed));
-  },
-
-  showComments: (commentsText, counts) => {
-    dispatch(action.showComments(commentsText, counts));
-  },
-
+  
 });
 
 AnswerCard.propTypes = {
-  questionId: PropTypes.string,
+  answerId: PropTypes.number.isRequired,
   backend: PropTypes.object,
 
   basicFont: PropTypes.object,
   liBasicNoLine: PropTypes.object,
   ulBasicNoLine: PropTypes.object,
 
-  changeAnswerData: PropTypes.func,
-  handleSpanClick: PropTypes.func,
-  orderScroll: PropTypes.func,
-
-  showBottom: PropTypes.bool,
-  isCollapsed: PropTypes.bool,
+  changeAnswerData: PropTypes.func.isRequired,
+  
 };
 
 AnswerCard.i18n = [

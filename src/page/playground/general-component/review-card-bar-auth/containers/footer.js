@@ -28,9 +28,6 @@ const Footer = (props) => (
           <MDBBtn onClick={props.showComments} flat style={{padding: '5px 10px', fontSize: '14px', color: '#8D9AAF', ...props.basicFont}}>
             <MDBIcon style={{marginRight: '5px'}} far icon="comment"/>{props.commentsText}
           </MDBBtn>
-          <MDBBtn flat style={{padding: '5px 10px', fontSize: '14px', color: '#8D9AAF', ...props.basicFont}}>
-            <MDBIcon style={{marginRight: '5px'}} icon="share"/>分享
-          </MDBBtn>
           {/*<MDBBtn flat style={{padding: '5px 10px',}}>*/}
           {/*<MDBIcon style={{marginRight: '5px'}} icon="ban"/>*/}
           {/*举报*/}
