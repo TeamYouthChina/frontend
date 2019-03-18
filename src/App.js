@@ -2,8 +2,8 @@ import React from 'react';
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import {Provider} from 'react-redux';
 
-import {Footer} from './page/playground/general-component/footer';
-import {Header} from './page/playground/general-component/header';
+import {Footer} from './page/footer';
+import {Header} from './page/header';
 import {PageNoFound} from './page/page-no-found';
 import {Playground} from './page/playground';
 import {store} from './redux/store';
