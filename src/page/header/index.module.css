@@ -1,5 +1,5 @@
-.yc{
- 
+.yc {
+
   font-family: Raleway;
   font-style: normal;
   font-weight: bold;
@@ -8,11 +8,12 @@
 
   color: #FFFFFF;
 }
-.menu{
+
+.menu {
   position: absolute;
   left: 19.23%;
   right: 19.23%;
- 
+
 
   font-family: PingFang SC;
   line-height: normal;
@@ -21,7 +22,7 @@
   color: rgba(250, 251, 253, 0.7);
 }
 
-.search{
+.search {
   position: absolute;
   left: 35.7%;
   right: 62.93%;
@@ -30,7 +31,8 @@
 
   background: #000000;
 }
-.notif{
+
+.notif {
   position: absolute;
   left: 88.36%;
   right: 10.31%;
@@ -39,10 +41,23 @@
 
   background: #FAFBFD;
 }
-avatar{
+
+avatar {
   position: absolute;
   left: 9.62%;
   right: 9.62%;
   top: 21.54%;
   bottom: 20%;
+}
+
+.nav {
+  display: flex;
+}
+
+.navItem {
+  display: flex;
+}
+
+.navItem a{
+  color: #FFFFFF;
 }

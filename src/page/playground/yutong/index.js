@@ -32,7 +32,6 @@ class YutongReact extends React.Component {
           <div
             className="cell-membrane"
           >
-            <br />
             <p className="display-4">以后就在这里做测试了～</p>
             <br />
             <p style={{...NotoSerifFont, fontSize: '14px'}}>JavaScript是世界上最好的语言。</p>

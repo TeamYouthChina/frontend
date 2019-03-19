@@ -19,13 +19,13 @@ class SignedOutReact extends React.Component {
     return (
       <div className="d-flex flex-row">
         <div className="flex-fill">
-          <MDBNavbarNav style={{marginRight: '1em'}}>
+          <MDBNavbarNav>
             <MDBNavItem className="align-middle">
               <MDBNavLink to="/login">登 录</MDBNavLink>
             </MDBNavItem>
           </MDBNavbarNav>
         </div>
-        <MDBNavbarNav right style={{marginRight: '3em'}}>
+        <MDBNavbarNav right>
           <MDBNavItem className="mx-2 align-middle">
             <MDBNavLink to="/register">注 册</MDBNavLink>
           </MDBNavItem>
