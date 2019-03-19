@@ -8,12 +8,15 @@ import {languageHelper} from '../../../../tool/language-helper';
 
 import { VideoShow } from './containers/video';
 import { VideoInfor } from './containers/video-infor';
+import PropTypes from 'prop-types';
+import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 
-export class VideoCardSearch extends React.Component {
+export class VideoCardSearchReact extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.text = VideoCardSearch.i18n[languageHelper()];
+    this.text = VideoCardSearchReact.i18n[languageHelper()];
   }
   
   render() {
@@ -45,8 +48,27 @@ export class VideoCardSearch extends React.Component {
   }
 }
 
-VideoCardSearch.i18n = [
+VideoCardSearchReact.i18n = [
   {},
   {},
 ];
+
+VideoCardSearchReact.propTypes = {
+  // self
+  videoId: PropTypes.number.isRequired,
+  // React Router
+  match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  // React Redux
+  bodyClientWidth: PropTypes.number
+};
+
+export const VideoCardBarAuth = withRouter(connect(
+  (state) => {
+    return {
+      bodyClientWidth: state.bodyClientWidth
+    };
+  }
+)(VideoCardSearchReact));
 

@@ -63,6 +63,7 @@ class Comments extends React.Component {
             user={item.creator.username} 
             time={item.create_at} 
             content={item.content}
+            addComments={this.addComments}
           />
         ))}
         {this.state.commentLists.length !== 0 ? (
