@@ -22,12 +22,16 @@ export class FooterReact extends React.Component {
           background: '#31394D',
         }}
       >
-        <div
-          style={{backgroundColor: '#31394D'}}
-          className="footer-copyright text-center py-3"
-        >
-          <span>&copy; {new Date().getFullYear()} Copyright:{' '}</span>
-          <a href="http://weyouth.co/">weyouth.co</a>
+        <div className="cell-wall">
+          <div className="cell-membrane">
+            <div
+              style={{backgroundColor: '#31394D'}}
+              className="footer-copyright text-center py-3"
+            >
+              <span>&copy; {new Date().getFullYear()} Copyright:{' '}</span>
+              <a href="http://weyouth.co/">weyouth.co</a>
+            </div>
+          </div>
         </div>
       </footer>
     );
