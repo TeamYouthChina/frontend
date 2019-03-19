@@ -45,6 +45,7 @@ export const data = {
           'age': 0
         },
         'content':'123123',
+        'create_at':0,
         'body': {
           'braftEditorRaw': {},
           'previewText': {},

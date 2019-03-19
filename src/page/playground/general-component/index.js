@@ -12,7 +12,7 @@ import AnswerCardWithoutAuth  from '../general-component/answer-card-bar-unauth'
 import ReviewCard  from '../general-component/review-card-bar-auth';
 import ReviewCardWithoutAuth  from '../general-component/review-card-bar-unauth';
 import ArticleCard  from '../general-component/article-card-bar-auth';
-import {VideoCardSearch}  from '../general-component/video-card-bar-auth';
+import {VideoCardBarAuth}  from '../general-component/video-card-bar-auth';
 
 import data from '../general-component/answer-card-bar-auth/index.data';
 import Comments from './comment-card-bar';
@@ -107,7 +107,7 @@ class GeneralComponentReact extends React.Component {
             </div>
             <div className={classes.space}>
               <p>video-card-bar-unauth</p>
-              <VideoCardSearch />
+              <VideoCardBarAuth videoId={1}/>
             </div>
           </div>
         </div>
