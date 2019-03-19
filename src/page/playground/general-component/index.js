@@ -42,6 +42,10 @@ class GeneralComponentReact extends React.Component {
               {/* insert component here */}
             </div>
             <div className={classes.space}>
+              <p>comment-card-bar-auth</p>
+              {/* insert component here */}
+            </div>
+            <div className={classes.space}>
               <p>company-card-bar-auth</p>
               {/* insert component here */}
             </div>
@@ -54,7 +58,7 @@ class GeneralComponentReact extends React.Component {
               {/* insert component here */}
             </div>
             <div className={classes.space}>
-              <p>header-2 (内容为空)</p>
+              <p>header-2</p>
               {/* insert component here */}
             </div>
             <div className={classes.space}>
