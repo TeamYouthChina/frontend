@@ -8,6 +8,16 @@ import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 import { CompanyCardBarAuth } from './company-card-bar-auth/index';
 
+import AnswerCardBarAuthReact  from '../general-component/answer-card-bar-auth';
+import AnswerCardWithoutAuth  from '../general-component/answer-card-bar-unauth';
+import ReviewCard  from '../general-component/review-card-bar-auth';
+import ReviewCardWithoutAuth  from '../general-component/review-card-bar-unauth';
+import ArticleCard  from '../general-component/article-card-bar-auth';
+import {VideoCardBarAuth}  from '../general-component/video-card-bar-auth';
+
+import data from '../general-component/answer-card-bar-auth/index.data';
+import Comments from './comment-card-bar';
+
 class GeneralComponentReact extends React.Component {
   constructor(props) {
     super(props);
@@ -15,7 +25,12 @@ class GeneralComponentReact extends React.Component {
     this.state = {};
     // i18n
     this.text = GeneralComponentReact.i18n[languageHelper()];
+    this.getCurrentPage = this.getCurrentPage.bind(this);
+    this.showCommentsFunc = this.showCommentsFunc.bind(this);
   }
+
+  getCurrentPage(){}
+  showCommentsFunc(){}
 
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
@@ -29,18 +44,28 @@ class GeneralComponentReact extends React.Component {
         >
           <div
             className="cell-membrane"
+            style={{background:'#E5E5E5'}}
           >
             <div className={classes.space}>
               <p>answer-card-bar-auth</p>
-              {/* insert component here */}
+              <AnswerCardBarAuthReact answerId={1} />
             </div>
             <div className={classes.space}>
               <p>answer-card-bar-unauth</p>
-              {/* insert component here */}
+              <AnswerCardWithoutAuth fullText={data.content[0]}/>
+            </div>
+            <div className={classes.space}>
+              <p>comment-card</p>
+              <Comments
+                showComments={this.showCommentsFunc}
+                getCurrentPage={this.getCurrentPage}
+                commentsText={'2条评论'}
+                commentsType={'article'}
+              />
             </div>
             <div className={classes.space}>
               <p>article-card-bar-auth</p>
-              {/* insert component here */}
+              <ArticleCard articleId={1} />
             </div>
             <div className={classes.space}>
               <p>comment-card-bar-auth</p>
@@ -52,7 +77,6 @@ class GeneralComponentReact extends React.Component {
             </div>
             <div className={classes.space}>
               <p>footer</p>
-              {/* insert component here */}
             </div>
             <div className={classes.space}>
               <p>header</p>
@@ -68,11 +92,11 @@ class GeneralComponentReact extends React.Component {
             </div>
             <div className={classes.space}>
               <p>review-card-bar-auth</p>
-              {/* insert component here */}
+              <ReviewCard reviewId={1} />
             </div>
             <div className={classes.space}>
               <p>review-card-bar-unauth</p>
-              {/* insert component here */}
+              <ReviewCardWithoutAuth fullText={data.content[0]} />
             </div>
             <div className={classes.space}>
               <p>user-card-bar-auth</p>
@@ -88,7 +112,7 @@ class GeneralComponentReact extends React.Component {
             </div>
             <div className={classes.space}>
               <p>video-card-bar-unauth</p>
-              {/* insert component here */}
+              <VideoCardBarAuth videoId={1}/>
             </div>
           </div>
         </div>

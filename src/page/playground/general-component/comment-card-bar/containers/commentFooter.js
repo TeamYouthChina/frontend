@@ -2,7 +2,7 @@ import React from 'react';
 import {MDBBtn, MDBIcon, MDBRow} from 'mdbreact';
 import PropTypes from 'prop-types';
 
-import { AddComment } from './add-comment';
+import { AddComment } from '../components/add-comment';
 
 export const CommentFooter = (props) => (
   <React.Fragment>

@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {MDBRow, MDBIcon, MDBAvatar, MDBCol} from 'mdbreact';
 import {connect} from 'react-redux';
+import { action } from '../store';
 
 import {CommentContent} from '../containers/commentContent';
-import {CommentFooter} from './commentFooter';
-
-import {action} from '../store';
+import {CommentFooter} from '../containers/commentFooter';
 
 export const CommentCard = (props) => (
   <div style={{padding: '0px', marginTop: '20px'}}>
@@ -63,26 +62,17 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
 
-  initialCommentData: () => {
-    dispatch(action.initialCommentData());
-  },
   showRepliesFunc: (showReplies, commentsText) => {
     dispatch(action.showReplies(showReplies, commentsText));
   },
   giveReplies: (showGive, giveComments) => {
     dispatch(action.giveReplies(showGive, giveComments));
   },
-  addComments: (newComment) => {
-    dispatch(action.addComments(newComment));
-  },
-  getCurrentPage: () => {
-
-  }
 });
 
 CommentCard.propTypes = {
   user: PropTypes.string.isRequired,
-  time: PropTypes.string.isRequired,
+  time: PropTypes.number.isRequired,
   content: PropTypes.string.isRequired,
   replyText: PropTypes.string.isRequired,
   allReplies: PropTypes.array.isRequired,

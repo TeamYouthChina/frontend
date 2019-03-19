@@ -10,7 +10,7 @@ import Footer from '../containers/footer';
 
 import {connect} from 'react-redux';
 
-import answerData from '../index.data';
+import data from '../index.data';
 
 export class AnswerCard extends React.Component {
   constructor(props) {
@@ -105,7 +105,7 @@ export class AnswerCard extends React.Component {
     window.addEventListener('scroll', this.orderScroll);
     if(this.props.answerId !== undefined) {
       this.setState({
-        backend:answerData.content[this.props.answerId]
+        backend:data.content[this.props.answerId]
       });
     } else {
       // console.log(this.props.fullText)
