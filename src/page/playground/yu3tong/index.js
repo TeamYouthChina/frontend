@@ -10,13 +10,13 @@ const NotoSansFont = {fontFamily: '"Noto Sans CJK SC", sans-serif'};
 const NotoSerifFont = {fontFamily: 'Noto Sans CJK SC'};
 const Heiti = {fontFamily: '"Hiragino Sans GB"'};
 
-class YutongReact extends React.Component {
+class Yu3tongReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {};
     // i18n
-    this.text = YutongReact.i18n[languageHelper()];
+    this.text = Yu3tongReact.i18n[languageHelper()];
   }
 
   render() {
@@ -65,12 +65,12 @@ class YutongReact extends React.Component {
   }
 }
 
-YutongReact.i18n = [
+Yu3tongReact.i18n = [
   {},
   {}
 ];
 
-YutongReact.propTypes = {
+Yu3tongReact.propTypes = {
   // self
 
   // React Router
@@ -81,10 +81,10 @@ YutongReact.propTypes = {
   bodyClientWidth: PropTypes.number.isRequired
 };
 
-export const Yutong = connect(
+export const Yu3tong = connect(
   (state) => {
     return {
       bodyClientWidth: state.bodyClientWidth
     };
   }
-)(YutongReact);
+)(Yu3tongReact);
