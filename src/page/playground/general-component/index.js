@@ -7,6 +7,13 @@ import classes from './index.module.css';
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 
+import AnswerCard  from '../general-component/answer-card-bar-auth/components/answer-card';
+import AnswerCardWithoutAuth  from '../general-component/answer-card-bar-unauth';
+import ReviewCard  from '../general-component/review-card-bar-auth';
+import ReviewCardWithoutAuth  from '../general-component/review-card-bar-unauth';
+import ArticleCard  from '../general-component/article-card-bar-auth';
+import {VideoCardSearch}  from '../general-component/video-card-bar-auth';
+
 class GeneralComponentReact extends React.Component {
   constructor(props) {
     super(props);
@@ -28,26 +35,26 @@ class GeneralComponentReact extends React.Component {
         >
           <div
             className="cell-membrane"
+            style={{background:'#E5E5E5'}}
           >
             <div className={classes.space}>
               <p>answer-card-bar-auth</p>
-              {/* insert component here */}
+              <AnswerCard />
             </div>
             <div className={classes.space}>
               <p>answer-card-bar-unauth</p>
-              {/* insert component here */}
+              <AnswerCardWithoutAuth />
             </div>
             <div className={classes.space}>
               <p>article-card-bar-auth</p>
-              {/* insert component here */}
+              <ArticleCard />
             </div>
             <div className={classes.space}>
               <p>company-card-bar-auth</p>
-              {/* insert component here */}
+              
             </div>
             <div className={classes.space}>
               <p>footer</p>
-              {/* insert component here */}
             </div>
             <div className={classes.space}>
               <p>header</p>
@@ -63,11 +70,11 @@ class GeneralComponentReact extends React.Component {
             </div>
             <div className={classes.space}>
               <p>review-card-bar-auth</p>
-              {/* insert component here */}
+              <ReviewCard />
             </div>
             <div className={classes.space}>
               <p>review-card-bar-unauth</p>
-              {/* insert component here */}
+              <ReviewCardWithoutAuth />
             </div>
             <div className={classes.space}>
               <p>user-card-bar-auth</p>
@@ -83,7 +90,7 @@ class GeneralComponentReact extends React.Component {
             </div>
             <div className={classes.space}>
               <p>video-card-bar-unauth</p>
-              {/* insert component here */}
+              <VideoCardSearch />
             </div>
           </div>
         </div>
