@@ -8,8 +8,9 @@ import UserInfor from '../containers/user-infor';
 import Comments from '../../comment-card-bar';
 import Footer from '../containers/footer';
 
-import {action} from '../store';
 import {connect} from 'react-redux';
+
+import answerData from '../index.data';
 
 export class AnswerCard extends React.Component {
   constructor(props) {
@@ -24,10 +25,10 @@ export class AnswerCard extends React.Component {
         totalPage: 14 //总页码
       },
       stickyRow: {background: '#FFFFFF'},
+      backend:null
     };
     this.sliceText = this.sliceText.bind(this);
     this.orderScroll = this.orderScroll.bind(this);
-    this.getCurrentPage = this.getCurrentPage.bind(this);
     this.handleSpanClick = this.handleSpanClick.bind(this);
     this.showCommentsFunc = this.showCommentsFunc.bind(this);
     // 多语言
@@ -102,45 +103,37 @@ export class AnswerCard extends React.Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.orderScroll);
-    this.props.changeAnswerData();
+    if(this.props.answerId !== undefined) {
+      this.setState({
+        backend:answerData.content[this.props.answerId]
+      });
+    } else {
+      // console.log(this.props.fullText)
+      this.setState({
+        backend:this.props.fullText
+      });
+    }
+    
   }
-
-  // addComments(e) {
-  //   let {commentLists = []} = this.state.backend;
-  //   commentLists.unshift(this.input.value);
-  //   // console.log(commonLists,this.props.id)
-  //   this.setState({
-  //     backend: {
-  //       commentLists: commentLists,
-  //       ...this.state.backend
-  //     }
-  //   });
-  //   e.stopPropagation();
-  // }
-
-  // todo,拿到点击好的页吗
-  getCurrentPage() {
-
-  }
-
+  
   componentWillUnmount() {
     window.removeEventListener('scroll', this.orderScroll);
   }
 
   render() {
-    return (this.props.backend !== null) ? (
+    return (this.state.backend !== null) ? (
       <React.Fragment>
         <div style={{background: '#FFFFFF', padding: '20px 30px', borderRadius: '2px'}} ref={(span) => this.scrollSpan = span}>
           <Title
-            title={this.props.backend.title}
+            title={this.state.backend.title}
             basicFont={this.props.basicFont} />
           <UserInfor
             score={5}
-            user={this.props.backend.creator.username}
+            user={this.state.backend.creator.username}
             description={'weYouth负责人'}
             readingTime={6}
             isCollapsed={this.state.isCollapsed}
-            short={this.sliceText(this.props.backend.answers)}
+            short={this.sliceText(this.state.backend.answers)}
             handleSpanClick={this.handleSpanClick}
             basicFont={this.props.basicFont}
             // editorState={this.state.editorState.toHTML()}
@@ -163,6 +156,7 @@ export class AnswerCard extends React.Component {
             showComments={this.showCommentsFunc}
             getCurrentPage={this.getCurrentPage}
             commentsText={this.state.commentsText}
+            commentsType={'answer'}
           />
         ) : null}
       </React.Fragment>
@@ -175,31 +169,25 @@ export class AnswerCard extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  backend: state.answer.backend,
-  editorState: state.answer.editorState,
-
   liBasicNoLine: state.answer.liBasicNoLine,
   ulBasicNoLine: state.answer.ulBasicNoLine
 });
 
-const mapDispatchToProps = (dispatch) => ({
-
-  changeAnswerData: () => {
-    dispatch(action.changeAnswerData());
-  },
-  
-});
+// const mapDispatchToProps = (dispatch) => ({
+//
+//   changeAnswerData: () => {
+//     dispatch(action.changeAnswerData());
+//   },
+//  
+// });
 
 AnswerCard.propTypes = {
-  answerId: PropTypes.number.isRequired,
-  backend: PropTypes.object,
+  answerId: PropTypes.number,
+  fullText: PropTypes.object,
 
   basicFont: PropTypes.object,
   liBasicNoLine: PropTypes.object,
   ulBasicNoLine: PropTypes.object,
-
-  changeAnswerData: PropTypes.func.isRequired,
-  
 };
 
 AnswerCard.i18n = [
@@ -211,4 +199,4 @@ AnswerCard.i18n = [
   },
 ];
 
-export default connect(mapStateToProps, mapDispatchToProps)(AnswerCard);
+export default connect(mapStateToProps, null)(AnswerCard);

@@ -82,7 +82,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 CommentCard.propTypes = {
   user: PropTypes.string.isRequired,
-  time: PropTypes.string.isRequired,
+  time: PropTypes.number.isRequired,
   content: PropTypes.string.isRequired,
   replyText: PropTypes.string.isRequired,
   allReplies: PropTypes.array.isRequired,
