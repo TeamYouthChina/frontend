@@ -171,9 +171,9 @@ class HeaderReact extends React.Component {
         </div>
         {
           getType(this.props.bodyClientWidth) === 1 ?
-            <div style={{height: '55px'}}>
+            <div style={{height: '75px'}}>
             </div> :
-            <div style={{height: '80px'}}>
+            <div style={{height: '90px'}}>
             </div>
         }
       </div>
