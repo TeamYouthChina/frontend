@@ -38,6 +38,6 @@ CommentContent.propTypes = {
   basicFont: PropTypes.object,
 
   user: PropTypes.string.isRequired,
-  time: PropTypes.string.isRequired,
+  time: PropTypes.number.isRequired,
   content: PropTypes.string.isRequired,
 };

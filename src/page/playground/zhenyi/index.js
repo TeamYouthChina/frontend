@@ -15,6 +15,8 @@ import ReviewCardWithoutAuth  from '../general-component/review-card-bar-unauth'
 import ArticleCard  from '../general-component/article-card-bar-auth';
 import {VideoCardSearch}  from '../general-component/video-card-bar-auth';
 
+import data from '../general-component/answer-card-bar-auth/index.data';
+
 class ZhenyiReact extends React.Component {
   constructor(props) {
     super(props);
@@ -40,11 +42,11 @@ class ZhenyiReact extends React.Component {
             <Zhenyi />
             <AnswerCard answerId={1} />
             <br />
-            <AnswerCardWithoutAuth fullText={{1:1}}/>
+            <AnswerCardWithoutAuth fullText={data.content[0]}/>
             <br />
             <ReviewCard reviewId={1} />
             <br />
-            <ReviewCardWithoutAuth fullText={{1:1}} />
+            <ReviewCardWithoutAuth fullText={data.content[0]} />
             <br />
             <ArticleCard articleId={1} />
             <br />
