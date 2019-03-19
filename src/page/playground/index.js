@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import {GeneralComponent} from './general-component';
 import {Yu3tong} from './yu3tong';
-import {Yu4tong} from "./yu4tong";
+import {Yu4tong} from './yu4tong';
 import {Yuwei} from './yuwei';
 import {Zepei} from './zepei';
 import {ZhenyiWrapper} from './zhenyi';
