@@ -3,7 +3,8 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import {GeneralComponent} from './general-component';
-import {Yutong} from './yutong';
+import {Yu3tong} from './yu3tong';
+import {Yu4tong} from './yu4tong';
 import {Yuwei} from './yuwei';
 import {Zepei} from './zepei';
 import {ZhenyiWrapper} from './zhenyi';
@@ -29,8 +30,12 @@ export class Playground extends React.Component {
           component={routeProps => <GeneralComponent {...routeProps} />}
         />
         <Route
-          path={`${this.props.match.url}/yutong`}
-          component={routeProps => <Yutong {...routeProps} />}
+          path={`${this.props.match.url}/yu3tong`}
+          component={routeProps => <Yu3tong {...routeProps} />}
+        />
+        <Route
+          path={`${this.props.match.url}/yu4tong`}
+          component={routeProps => <Yu4tong {...routeProps} />}
         />
         <Route
           path={`${this.props.match.url}/yuwei`}
