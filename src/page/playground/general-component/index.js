@@ -6,6 +6,7 @@ import {Redirect} from 'react-router-dom';
 import classes from './index.module.css';
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
+import { CompanyCardBarAuth } from './company-card-bar-auth/index';
 
 class GeneralComponentReact extends React.Component {
   constructor(props) {
@@ -47,7 +48,7 @@ class GeneralComponentReact extends React.Component {
             </div>
             <div className={classes.space}>
               <p>company-card-bar-auth</p>
-              {/* insert component here */}
+              <CompanyCardBarAuth/>
             </div>
             <div className={classes.space}>
               <p>footer</p>

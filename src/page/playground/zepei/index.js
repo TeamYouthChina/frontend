@@ -2,9 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
+// import WebSDK from 'easemob-websdk';
 
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
+// import * as tim from '../../../tim/sdk/webim';
+// import * as json2 from '../../../tim/sdk/json2';
+// import {webimLogin} from '../../../tim/js/login/login';
 
 class ZepeiReact extends React.Component {
   constructor(props) {
@@ -30,6 +34,8 @@ class ZepeiReact extends React.Component {
           >
             <p>test pull request on 2019/3/15</p>
             <p>second PR test</p>
+            <div></div>
+            
           </div>
         </div>
       </div>
