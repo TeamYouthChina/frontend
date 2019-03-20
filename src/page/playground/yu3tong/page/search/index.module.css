@@ -1,0 +1,70 @@
+.dropdownItems {
+  height: 40px;
+}
+
+.dropdownItems p {
+
+}
+
+.menu {
+  min-width: 125px;
+  position: absolute ;
+  left: -37px !important;
+  top: 227px;
+  box-shadow: 0 12px 20px rgba(141, 154, 175, 0.15);
+}
+
+.md-form {
+  margin-bottom: 0 !important;
+}
+
+.searchInput {
+  margin-bottom: 0 !important;
+  border: 0 !important;
+}
+
+.searchInput::-webkit-input-placeholder {
+  color: #DBE5F7;
+  /*opacity: 1 !important;*/
+}
+
+.searchInput:-moz-placeholder { /* Firefox 18- */
+  color: #DBE5F7;
+  /*opacity: 1 !important;*/
+}
+
+.searchInput::-moz-placeholder {  /* Firefox 19+ */
+  color: #DBE5F7;
+  /*opacity: 1 !important;*/
+}
+
+.searchInput:-ms-input-placeholder {
+  color: #DBE5F7;
+}
+
+/*取消外边框*/
+.searchInput:focus {
+  box-shadow: 0 0;
+}
+
+.searchIcon .prefix.active{
+  color: #DBE5F7;
+}
+
+.searchIcon {
+  color: #DBE5F7;
+}
+
+.dropdown .dropdown-menu .dropdown-item.active,
+.dropdown .dropdown-menu .dropdown-item:active,
+.dropdown .dropdown-menu .dropdown-item:hover {
+  color: white !important;
+  background-color: #727272 !important;
+}
+
+.dropdown .dropdown-menu .dropdown-item.active a,
+.dropdown .dropdown-menu .dropdown-item:active a,
+.dropdown .dropdown-menu .dropdown-item:hover a {
+  color: white !important;
+}
+
