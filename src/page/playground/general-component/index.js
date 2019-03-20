@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {Redirect} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import classes from './index.module.css';
-import {languageHelper} from '../../../tool/language-helper';
-import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
+import { languageHelper } from '../../../tool/language-helper';
+import { removeUrlSlashSuffix } from '../../../tool/remove-url-slash-suffix';
+
+import AnswerCardBarAuthReact from '../general-component/answer-card-bar-auth';
+import AnswerCardWithoutAuth from '../general-component/answer-card-bar-unauth';
+import ReviewCard from '../general-component/review-card-bar-auth';
+import ReviewCardWithoutAuth from '../general-component/review-card-bar-unauth';
+import ArticleCard from '../general-component/article-card-bar-auth';
+import { VideoCardBarAuth } from '../general-component/video-card-bar-auth';
 import { CompanyCardBarAuth } from './company-card-bar-auth/index';
-
-import AnswerCardBarAuthReact  from '../general-component/answer-card-bar-auth';
-import AnswerCardWithoutAuth  from '../general-component/answer-card-bar-unauth';
-import ReviewCard  from '../general-component/review-card-bar-auth';
-import ReviewCardWithoutAuth  from '../general-component/review-card-bar-unauth';
-import ArticleCard  from '../general-component/article-card-bar-auth';
-import {VideoCardBarAuth}  from '../general-component/video-card-bar-auth';
-
+import { JobCardBarAuth } from './job-card-bar-auth/index';
 import data from '../general-component/answer-card-bar-auth/index.data';
 import Comments from './comment-card-bar';
 
@@ -29,30 +29,25 @@ class GeneralComponentReact extends React.Component {
     this.showCommentsFunc = this.showCommentsFunc.bind(this);
   }
 
-  getCurrentPage(){}
-  showCommentsFunc(){}
+  getCurrentPage() {}
+  showCommentsFunc() {}
 
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
     if (pathname) {
-      return (<Redirect to={pathname} />);
+      return <Redirect to={pathname} />;
     }
     return (
       <div>
-        <div
-          className="cell-wall"
-        >
-          <div
-            className="cell-membrane"
-            style={{background:'#E5E5E5'}}
-          >
+        <div className="cell-wall">
+          <div className="cell-membrane" style={{ background: '#E5E5E5' }}>
             <div className={classes.space}>
               <p>answer-card-bar-auth</p>
               <AnswerCardBarAuthReact answerId={1} />
             </div>
             <div className={classes.space}>
               <p>answer-card-bar-unauth</p>
-              <AnswerCardWithoutAuth fullText={data.content[0]}/>
+              <AnswerCardWithoutAuth fullText={data.content[0]} />
             </div>
             <div className={classes.space}>
               <p>comment-card</p>
@@ -73,7 +68,7 @@ class GeneralComponentReact extends React.Component {
             </div>
             <div className={classes.space}>
               <p>company-card-bar-auth</p>
-              <CompanyCardBarAuth/>
+              <CompanyCardBarAuth />
             </div>
             <div className={classes.space}>
               <p>footer</p>
@@ -88,7 +83,7 @@ class GeneralComponentReact extends React.Component {
             </div>
             <div className={classes.space}>
               <p>job-card-bar-auth</p>
-              {/* insert component here */}
+              <JobCardBarAuth/>
             </div>
             <div className={classes.space}>
               <p>review-card-bar-auth</p>
@@ -112,7 +107,7 @@ class GeneralComponentReact extends React.Component {
             </div>
             <div className={classes.space}>
               <p>video-card-bar-unauth</p>
-              <VideoCardBarAuth videoId={1}/>
+              <VideoCardBarAuth videoId={1} />
             </div>
           </div>
         </div>
@@ -121,10 +116,7 @@ class GeneralComponentReact extends React.Component {
   }
 }
 
-GeneralComponentReact.i18n = [
-  {},
-  {}
-];
+GeneralComponentReact.i18n = [{}, {}];
 
 GeneralComponentReact.propTypes = {
   // self
@@ -134,13 +126,11 @@ GeneralComponentReact.propTypes = {
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   // React Redux
-  bodyClientWidth: PropTypes.number.isRequired
+  bodyClientWidth: PropTypes.number.isRequired,
 };
 
-export const GeneralComponent = connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.initial.bodyClientWidth
-    };
-  }
-)(GeneralComponentReact);
+export const GeneralComponent = connect(state => {
+  return {
+    bodyClientWidth: state.initial.bodyClientWidth,
+  };
+})(GeneralComponentReact);

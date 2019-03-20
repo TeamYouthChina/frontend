@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { languageHelper } from '../../../../tool/language-helper';
-import { getAsync } from '../../../../tool/api-helper';
+
+// eslint-disable-line no-unused-vars
+import { getAsync, mockGetAsync } from '../../../../tool/api-helper';
 import classes from './index.module.css';
 import icon from './amazon.svg';
 import arrow from './arrow.svg';
@@ -12,6 +14,8 @@ import heart from './heart.svg';
 import bag from './bag.svg';
 import employee from './employee.svg';
 import des1 from './des1.svg';
+
+import {content} from './index.mock';
 
 class CompanyCardBarAuthReact extends React.Component {
   constructor(props) {
@@ -39,26 +43,23 @@ class CompanyCardBarAuthReact extends React.Component {
   }
 
   async componentDidMount() {
-    const requestedData = await getAsync();
+    // const requestedData = await getAsync();
+    // this.setState({ cardData: requestedData, ...this.state });
+
+    const requestedData = await mockGetAsync(content);
     this.setState({ cardData: requestedData, ...this.state });
   }
 
-  clickOnCard = () => {
-  
-  }
+  clickOnCard = () => {};
 
-  clickPositions = () => {
+  clickPositions = () => {};
 
-  }
-
-  unlikeClicked = () => {
-
-  }
+  unlikeClicked = () => {};
 
   render() {
     return (
       <div className={classes.Card}>
-        <div className={classes.Clickable} onClick={this.clickOnCard}/>
+        <div className={classes.Clickable} onClick={this.clickOnCard} />
         <div className={classes.UnClickable}>
           <div className={classes.Icon}>
             <img src={icon} alt="no img" />
@@ -69,22 +70,35 @@ class CompanyCardBarAuthReact extends React.Component {
             </div>
             <div className={classes.Des1}>
               <img src={des1} alt="no img" />
-              <p>e-commerce</p>
+              <p>
+                e-commerce<span style={{ color: 'red' }}>api没有这个</span>
+              </p>
             </div>
             <div className={classes.Des2}>
               <img src={employee} alt="no img" />
-              <p>100{this.text.employee}</p>
+              <p>
+                100{this.text.employee}
+                <span style={{ color: 'red' }}>api没有这个</span>
+              </p>
             </div>
           </div>
           <div className={classes.Actions}>
             <div className={classes.Positions} onClick={this.clickPositions}>
-              <img src={bag} alt="no img" />
-              <p>{this.text.currently + 100 + this.text.openPos}</p>
-              <img src={arrow} alt="no img" />
+              <button>
+                <img src={bag} alt="no img" />
+                <p>
+                  {this.text.currently + 100 + this.text.openPos}
+                  <span style={{ color: 'red' }}>api没有这个</span>
+                </p>
+                <img src={arrow} alt="no img" />
+              </button>
             </div>
             <div className={classes.UnLike} onClick={this.unlikeClicked}>
-              <img src={heart} alt="no img" />
-              <p>{this.text.unLike}</p>
+              <button>
+                <img src={heart} alt="no img" />
+                <p>{this.text.unLike}</p>
+              </button>
+              <span style={{ color: 'red' }}>api没有这个</span>
             </div>
           </div>
         </div>
