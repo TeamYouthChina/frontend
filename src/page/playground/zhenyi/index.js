@@ -15,7 +15,7 @@ import ReviewCardWithoutAuth  from '../general-component/review-card-bar-unauth'
 import ArticleCard  from '../general-component/article-card-bar-auth';
 import {VideoCardBarAuth}  from '../general-component/video-card-bar-auth';
 
-import data from '../general-component/answer-card-bar-auth/index.data';
+import data from '../general-component/answer-card-bar-auth/components/index.data';
 
 class ZhenyiReact extends React.Component {
   constructor(props) {

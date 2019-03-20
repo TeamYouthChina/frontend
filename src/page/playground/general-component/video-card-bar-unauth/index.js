@@ -1,21 +1,19 @@
 import React from 'react';
+import {MDBCard, MDBCol, MDBRow,} from 'mdbreact';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import {
-  MDBCard,
-  MDBRow,
-  MDBCol,
-} from 'mdbreact';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
+
+import {VideoShow} from './containers/video';
+import {VideoInfor} from './containers/video-infor';
 import {languageHelper} from '../../../../tool/language-helper';
 
-import { VideoShow } from './containers/video';
-import { VideoInfor } from './containers/video-infor';
-
-export class VideoCardBarUnauthReact extends React.Component {
+class VideoCardBarUnauthReact extends React.Component {
   constructor(props) {
     super(props);
+    // state
     this.state = {};
+    // i18n
     this.text = VideoCardBarUnauthReact.i18n[languageHelper()];
   }
 
@@ -24,8 +22,8 @@ export class VideoCardBarUnauthReact extends React.Component {
       <MDBCard news style={{boxShadow: 'none'}}>
         <MDBRow between>
           <MDBCol md="6" lg="4" middle>
-            <div className="text-center p-3" style={{padding:'0px'}}>
-              <VideoShow videoId={1}/>
+            <div className="text-center p-3" style={{padding: '0px'}}>
+              <VideoShow videoId={1} />
             </div>
           </MDBCol>
           <MDBCol md="6" lg="8" className="pl-3 pl-md-1 pr-3 py-3">
@@ -39,7 +37,7 @@ export class VideoCardBarUnauthReact extends React.Component {
                 }}
                 description={'weYouth创始人'}
                 user={'齐昊'}
-                readingTime={568} editTime={'1天前'}/>
+                readingTime={568} editTime={'1天前'} />
             </div>
           </MDBCol>
         </MDBRow>
@@ -56,7 +54,6 @@ VideoCardBarUnauthReact.i18n = [
 VideoCardBarUnauthReact.propTypes = {
   // self
   fullText: PropTypes.object.isRequired,
-  
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,

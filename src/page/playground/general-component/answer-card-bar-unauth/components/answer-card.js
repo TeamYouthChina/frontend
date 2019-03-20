@@ -10,7 +10,7 @@ import Footer from '../containers/footer';
 
 import {connect} from 'react-redux';
 
-import data from '../index.data';
+import data from './index.data';
 
 export class AnswerCard extends React.Component {
   constructor(props) {

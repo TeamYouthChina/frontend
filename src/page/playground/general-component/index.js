@@ -8,16 +8,17 @@ import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 import {CompanyCardBarAuth} from './company-card-bar-auth/index';
 
-import AnswerCardBarAuthReact from '../general-component/answer-card-bar-auth';
-import AnswerCardWithoutAuth from '../general-component/answer-card-bar-unauth';
+import {AnswerCardBarAuth} from './answer-card-bar-auth';
+import {AnswerCardBarUnauth} from './answer-card-bar-unauth';
+import {ArticleCardBarUnauth} from './article-card-bar-unauth';
+import {VideoCardBarAuth} from './video-card-bar-auth';
+import {VideoCardBarUnauth} from './video-card-bar-unauth';
 import ReviewCard from '../general-component/review-card-bar-auth';
 import ReviewCardWithoutAuth from '../general-component/review-card-bar-unauth';
 import ArticleCard from '../general-component/article-card-bar-auth';
-import {VideoCardBarAuth} from '../general-component/video-card-bar-auth';
 import {Header2} from './header-2';
 
-import data from '../general-component/answer-card-bar-auth/index.data';
-import Comments from './comment-card-bar';
+import data from './answer-card-bar-auth/components/index.data';
 
 class GeneralComponentReact extends React.Component {
   constructor(props) {
@@ -52,19 +53,14 @@ class GeneralComponentReact extends React.Component {
           >
             <div className={classes.space}>
               <p>answer-card-bar-auth</p>
-              <AnswerCardBarAuthReact answerId={1} />
+              <AnswerCardBarAuth id={1} />
             </div>
             <div className={classes.space}>
               <p>answer-card-bar-unauth</p>
-              <AnswerCardWithoutAuth fullText={data.content[0]} />
-            </div>
-            <div className={classes.space}>
-              <p>comment-card</p>
-              <Comments
-                showComments={this.showCommentsFunc}
-                getCurrentPage={this.getCurrentPage}
-                commentsText={'2条评论'}
-                commentsType={'article'}
+              <AnswerCardBarUnauth
+                fullText={{
+                  /* 振一：填一下全文 */
+                }}
               />
             </div>
             <div className={classes.space}>
@@ -73,11 +69,15 @@ class GeneralComponentReact extends React.Component {
             </div>
             <div className={classes.space}>
               <p>comment-card-bar-auth</p>
-              {/* insert component here */}
+              <ArticleCardBarUnauth />
             </div>
             <div className={classes.space}>
               <p>company-card-bar-auth</p>
-              <CompanyCardBarAuth />
+              <CompanyCardBarAuth
+                fullText={{
+                  /* 振一：填一下全文 */
+                }}
+              />
             </div>
             <div className={classes.space}>
               <p>job-card-bar-auth</p>
@@ -101,11 +101,15 @@ class GeneralComponentReact extends React.Component {
             </div>
             <div className={classes.space}>
               <p>video-card-bar-auth</p>
-              {/* insert component here */}
+              <VideoCardBarAuth id={1} />
             </div>
             <div className={classes.space}>
               <p>video-card-bar-unauth</p>
-              <VideoCardBarAuth videoId={1} />
+              <VideoCardBarUnauth
+                fullText={{
+                  /* 雨桐：填一下全文 */
+                }}
+              />
             </div>
           </div>
         </div>
