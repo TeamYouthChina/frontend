@@ -6,6 +6,7 @@ import {Footer} from './page/footer';
 import {Header} from './page/header';
 import {PageNoFound} from './page/page-no-found';
 import {Playground} from './page/playground';
+import {Search} from './page/playground/yu3tong/page/search';
 import {store} from './redux/store';
 import * as actionJs from './redux/action';
 
@@ -49,6 +50,10 @@ export class App extends React.Component {
                 component={routeProps => <Playground {...routeProps} />}
               />
               {/* ====== playground END====== */}
+              <Route
+                path="/search"
+                component={routeProps => <Search {...routeProps} />}
+              />
               <Redirect to="/page-no-found" />
             </Switch>
             <Footer />
