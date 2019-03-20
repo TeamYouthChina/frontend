@@ -6,14 +6,6 @@
 
 }
 
-.menu {
-  min-width: 125px;
-  position: absolute ;
-  left: -37px !important;
-  top: 227px;
-  box-shadow: 0 12px 20px rgba(141, 154, 175, 0.15);
-}
-
 .md-form {
   margin-bottom: 0 !important;
 }
@@ -55,16 +47,4 @@
   color: #DBE5F7;
 }
 
-.dropdown .dropdown-menu .dropdown-item.active,
-.dropdown .dropdown-menu .dropdown-item:active,
-.dropdown .dropdown-menu .dropdown-item:hover {
-  color: white !important;
-  background-color: #727272 !important;
-}
-
-.dropdown .dropdown-menu .dropdown-item.active a,
-.dropdown .dropdown-menu .dropdown-item:active a,
-.dropdown .dropdown-menu .dropdown-item:hover a {
-  color: white !important;
-}
 
