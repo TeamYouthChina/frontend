@@ -10,7 +10,7 @@ import Comments from '../comment-card-bar';
 
 import { connect } from 'react-redux';
 
-import data from '../answer-card-bar-auth/index.data';
+import data from '../answer-card-bar-auth/components/index.data';
 
 export class ArticleCard extends React.Component {
   constructor(props) {

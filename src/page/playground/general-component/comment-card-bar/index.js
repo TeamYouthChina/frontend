@@ -15,11 +15,18 @@ class Comments extends React.Component {
   constructor(props) {
     super(props);
     this.state={
-      commentLists:null
+      commentLists:null,
+      showReplies: false,
+      showGive: false,
+      showCommentsText: '查看回复',
+      replyText: '回复',
+      allReplies: [],
     };
     this.text = Comments.i18n[languageHelper()];
     this.addComments = this.addComments.bind(this);
     this.getCurrentPage = this.getCurrentPage.bind(this);
+    this.showReplies = this.showReplies.bind(this);
+    this.giveReplies = this.giveReplies.bind(this);
   }
 
   componentDidMount() {
@@ -27,7 +34,7 @@ class Comments extends React.Component {
       commentLists:data.content[this.props.commentsType]
     });
   }
-
+  // 添加评论
   addComments(value){
     this.setState({
       commentLists: [{
@@ -38,6 +45,24 @@ class Comments extends React.Component {
         create_at: '123',
         content: value,
       }, ...this.state.commentLists]
+    });
+  }
+  // 查看回复
+  showReplies(){
+    let reply = !this.state.showReplies;
+    let text = this.state.showCommentsText === '查看回复' ? '收起回复' : '查看回复';
+    this.setState({
+      showReplies:reply,
+      showCommentsText:text
+    });
+  }
+  // 添加回复
+  giveReplies(){
+    let show = !this.state.showGive;
+    let text = this.state.replyText === '回复' ? '取消回复' : '回复';
+    this.setState({
+      showGive:show,
+      replyText:text
     });
   }
 
@@ -97,12 +122,14 @@ const mapStateToProps = (state) => ({
 // });
 
 Comments.propTypes = {
+  // 字体
   basicFont: PropTypes.object.isRequired,
-  
+  // 评论text
   commentsText: PropTypes.string.isRequired,
   commentsType: PropTypes.string.isRequired,
-  
+  // 收起评论
   showComments: PropTypes.func.isRequired,
+  
 };
 
 Comments.i18n = [

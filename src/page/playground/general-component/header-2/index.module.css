@@ -1,0 +1,8 @@
+.background {
+  background-color: white;
+}
+
+.content {
+  display: flex;
+  height: 4vw;
+}
