@@ -1,3 +1,8 @@
 .space {
-  margin: 1rem
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.background {
+  background-color: #E5E5E5;
 }
