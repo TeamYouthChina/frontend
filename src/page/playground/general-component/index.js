@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {Redirect} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import classes from './index.module.css';
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
-import {CompanyCardBarAuth} from './company-card-bar-auth/index';
 
 import {AnswerCardBarAuth} from './answer-card-bar-auth';
-import {AnswerCardBarUnauth} from './answer-card-bar-unauth';
-import {ArticleCardBarUnauth} from './article-card-bar-unauth';
+// import {AnswerCardBarUnauth} from './answer-card-bar-unauth';
+// import {ArticleCardBarUnauth} from './article-card-bar-unauth';
+import {CompanyCardBarAuth} from './company-card-bar-auth/index';
+import {JobCardBarAuth} from './job-card-bar-auth';
 import {VideoCardBarAuth} from './video-card-bar-auth';
 import {VideoCardBarUnauth} from './video-card-bar-unauth';
 import ReviewCard from '../general-component/review-card-bar-auth';
@@ -40,7 +41,7 @@ class GeneralComponentReact extends React.Component {
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
     if (pathname) {
-      return (<Redirect to={pathname} />);
+      return <Redirect to={pathname} />;
     }
     return (
       <div>
@@ -57,11 +58,15 @@ class GeneralComponentReact extends React.Component {
             </div>
             <div className={classes.space}>
               <p>answer-card-bar-unauth</p>
-              <AnswerCardBarUnauth
-                fullText={{
-                  /* 振一：填一下全文 */
-                }}
-              />
+              {
+                /*
+                  <AnswerCardBarUnauth
+                    fullText={{
+                      振一：填一下全文 
+                    }}
+                  />
+                */
+              }
             </div>
             <div className={classes.space}>
               <p>article-card-bar-auth</p>
@@ -69,19 +74,23 @@ class GeneralComponentReact extends React.Component {
             </div>
             <div className={classes.space}>
               <p>comment-card-bar-auth</p>
-              <ArticleCardBarUnauth />
+              {
+                /*
+                 <ArticleCardBarUnauth 
+                    fullText={{
+                      振一：填一下全文
+                    }}
+                  />
+                */
+              }
             </div>
             <div className={classes.space}>
               <p>company-card-bar-auth</p>
-              <CompanyCardBarAuth
-                fullText={{
-                  /* 振一：填一下全文 */
-                }}
-              />
+              <CompanyCardBarAuth/>
             </div>
             <div className={classes.space}>
               <p>job-card-bar-auth</p>
-              {/* insert component here */}
+              <JobCardBarAuth/>
             </div>
             <div className={classes.space}>
               <p>review-card-bar-auth</p>
@@ -118,10 +127,7 @@ class GeneralComponentReact extends React.Component {
   }
 }
 
-GeneralComponentReact.i18n = [
-  {},
-  {}
-];
+GeneralComponentReact.i18n = [{}, {}];
 
 GeneralComponentReact.propTypes = {
   // self
@@ -131,13 +137,11 @@ GeneralComponentReact.propTypes = {
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   // React Redux
-  bodyClientWidth: PropTypes.number.isRequired
+  bodyClientWidth: PropTypes.number.isRequired,
 };
 
-export const GeneralComponent = connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.initial.bodyClientWidth
-    };
-  }
-)(GeneralComponentReact);
+export const GeneralComponent = connect(state => {
+  return {
+    bodyClientWidth: state.initial.bodyClientWidth,
+  };
+})(GeneralComponentReact);

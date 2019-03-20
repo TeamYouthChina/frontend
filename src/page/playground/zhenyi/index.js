@@ -6,6 +6,7 @@ import {Redirect} from 'react-router-dom';
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 
+/*
 import Zhenyi from './components';
 
 import AnswerCard  from '../general-component/answer-card-bar-auth/components/answer-card';
@@ -16,7 +17,7 @@ import ArticleCard  from '../general-component/article-card-bar-auth';
 import {VideoCardBarAuth}  from '../general-component/video-card-bar-auth';
 
 import data from '../general-component/answer-card-bar-auth/components/index.data';
-
+*/
 class ZhenyiReact extends React.Component {
   constructor(props) {
     super(props);
@@ -31,7 +32,7 @@ class ZhenyiReact extends React.Component {
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
-    return (
+    return (/*
       <div style={{background:'#E5E5E5'}}>
         <div
           className="cell-wall"
@@ -54,6 +55,8 @@ class ZhenyiReact extends React.Component {
           </div>
         </div>
       </div>
+    */
+      null
     );
   }
 }
