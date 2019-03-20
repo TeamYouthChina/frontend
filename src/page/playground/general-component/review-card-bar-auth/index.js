@@ -9,7 +9,7 @@ import Footer from './containers/footer';
 
 import {connect} from 'react-redux';
 
-import data from '../answer-card-bar-auth/index.data';
+import data from '../answer-card-bar-auth/components/index.data';
 
 export class ReviewCard extends React.Component {
   constructor(props) {
