@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
+import classes from './index.module.css';
 import {languageHelper} from '../../../../tool/language-helper';
+
 
 class Header2React extends React.Component {
   constructor(props) {
@@ -16,7 +18,19 @@ class Header2React extends React.Component {
 
   render() {
     return (
-      null
+      <div>
+        <div
+          className={`cell-wall ${classes.background}`}
+        >
+          <div
+            className="cell-membrane"
+          >
+            <div className={classes.content}>
+
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 }
