@@ -2,10 +2,13 @@ import React from 'react';
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import {Provider} from 'react-redux';
 
+import {AnswerEdit} from './page/answer-edit';
 import {Footer} from './page/footer';
 import {Header} from './page/header';
 import {PageNoFound} from './page/page-no-found';
 import {Playground} from './page/playground';
+import {Question} from './page/question';
+import {QuestionEdit} from './page/question-edit';
 import {Search} from './page/playground/yu3tong/page/search';
 import {store} from './redux/store';
 import * as actionJs from './redux/action';
@@ -41,8 +44,32 @@ export class App extends React.Component {
                 component={() => <Redirect to="/playground" />}
               />
               <Route
-                path="/page-no-found"
-                component={routeProps => <PageNoFound {...routeProps} />}
+                path="/question/:qid/answer/:aid/edit"
+                component={routeProps => <AnswerEdit{...routeProps} create={false} />}
+              />
+              <Route
+                path="/question/:qid/answer/create"
+                component={routeProps => <AnswerEdit{...routeProps} create={true} />}
+              />
+              <Route
+                path="/question/:qid/answer/:aid"
+                component={routeProps => <Question {...routeProps} />}
+              />
+              <Route
+                path="/question/:qid/edit"
+                component={routeProps => <QuestionEdit{...routeProps} create={false} />}
+              />
+              <Route
+                path="/question/create"
+                component={routeProps => <QuestionEdit{...routeProps} create={true} />}
+              />
+              <Route
+                path="/question/:qid"
+                component={routeProps => <Question {...routeProps} />}
+              />
+              <Route
+                path="/search"
+                component={routeProps => <Search {...routeProps} />}
               />
               {/* ====== playground BEGIN====== */}
               <Route
@@ -51,8 +78,8 @@ export class App extends React.Component {
               />
               {/* ====== playground END====== */}
               <Route
-                path="/search"
-                component={routeProps => <Search {...routeProps} />}
+                path="/page-no-found"
+                component={routeProps => <PageNoFound {...routeProps} />}
               />
               <Redirect to="/page-no-found" />
             </Switch>
