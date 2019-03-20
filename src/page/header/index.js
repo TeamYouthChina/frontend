@@ -36,7 +36,6 @@ class HeaderReact extends React.Component {
               dark
               expand="md"
               fixed="top"
-              scrolling
               className="d-flex justify-content-start"
               style={{background: '#31394D'}}
             >
@@ -163,6 +162,13 @@ class HeaderReact extends React.Component {
                 </div>
               </div>
             </MDBNavbar>
+            <div
+              style={{
+                height: '56px'
+              }}
+            >
+
+            </div>
           </header>
         );
       default:
