@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { languageHelper } from '../../../../tool/language-helper';
 
 // eslint-disable-line no-unused-vars
-import { getAsync, mockGetAsync } from '../../../../tool/api-helper';
+import { mockGetAsync } from '../../../../tool/api-helper';
 import classes from './index.module.css';
 import icon from './amazon.svg';
 import arrow from './arrow.svg';
