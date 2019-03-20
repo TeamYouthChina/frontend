@@ -34,7 +34,7 @@ class Comments extends React.Component {
       commentLists:data.content[this.props.commentsType]
     });
   }
-
+  // 添加评论
   addComments(value){
     this.setState({
       commentLists: [{
@@ -47,6 +47,7 @@ class Comments extends React.Component {
       }, ...this.state.commentLists]
     });
   }
+  // 查看回复
   showReplies(){
     let reply = !this.state.showReplies;
     let text = this.state.showCommentsText === '查看回复' ? '收起回复' : '查看回复';
@@ -55,7 +56,7 @@ class Comments extends React.Component {
       showCommentsText:text
     });
   }
-
+  // 添加回复
   giveReplies(){
     let show = !this.state.showGive;
     let text = this.state.replyText === '回复' ? '取消回复' : '回复';
@@ -121,11 +122,12 @@ const mapStateToProps = (state) => ({
 // });
 
 Comments.propTypes = {
+  // 字体
   basicFont: PropTypes.object.isRequired,
-  
+  // 评论text
   commentsText: PropTypes.string.isRequired,
   commentsType: PropTypes.string.isRequired,
-  
+  // 收起评论
   showComments: PropTypes.func.isRequired,
   
 };
