@@ -8,46 +8,69 @@ import { AddComment } from './components/add-comment';
 import CommentCard from './components/commentCard';
 import { PaginationUse } from './components/pagination';
 
-import { action } from './store';
+import { data } from './data';
 
 class Comments extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state={
+      commentLists:null
+    };
     this.text = Comments.i18n[languageHelper()];
+    this.addComments = this.addComments.bind(this);
+    this.getCurrentPage = this.getCurrentPage.bind(this);
   }
 
   componentDidMount() {
-    this.props.initialCommentData();
+    this.setState({
+      commentLists:data.content[this.props.commentsType]
+    });
   }
 
+  addComments(value){
+    this.setState({
+      commentLists: [{
+        id: new Date(),
+        creator:{
+          username:'lalala'
+        },
+        create_at: '123',
+        content: value,
+      }, ...this.state.commentLists]
+    });
+  }
+
+  getCurrentPage(){}
+  
   render() {
-    return (this.props.commentLists !== null) ? (
+    return (this.state.commentLists !== null) ? (
       <div style={{marginTop: '15px', background: '#FFFFFF', padding: '19px 32px', borderRadius: '2px'}}>
         <MDBRow style={{
           margin: '0px 0px 11px 0px',
           fontSize: '16px',
           color: '#8D9AAF', ...this.props.basicFont
         }}>
-          {this.props.commentLists.length}条评论
+          {this.state.commentLists.length}条评论
         </MDBRow>
         <AddComment 
-          addComments={this.props.addComments} 
+          addComments={this.addComments} 
           basicFont={this.props.basicFont}
         />
-        {this.props.commentLists.map((item) => (
+        {this.state.commentLists.map((item) => (
           <CommentCard 
             key={item.id} 
-            user={item.user} 
-            time={item.time} 
+            user={item.creator.username} 
+            time={item.create_at} 
             content={item.content}
+            addComments={this.addComments}
           />
         ))}
-        {this.props.commentLists.length !== 0 ? (
+        {this.state.commentLists.length !== 0 ? (
           <MDBRow center style={{marginTop: '10px'}}>
             <PaginationUse
-              pageConfig={{totalPage: Math.ceil(this.props.commentLists.length / 3)}}
-              pageCallbackFn={this.props.getCurrentPage}
+              pageConfig={{totalPage: Math.ceil(this.state.commentLists.length / 3)}}
+              pageCallbackFn={this.getCurrentPage}
             />
           </MDBRow>
         ) : null}
@@ -66,30 +89,20 @@ class Comments extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  commentLists:state.comment.commentLists,
   basicFont:state.comment.basicFont,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  initialCommentData:() => {
-    dispatch(action.initialCommentData());
-  },
-  addComments: (newComment) => {
-    dispatch(action.addComments(newComment));
-  },
-});
+// const mapDispatchToProps = (dispatch) => ({
+//  
+// });
 
 Comments.propTypes = {
   basicFont: PropTypes.object.isRequired,
-
-  commentLists: PropTypes.array,
-  commentsText: PropTypes.string,
-  backend: PropTypes.object,
+  
+  commentsText: PropTypes.string.isRequired,
+  commentsType: PropTypes.string.isRequired,
   
   showComments: PropTypes.func.isRequired,
-  getCurrentPage: PropTypes.func.isRequired,
-  initialCommentData: PropTypes.func,
-  addComments: PropTypes.func.isRequired,
 };
 
 Comments.i18n = [
@@ -101,4 +114,4 @@ Comments.i18n = [
   },
 ];
 
-export default connect(mapStateToProps, mapDispatchToProps)(Comments);
+export default connect(mapStateToProps, null)(Comments);

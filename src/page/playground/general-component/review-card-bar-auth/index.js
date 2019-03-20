@@ -7,8 +7,9 @@ import UserInfor from '../answer-card-bar-auth/containers/user-infor';
 import Comments from '../comment-card-bar';
 import Footer from './containers/footer';
 
-import {action} from '../answer-card-bar-auth/store';
 import {connect} from 'react-redux';
+
+import data from '../answer-card-bar-auth/index.data';
 
 export class ReviewCard extends React.Component {
   constructor(props) {
@@ -23,10 +24,10 @@ export class ReviewCard extends React.Component {
         totalPage: 14 //总页码
       },
       stickyRow: {background: '#FFFFFF'},
+      backend:null
     };
     this.sliceText = this.sliceText.bind(this);
     this.orderScroll = this.orderScroll.bind(this);
-    this.getCurrentPage = this.getCurrentPage.bind(this);
     this.handleSpanClick = this.handleSpanClick.bind(this);
     this.showCommentsFunc = this.showCommentsFunc.bind(this);
     // 多语言
@@ -101,12 +102,9 @@ export class ReviewCard extends React.Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.orderScroll);
-    this.props.changeAnswerData();
-  }
-  
-  // todo,拿到点击好的页吗
-  getCurrentPage() {
-
+    this.setState({
+      backend:data.content[this.props.reviewId]
+    });
   }
 
   componentWillUnmount() {
@@ -114,16 +112,16 @@ export class ReviewCard extends React.Component {
   }
 
   render() {
-    return (this.props.backend !== null) ? (
+    return (this.state.backend !== null) ? (
       <React.Fragment>
         <div style={{background: '#FFFFFF', padding: '20px 30px', borderRadius: '2px'}} ref={(span) => this.scrollSpan = span}>
           <UserInfor
             score={5}
-            user={this.props.backend.creator.username}
+            user={this.state.backend.creator.username}
             description={'weYouth负责人'}
             readingTime={6}
             isCollapsed={this.state.isCollapsed}
-            short={this.sliceText(this.props.backend.answers)}
+            short={this.sliceText(this.state.backend.answers)}
             handleSpanClick={this.handleSpanClick}
             basicFont={this.props.basicFont}
             // editorState={this.state.editorState.toHTML()}
@@ -146,6 +144,7 @@ export class ReviewCard extends React.Component {
             showComments={this.showCommentsFunc}
             getCurrentPage={this.getCurrentPage}
             commentsText={this.state.commentsText}
+            commentsType={'review'}
           />
         ) : null}
       </React.Fragment>
@@ -158,31 +157,24 @@ export class ReviewCard extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  backend: state.answer.backend,
-  editorState: state.answer.editorState,
-
   liBasicNoLine: state.answer.liBasicNoLine,
   ulBasicNoLine: state.answer.ulBasicNoLine
 });
 
-const mapDispatchToProps = (dispatch) => ({
-
-  changeAnswerData: () => {
-    dispatch(action.changeAnswerData());
-  },
-
-});
+// const mapDispatchToProps = (dispatch) => ({
+//
+//   changeAnswerData: () => {
+//     dispatch(action.changeAnswerData());
+//   },
+//
+// });
 
 ReviewCard.propTypes = {
   reviewId: PropTypes.number.isRequired,
-  backend: PropTypes.object,
 
   basicFont: PropTypes.object,
   liBasicNoLine: PropTypes.object,
   ulBasicNoLine: PropTypes.object,
-
-  changeAnswerData: PropTypes.func.isRequired,
-
 };
 
 ReviewCard.i18n = [
@@ -194,4 +186,4 @@ ReviewCard.i18n = [
   },
 ];
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewCard);
+export default connect(mapStateToProps, null)(ReviewCard);
