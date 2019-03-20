@@ -6,12 +6,12 @@ import { withRouter } from 'react-router-dom';
 import { languageHelper } from '../../../../tool/language-helper';
 import { getAsync } from '../../../../tool/api-helper';
 import classes from './index.module.css';
-import icon from './amazon.png';
-import arrow from './arrow.png';
-import heart from './heart.png';
-import bag from './bag.png';
-import employee from './employee.png';
-import des1 from './des1.png';
+import icon from './amazon.svg';
+import arrow from './arrow.svg';
+import heart from './heart.svg';
+import bag from './bag.svg';
+import employee from './employee.svg';
+import des1 from './des1.svg';
 
 class CompanyCardBarAuthReact extends React.Component {
   constructor(props) {
@@ -43,10 +43,22 @@ class CompanyCardBarAuthReact extends React.Component {
     this.setState({ cardData: requestedData, ...this.state });
   }
 
+  clickOnCard = () => {
+  
+  }
+
+  clickPositions = () => {
+
+  }
+
+  unlikeClicked = () => {
+
+  }
+
   render() {
     return (
       <div className={classes.Card}>
-        <div className={classes.Clickable} />
+        <div className={classes.Clickable} onClick={this.clickOnCard}/>
         <div className={classes.UnClickable}>
           <div className={classes.Icon}>
             <img src={icon} alt="no img" />
@@ -65,12 +77,12 @@ class CompanyCardBarAuthReact extends React.Component {
             </div>
           </div>
           <div className={classes.Actions}>
-            <div className={classes.Positions}>
+            <div className={classes.Positions} onClick={this.clickPositions}>
               <img src={bag} alt="no img" />
               <p>{this.text.currently + 100 + this.text.openPos}</p>
               <img src={arrow} alt="no img" />
             </div>
-            <div className={classes.UnLike}>
+            <div className={classes.UnLike} onClick={this.unlikeClicked}>
               <img src={heart} alt="no img" />
               <p>{this.text.unLike}</p>
             </div>
