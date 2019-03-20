@@ -2,6 +2,7 @@
   position: relative;
   width: 100%;
   height: 8.26vw;
+  background-color: #FFFFFF
 }
 
 .Card p{
@@ -38,7 +39,7 @@
 
 .Name p {
   font-family: PingFang SC;
-  font-size: 16px;
+  font-size: 1.25vw;
   line-height: normal;
   color: #454f69;
   padding-left: 0.375vw;
@@ -91,14 +92,14 @@
 
 .Positions img {
   box-sizing: content-box;
-  padding: 0.375vw;
+  padding: 0.3vw;
   width: 0.94vw;
   height: 0.94vw;
 }
 
 .UnLike img {
   box-sizing: content-box;
-  padding: 0.375vw;
+  padding: 0.25vw;
   width: 1.09vw;
   height: 1vw;
 }
@@ -107,14 +108,28 @@
 .Des2 p,
 .UnLike p {
   font-family: PingFang SC;
-  font-size: 14px;
+  font-size: 1.1vw;
   line-height: normal;
   color: #8d9aaf;
 }
 
 .Positions p {
   font-family: PingFang SC;
-  font-size: 14px;
+  font-size: 1.1vw;
   line-height: normal;
   color: #4f65e1;
+}
+
+.Positions button {
+  z-index: 200;
+  display: flex;
+  border: none;
+  padding: 0;
+}
+
+.UnLike button {
+  z-index: 200;
+  display: flex;
+  border: none;
+  padding: 0;
 }

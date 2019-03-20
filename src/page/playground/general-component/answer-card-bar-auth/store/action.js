@@ -1,5 +1,5 @@
 // import { getAsync } from '../../../../../tool/api-helper';
-import data from '../index.data';
+import data from '../components/index.data';
 
 
 export const changeAnswerData = () => {
