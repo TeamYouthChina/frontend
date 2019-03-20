@@ -1,3 +1,7 @@
+.header-flex {
+  display: flex;
+}
+
 .yc {
 
   font-family: Raleway;
@@ -58,6 +62,6 @@ avatar {
   display: flex;
 }
 
-.navItem a{
+.navItem a {
   color: #FFFFFF;
 }
