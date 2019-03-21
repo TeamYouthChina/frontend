@@ -26,8 +26,8 @@ import {SearchInsightNavItem} from './secondary-navagations/insight';
 import {SearchVideoNavItem} from './secondary-navagations/video';
 import {SearchConnectionNavItem} from './secondary-navagations/coonection';
 import {SearchCompanyResult} from './container/company';
-import {languageHelper} from '../../../../../tool/language-helper';
-import {removeUrlSlashSuffix} from '../../../../../tool/remove-url-slash-suffix';
+import {languageHelper} from '../../tool/language-helper';
+import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 
 const basicCHNFont = {
   fontFamily: 'PingFang SC',

@@ -16,7 +16,7 @@ import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {languageHelper} from '../../../../../../../tool/language-helper';
+import {languageHelper} from '../../../../tool/language-helper';
 import classes from '../index.module.css';
 
 const basicCHNFont = {
@@ -36,15 +36,19 @@ const navlinkIcon = {
   marginRight: '5px'
 };
 
-class SearchConnectionNavItemReact extends React.Component {
+const caretIconColor = {
+  color: '#8D9AAF'
+};
+
+class SearchVideoNavItemReact extends React.Component {
   constructor(props) {
     super(props);
-    this.text = SearchConnectionNavItemReact.i18n[languageHelper()];
+    this.text = SearchVideoNavItemReact.i18n[languageHelper()];
 
     this.state = {
       // activeItemClassicTabs1: "1",
       collapseID: '',
-      tabsContent: '人脉',
+      tabsContent: '视频',
     };
 
     // this.toggleClassicTabs1 = this.toggleClassicTabs1.bind(this);
@@ -143,6 +147,42 @@ class SearchConnectionNavItemReact extends React.Component {
                 </MDBDropdown>
               </MDBNavItem>
 
+              <MDBNavItem className="mx-2">
+                <MDBDropdown>
+                  <MDBDropdownToggle nav>
+                    <div className="d-md-inline" style={navyFont}>发布时间
+                      <MDBIcon icon="caret-down" style={caretIconColor} />
+                    </div>
+                  </MDBDropdownToggle>
+                  <MDBDropdownMenu>
+                    <MDBDropdownItem className={classes.dropdownItems}
+                      style={navyFont} href="#!">最近发布</MDBDropdownItem>
+                    <MDBDropdownItem className={classes.dropdownItems}
+                      style={navyFont} href="#!">最近一周</MDBDropdownItem>
+                    <MDBDropdownItem className={classes.dropdownItems}
+                      style={navyFont} href="#!">最近一个月</MDBDropdownItem>
+                  </MDBDropdownMenu>
+                </MDBDropdown>
+              </MDBNavItem>
+
+              <MDBNavItem className="mx-2">
+                <MDBDropdown>
+                  <MDBDropdownToggle nav>
+                    <div className="d-md-inline" style={navyFont}>视频类型
+                      <MDBIcon icon="caret-down" style={caretIconColor} />
+                    </div>
+                  </MDBDropdownToggle>
+                  <MDBDropdownMenu>
+                    <MDBDropdownItem className={classes.dropdownItems}
+                      style={navyFont} href="#!">行业</MDBDropdownItem>
+                    <MDBDropdownItem className={classes.dropdownItems}
+                      style={navyFont} href="#!">生活</MDBDropdownItem>
+                    <MDBDropdownItem className={classes.dropdownItems}
+                      style={navyFont} href="#!">娱乐</MDBDropdownItem>
+                  </MDBDropdownMenu>
+                </MDBDropdown>
+              </MDBNavItem>
+
             </MDBNavbarNav>
           </MDBCollapse>
           {/*</MDBContainer>*/}
@@ -152,22 +192,19 @@ class SearchConnectionNavItemReact extends React.Component {
   }
 }
 
-SearchConnectionNavItemReact.i18n = [
+SearchVideoNavItemReact.i18n = [
   {},
   {}
 ];
 
-SearchConnectionNavItemReact.prototypes = {
+SearchVideoNavItemReact.prototypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  // location: PropTypes.object.isRequired,
-  location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired,
-  }).isRequired
+  location: PropTypes.object.isRequired,
 };
 
-export const SearchConnectionNavItem = withRouter(connect((state) => {
+export const SearchVideoNavItem = withRouter(connect((state) => {
   return {
-    bodyClientWidth: state.bodyClientWidth,
+    bodyClientWidth: state.bodyClientWidth
   };
-})(SearchConnectionNavItemReact));
+})(SearchVideoNavItemReact));

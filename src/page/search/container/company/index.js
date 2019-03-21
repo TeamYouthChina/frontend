@@ -6,7 +6,7 @@ import {withRouter} from 'react-router-dom';
 import classes from './index.module.css';
 
 
-import {languageHelper} from '../../../../../../../tool/language-helper';
+import {languageHelper} from '../../../../tool/language-helper';
 
 const basicCHNFont = {
   fontFamily: 'PingFang SC',
