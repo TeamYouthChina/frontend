@@ -7,7 +7,7 @@ import {MDBBtn, MDBCol, MDBIcon, MDBRow} from 'mdbreact';
 const Footer = (props) => (
   <Fragment>
     <MDBRow style={props.stickyRow}>
-      <MDBCol size="3">
+      <MDBCol size="3" style={{display:'flex',alignItems:'center'}}>
         <span style={{color: '#8D9AAF', fontSize: '1.094vw', ...props.basicFont}}>
           {props.editTime}
         </span>
