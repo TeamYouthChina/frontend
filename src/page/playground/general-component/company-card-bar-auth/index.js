@@ -47,7 +47,7 @@ class CompanyCardBarAuthReact extends React.Component {
     // this.setState({ cardData: requestedData, ...this.state });
 
     const requestedData = await mockGetAsync(content);
-    this.setState({ cardData: requestedData, ...this.state });
+    this.setState({ ...this.state, cardData: requestedData});
   }
 
   clickOnCard = () => {};
@@ -62,11 +62,12 @@ class CompanyCardBarAuthReact extends React.Component {
         <div className={classes.Clickable} onClick={this.clickOnCard} />
         <div className={classes.UnClickable}>
           <div className={classes.Icon}>
+            {/* <img src={this.state.cardData.content.avatarUrl} alt="no img" /> */}
             <img src={icon} alt="no img" />
           </div>
           <div className={classes.Info}>
             <div className={classes.Name}>
-              <p>Amazon</p>
+              <p>{this.state.cardData.content.name}</p>
             </div>
             <div className={classes.Des1}>
               <img src={des1} alt="no img" />

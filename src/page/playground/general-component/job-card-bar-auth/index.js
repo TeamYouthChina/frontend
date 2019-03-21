@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { languageHelper } from '../../../../tool/language-helper';
-import { getAsync } from '../../../../tool/api-helper';
+import { mockGetAsync } from '../../../../tool/api-helper';
+// import { getAsync, mockGetAsync } from '../../../../tool/api-helper';
+
 import classes from './index.module.css';
 
 import jobIcon from './jobIcon.svg';
@@ -13,6 +15,7 @@ import detail from './detail.svg';
 import calender from './calender.svg';
 import bag from './bag.svg';
 import favorite from './favorite.svg';
+import { content } from './index.mock';
 
 class JobCardBarAuthReact extends React.Component {
   constructor(props) {
@@ -49,8 +52,10 @@ class JobCardBarAuthReact extends React.Component {
   }
 
   async componentDidMount() {
-    const requestedData = await getAsync();
-    this.setState({ cardData: requestedData, ...this.state });
+    // const requestedData = await getAsync();
+    // this.setState({ ...this.state, cardData: requestedData, });
+    const requestedData = await mockGetAsync(content);
+    this.setState({ ...this.state, cardData: requestedData });
   }
 
   clickOnCard = () => {};
@@ -61,20 +66,21 @@ class JobCardBarAuthReact extends React.Component {
         <div className={classes.Clickable} onClick={this.clickOnCard} />
         <div className={classes.UnClickable}>
           <div className={classes.Img}>
+            {/* <img src={this.state.cardData.content.organization.avatarUrl} alt="no img" /> */}
             <img src={jobIcon} alt="no img" />
           </div>
           <div className={classes.Info}>
             <div className={classes.Title}>
-              <p className={classes.P1}>{this.text.title}</p>
+              <p className={classes.P1}>{this.state.cardData.content.name}</p>
             </div>
             <div className={classes.Des1}>
-              <p className={classes.P1}>Amazon</p>
+              <p className={classes.P1}>{this.state.cardData.content.organization.name}</p>
             </div>
             <div className={classes.Des2}>
               <div className={classes.Row}>
                 <div className={classes.Column}>
                   <img src={location} alt="no img" />
-                  <p>上海</p>
+                  <p>{this.state.cardData.content.location}</p>
                 </div>
                 <div className={classes.Column}>
                   <img src={calender} alt="no img" />
@@ -93,7 +99,7 @@ class JobCardBarAuthReact extends React.Component {
                 </div>
                 <div className={classes.Column}>
                   <img src={bag} alt="no img" />
-                  <p>{this.text.shenQingJieZhi} 3/15</p>
+                  <p>{this.text.shenQingJieZhi} {this.state.cardData.content.deadLine}</p>
                 </div>
               </div>
             </div>
@@ -115,13 +121,11 @@ class JobCardBarAuthReact extends React.Component {
 
 JobCardBarAuthReact.i18n = [
   {
-    title: '用户体验设计实习生',
     geYue: '个月',
     shenQingJieZhi: '申请截止',
     shouCang: '收藏',
   },
   {
-    title: 'UX Designer Intern',
     geYue: 'months',
     shenQingJieZhi: 'Applicaiton Deadline',
     shouCang: 'Like',

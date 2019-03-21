@@ -1,9 +1,9 @@
 export const content = {
-  id: null,
-  name: null,
-  avatarUrl: null,
-  location: null,
-  website: null,
-  note: null,
-  nation: null,
+  id: 1,
+  name: 'Amazon',
+  avatarUrl: './amazon.svg',
+  location: 'Seattle',
+  website: 'www.amazon.com',
+  note: 'amazon note',
+  nation: 'US',
 };
