@@ -45,13 +45,13 @@ const QuestionDes = (props) => (
           <Link to={`/question/${props.questionId}/answer/create`}>关注问题</Link>
         </button>
         <button className={classes.btnOthers}>
-          <MDBIcon style={{marginRight: '5px'}} icon="thumbs-up"/>{props.text.toInvite}
+          <MDBIcon className={classes.btnIcon} icon="thumbs-up"/>{props.text.toInvite}
         </button>
         <button className={classes.btnOthers}>
-          <MDBIcon style={{marginRight: '5px'}} icon="comment"/>{props.text.pinglun}
+          <MDBIcon className={classes.btnIcon} icon="comment"/>{props.text.pinglun}
         </button>
         <button className={classes.btnOthers}>
-          <MDBIcon style={{marginRight: '5px'}} icon="share" />{props.text.share}
+          <MDBIcon className={classes.btnIcon} icon="share" />{props.text.share}
         </button>
       </div>
     </MDBCol>

@@ -136,7 +136,7 @@ export class AnswerCard extends React.Component {
     
     return (this.state.backend !== null) ? (
       <React.Fragment>
-        <div style={{background: '#FFFFFF', padding: '1.563vw 2.344vw', borderRadius: '1.56vw'}} ref={(span) => this.scrollSpan = span}>
+        <div style={{background: '#FFFFFF', padding: '1.563vw 2.344vw', borderRadius: '.156vw'}} ref={(span) => this.scrollSpan = span}>
           <Title
             title={this.state.backend.title}
             basicFont={basicFont} />
