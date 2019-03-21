@@ -22,7 +22,7 @@ class VideoCardBarAuthReact extends React.Component {
   }
 
   async componentDidMount() {
-    const result = await mockGetAsync(content)
+    const result = await mockGetAsync(content);
     this.setState({
       backend: result.content
     });
