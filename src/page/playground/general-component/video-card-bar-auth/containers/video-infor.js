@@ -5,7 +5,7 @@ import {MDBIcon, MDBRow, MDBAvatar, MDBCol, MDBBtn} from 'mdbreact';
 
 export const VideoInfor = (props) => (
   <React.Fragment>
-    <div style={{background: '#FFFFFF', padding: '0.781vw 2.34vw', borderRadius: '.156vw'}}>
+    <div style={{background: '#FFFFFF', padding: '0.781vw 2.34vw 0 2.34vw', borderRadius: '.156vw'}}>
       <div style={{display: 'flex', justifyContent: 'space-between'}}>
         <Link to={{
           pathname: '/question/0/answer/0',
@@ -58,7 +58,7 @@ export const VideoInfor = (props) => (
         </MDBCol>
         <MDBCol size="9">
           <div style={{float: 'right',marginRight:'-1.17vw'}}>
-            <MDBBtn flat style={{padding: '0.781vw 1.56vw', fontSize: '1.09vw', color: '#8D9AAF', ...props.basicFont}}>
+            <MDBBtn flat style={{padding: '0.391vw 1.56vw', fontSize: '1.09vw', color: '#8D9AAF', ...props.basicFont}}>
               <MDBIcon style={{marginRight: '0.39vw'}} icon="heart"/>收藏
             </MDBBtn>
           </div>
