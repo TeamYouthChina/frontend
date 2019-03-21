@@ -2,13 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { MDBRow, MDBBtn, MDBIcon} from 'mdbreact';
 import {languageHelper} from '../../../../tool/language-helper';
-import { connect } from 'react-redux';
 
 import { AddComment } from './components/add-comment';
 import CommentCard from './components/commentCard';
 import { PaginationUse } from './components/pagination';
 
 import { data } from './data';
+
+
+const basicFont = {
+  fontFamily: 'PingFang SC',
+  lineHeight: 'normal'
+};
 
 class Comments extends React.Component {
 
@@ -42,7 +47,7 @@ class Comments extends React.Component {
         creator:{
           username:'lalala'
         },
-        create_at: '123',
+        create_at: 123,
         content: value,
       }, ...this.state.commentLists]
     });
@@ -74,13 +79,13 @@ class Comments extends React.Component {
         <MDBRow style={{
           margin: '0px 0px 11px 0px',
           fontSize: '16px',
-          color: '#8D9AAF', ...this.props.basicFont
+          color: '#8D9AAF', ...basicFont
         }}>
           {this.state.commentLists.length}条评论
         </MDBRow>
         <AddComment 
           addComments={this.addComments} 
-          basicFont={this.props.basicFont}
+          basicFont={basicFont}
         />
         {this.state.commentLists.map((item) => (
           <CommentCard 
@@ -100,7 +105,7 @@ class Comments extends React.Component {
           </MDBRow>
         ) : null}
         <MDBRow center style={{marginTop: '9px'}}>
-          <MDBBtn onClick={this.props.showComments} flat style={{margin: '0px', padding: '5px 10px', fontSize: '14px', color: '#8D9AAF', ...this.props.basicFont}}>
+          <MDBBtn onClick={this.props.showComments} flat style={{margin: '0px', padding: '5px 10px', fontSize: '14px', color: '#8D9AAF', ...basicFont}}>
             收起评论<MDBIcon style={{marginLeft: '5px'}} icon="arrow-up" />
           </MDBBtn>
         </MDBRow>
@@ -113,17 +118,7 @@ class Comments extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  basicFont:state.comment.basicFont,
-});
-
-// const mapDispatchToProps = (dispatch) => ({
-//  
-// });
-
 Comments.propTypes = {
-  // 字体
-  basicFont: PropTypes.object.isRequired,
   // 评论text
   commentsText: PropTypes.string.isRequired,
   commentsType: PropTypes.string.isRequired,
@@ -141,4 +136,4 @@ Comments.i18n = [
   },
 ];
 
-export default connect(mapStateToProps, null)(Comments);
+export default Comments;

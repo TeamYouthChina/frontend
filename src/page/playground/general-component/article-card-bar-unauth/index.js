@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
+import AnswerCard from './components/answer-card';
 import {languageHelper} from '../../../../tool/language-helper';
 
 class ArticleCardBarUnauthReact extends React.Component {
@@ -16,7 +17,7 @@ class ArticleCardBarUnauthReact extends React.Component {
 
   render() {
     return (
-      null
+      <AnswerCard fullText={this.props.fullText} />
     );
   }
 }
