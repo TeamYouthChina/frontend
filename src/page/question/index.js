@@ -6,7 +6,11 @@ import {Redirect} from 'react-router-dom';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 
-import QuestionDes from './containers/question-des';
+import QuestionDes from './containers/question-des/';
+import Answers from './containers/answers/';
+import SideBar from './containers/side-bar/';
+
+import classes from './index.module.css';
 
 const basicFont = {
   fontFamily: 'PingFang SC',
@@ -17,9 +21,17 @@ class QuestionReact extends React.Component {
   constructor(props) {
     super(props);
     // state
-    this.state = {};
+    this.state = {
+      backend:null
+    };
     // i18n
     this.text = QuestionReact.i18n[languageHelper()];
+  }
+  
+  componentDidMount() {
+    this.setState({
+      backend:'123'
+    });
   }
 
   render() {
@@ -27,7 +39,7 @@ class QuestionReact extends React.Component {
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
-    return (
+    return (this.state.backend !== null) ? (
       <div>
         <QuestionDes
           tags={['创业','赚钱','副业','白领']}
@@ -38,13 +50,25 @@ class QuestionReact extends React.Component {
           questionId={1}/>
         <div
           className="cell-wall"
+          style={{backgroundColor:'#F0F3FA'}}
         >
           <div
             className="cell-membrane"
           >
-            
+            <div className={classes.answerWrapper}>
+              <div>
+                <Answers answers={[1,2,3]} />
+              </div>
+              <div style={{width:'100%'}}>
+                <SideBar />
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+    ) : (
+      <div>
+        loading
       </div>
     );
   }

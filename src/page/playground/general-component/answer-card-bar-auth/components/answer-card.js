@@ -8,7 +8,7 @@ import UserInfor from '../containers/user-infor';
 import Comments from '../comment-card-bar';
 import Footer from '../containers/footer';
 
-import answerData from '../data/index.data';
+import data from '../data/index.data';
 
 const basicFont = {
   fontFamily: 'PingFang SC',
@@ -119,7 +119,7 @@ export class AnswerCard extends React.Component {
     window.addEventListener('scroll', this.orderScroll);
     if(this.props.answerId !== undefined) {
       this.setState({
-        backend:answerData.content[this.props.answerId]
+        backend:data.content[this.props.answerId]
       });
     } else {
       // console.log(this.props.fullText)
