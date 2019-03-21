@@ -69,7 +69,7 @@ QuestionReact.propTypes = {
 export const Question = connect(
   (state) => {
     return {
-      bodyClientWidth: state.initial.bodyClientWidth
+      bodyClientWidth: state.bodyClientWidth
     };
   }
 )(QuestionReact);

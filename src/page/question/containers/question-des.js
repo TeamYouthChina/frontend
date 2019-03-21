@@ -47,10 +47,10 @@ const QuestionDes = (props) => (
         <button className={classes.btnOthers}>
           <MDBIcon style={{marginRight: '5px'}} icon="thumbs-up"/>{props.text.toInvite}
         </button>
-        <button style={{padding: '5px 10px',}}>
+        <button className={classes.btnOthers}>
           <MDBIcon style={{marginRight: '5px'}} icon="comment"/>{props.text.pinglun}
         </button>
-        <button style={{padding: '5px 10px',}}>
+        <button className={classes.btnOthers}>
           <MDBIcon style={{marginRight: '5px'}} icon="share" />{props.text.share}
         </button>
       </div>
@@ -93,7 +93,7 @@ QuestionDes.propTypes = {
 export default connect(
   (state) => {
     return {
-      bodyClientWidth: state.initial.bodyClientWidth,
+      bodyClientWidth: state.bodyClientWidth,
       text: i18n[languageHelper()]
     };
   }
