@@ -344,7 +344,31 @@ class GeneralComponentReact extends React.Component {
               <p>video-card-bar-unauth</p>
               <VideoCardBarUnauth
                 fullText={{
-                  /* 雨桐：填一下全文 */
+                  'id': 0,
+                  'url': 'https://www.youtube.com/watch?v=E7lxKtH_zO8',
+                  'comments': [],
+                  'uploader': {
+                    'id': 0,
+                    'username': '齐昊',
+                    'email': 'user@example.com',
+                    'phonenumber': '2020950095',
+                    'register_date': 'string',
+                    'real_name': '齐昊',
+                    'gender': 'male',
+                    'nation': 'string',
+                    'avatar_url': 'string',
+                    'role': 'string',
+                    'age': 0
+                  },
+                  'body': {
+                    'braftEditorRaw': {},
+                    'previewText': {},
+                    'resourceList': [
+                      'string'
+                    ]
+                  },
+                  'create_at': 1553195000,
+                  'is_anonymous': false
                 }}
               />
             </div>
