@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
+import {videoData} from './index.mock';
 import {VideoShow} from './containers/video';
 import {VideoInfor} from './containers/video-infor';
-import {content} from './index.mock';
 import {languageHelper} from '../../../../tool/language-helper';
 import {mockGetAsync} from '../../../../tool/api-helper';
 
@@ -14,15 +14,21 @@ class VideoCardBarAuthReact extends React.Component {
   constructor(props) {
     super(props);
     // state
-    this.state = {};
+    this.state = {
+      backend: null
+    };
     // i18n
     this.text = VideoCardBarAuthReact.i18n[languageHelper()];
   }
 
   async componentDidMount() {
     this.setState({
-      backend: await mockGetAsync(content)
+      backend: await mockGetAsync(videoData)
+    }, () => {
+      // eslint-disable-next-line
+      console.log(this.state.backend.content.videos[1].id);
     });
+    // console.log()
   }
 
   render() {
