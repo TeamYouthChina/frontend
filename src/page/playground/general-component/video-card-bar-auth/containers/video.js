@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export const VideoShow = (props) => (
   <video controls style={{width:'27vw',height:'14.7vw'}}>
-    <source src={`${props.videoId}.mp4`} type="video/mp4" />
+    <source src={props.videoId} type="video/mp4" />
   </video>
 );
 

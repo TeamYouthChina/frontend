@@ -4,53 +4,67 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
+import {videoData} from './index.mock';
 import {VideoShow} from './containers/video';
 import {VideoInfor} from './containers/video-infor';
-import {content} from './index.mock';
 import {languageHelper} from '../../../../tool/language-helper';
 import {mockGetAsync} from '../../../../tool/api-helper';
+import {timeHelper} from '../../../../tool/time-helper';
 
 class VideoCardBarAuthReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {
-      backend: null
+      backend: null,
+      createdTime: null
     };
     // i18n
     this.text = VideoCardBarAuthReact.i18n[languageHelper()];
   }
 
   async componentDidMount() {
-    const result = await mockGetAsync(content);
+    const result = await mockGetAsync(videoData);
     this.setState({
       backend: result.content
+    }, () => {
+      this.handleCreatedTime();
     });
   }
 
+  handleCreatedTime = () => {
+    const myDate = this.state.backend.videos[0].create_at;
+    const time = timeHelper(myDate);
+    this.setState({
+      createdTime: time
+    });
+  };
+  
   render() {
     return (this.state.backend !== null) ? (
       <MDBCard style={{boxShadow: 'none',}}>
         <div style={{margin: '0', padding: '0', display: 'flex'}}>
 
-          <div style={{padding: '0',flexGrow:'1',height:'14.7vw'}}>
-            <VideoShow videoId={1} />
+          <div style={{padding: '0', flexGrow: '1', height: '14.7vw'}}>
+            <VideoShow videoId={this.state.backend.videos[0].url} />
           </div>
-
-
-          <div style={{color: '#454F69',flexGrow:'0'}}>
+          
+          <div style={{color: '#454F69', flexGrow: '0'}}>
             <VideoInfor
-              short={this.state.backend.short}
-              title={this.state.backend.title}
+              short={<span>在软件行业，操作系统平台就是那个八，其他的应用软件就是那个二。微软已经踩到了一次狗屎运，得到了软件行业80%的利润，现在，他所需要
+                <span style={{color: 'red'}}> API没有。。。</span>
+              </span>}
+              title={<span>腾讯の问题<span style={{color: 'red'}}> API没有。。。</span></span>}
               basicFont={{
                 fontFamily: 'PingFang SC',
                 lineHeight: 'normal'
               }}
-              description={this.state.backend.description}
-              user={this.state.backend.user}
-              readingTime={this.state.backend.readingTime} editTime={this.state.backend.editTime} />
+              description={<span>WeYouth创始人<span style={{color: 'red'}}> API没有。。。</span></span>}
+              user={this.state.backend.videos[0].uploader.username}
+              readingTime={<span>912<span style={{color: 'red'}}> API没有。。。</span></span>} 
+              editTime={<span>{this.state.createdTime}以前</span>} />
           </div>
-          
+
         </div>
       </MDBCard>
     ) : (
