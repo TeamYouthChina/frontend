@@ -9,7 +9,7 @@ const Title = (props) => (
     <Link  to={{
       pathname:'/question/0/answer/0',
     }}>
-      <strong style={{color: '#31394D', fontSize: '18px', ...props.basicFont}}>{props.title}</strong>
+      <strong style={{color: '#31394D', fontSize: '1.406vw', ...props.basicFont}}>{props.title}</strong>
     </Link>
     <MDBIcon style={{justifyContent: 'flex-end'}} icon="ellipsis-h"/>
   </div>

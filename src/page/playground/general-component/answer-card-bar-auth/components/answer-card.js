@@ -5,12 +5,26 @@ import {languageHelper} from '../../../../../tool/language-helper';
 
 import Title from '../containers/title';
 import UserInfor from '../containers/user-infor';
-import Comments from '../../comment-card-bar';
+import Comments from '../comment-card-bar';
 import Footer from '../containers/footer';
 
-import {connect} from 'react-redux';
+import answerData from '../data/index.data';
 
-import answerData from './index.data';
+const basicFont = {
+  fontFamily: 'PingFang SC',
+  lineHeight: 'normal'
+};
+const ulBasicNoLine = {
+  listStyle: 'none',
+  padding: '0',
+  margin: '0'
+};
+const liBasicNoLine = {
+  listStyle: 'none',
+  padding: '0',
+  margin: '0'
+};
+
 
 export class AnswerCard extends React.Component {
   constructor(props) {
@@ -51,7 +65,7 @@ export class AnswerCard extends React.Component {
         stickyRow: {
           background: '#FFFFFF',
           position: 'sticky',
-          bottom: '0px'
+          bottom: '0'
         }
       });
     }
@@ -122,10 +136,10 @@ export class AnswerCard extends React.Component {
   render() {
     return (this.state.backend !== null) ? (
       <React.Fragment>
-        <div style={{background: '#FFFFFF', padding: '20px 30px', borderRadius: '2px'}} ref={(span) => this.scrollSpan = span}>
+        <div style={{background: '#FFFFFF', padding: '1.563vw 2.344vw', borderRadius: '1.56vw'}} ref={(span) => this.scrollSpan = span}>
           <Title
             title={this.state.backend.title}
-            basicFont={this.props.basicFont} />
+            basicFont={basicFont} />
           <UserInfor
             score={5}
             user={this.state.backend.creator.username}
@@ -134,10 +148,10 @@ export class AnswerCard extends React.Component {
             isCollapsed={this.state.isCollapsed}
             short={this.sliceText(this.state.backend.answers)}
             handleSpanClick={this.handleSpanClick}
-            basicFont={this.props.basicFont}
+            basicFont={basicFont}
             // editorState={this.state.editorState.toHTML()}
-            liBasicNoLine={this.props.liBasicNoLine}
-            ulBasicNoLine={this.props.ulBasicNoLine} />
+            liBasicNoLine={liBasicNoLine}
+            ulBasicNoLine={ulBasicNoLine} />
           {this.state.showBottom || this.state.isCollapsed ? (
             <Footer
               editTime={'1天前'}
@@ -145,7 +159,7 @@ export class AnswerCard extends React.Component {
               isCollapsed={this.state.isCollapsed}
               showComments={this.showCommentsFunc}
               handleSpanClick={this.handleSpanClick}
-              basicFont={this.props.basicFont}
+              basicFont={basicFont}
               stickyRow={this.state.stickyRow} />
           ) : null}
         </div>
@@ -167,29 +181,11 @@ export class AnswerCard extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  // li和ul样式
-  liBasicNoLine: state.answer.liBasicNoLine,
-  ulBasicNoLine: state.answer.ulBasicNoLine
-});
-
-// const mapDispatchToProps = (dispatch) => ({
-//
-//   changeAnswerData: () => {
-//     dispatch(action.changeAnswerData());
-//   },
-//  
-// });
-
 AnswerCard.propTypes = {
   // id
   answerId: PropTypes.number,
   // 全文
   fullText: PropTypes.object,
-  // 样式
-  basicFont: PropTypes.object,
-  liBasicNoLine: PropTypes.object,
-  ulBasicNoLine: PropTypes.object,
 };
 
 AnswerCard.i18n = [
@@ -201,4 +197,4 @@ AnswerCard.i18n = [
   },
 ];
 
-export default connect(mapStateToProps, null)(AnswerCard);
+export default AnswerCard;
