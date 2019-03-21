@@ -1,5 +1,5 @@
 import React from 'react';
-import {MDBCard, } from 'mdbreact';
+import {MDBCard} from 'mdbreact';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
