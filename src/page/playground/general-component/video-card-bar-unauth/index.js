@@ -34,7 +34,8 @@ class VideoCardBarUnauthReact extends React.Component {
         <div style={{margin: '0', padding: '0', display: 'flex'}}>
 
           <div style={{padding: '0', flexGrow: '1', height: '14.7vw'}}>
-            <VideoShow videoId={this.state.backend.url} />
+            {/*<VideoShow videoId={this.state.backend.url} />*/}
+            <VideoShow videoId={1} />
           </div>
 
           <div style={{color: '#454F69', flexGrow: '0'}}>

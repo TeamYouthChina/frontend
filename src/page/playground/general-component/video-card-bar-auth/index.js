@@ -46,22 +46,23 @@ class VideoCardBarAuthReact extends React.Component {
         <div style={{margin: '0', padding: '0', display: 'flex'}}>
 
           <div style={{padding: '0', flexGrow: '1', height: '14.7vw'}}>
-            <VideoShow videoId={this.state.backend.videos[0].url} />
+            {/*<VideoShow videoId={this.state.backend.videos[0].url} />*/}
+            <VideoShow videoId={1} />
           </div>
           
           <div style={{color: '#454F69', flexGrow: '0'}}>
             <VideoInfor
-              short={<span>在软件行业，操作系统平台就是那个八，其他的应用软件就是那个二。微软已经踩到了一次狗屎运，得到了软件行业80%的利润，现在，他所需要
+              short={<span><u>在软件行业，操作系统平台就是那个八，其他的应用软件就是那个二。微软已经踩到了一次狗屎运，得到了软件行业80%的利润，现在，他所需要</u>
                 <span style={{color: 'red'}}> API没有。。。</span>
               </span>}
-              title={<span>腾讯の问题<span style={{color: 'red'}}> API没有。。。</span></span>}
+              title={<span><u>腾讯の问题</u><span style={{color: 'red'}}> API没有。。。</span></span>}
               basicFont={{
                 fontFamily: 'PingFang SC',
                 lineHeight: 'normal'
               }}
-              description={<span>WeYouth创始人<span style={{color: 'red'}}> API没有。。。</span></span>}
+              description={<span><u>WeYouth创始人</u><span style={{color: 'red'}}> API没有。。。</span></span>}
               user={this.state.backend.videos[0].uploader.username}
-              readingTime={<span>912<span style={{color: 'red'}}> API没有。。。</span></span>} 
+              readingTime={<span><u>912</u><span style={{color: 'red'}}> API没有。。。</span></span>} 
               editTime={<span>{this.state.createdTime}以前</span>} />
           </div>
 
