@@ -7,33 +7,36 @@ import {MDBBtn, MDBCol, MDBIcon, MDBRow} from 'mdbreact';
 const Footer = (props) => (
   <Fragment>
     <MDBRow style={props.stickyRow}>
-      <MDBCol size="12" md="3" middle>
-        <span style={{color: '#8D9AAF', fontSize: '14px', ...props.basicFont}}>
+      <MDBCol size="3" style={{display:'flex',alignItems:'center'}}>
+        <span style={{color: '#8D9AAF', fontSize: '1.094vw', ...props.basicFont}}>
           {props.editTime}
         </span>
       </MDBCol>
       <MDBCol size="9">
-        <div style={{float: 'right',marginRight:'-15px'}}>
+        <div style={{float: 'right',marginRight:'-1.172vw'}}>
           <MDBBtn flat style={{
-            padding: '5px 10px',
-            marginLeft: '15px',
-            fontSize: '14px',
+            padding: '0.391vw 0.781vw',
+            marginLeft: '1.172vw',
+            fontSize: '1.094vw',
             color: '#8D9AAF', ...props.basicFont
           }}>
-            <MDBIcon style={{marginRight: '5px'}} far icon="thumbs-up"/>点赞
+            <MDBIcon style={{marginRight: '0.391vw'}} far icon="thumbs-up"/>点赞
           </MDBBtn>
-          <MDBBtn flat style={{padding: '5px 10px', fontSize: '14px', color: '#8D9AAF', ...props.basicFont}}>
-            <MDBIcon style={{marginRight: '5px'}} icon="heart"/>收藏
+          <MDBBtn flat style={{padding: '0.391vw 0.782vw', fontSize: '1.094vw', color: '#8D9AAF', ...props.basicFont}}>
+            <MDBIcon style={{marginRight: '0.391vw'}} icon="heart"/>收藏
           </MDBBtn>
-          <MDBBtn onClick={props.showComments} flat style={{padding: '5px 10px', fontSize: '14px', color: '#8D9AAF', ...props.basicFont}}>
-            <MDBIcon style={{marginRight: '5px'}} far icon="comment"/>{props.commentsText}
+          <MDBBtn onClick={props.showComments} flat style={{padding: '0.391vw 0.782vw', fontSize: '1.094vw', color: '#8D9AAF', ...props.basicFont}}>
+            <MDBIcon style={{marginRight: '0.391vw'}} far icon="comment"/>{props.commentsText}
+          </MDBBtn>
+          <MDBBtn flat style={{padding: '0.391vw 0.782vw', fontSize: '1.094vw', color: '#8D9AAF', ...props.basicFont}}>
+            <MDBIcon style={{marginRight: '0.391vw'}} icon="share"/>分享
           </MDBBtn>
           {/*<MDBBtn flat style={{padding: '5px 10px',}}>*/}
           {/*<MDBIcon style={{marginRight: '5px'}} icon="ban"/>*/}
           {/*举报*/}
           {/*</MDBBtn>*/}
           {props.isCollapsed ? null :
-            <MDBBtn onClick={props.handleSpanClick} flat style={{padding: '5px 10px', color: '#4F65E1', fontSize: '14px', ...props.basicFont}}>
+            <MDBBtn onClick={props.handleSpanClick} flat style={{padding: '0.391vw 0.782vw', color: '#4F65E1', fontSize: '1.094vw', ...props.basicFont}}>
               收起
               {/*<MDBIcon style={{marginRight: '5px'}} icon="arrow-up"/>*/}
             </MDBBtn>}
