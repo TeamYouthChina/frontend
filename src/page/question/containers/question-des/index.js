@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {MDBCol, MDBIcon} from 'mdbreact';
 import {connect} from 'react-redux';
-import {languageHelper} from '../../../tool/language-helper';
-
-// import Plus from './plus.svg';
+import {languageHelper} from '../../../../tool/language-helper';
 
 import classes from './question-des.module.css';
 
