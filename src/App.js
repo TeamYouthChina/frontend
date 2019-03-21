@@ -55,7 +55,7 @@ export class App extends React.Component {
               <Route
                 path="/"
                 exact
-                component={() => <Redirect to="/playground" />}
+                component={() => <Redirect to="/promotion" />}
               />
               <Route
                 path="/article/:id/edit"
