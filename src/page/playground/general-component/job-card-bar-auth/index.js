@@ -1,19 +1,21 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-import { languageHelper } from "../../../../tool/language-helper";
-import { getAsync, mockGetAsync } from "../../../../tool/api-helper";
-import classes from "./index.module.css";
+import { languageHelper } from '../../../../tool/language-helper';
+import { mockGetAsync } from '../../../../tool/api-helper';
+// import { getAsync, mockGetAsync } from '../../../../tool/api-helper';
 
-import jobIcon from "./jobIcon.svg";
-import location from "./location.svg";
-import detail from "./detail.svg";
-import calender from "./calender.svg";
-import bag from "./bag.svg";
-import favorite from "./favorite.svg";
-import { content } from "./index.mock";
+import classes from './index.module.css';
+
+import jobIcon from './jobIcon.svg';
+import location from './location.svg';
+import detail from './detail.svg';
+import calender from './calender.svg';
+import bag from './bag.svg';
+import favorite from './favorite.svg';
+import { content } from './index.mock';
 
 class JobCardBarAuthReact extends React.Component {
   constructor(props) {
@@ -83,8 +85,8 @@ class JobCardBarAuthReact extends React.Component {
                 <div className={classes.Column}>
                   <img src={calender} alt="no img" />
                   <p>
-                    3-5 {this.text.geYue}{" "}
-                    <span style={{ color: "red" }}>api没有这个</span>
+                    3-5 {this.text.geYue}{' '}
+                    <span style={{ color: 'red' }}>api没有这个</span>
                   </p>
                 </div>
               </div>
@@ -92,7 +94,7 @@ class JobCardBarAuthReact extends React.Component {
                 <div className={classes.Column}>
                   <img src={detail} alt="no img" />
                   <p>
-                    E-Commerce<span style={{ color: "red" }}>api没有这个</span>
+                    E-Commerce<span style={{ color: 'red' }}>api没有这个</span>
                   </p>
                 </div>
                 <div className={classes.Column}>
@@ -108,7 +110,7 @@ class JobCardBarAuthReact extends React.Component {
                 <img src={favorite} alt="no img" />
                 {this.text.shouCang}
               </button>
-              <span style={{ color: "red" }}>api没有这个</span>
+              <span style={{ color: 'red' }}>api没有这个</span>
             </div>
           </div>
         </div>
@@ -119,14 +121,14 @@ class JobCardBarAuthReact extends React.Component {
 
 JobCardBarAuthReact.i18n = [
   {
-    geYue: "个月",
-    shenQingJieZhi: "申请截止",
-    shouCang: "收藏",
+    geYue: '个月',
+    shenQingJieZhi: '申请截止',
+    shouCang: '收藏',
   },
   {
-    geYue: "months",
-    shenQingJieZhi: "Applicaiton Deadline",
-    shouCang: "Like",
+    geYue: 'months',
+    shenQingJieZhi: 'Applicaiton Deadline',
+    shouCang: 'Like',
   },
 ];
 
