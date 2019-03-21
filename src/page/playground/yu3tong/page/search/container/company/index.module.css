@@ -1,0 +1,43 @@
+.listGroupItems {
+  color: #4F65E1 !important;
+}
+
+.collectionIcon {
+  color: #FFC93E;
+  width: 10px;
+}
+
+.collectionBtn {
+  background-color: #4F65E1 !important;
+  box-shadow: none !important;
+  font-size: 12px;
+  font-family: "PingFang SC";
+}
+
+.tagBtn {
+  color: #4F65E1 !important;
+  border: #4F65E1 1px solid !important;
+  box-shadow: none !important;
+  font-size: 12px;
+  font-family: "PingFang SC";
+}
+
+.tagBtn:hover {
+  color: #4F65E1 !important;
+  border: #4F65E1 1px solid !important;
+}
+
+.tagBtnSelected {
+  color: #FFFFFF !important;
+  background-color: #4F65E1 !important;
+  border: #4F65E1 1px solid !important;
+  box-shadow: none !important;
+  font-size: 12px;
+  font-family: "PingFang SC";
+}
+
+.tagBtnSelected:hover {
+  color: #FFFFFF !important;
+  background-color: #4F65E1 !important;
+  border: #4F65E1 1px solid !important;
+}

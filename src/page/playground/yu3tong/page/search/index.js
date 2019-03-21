@@ -25,6 +25,7 @@ import {SearchCompaniesNavItem} from './secondary-navagations/company';
 import {SearchInsightNavItem} from './secondary-navagations/insight';
 import {SearchVideoNavItem} from './secondary-navagations/video';
 import {SearchConnectionNavItem} from './secondary-navagations/coonection';
+import {SearchCompanyResult} from './container/company';
 import {languageHelper} from '../../../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../../../tool/remove-url-slash-suffix';
 
@@ -54,6 +55,7 @@ class SearchReact extends React.Component {
       // activeItemClassicTabs1: "1",
       collapseID: '',
       tabsContent: '职位',
+      keyword: '' //搜索关键词
     };
 
     // this.toggleClassicTabs1 = this.toggleClassicTabs1.bind(this);
@@ -83,6 +85,7 @@ class SearchReact extends React.Component {
           padding: 0,
         }}
       >
+        {/*导航栏细胞*/}
         <div className="cell-wall" style={{
           backgroundColor: 'white'
         }}>
@@ -126,35 +129,25 @@ class SearchReact extends React.Component {
               />
               <Redirect to={`${this.props.match.url}/job`} />
             </Switch>
-            {/*eslint-enable*/}
-            
-            {/*<Switch>*/}
-            {/*<Route*/}
-            {/*path={`${this.props.match.url}/search-job-result`}*/}
-            {/*component={routeProps => <SearchJobResult basicCHNFont={basicCHNFont}/>}*/}
-            {/*/>*/}
-            {/*<Route*/}
-            {/*path={`${this.props.match.url}/search-company-result`}*/}
-            {/*component={routeProps => <SearchCompanyResult basicCHNFont={basicCHNFont}/>}*/}
-            {/*/>*/}
-            {/*<Route*/}
-            {/*path={`${this.props.match.url}/search-insight-result`}*/}
-            {/*component={routeProps => <SearchCommunityResult basicCHNFont={basicCHNFont}/>}*/}
-            {/*/>*/}
-            {/*<Route*/}
-            {/*path={`${this.props.match.url}/search-video-result`}*/}
-            {/*component={routeProps => <SearchVideoResult basicCHNFont={basicCHNFont}/>}*/}
-            {/*/>*/}
-            {/*<Route*/}
-            {/*path={`${this.props.match.url}/search-connect-result`}*/}
-            {/*component={routeProps => <SearchConnectionResult basicCHNFont={basicCHNFont}/>}*/}
-            {/*/>*/}
-            {/*<Redirect to={`${this.props.match.url}/search-job-result`}/>*/}
-            {/*</Switch>*/}
           </div>
         </div>
-        <div style={{height: '500px', backgroundColor: '#F3F5F7'}}>
 
+        {/*搜索结果细胞*/}
+        <div className="cell-wall" style={{height: '500px', backgroundColor: '#F3F5F7'}}>
+          <div className="cell-membrane">
+            <Switch>
+              <Route
+                path={`${this.props.match.url}/job`}
+                component={routeProps => <SearchCompanyResult basicCHNFont={basicCHNFont} />}
+              />
+              <Route
+                path={`${this.props.match.url}/company`}
+                component={routeProps => <SearchCompanyResult basicCHNFont={basicCHNFont} />}
+              />
+              <Redirect to={`${this.props.match.url}/job`} />
+            </Switch>
+            {/*eslint-enable*/}
+          </div>
         </div>
       </div>
     );
@@ -170,6 +163,7 @@ SearchReact.prototypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
+  
 };
 
 export const Search = withRouter(connect((state) => {
