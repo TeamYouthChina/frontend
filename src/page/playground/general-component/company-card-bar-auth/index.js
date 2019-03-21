@@ -3,19 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { languageHelper } from '../../../../tool/language-helper';
-
-// eslint-disable-line no-unused-vars
-import { mockGetAsync } from '../../../../tool/api-helper';
-import classes from './index.module.css';
-import icon from './amazon.svg';
 import arrow from './arrow.svg';
-import heart from './heart.svg';
-import bag from './bag.svg';
-import employee from './employee.svg';
-import des1 from './des1.svg';
-
+import classes from './index.module.css';
 import {content} from './index.mock';
+import bag from './bag.svg';
+import des1 from './des1.svg';
+import employee from './employee.svg';
+import heart from './heart.svg';
+import icon from './amazon.svg';
+import { languageHelper } from '../../../../tool/language-helper';
+import { mockGetAsync } from '../../../../tool/api-helper';
 
 class CompanyCardBarAuthReact extends React.Component {
   constructor(props) {

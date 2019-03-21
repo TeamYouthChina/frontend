@@ -3,18 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { languageHelper } from '../../../../tool/language-helper';
-import { mockGetAsync } from '../../../../tool/api-helper';
-// import { getAsync, mockGetAsync } from '../../../../tool/api-helper';
-
-import classes from './index.module.css';
-
-import jobIcon from './jobIcon.svg';
-import location from './location.svg';
-import detail from './detail.svg';
-import calender from './calender.svg';
 import bag from './bag.svg';
+import calender from './calender.svg';
+import classes from './index.module.css';
+import detail from './detail.svg';
 import favorite from './favorite.svg';
+import jobIcon from './jobIcon.svg';
+import { languageHelper } from '../../../../tool/language-helper';
+import location from './location.svg';
+import { mockGetAsync } from '../../../../tool/api-helper';
+
 import { content } from './index.mock';
 
 class JobCardBarAuthReact extends React.Component {
