@@ -9,6 +9,7 @@ import {BestForYou} from './page/best-for-you';
 import {Company} from './page/company';
 import {Connection} from './page/connection';
 import {CreateResume} from './page/create-resume';
+import {Discovery} from './page/discovery';
 import {Footer} from './page/footer';
 import {Header} from './page/header';
 import {Help} from './page/help';
@@ -77,8 +78,12 @@ export class App extends React.Component {
                 component={routeProps => <Company {...routeProps} />}
               />
               <Route
-                path="/connection/:id"
+                path="/connection"
                 component={routeProps => <Connection {...routeProps} />}
+              />
+              <Route
+                path="/discovery"
+                component={routeProps => <Discovery {...routeProps} />}
               />
               <Route
                 path="/help"
