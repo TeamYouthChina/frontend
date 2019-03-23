@@ -7,17 +7,17 @@ import classes from './index.module.css';
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 
-import {AnswerCardBarAuth} from './answer-card-bar-auth';
-import {AnswerCardBarUnauth} from './answer-card-bar-unauth';
-import {ArticleCardBarUnauth} from './article-card-bar-unauth';
-import {ArticleCardBarAuth} from '../general-component/article-card-bar-auth';
+import {AnswerCardBarId} from './answer-card-bar-id';
+import {AnswerCardBarFulltext} from './answer-card-bar-fulltext';
+import {ArticleCardBarFulltext} from './article-card-bar-fulltext';
+import {ArticleCardBarId} from './article-card-bar-id';
 import {Header2} from './header-2';
-import {CompanyCardBarAuth} from './company-card-bar-auth/index';
-import {JobCardBarAuth} from './job-card-bar-auth';
-import {VideoCardBarAuth} from './video-card-bar-auth';
-import {VideoCardBarUnauth} from './video-card-bar-unauth';
-import {ReviewCardBarAuth} from '../general-component/review-card-bar-auth';
-import {ReviewCardBarUnauth} from '../general-component/review-card-bar-unauth';
+import {CompanyCardBarId} from './company-card-bar-id/index';
+import {JobCardBarId} from './job-card-bar-id';
+import {VideoCardBarId} from './video-card-bar-id';
+import {VideoCardBarFulltext} from './video-card-bar-fulltext';
+import {ReviewCardBarId} from './review-card-bar-id';
+import {ReviewCardBarFulltext} from './review-card-bar-fulltext';
 
 class GeneralComponentReact extends React.Component {
   constructor(props) {
@@ -51,13 +51,13 @@ class GeneralComponentReact extends React.Component {
             className="cell-membrane"
           >
             <div className={classes.space}>
-              <p>answer-card-bar-auth</p>
-              <AnswerCardBarAuth id={1} />
+              <p>answer-card-bar-id</p>
+              <AnswerCardBarId id={1} />
             </div>
             <div className={classes.space}>
-              <p>answer-card-bar-unauth</p>
-              <AnswerCardBarUnauth
-                fullText={{
+              <p>answer-card-bar-fulltext</p>
+              <AnswerCardBarFulltext
+                fulltext={{
                   'id': 1,
                   'creator': {
                     'id': 1,
@@ -139,13 +139,13 @@ class GeneralComponentReact extends React.Component {
               />
             </div>
             <div className={classes.space}>
-              <p>article-card-bar-auth</p>
-              <ArticleCardBarAuth id={1} />
+              <p>article-card-bar-id</p>
+              <ArticleCardBarId id={1} />
             </div>
             <div className={classes.space}>
-              <p>article-card-bar-unauth</p>
-              <ArticleCardBarUnauth
-                fullText={{
+              <p>article-card-bar-fulltext</p>
+              <ArticleCardBarFulltext
+                fulltext={{
                   'id': 1,
                   'creator': {
                     'id': 1,
@@ -227,21 +227,21 @@ class GeneralComponentReact extends React.Component {
               />
             </div>
             <div className={classes.space}>
-              <p>company-card-bar-auth</p>
-              <CompanyCardBarAuth />
+              <p>company-card-bar-id</p>
+              <CompanyCardBarId />
             </div>
             <div className={classes.space}>
-              <p>job-card-bar-auth</p>
-              <JobCardBarAuth />
+              <p>job-card-bar-id</p>
+              <JobCardBarId />
             </div>
             <div className={classes.space}>
-              <p>review-card-bar-auth</p>
-              <ReviewCardBarAuth id={1} />
+              <p>review-card-bar-id</p>
+              <ReviewCardBarId id={1} />
             </div>
             <div className={classes.space}>
-              <p>review-card-bar-unauth</p>
-              <ReviewCardBarUnauth
-                fullText={{
+              <p>review-card-bar-fulltext</p>
+              <ReviewCardBarFulltext
+                fulltext={{
                   'id': 1,
                   'creator': {
                     'id': 1,
@@ -323,21 +323,21 @@ class GeneralComponentReact extends React.Component {
               />
             </div>
             <div className={classes.space}>
-              <p>user-card-bar-auth</p>
+              <p>user-card-bar-id</p>
               {/* insert component here */}
             </div>
             <div className={classes.space}>
-              <p>user-card-square-auth</p>
+              <p>user-card-square-id</p>
               {/* insert component here */}
             </div>
             <div className={classes.space}>
-              <p>video-card-bar-auth</p>
-              <VideoCardBarAuth id={1} />
+              <p>video-card-bar-id</p>
+              <VideoCardBarId id={1} />
             </div>
             <div className={classes.space}>
-              <p>video-card-bar-unauth</p>
-              <VideoCardBarUnauth
-                fullText={{
+              <p>video-card-bar-fulltext</p>
+              <VideoCardBarFulltext
+                fulltext={{
                   'id': 0,
                   'url': 'https://www.youtube.com/watch?v=E7lxKtH_zO8',
                   'comments': [],

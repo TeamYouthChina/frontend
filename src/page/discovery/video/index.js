@@ -3,17 +3,18 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
+import classes from './index.module.css';
+import {isLogin} from '../../../tool/api-helper';
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
-import * as deviceHelper from '../../../tool/device-helper';
 
-class ZhichengReact extends React.Component {
+class VideoReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {};
     // i18n
-    this.text = ZhichengReact.i18n[languageHelper()];
+    this.text = VideoReact.i18n[languageHelper()];
   }
 
   render() {
@@ -28,26 +29,23 @@ class ZhichengReact extends React.Component {
         >
           <div
             className="cell-membrane"
-            style={{
-              backgroundColor: 'yellow'
-            }}
           >
-            <p>逻辑分辨率：{this.props.bodyClientWidth}px</p>
-            <p>
-              设备类型：
+            <div
+              className={classes.content}
+            >
               {
-                (() => {
-                  switch (deviceHelper.getType(this.props.bodyClientWidth)) {
-                    case deviceHelper.MOBILE:
-                      return '移动端';
-                    case deviceHelper.DESKTOP:
-                      return '桌面端';
-                    default:
-                      return '';
-                  }
-                })()
+                isLogin() ? (
+                  <div>
+                    {/* 已登陆：从后端获取 id 给卡片 */}
+                  </div>
+                ) : (
+                  <div>
+                    {/* 未登陆：从后端获取 fullText 给卡片 */}
+                  </div>
+                )
               }
-            </p>
+              <div>{/* 右侧部分 */}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -55,12 +53,12 @@ class ZhichengReact extends React.Component {
   }
 }
 
-ZhichengReact.i18n = [
+VideoReact.i18n = [
   {},
   {}
 ];
 
-ZhichengReact.propTypes = {
+VideoReact.propTypes = {
   // self
 
   // React Router
@@ -71,10 +69,10 @@ ZhichengReact.propTypes = {
   bodyClientWidth: PropTypes.number.isRequired
 };
 
-export const Zhicheng = connect(
+export const Video = connect(
   (state) => {
     return {
       bodyClientWidth: state.bodyClientWidth
     };
   }
-)(ZhichengReact);
+)(VideoReact);
