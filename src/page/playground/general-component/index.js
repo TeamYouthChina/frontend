@@ -18,6 +18,7 @@ import {VideoCardBarAuth} from './video-card-bar-auth';
 import {VideoCardBarUnauth} from './video-card-bar-unauth';
 import {ReviewCardBarAuth} from '../general-component/review-card-bar-auth';
 import {ReviewCardBarUnauth} from '../general-component/review-card-bar-unauth';
+import {UserCardSquareAuth} from './user-card-square-auth';
 
 class GeneralComponentReact extends React.Component {
   constructor(props) {
@@ -324,11 +325,11 @@ class GeneralComponentReact extends React.Component {
             </div>
             <div className={classes.space}>
               <p>user-card-bar-auth</p>
-              {/* insert component here */}
+              
             </div>
             <div className={classes.space}>
               <p>user-card-square-auth</p>
-              {/* insert component here */}
+              <UserCardSquareAuth/>
             </div>
             <div className={classes.space}>
               <p>video-card-bar-auth</p>

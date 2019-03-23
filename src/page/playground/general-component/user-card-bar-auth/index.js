@@ -4,16 +4,46 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 import {languageHelper} from '../../../../tool/language-helper';
+import {mockGetAsync} from '../../../../tool/api-helper';
+import {content} from '../company-card-bar-auth/index.mock';
+//import classes from './index.module.css';
 
 class UserCardBarAuthReact extends React.Component {
   constructor(props) {
     super(props);
     // state
-    this.state = {};
+    this.state = {
+      mockDate:{
+        content:{
+          id: null,
+          name: null,
+          education:[
+            {
+              university: null,
+            }
+          ],
+          currentCompany:[
+            {
+              location:null
+            }
+          ]
+        },
+        status: {
+          code: null,
+          reason: null,
+        },
+      },
+    };
     // i18n
     this.text = UserCardBarAuthReact.i18n[languageHelper()];
   }
+  async componentDidMount() {
+    // const requestedData = await getAsync();
+    // this.setState({ cardData: requestedData, ...this.state });
 
+    const requestedData = await mockGetAsync(content);
+    this.setState({ ...this.state, mockData: requestedData});
+  }
   render() {
 
     return (
