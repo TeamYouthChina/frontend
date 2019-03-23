@@ -14,7 +14,7 @@ import icon from './amazon.svg';
 import { languageHelper } from '../../../../tool/language-helper';
 import { mockGetAsync } from '../../../../tool/api-helper';
 
-class CompanyCardBarAuthReact extends React.Component {
+class CompanyCardBarIdReact extends React.Component {
   constructor(props) {
     super(props);
     // state
@@ -36,7 +36,7 @@ class CompanyCardBarAuthReact extends React.Component {
       },
     };
     // i18n
-    this.text = CompanyCardBarAuthReact.i18n[languageHelper()];
+    this.text = CompanyCardBarIdReact.i18n[languageHelper()];
   }
 
   async componentDidMount() {
@@ -105,7 +105,7 @@ class CompanyCardBarAuthReact extends React.Component {
   }
 }
 
-CompanyCardBarAuthReact.i18n = [
+CompanyCardBarIdReact.i18n = [
   {
     unLike: '取消收藏',
     currently: '目前',
@@ -120,7 +120,7 @@ CompanyCardBarAuthReact.i18n = [
   },
 ];
 
-CompanyCardBarAuthReact.propTypes = {
+CompanyCardBarIdReact.propTypes = {
   // self
   id: PropTypes.string.isRequired,
 
@@ -132,10 +132,10 @@ CompanyCardBarAuthReact.propTypes = {
   bodyClientWidth: PropTypes.number.isRequired,
 };
 
-export const CompanyCardBarAuth = withRouter(
+export const CompanyCardBarId = withRouter(
   connect(state => {
     return {
       bodyClientWidth: state.bodyClientWidth,
     };
-  })(CompanyCardBarAuthReact)
+  })(CompanyCardBarIdReact)
 );

@@ -9,14 +9,14 @@ import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 /*
 import Zhenyi from './components';
 
-import AnswerCard  from '../general-component/answer-card-bar-auth/components/answer-card';
-import AnswerCardWithoutAuth  from '../general-component/answer-card-bar-unauth';
-import ReviewCard  from '../general-component/review-card-bar-auth';
-import ReviewCardWithoutAuth  from '../general-component/review-card-bar-unauth';
-import ArticleCard  from '../general-component/article-card-bar-auth';
-import {VideoCardBarAuth}  from '../general-component/video-card-bar-auth';
+import AnswerCard  from '../general-component/answer-card-bar-id/components/answer-card';
+import AnswerCardWithoutAuth  from '../general-component/answer-card-bar-fulltext';
+import ReviewCard  from '../general-component/review-card-bar-id';
+import ReviewCardWithoutAuth  from '../general-component/review-card-bar-fulltext';
+import ArticleCard  from '../general-component/article-card-bar-id';
+import {VideoCardBarAuth}  from '../general-component/video-card-bar-id';
 
-import data from '../general-component/answer-card-bar-auth/components/index.data';
+import data from '../general-component/answer-card-bar-id/components/index.data';
 */
 class ZhenyiReact extends React.Component {
   constructor(props) {
@@ -80,7 +80,7 @@ ZhenyiReact.propTypes = {
 export const ZhenyiWrapper = connect(
   (state) => {
     return {
-      bodyClientWidth: state.initial.bodyClientWidth
+      bodyClientWidth: state.bodyClientWidth
     };
   }
 )(ZhenyiReact);

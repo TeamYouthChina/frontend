@@ -9,16 +9,16 @@ import {VideoInfor} from './containers/video-infor';
 import {languageHelper} from '../../../../tool/language-helper';
 import {timeHelper} from '../../../../tool/time-helper';
 
-class VideoCardBarUnauthReact extends React.Component {
+class VideoCardBarFulltextReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {
-      backend: this.props.fullText,
+      backend: this.props.fulltext,
       createdTime: null
     };
     // i18n
-    this.text = VideoCardBarUnauthReact.i18n[languageHelper()];
+    this.text = VideoCardBarFulltextReact.i18n[languageHelper()];
   }
 
   componentDidMount() {
@@ -56,14 +56,14 @@ class VideoCardBarUnauthReact extends React.Component {
   }
 }
 
-VideoCardBarUnauthReact.i18n = [
+VideoCardBarFulltextReact.i18n = [
   {},
   {},
 ];
 
-VideoCardBarUnauthReact.propTypes = {
+VideoCardBarFulltextReact.propTypes = {
   // self
-  fullText: PropTypes.object.isRequired,
+  fulltext: PropTypes.object.isRequired,
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
@@ -72,10 +72,10 @@ VideoCardBarUnauthReact.propTypes = {
   bodyClientWidth: PropTypes.number.isRequired
 };
 
-export const VideoCardBarUnauth = withRouter(connect(
+export const VideoCardBarFulltext = withRouter(connect(
   (state) => {
     return {
       bodyClientWidth: state.bodyClientWidth
     };
   }
-)(VideoCardBarUnauthReact));
+)(VideoCardBarFulltextReact));

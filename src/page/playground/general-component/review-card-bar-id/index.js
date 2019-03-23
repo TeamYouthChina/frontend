@@ -6,13 +6,13 @@ import {withRouter} from 'react-router-dom';
 import AnswerCard from './components/answer-card';
 import {languageHelper} from '../../../../tool/language-helper';
 
-class ReviewCardBarAuthReact extends React.Component {
+class ReviewCardBarIdReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {};
     // i18n
-    this.text = ReviewCardBarAuthReact.i18n[languageHelper()];
+    this.text = ReviewCardBarIdReact.i18n[languageHelper()];
   }
 
   render() {
@@ -22,12 +22,12 @@ class ReviewCardBarAuthReact extends React.Component {
   }
 }
 
-ReviewCardBarAuthReact.i18n = [
+ReviewCardBarIdReact.i18n = [
   {},
   {}
 ];
 
-ReviewCardBarAuthReact.propTypes = {
+ReviewCardBarIdReact.propTypes = {
   // self
   id: PropTypes.number.isRequired,
   // React Router
@@ -38,10 +38,10 @@ ReviewCardBarAuthReact.propTypes = {
   bodyClientWidth: PropTypes.number.isRequired
 };
 
-export const ReviewCardBarAuth = withRouter(connect(
+export const ReviewCardBarId = withRouter(connect(
   (state) => {
     return {
       bodyClientWidth: state.bodyClientWidth
     };
   }
-)(ReviewCardBarAuthReact));
+)(ReviewCardBarIdReact));

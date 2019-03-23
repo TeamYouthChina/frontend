@@ -6,30 +6,30 @@ import {withRouter} from 'react-router-dom';
 import AnswerCard from './components/answer-card';
 import {languageHelper} from '../../../../tool/language-helper';
 
-class ReviewCardBarUnauthReact extends React.Component {
+class ArticleCardBarFulltextReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {};
     // i18n
-    this.text = ReviewCardBarUnauthReact.i18n[languageHelper()];
+    this.text = ArticleCardBarFulltextReact.i18n[languageHelper()];
   }
 
   render() {
     return (
-      <AnswerCard fullText={this.props.fullText} />
+      <AnswerCard fullText={this.props.fulltext} />
     );
   }
 }
 
-ReviewCardBarUnauthReact.i18n = [
+ArticleCardBarFulltextReact.i18n = [
   {},
   {}
 ];
 
-ReviewCardBarUnauthReact.propTypes = {
+ArticleCardBarFulltextReact.propTypes = {
   // self
-  fullText: PropTypes.object.isRequired,
+  fulltext: PropTypes.object.isRequired,
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
@@ -38,10 +38,10 @@ ReviewCardBarUnauthReact.propTypes = {
   bodyClientWidth: PropTypes.number.isRequired
 };
 
-export const ReviewCardBarUnauth = withRouter(connect(
+export const ArticleCardBarFulltext = withRouter(connect(
   (state) => {
     return {
       bodyClientWidth: state.bodyClientWidth
     };
   }
-)(ReviewCardBarUnauthReact));
+)(ArticleCardBarFulltextReact));
