@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {Redirect, withRouter} from 'react-router-dom';
+import {Redirect, withRouter, Link} from 'react-router-dom';
 
 import {languageHelper} from '../../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../../tool/remove-url-slash-suffix';
@@ -29,7 +29,7 @@ class AnswersReact extends React.Component {
       });
     } else {
       this.setState({
-        backend:data.content.answers[this.props.match.params.aid]
+        backend:data.content.answers[this.props.match.params.aid] !== undefined ? data.content.answers[this.props.match.params.aid] : 'redirect'
       });
     }
     
@@ -41,25 +41,35 @@ class AnswersReact extends React.Component {
       return (<Redirect to={pathname} />);
     }
     return (this.state.backend !== null) ? (
-      <React.Fragment>
-        <p className={classes.answerCount}>{this.props.answers.length}条回答</p>
-        <ReviewCardBarId id={this.props.answers[0]}/>
-        {this.state.backend.length === undefined ? (
-          <div>
-            <button>更多回答</button>
-          </div>
+      <div>
+        {this.state.backend === 'redirect' ? (
+          <Redirect to={{pathname:'/404'}}/>
         ) : (
-          <div>
-            <p className={classes.moreAnswer}>更多回答</p>
-            {this.state.backend.map((answer, index)=>{
-              return(
-                index > 0 ? (<ReviewCardBarId id={answer.id} key={answer.id}/>) : null
-              );
-            })}
-          </div>
-          
+          <React.Fragment>
+            <p className={classes.answerCount}>{this.props.answers.length}条回答</p>
+            <ReviewCardBarId id={this.props.answers[0]}/>
+            {this.state.backend.length === undefined ? (
+              <div style={{margin:'1.56vw 0vw'}}>
+                <Link to={{pathname:`/question/${this.props.match.params.qid}`}} className={`${classes.showMoreAnswer} btn-block`}>更多回答</Link>
+              </div>
+            ) : (
+              <div>
+                <p className={classes.moreAnswer}>更多回答</p>
+                {this.state.backend.map((answer, index)=>{
+                  return(
+                    index > 0 ? (
+                      <div key={answer.id} style={{marginBottom:'1.56vw'}}>
+                        <ReviewCardBarId id={answer.id} />
+                      </div>
+                    ) : null
+                  );
+                })}
+              </div>
+
+            )}
+          </React.Fragment>
         )}
-      </React.Fragment>
+      </div>
     ) : (
       <div>
         loading

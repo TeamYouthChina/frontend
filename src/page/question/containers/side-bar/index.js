@@ -6,9 +6,10 @@ import {Redirect, withRouter} from 'react-router-dom';
 import {languageHelper} from '../../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../../tool/remove-url-slash-suffix';
 
-import {MDBListGroup,MDBListGroupItem,MDBIcon,MDBCol} from 'mdbreact';
+import {MDBCol} from 'mdbreact';
 
-// import classes from './sidebar.module.css';
+import GroupList from './group-list';
+import Related from './related';
 
 class SideBarReact extends React.Component {
   constructor(props) {
@@ -32,32 +33,9 @@ class SideBarReact extends React.Component {
     }
     return (this.state.backend !== null) ? (
       <React.Fragment>
-        <MDBCol>
-          <MDBListGroup style={{
-            fontSize: '16px'
-          }}>
-            <MDBListGroupItem
-              hover
-              href="/article/create"
-              className="d-flex justify-content-center align-items-center"
-              style={{color: '#454F69', borderTopWidth: 0, borderLeftWidth: 0, borderRightWidth: 0}}>
-              <MDBIcon fa icon="edit" className="mr-2"/> 写文章
-            </MDBListGroupItem>
-            <MDBListGroupItem
-              hover
-              href="/question/create"
-              className="d-flex justify-content-center align-items-center"
-              style={{color: '#454F69', borderLeftWidth: 0, borderRightWidth: 0}}>
-              <MDBIcon far icon="question-circle" className="mr-2"/> 提问题
-            </MDBListGroupItem>
-            <MDBListGroupItem
-              hover
-              href="/review/create"
-              className="d-flex justify-content-center align-items-center"
-              style={{color: '#454F69', borderLeftWidth: 0, borderRightWidth: 0}}>
-              <MDBIcon fal icon="comments" className="mr-2"/> 写短评
-            </MDBListGroupItem>
-          </MDBListGroup>
+        <MDBCol style={{width:'15.39vw',marginLeft:'1.56vw',padding:'0'}}>
+          <GroupList />
+          <Related related={[1,2,3]}/>
         </MDBCol>
       </React.Fragment>
     ) : (
@@ -75,7 +53,6 @@ SideBarReact.i18n = [
 
 SideBarReact.propTypes = {
   // self
-  answers:PropTypes.array.isRequired,
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
