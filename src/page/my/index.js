@@ -8,7 +8,6 @@ import {CollectionSwitch} from './collection/index.switch';
 import {Message} from './message';
 import {Notification} from './notification';
 import {Profile} from './profile';
-import {Setting} from './setting';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 
@@ -58,10 +57,6 @@ class MyReact extends React.Component {
           <Route
             path={`${this.props.match.url}/profile`}
             component={routeProps => <Profile {...routeProps} />}
-          />
-          <Route
-            path={`${this.props.match.url}/setting`}
-            component={routeProps => <Setting {...routeProps} />}
           />
           <Redirect to={`${this.props.match.url}/profile`} />
         </Switch>

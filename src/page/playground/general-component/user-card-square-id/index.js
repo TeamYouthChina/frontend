@@ -9,23 +9,23 @@ import {mockGetAsync} from '../../../../tool/api-helper';
 import {content} from './index.mock';
 import {getType} from '../../../../tool/device-helper';
 
-class UserCardSquareAuthReact extends React.Component {
+class UserCardSquareIdReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {
-      mockData:{
-        content:{
+      mockData: {
+        content: {
           id: null,
           name: null,
-          education:[
+          education: [
             {
               university: null,
             }
           ],
-          works:[
+          works: [
             {
-              position:null,
+              position: null,
             }
           ]
         },
@@ -36,14 +36,15 @@ class UserCardSquareAuthReact extends React.Component {
       },
     };
     // i18n
-    this.text = UserCardSquareAuthReact.i18n[languageHelper()];
+    this.text = UserCardSquareIdReact.i18n[languageHelper()];
   }
+
   async componentDidMount() {
     // const requestedData = await getAsync();
     // this.setState({ cardData: requestedData, ...this.state });
 
     const requestedData = await mockGetAsync(content);
-    this.setState({ ...this.state, mockData: requestedData});
+    this.setState({...this.state, mockData: requestedData});
   }
 
   render() {
@@ -74,15 +75,14 @@ class UserCardSquareAuthReact extends React.Component {
   }
 }
 
-UserCardSquareAuthReact.i18n = [
+UserCardSquareIdReact.i18n = [
   {},
   {}
 ];
 
-UserCardSquareAuthReact.propTypes = {
+UserCardSquareIdReact.propTypes = {
   // self
   id: PropTypes.string.isRequired,
-  
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
@@ -91,10 +91,10 @@ UserCardSquareAuthReact.propTypes = {
   bodyClientWidth: PropTypes.number.isRequired
 };
 
-export const UserCardSquareAuth = withRouter(connect(
+export const UserCardSquareId = withRouter(connect(
   (state) => {
     return {
       bodyClientWidth: state.bodyClientWidth
     };
   }
-)(UserCardSquareAuthReact));
+)(UserCardSquareIdReact));
