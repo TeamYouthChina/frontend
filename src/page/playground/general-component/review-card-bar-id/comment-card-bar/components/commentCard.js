@@ -71,8 +71,8 @@ export class CommentCard extends React.Component {
               />
 
               <span onClick={this.showRepliesFunc} flat="true" style={{fontSize: '1.093vw', color: '#31394D', ...basicFont}}>
-                {this.showCommentsText}<MDBIcon style={{marginLeft: '.196vw'}} far icon="arrow-down" /></span>
-              {this.showReplies ? (
+                {this.state.showCommentsText}<MDBIcon style={{marginLeft: '.196vw'}} far icon="arrow-down" /></span>
+              {this.state.showReplies ? (
                 this.state.allReplies.map((item) => (
                   <MDBRow key={item}>
                     <MDBCol size="12">
