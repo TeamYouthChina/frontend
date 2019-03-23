@@ -82,17 +82,22 @@ class SignedInReact extends React.Component {
         </div>
         <MDBNavbarNav
           right
-          className="mr-md-3"
         >
           <MDBNavItem
-            className="p-0 align-items-center">
+            className="p-0 align-items-center"
+          >
             <MDBDropdown>
-              <MDBDropdownToggle nav className="py-0">
+              <MDBDropdownToggle 
+                nav 
+                className="py-0"
+                style={{
+                  width:'5.125vw',
+                }}>
                 <img
                   style={getType(this.props.bodyClientWidth) === 1 ? {width: '30px'} : {width: '50px'}}
                   src="https://vignette.wikia.nocookie.net/pkmnshuffle/images/7/7e/Pikachu_%28Dizzy%29.png/revision/latest?cb=20170410223549"
                   // src="https://s2.ax1x.com/2019/01/27/kuUMYq.jpg"
-                  className="rounded-circle z-depth-1-half img-fluid p-0 float-right"
+                  className="rounded-circle img-fluid p-0 float-right w-100"
                   alt="Sample avatar"
                 />
               </MDBDropdownToggle>

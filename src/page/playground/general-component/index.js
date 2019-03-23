@@ -18,6 +18,8 @@ import {VideoCardBarId} from './video-card-bar-id';
 import {VideoCardBarFulltext} from './video-card-bar-fulltext';
 import {ReviewCardBarId} from './review-card-bar-id';
 import {ReviewCardBarFulltext} from './review-card-bar-fulltext';
+import {UserCardSquareAuth} from './user-card-square-auth';
+import {UserCardBarAuth} from './user-card-bar-auth';
 
 class GeneralComponentReact extends React.Component {
   constructor(props) {
@@ -324,11 +326,11 @@ class GeneralComponentReact extends React.Component {
             </div>
             <div className={classes.space}>
               <p>user-card-bar-id</p>
-              {/* insert component here */}
+              <UserCardBarAuth/>
             </div>
             <div className={classes.space}>
               <p>user-card-square-id</p>
-              {/* insert component here */}
+              <UserCardSquareAuth/>
             </div>
             <div className={classes.space}>
               <p>video-card-bar-id</p>

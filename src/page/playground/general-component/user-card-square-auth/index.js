@@ -6,7 +6,7 @@ import {withRouter} from 'react-router-dom';
 import {languageHelper} from '../../../../tool/language-helper';
 import classes from './index.module.css';
 import {mockGetAsync} from '../../../../tool/api-helper';
-import {content} from '../company-card-bar-auth/index.mock';
+import {content} from './index.mock';
 import {getType} from '../../../../tool/device-helper';
 
 class UserCardSquareAuthReact extends React.Component {
@@ -18,8 +18,6 @@ class UserCardSquareAuthReact extends React.Component {
         content:{
           id: null,
           name: null,
-          university:null,
-          position:null,
           education:[
             {
               university: null,
@@ -57,14 +55,14 @@ class UserCardSquareAuthReact extends React.Component {
             style={getType(this.props.bodyClientWidth) === 1 ? {width: '50px'} : {width: '70px'}}
             src="https://vignette.wikia.nocookie.net/pkmnshuffle/images/7/7e/Pikachu_%28Dizzy%29.png/revision/latest?cb=20170410223549"
             // src="https://s2.ax1x.com/2019/01/27/kuUMYq.jpg"
-            className="rounded-circle z-depth-1-half img-fluid p-0 float-right"
+            className="rounded-circle img-fluid p-0 float-right"
             alt="Sample avatar"
           />
         </div>
         <div>
-          <div className={classes.name}>1{this.state.mockData.content.name}</div>
-          <div className={classes.position}>2{this.state.mockData.content.position}</div>
-          <div className={classes.university}>3{this.state.mockData.content.university}</div>
+          <div className={classes.name}>{this.state.mockData.content.name}</div>
+          <div className={classes.position}>{this.state.mockData.content.works[0].position}</div>
+          <div className={classes.university}>{this.state.mockData.content.education[0].university}</div>
         </div>
         <div className={classes.btn}>
           <div className={classes.friend}>
