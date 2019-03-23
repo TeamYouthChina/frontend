@@ -3,18 +3,19 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Redirect, Route, Switch} from 'react-router-dom';
 
-import {Insight} from './insight';
-import {Video} from './video';
+import {Campus} from './campus';
+import {General} from './general';
+import {Intern} from './intern';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 
-class DiscoveryReact extends React.Component {
+class JobForYouReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {};
     // i18n
-    this.text = DiscoveryReact.i18n[languageHelper()];
+    this.text = JobForYouReact.i18n[languageHelper()];
   }
 
   render() {
@@ -27,26 +28,30 @@ class DiscoveryReact extends React.Component {
         {/* 二级导航条 */}
         <Switch>
           <Route
-            path={`${this.props.match.url}/insight`}
-            component={routeProps => <Insight {...routeProps} />}
+            path={`${this.props.match.url}/campus`}
+            component={routeProps => <Campus {...routeProps} />}
           />
           <Route
-            path={`${this.props.match.url}/video`}
-            component={routeProps => <Video {...routeProps} />}
+            path={`${this.props.match.url}/general`}
+            component={routeProps => <General {...routeProps} />}
           />
-          <Redirect to={`${this.props.match.url}/insight`} />
+          <Route
+            path={`${this.props.match.url}/intern`}
+            component={routeProps => <Intern {...routeProps} />}
+          />
+          <Redirect to={`${this.props.match.url}/campus`} />
         </Switch>
       </div>
     );
   }
 }
 
-DiscoveryReact.i18n = [
+JobForYouReact.i18n = [
   {},
   {}
 ];
 
-DiscoveryReact.propTypes = {
+JobForYouReact.propTypes = {
   // self
 
   // React Router
@@ -57,10 +62,10 @@ DiscoveryReact.propTypes = {
   bodyClientWidth: PropTypes.number.isRequired
 };
 
-export const Discovery = connect(
+export const JobForYou = connect(
   (state) => {
     return {
       bodyClientWidth: state.bodyClientWidth
     };
   }
-)(DiscoveryReact);
+)(JobForYouReact);
