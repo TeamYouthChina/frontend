@@ -6,9 +6,9 @@
   clear: both;
 }
 .page-container {
-  zoom: 1
+  zoom: 1;
+  padding-left: 0;
 }
-
 .page-container li {
   list-style: none;
   float: left;
