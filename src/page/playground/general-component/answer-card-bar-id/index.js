@@ -6,13 +6,13 @@ import {withRouter} from 'react-router-dom';
 import AnswerCard from './components/answer-card';
 import {languageHelper} from '../../../../tool/language-helper';
 
-class AnswerCardBarAuthReact extends React.Component {
+class AnswerCardBarIdReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {};
     // i18n
-    this.text = AnswerCardBarAuthReact.i18n[languageHelper()];
+    this.text = AnswerCardBarIdReact.i18n[languageHelper()];
   }
 
   render() {
@@ -22,12 +22,12 @@ class AnswerCardBarAuthReact extends React.Component {
   }
 }
 
-AnswerCardBarAuthReact.i18n = [
+AnswerCardBarIdReact.i18n = [
   {},
   {}
 ];
 
-AnswerCardBarAuthReact.propTypes = {
+AnswerCardBarIdReact.propTypes = {
   // self
   id: PropTypes.number.isRequired,
   // React Router
@@ -38,10 +38,10 @@ AnswerCardBarAuthReact.propTypes = {
   bodyClientWidth: PropTypes.number.isRequired
 };
 
-export const AnswerCardBarAuth = withRouter(connect(
+export const AnswerCardBarId = withRouter(connect(
   (state) => {
     return {
       bodyClientWidth: state.bodyClientWidth
     };
   }
-)(AnswerCardBarAuthReact));
+)(AnswerCardBarIdReact));

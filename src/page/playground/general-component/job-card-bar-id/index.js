@@ -15,7 +15,7 @@ import { mockGetAsync } from '../../../../tool/api-helper';
 
 import { content } from './index.mock';
 
-class JobCardBarAuthReact extends React.Component {
+class JobCardBarIdReact extends React.Component {
   constructor(props) {
     super(props);
     // state
@@ -46,7 +46,7 @@ class JobCardBarAuthReact extends React.Component {
       },
     };
     // i18n
-    this.text = JobCardBarAuthReact.i18n[languageHelper()];
+    this.text = JobCardBarIdReact.i18n[languageHelper()];
   }
 
   async componentDidMount() {
@@ -117,7 +117,7 @@ class JobCardBarAuthReact extends React.Component {
   }
 }
 
-JobCardBarAuthReact.i18n = [
+JobCardBarIdReact.i18n = [
   {
     geYue: '个月',
     shenQingJieZhi: '申请截止',
@@ -130,7 +130,7 @@ JobCardBarAuthReact.i18n = [
   },
 ];
 
-JobCardBarAuthReact.propTypes = {
+JobCardBarIdReact.propTypes = {
   // self
   id: PropTypes.string.isRequired,
 
@@ -142,10 +142,10 @@ JobCardBarAuthReact.propTypes = {
   bodyClientWidth: PropTypes.number.isRequired,
 };
 
-export const JobCardBarAuth = withRouter(
+export const JobCardBarId = withRouter(
   connect(state => {
     return {
       bodyClientWidth: state.bodyClientWidth,
     };
-  })(JobCardBarAuthReact)
+  })(JobCardBarIdReact)
 );

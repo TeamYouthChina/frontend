@@ -42,6 +42,8 @@ class ZhichengReact extends React.Component {
                       return '移动端';
                     case deviceHelper.DESKTOP:
                       return '桌面端';
+                    default:
+                      return '';
                   }
                 })()
               }

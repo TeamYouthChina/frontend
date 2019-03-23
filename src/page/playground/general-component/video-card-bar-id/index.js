@@ -11,7 +11,7 @@ import {languageHelper} from '../../../../tool/language-helper';
 import {mockGetAsync} from '../../../../tool/api-helper';
 import {timeHelper} from '../../../../tool/time-helper';
 
-class VideoCardBarAuthReact extends React.Component {
+class VideoCardBarIdReact extends React.Component {
   constructor(props) {
     super(props);
     // state
@@ -20,7 +20,7 @@ class VideoCardBarAuthReact extends React.Component {
       createdTime: null
     };
     // i18n
-    this.text = VideoCardBarAuthReact.i18n[languageHelper()];
+    this.text = VideoCardBarIdReact.i18n[languageHelper()];
   }
 
   async componentDidMount() {
@@ -76,12 +76,12 @@ class VideoCardBarAuthReact extends React.Component {
   }
 }
 
-VideoCardBarAuthReact.i18n = [
+VideoCardBarIdReact.i18n = [
   {},
   {},
 ];
 
-VideoCardBarAuthReact.propTypes = {
+VideoCardBarIdReact.propTypes = {
   // self
   id: PropTypes.number.isRequired,
   // React Router
@@ -92,11 +92,11 @@ VideoCardBarAuthReact.propTypes = {
   bodyClientWidth: PropTypes.number
 };
 
-export const VideoCardBarAuth = withRouter(connect(
+export const VideoCardBarId = withRouter(connect(
   (state) => {
     return {
       bodyClientWidth: state.bodyClientWidth
     };
   }
-)(VideoCardBarAuthReact));
+)(VideoCardBarIdReact));
 

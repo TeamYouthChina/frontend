@@ -3,33 +3,33 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
-import AnswerCard from '../answer-card-bar-unauth/components/answer-card';
+import AnswerCard from './components/answer-card';
 import {languageHelper} from '../../../../tool/language-helper';
 
-class AnswerCardBarUnauthReact extends React.Component {
+class ArticleCardBarIdReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {};
     // i18n
-    this.text = AnswerCardBarUnauthReact.i18n[languageHelper()];
+    this.text = ArticleCardBarIdReact.i18n[languageHelper()];
   }
 
   render() {
     return (
-      <AnswerCard fullText={this.props.fullText} />
+      <AnswerCard articleId={this.props.id} />
     );
   }
 }
 
-AnswerCardBarUnauthReact.i18n = [
+ArticleCardBarIdReact.i18n = [
   {},
   {}
 ];
 
-AnswerCardBarUnauthReact.propTypes = {
+ArticleCardBarIdReact.propTypes = {
   // self
-  fullText: PropTypes.object.isRequired,
+  id: PropTypes.number.isRequired,
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
@@ -38,10 +38,10 @@ AnswerCardBarUnauthReact.propTypes = {
   bodyClientWidth: PropTypes.number.isRequired
 };
 
-export const AnswerCardBarUnauth = withRouter(connect(
+export const ArticleCardBarId = withRouter(connect(
   (state) => {
     return {
       bodyClientWidth: state.bodyClientWidth
     };
   }
-)(AnswerCardBarUnauthReact));
+)(ArticleCardBarIdReact));
