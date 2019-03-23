@@ -97,13 +97,13 @@ class UserCardBarAuthReact extends React.Component {
             </div>
             <div>
               <p className={classes.education}>
-                {this.state.mockData.content.education[0].major} <span className="red-text h4">API没有</span>
+                {this.state.mockData.content.education[0].major} <span className="red-text h6">API没有</span>
               </p>
               <p className={classes.info}>
                 {this.state.mockData.content.education[0].university}
               </p>
               <p className={classes.info}>
-                {this.state.mockData.content.education[0].organization} <span className="red-text h4">API没有</span>
+                {this.state.mockData.content.education[0].organization} <span className="red-text h6">API没有</span>
               </p>
             </div>
           </div>
