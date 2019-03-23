@@ -10,43 +10,43 @@ import classes from './index.module.css';
 
 import {getType} from '../../../../tool/device-helper';
 
-class UserCardBarAuthReact extends React.Component {
+class UserCardBarIdReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {
-      mockData:{
-        content :{
+      mockData: {
+        content: {
           id: null,
           name: null,
-          university:null,
-          position:null,
-          education:[
+          university: null,
+          position: null,
+          education: [
             {
               university: null,
-              degree:null,
-              duration:[{
-                end:null
+              degree: null,
+              duration: [{
+                end: null
               }],
-              major:null
+              major: null
             }
           ],
-          works:[
+          works: [
             {
-              id:null,
-              name:null,
-              duration:[{
-                begin:null
+              id: null,
+              name: null,
+              duration: [{
+                begin: null
               }],
-              position:null,
+              position: null,
             },
             {
-              id:null,
-              name:null,
-              duration:[{
-                begin:null
+              id: null,
+              name: null,
+              duration: [{
+                begin: null
               }],
-              position:null,
+              position: null,
             }
           ]
         },
@@ -57,15 +57,17 @@ class UserCardBarAuthReact extends React.Component {
       },
     };
     // i18n
-    this.text = UserCardBarAuthReact.i18n[languageHelper()];
+    this.text = UserCardBarIdReact.i18n[languageHelper()];
   }
+
   async componentDidMount() {
     // const requestedData = await getAsync();
     // this.setState({ cardData: requestedData, ...this.state });
 
     const requestedData = await mockGetAsync(content);
-    this.setState({ ...this.state, mockData: requestedData});
+    this.setState({...this.state, mockData: requestedData});
   }
+
   render() {
 
     return (
@@ -113,21 +115,20 @@ class UserCardBarAuthReact extends React.Component {
             加为好友
           </div>
         </div>
-       
+
       </div>
     );
   }
 }
 
-UserCardBarAuthReact.i18n = [
+UserCardBarIdReact.i18n = [
   {},
   {}
 ];
 
-UserCardBarAuthReact.propTypes = {
+UserCardBarIdReact.propTypes = {
   // self
   id: PropTypes.string.isRequired,
-  
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
@@ -136,10 +137,10 @@ UserCardBarAuthReact.propTypes = {
   bodyClientWidth: PropTypes.number.isRequired
 };
 
-export const UserCardBarAuth = withRouter(connect(
+export const UserCardBarId = withRouter(connect(
   (state) => {
     return {
       bodyClientWidth: state.bodyClientWidth
     };
   }
-)(UserCardBarAuthReact));
+)(UserCardBarIdReact));
