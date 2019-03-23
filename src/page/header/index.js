@@ -42,7 +42,7 @@ class HeaderReact extends React.Component {
               <div className="cell-wall">
                 <div className={`cell-membrane ${classes['header-flex']} align-items-center`}>
                   
-                  <MDBNavbarBrand className={`mx-sm-4 py-2 ${classes.yc}`} href="/choice">
+                  <MDBNavbarBrand className={`py-2 ${classes.yc}`} href="/choice">
                     <MDBIcon className="mr-sm-2" icon="cubes" />
                     职 道
                   </MDBNavbarBrand>
