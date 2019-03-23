@@ -97,12 +97,12 @@ class Comments extends React.Component {
           />
         ))}
         {this.state.commentLists.length !== 0 ? (
-          <MDBRow center style={{marginTop: '10px'}}>
+          <div style={{marginTop: '10px',display:'flex',justifyContent:'center'}}>
             <PaginationUse
               pageConfig={{totalPage: Math.ceil(this.state.commentLists.length / 3)}}
               pageCallbackFn={this.getCurrentPage}
             />
-          </MDBRow>
+          </div>
         ) : null}
         <MDBRow center style={{marginTop: '9px'}}>
           <MDBBtn onClick={this.props.showComments} flat style={{margin: '0px', padding: '5px 10px', fontSize: '14px', color: '#8D9AAF', ...basicFont}}>
