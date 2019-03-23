@@ -8,7 +8,7 @@ import {removeUrlSlashSuffix} from '../../../../tool/remove-url-slash-suffix';
 
 import {ReviewCardBarId} from '../../../playground/general-component/review-card-bar-id';
 
-import data from '../../data/';
+import data from '../../data';
 import classes from './answers.module.css';
 
 class AnswersReact extends React.Component {
