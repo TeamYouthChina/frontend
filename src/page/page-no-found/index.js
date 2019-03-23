@@ -46,7 +46,7 @@ PageNoFoundReact.propTypes = {
 export const PageNoFound = connect(
   (state) => {
     return {
-      bodyClientWidth: state.initial.bodyClientWidth
+      bodyClientWidth: state.bodyClientWidth
     };
   }
 )(PageNoFoundReact);
