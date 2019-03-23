@@ -3,13 +3,27 @@ import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import {Provider} from 'react-redux';
 
 import {AnswerEdit} from './page/answer-edit';
+import {Article} from './page/article';
+import {ArticleEdit} from './page/article-edit';
+import {BestForYou} from './page/best-for-you';
+import {Company} from './page/company';
+import {Connection} from './page/connection';
+import {CreateResume} from './page/create-resume';
+import {Discovery} from './page/discovery';
 import {Footer} from './page/footer';
 import {Header} from './page/header';
+import {Help} from './page/help';
+import {Job} from './page/job';
+import {Login} from './page/login';
+import {OnlineApplication} from './page/online-application';
+import {Promotion} from './page/promotion';
 import {PageNoFound} from './page/page-no-found';
 import {Playground} from './page/playground';
 import {Question} from './page/question';
 import {QuestionEdit} from './page/question-edit';
-import {Search} from './page/playground/yu3tong/page/search';
+import {Search} from './page/search';
+import {Video} from './page/video';
+import {VideoEdit} from './page/video-edit';
 import {store} from './redux/store';
 import * as actionJs from './redux/action';
 
@@ -41,15 +55,59 @@ export class App extends React.Component {
               <Route
                 path="/"
                 exact
-                component={() => <Redirect to="/playground" />}
+                component={() => <Redirect to="/promotion" />}
+              />
+              <Route
+                path="/article/:id/edit"
+                component={routeProps => <ArticleEdit {...routeProps} create={false} />}
+              />
+              <Route
+                path="/article/create"
+                component={routeProps => <ArticleEdit {...routeProps} create={true} />}
+              />
+              <Route
+                path="/article/:id"
+                component={routeProps => <Article {...routeProps} />}
+              />
+              <Route
+                path="/best-for-you"
+                component={routeProps => <BestForYou {...routeProps} />}
+              />
+              <Route
+                path="/company/:id"
+                component={routeProps => <Company {...routeProps} />}
+              />
+              <Route
+                path="/connection"
+                component={routeProps => <Connection {...routeProps} />}
+              />
+              <Route
+                path="/discovery"
+                component={routeProps => <Discovery {...routeProps} />}
+              />
+              <Route
+                path="/help"
+                component={routeProps => <Help {...routeProps} />}
+              />
+              <Route
+                path="/job/:id"
+                component={routeProps => <Job {...routeProps} />}
+              />
+              <Route
+                path="/login"
+                component={routeProps => <Login {...routeProps} />}
+              />
+              <Route
+                path="/promotion"
+                component={routeProps => <Promotion {...routeProps} />}
               />
               <Route
                 path="/question/:qid/answer/:aid/edit"
-                component={routeProps => <AnswerEdit{...routeProps} create={false} />}
+                component={routeProps => <AnswerEdit {...routeProps} create={false} />}
               />
               <Route
                 path="/question/:qid/answer/create"
-                component={routeProps => <AnswerEdit{...routeProps} create={true} />}
+                component={routeProps => <AnswerEdit {...routeProps} create={true} />}
               />
               <Route
                 path="/question/:qid/answer/:aid"
@@ -57,11 +115,11 @@ export class App extends React.Component {
               />
               <Route
                 path="/question/:qid/edit"
-                component={routeProps => <QuestionEdit{...routeProps} create={false} />}
+                component={routeProps => <QuestionEdit {...routeProps} create={false} />}
               />
               <Route
                 path="/question/create"
-                component={routeProps => <QuestionEdit{...routeProps} create={true} />}
+                component={routeProps => <QuestionEdit {...routeProps} create={true} />}
               />
               <Route
                 path="/question/:qid"
@@ -71,12 +129,34 @@ export class App extends React.Component {
                 path="/search"
                 component={routeProps => <Search {...routeProps} />}
               />
-              {/* ====== playground BEGIN====== */}
+              <Route
+                path="/video/:id/edit"
+                component={routeProps => <VideoEdit {...routeProps} create={false} />}
+              />
+              <Route
+                path="/video/create"
+                component={routeProps => <VideoEdit {...routeProps} create={true} />}
+              />
+              <Route
+                path="/video/:id"
+                component={routeProps => <Video {...routeProps} />}
+              />
+              {/* ====== path might change: BEGIN ====== */}
+              <Route
+                path="/create-resume"
+                component={routeProps => <CreateResume {...routeProps} />}
+              />
+              <Route
+                path="/online-application"
+                component={routeProps => <OnlineApplication {...routeProps} />}
+              />
+              {/* ====== path might change: END ====== */}
+              {/* ====== playground: BEGIN ====== */}
               <Route
                 path="/playground"
                 component={routeProps => <Playground {...routeProps} />}
               />
-              {/* ====== playground END====== */}
+              {/* ====== playground: END ====== */}
               <Route
                 path="/page-no-found"
                 component={routeProps => <PageNoFound {...routeProps} />}
