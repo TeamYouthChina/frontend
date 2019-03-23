@@ -26,7 +26,19 @@ class Header2React extends React.Component {
             className="cell-membrane"
           >
             <div className={classes.content}>
-
+              <div 
+                className={classes.interval}
+                style={this.props.location.pathname.indexOf('/') > -1 ? {borderBottom: '4px solid #4F65E1',color:'#4F65E1'} : null}
+              >
+                校园招聘
+              </div>
+              <div className={classes.interval}>
+                社会招聘
+              </div>
+              <div className={classes.interval}>
+                实习
+              </div>
+              
             </div>
           </div>
         </div>
