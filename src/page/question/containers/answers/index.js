@@ -6,7 +6,7 @@ import {Redirect, withRouter} from 'react-router-dom';
 import {languageHelper} from '../../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../../tool/remove-url-slash-suffix';
 
-import {ReviewCardBarAuth} from '../../../playground/general-component/review-card-bar-auth';
+import {ReviewCardBarId} from '../../../playground/general-component/review-card-bar-id';
 
 import data from '../../data/';
 import classes from './answers.module.css';
@@ -43,7 +43,7 @@ class AnswersReact extends React.Component {
     return (this.state.backend !== null) ? (
       <React.Fragment>
         <p className={classes.answerCount}>{this.props.answers.length}条回答</p>
-        <ReviewCardBarAuth id={this.props.answers[0]}/>
+        <ReviewCardBarId id={this.props.answers[0]}/>
         {this.state.backend.length === undefined ? (
           <div>
             <button>更多回答</button>
@@ -53,7 +53,7 @@ class AnswersReact extends React.Component {
             <p className={classes.moreAnswer}>更多回答</p>
             {this.state.backend.map((answer, index)=>{
               return(
-                index > 0 ? (<ReviewCardBarAuth id={answer.id} key={answer.id}/>) : null
+                index > 0 ? (<ReviewCardBarId id={answer.id} key={answer.id}/>) : null
               );
             })}
           </div>

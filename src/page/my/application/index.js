@@ -5,15 +5,14 @@ import {Redirect} from 'react-router-dom';
 
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
-import * as deviceHelper from '../../../tool/device-helper';
 
-class ZhichengReact extends React.Component {
+class ApplicationReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {};
     // i18n
-    this.text = ZhichengReact.i18n[languageHelper()];
+    this.text = ApplicationReact.i18n[languageHelper()];
   }
 
   render() {
@@ -28,26 +27,8 @@ class ZhichengReact extends React.Component {
         >
           <div
             className="cell-membrane"
-            style={{
-              backgroundColor: 'yellow'
-            }}
           >
-            <p>逻辑分辨率：{this.props.bodyClientWidth}px</p>
-            <p>
-              设备类型：
-              {
-                (() => {
-                  switch (deviceHelper.getType(this.props.bodyClientWidth)) {
-                    case deviceHelper.MOBILE:
-                      return '移动端';
-                    case deviceHelper.DESKTOP:
-                      return '桌面端';
-                    default:
-                      return '';
-                  }
-                })()
-              }
-            </p>
+
           </div>
         </div>
       </div>
@@ -55,12 +36,12 @@ class ZhichengReact extends React.Component {
   }
 }
 
-ZhichengReact.i18n = [
+ApplicationReact.i18n = [
   {},
   {}
 ];
 
-ZhichengReact.propTypes = {
+ApplicationReact.propTypes = {
   // self
 
   // React Router
@@ -71,10 +52,10 @@ ZhichengReact.propTypes = {
   bodyClientWidth: PropTypes.number.isRequired
 };
 
-export const Zhicheng = connect(
+export const Application = connect(
   (state) => {
     return {
       bodyClientWidth: state.bodyClientWidth
     };
   }
-)(ZhichengReact);
+)(ApplicationReact);
