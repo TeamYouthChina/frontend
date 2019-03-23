@@ -11,7 +11,7 @@ import {AnswerCardBarId} from './answer-card-bar-id';
 import {AnswerCardBarFulltext} from './answer-card-bar-fulltext';
 import {ArticleCardBarFulltext} from './article-card-bar-fulltext';
 import {ArticleCardBarId} from './article-card-bar-id';
-import {Header2} from './header-2';
+import {Header2} from '../../header-2';
 import {CompanyCardBarId} from './company-card-bar-id/index';
 import {JobCardBarId} from './job-card-bar-id';
 import {VideoCardBarId} from './video-card-bar-id';
@@ -45,7 +45,33 @@ class GeneralComponentReact extends React.Component {
     }
     return (
       <div>
-        <Header2 />
+        <Header2
+          align="center"
+          backgroundColor="white"
+          intervalVw={4.2}
+          itemList={[
+            {
+              name: '名称1',
+              subPath: '/sub-path-1'
+            },
+            {
+              name: '名称2',
+              subPath: '/sub-path-2'
+            },
+            {
+              name: '名称3',
+              subPath: '/sub-path-3'
+            },
+            {
+              name: '名称4',
+              subPath: '/sub-path-4'
+            },
+            {
+              name: '名称5',
+              subPath: '/sub-path-5'
+            }
+          ]}
+        />
         <div
           className={`cell-wall ${classes.background}`}
         >
