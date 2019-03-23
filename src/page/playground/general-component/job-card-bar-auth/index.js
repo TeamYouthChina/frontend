@@ -52,7 +52,7 @@ class JobCardBarAuthReact extends React.Component {
   async componentDidMount() {
     // const requestedData = await getAsync();
     // this.setState({ ...this.state, cardData: requestedData, });
-    const requestedData = await mockGetAsync(content);
+    const requestedData = await mockGetAsync(content,6000);
     this.setState({ ...this.state, cardData: requestedData });
   }
 
