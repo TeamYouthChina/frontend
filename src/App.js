@@ -21,7 +21,10 @@ import {PageNoFound} from './page/page-no-found';
 import {Playground} from './page/playground';
 import {Question} from './page/question';
 import {QuestionEdit} from './page/question-edit';
+import {Review} from './page/review';
+import {ReviewEdit} from './page/review-edit';
 import {Search} from './page/search';
+import {Setting} from './page/setting';
 import {Video} from './page/video';
 import {VideoEdit} from './page/video-edit';
 import {store} from './redux/store';
@@ -126,8 +129,24 @@ export class App extends React.Component {
                 component={routeProps => <Question {...routeProps} />}
               />
               <Route
+                path="/review/:id/edit"
+                component={routeProps => <ReviewEdit {...routeProps} create={false} />}
+              />
+              <Route
+                path="/review/create"
+                component={routeProps => <ReviewEdit {...routeProps} create={true} />}
+              />
+              <Route
+                path="/review/:id"
+                component={routeProps => <Review {...routeProps} />}
+              />
+              <Route
                 path="/search"
                 component={routeProps => <Search {...routeProps} />}
+              />
+              <Route
+                path="/setting"
+                component={routeProps => <Setting {...routeProps} />}
               />
               <Route
                 path="/video/:id/edit"
