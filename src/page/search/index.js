@@ -88,7 +88,7 @@ class SearchReact extends React.Component {
                 <MDBCol className="mt-5 p-0 d-flex align-items-center">
                   <MDBIcon className={`${classes.searchIcon} mr-1 mr-md-3`} icon="search" size="2x" />
                   <input
-                    className={`flex-fill m-0 p-0 form-control ${classes.searchInput}`}
+                    className={`flex-fill p-0 form-control ${classes.searchInput}`}
                     placeholder="通过以下方式搜索"
                     style={{
                       fontSize: '36px',

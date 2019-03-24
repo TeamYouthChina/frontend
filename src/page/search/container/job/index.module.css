@@ -1,5 +1,19 @@
 .listGroupItems {
-  color: #4F65E1 !important;
+  border: 0;
+  padding-top: 0;
+  padding-bottom: 0.78vw;
+}
+
+.listGroupItemsTag {
+  font-size: 1.41vw;
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.listGroupItemsTag p {
+  margin: 0;
 }
 
 .collectionIcon {
@@ -8,40 +22,55 @@
 }
 
 .collectionBtn {
-  background-color: #4F65E1 !important;
-  box-shadow: none !important;
+  background-color: #4F65E1;
+  box-shadow: none;
+  border-radius: 0.78vw;
+  border: 0;
+  color: #FFFFFF;
   font-size: 0.93vw;
   font-family: "PingFang SC";
+  padding-left: 0.3vw;
+  padding-right: 0.3vw;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 0;
 }
 
 .tagBtn {
-  color: #4F65E1 !important;
-  border: #4F65E1 0.08vw solid !important;
-  box-shadow: none !important;
+  color: #4F65E1;
+  background-color: #FFFFFF;
+  border: #4F65E1 0.08vw solid;
+  border-radius: 1.56vw;
+  box-sizing: border-box;
   font-size: 0.93vw;
   font-family: "PingFang SC";
+  padding: 0.35vw 1vw;
 }
 
 .tagBtn:hover {
-  color: #4F65E1 !important;
-  border: #4F65E1 0.08vw solid !important;
+  color: #4F65E1;
+  border: #4F65E1 0.08vw solid;
 }
 
 .tagBtnSelected {
-  color: #FFFFFF !important;
-  background-color: #4F65E1 !important;
-  border: #4F65E1 0.08vw solid !important;
-  box-shadow: none !important;
+  color: #FFFFFF;
+  background-color: #4F65E1;
+  border: #4F65E1 0.08vw solid;
+  box-shadow: none;
+  border-radius: 1.56vw;
+  box-sizing: border-box;
   font-size: 0.93vw;
   font-family: "PingFang SC";
+  padding: 0.35vw 1vw;
 }
 
 .tagBtnSelected:hover {
-  color: #FFFFFF !important;
-  background-color: #4F65E1 !important;
-  border: #4F65E1 0.08vw solid !important;
+  color: #FFFFFF;
+  background-color: #4F65E1;
+  border: #4F65E1 0.08vw solid;
 }
 
+/*因为使用了mdb的dropdown, 所以使用了一堆 !important...*/
 .dropdownButton {
   background-color: rgba(255, 255, 255, 0) !important;
   color: #4F65E1 !important;
@@ -78,10 +107,12 @@
 }
 
 .collectionSidebar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #FFFFFF;
-  padding-left: 1.56vw;
-  padding-right: 1.56vw;
   padding-top: 1.72vw;
   padding-bottom: 1.72vw;
+  margin-left: 1.56vw;
   margin-bottom: 1.56vw;
 }
