@@ -56,10 +56,10 @@ class QuestionReact extends React.Component {
             className="cell-membrane"
           >
             <div className={classes.answerWrapper}>
-              <div>
+              <div style={{flexGrow:'0'}}>
                 <Answers answers={[1,2,3]} />
               </div>
-              <div style={{width:'100%'}}>
+              <div style={{width:'100%',marginTop:'2.73vw',marginRight:'0'}}>
                 <SideBar />
               </div>
             </div>

@@ -1,0 +1,47 @@
+.back {
+  background-color: #FFFFFF;
+  margin-top: 1.56vw;
+}
+.name {
+  font-family: PingFang SC;
+  font-size: 1.40vw;
+  line-height: normal;
+  color: #31394D;
+  margin-left:1.56vw;
+  margin-top:1.56vw;
+  margin-bottom: 0;
+  display: inline-block;
+}
+.detailWrapper {
+  display:flex;
+  margin: 1.56vw .78vw 0 .78vw;
+}
+.imgStyle {
+  flewGrow:1;
+  width:.23vw;
+  height:1.17vw;
+  margin-right:1.32vw;
+}
+.content {
+  margin-top: -.16vw;
+  font-family: PingFang SC;
+  font-size: 1.09vw;
+  line-height: normal;
+
+  color: #31394D;
+}
+.footerWrapper {
+  margin:0 1.56vw 0 2.34vw;
+  
+}
+.desSpan {
+  font-family: PingFang SC;
+  font-size: .93vw;
+  line-height: normal;
+  color:#8D9AAF;
+  margin-right:.78vw;
+}
+.numberStyle {
+  font-size: .93vw;
+  color:#31394D;
+}

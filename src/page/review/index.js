@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
-import {languageHelper} from '../../../tool/language-helper';
-import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
+import {languageHelper} from '../../tool/language-helper';
+import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 
-class SettingReact extends React.Component {
+class ReviewReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {};
     // i18n
-    this.text = SettingReact.i18n[languageHelper()];
+    this.text = ReviewReact.i18n[languageHelper()];
   }
 
   render() {
@@ -36,12 +36,12 @@ class SettingReact extends React.Component {
   }
 }
 
-SettingReact.i18n = [
+ReviewReact.i18n = [
   {},
   {}
 ];
 
-SettingReact.propTypes = {
+ReviewReact.propTypes = {
   // self
 
   // React Router
@@ -52,10 +52,10 @@ SettingReact.propTypes = {
   bodyClientWidth: PropTypes.number.isRequired
 };
 
-export const Setting = connect(
+export const Review = connect(
   (state) => {
     return {
       bodyClientWidth: state.bodyClientWidth
     };
   }
-)(SettingReact);
+)(ReviewReact);

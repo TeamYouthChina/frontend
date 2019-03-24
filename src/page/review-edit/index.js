@@ -1,33 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 
-import classes from './index.module.css';
-import {languageHelper} from '../../../../tool/language-helper';
+import {languageHelper} from '../../tool/language-helper';
+import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 
-
-class Header2React extends React.Component {
+class ReviewEditReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {};
     // i18n
-    this.text = Header2React.i18n[languageHelper()];
+    this.text = ReviewEditReact.i18n[languageHelper()];
   }
 
   render() {
+    const pathname = removeUrlSlashSuffix(this.props.location.pathname);
+    if (pathname) {
+      return (<Redirect to={pathname} />);
+    }
     return (
       <div>
         <div
-          className={`cell-wall ${classes.background}`}
+          className="cell-wall"
         >
           <div
             className="cell-membrane"
           >
-            <div className={classes.content}>
 
-            </div>
           </div>
         </div>
       </div>
@@ -35,14 +36,14 @@ class Header2React extends React.Component {
   }
 }
 
-Header2React.i18n = [
+ReviewEditReact.i18n = [
   {},
   {}
 ];
 
-Header2React.propTypes = {
+ReviewEditReact.propTypes = {
   // self
-
+  create: PropTypes.bool.isRequired,
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
@@ -51,10 +52,10 @@ Header2React.propTypes = {
   bodyClientWidth: PropTypes.number.isRequired
 };
 
-export const Header2 = withRouter(connect(
+export const ReviewEdit = connect(
   (state) => {
     return {
       bodyClientWidth: state.bodyClientWidth
     };
   }
-)(Header2React));
+)(ReviewEditReact);

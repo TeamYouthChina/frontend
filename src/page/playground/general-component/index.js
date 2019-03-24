@@ -11,13 +11,15 @@ import {AnswerCardBarId} from './answer-card-bar-id';
 import {AnswerCardBarFulltext} from './answer-card-bar-fulltext';
 import {ArticleCardBarFulltext} from './article-card-bar-fulltext';
 import {ArticleCardBarId} from './article-card-bar-id';
-import {Header2} from './header-2';
 import {CompanyCardBarId} from './company-card-bar-id/index';
+import {Header2} from '../../header-2';
 import {JobCardBarId} from './job-card-bar-id';
 import {VideoCardBarId} from './video-card-bar-id';
 import {VideoCardBarFulltext} from './video-card-bar-fulltext';
 import {ReviewCardBarId} from './review-card-bar-id';
 import {ReviewCardBarFulltext} from './review-card-bar-fulltext';
+import {UserCardBarId} from './user-card-bar-id';
+import {UserCardSquareId} from './user-card-square-id';
 
 class GeneralComponentReact extends React.Component {
   constructor(props) {
@@ -43,7 +45,33 @@ class GeneralComponentReact extends React.Component {
     }
     return (
       <div>
-        <Header2 />
+        <Header2
+          align="center"
+          backgroundColor="white"
+          intervalVw={4.2}
+          itemList={[
+            {
+              name: '名称1',
+              subPath: '/sub-path-1'
+            },
+            {
+              name: '名称2',
+              subPath: '/sub-path-2'
+            },
+            {
+              name: '名称3',
+              subPath: '/sub-path-3'
+            },
+            {
+              name: '名称4',
+              subPath: '/sub-path-4'
+            },
+            {
+              name: '名称5',
+              subPath: '/sub-path-5'
+            }
+          ]}
+        />
         <div
           className={`cell-wall ${classes.background}`}
         >
@@ -324,11 +352,11 @@ class GeneralComponentReact extends React.Component {
             </div>
             <div className={classes.space}>
               <p>user-card-bar-id</p>
-              {/* insert component here */}
+              <UserCardBarId />
             </div>
             <div className={classes.space}>
               <p>user-card-square-id</p>
-              {/* insert component here */}
+              <UserCardSquareId />
             </div>
             <div className={classes.space}>
               <p>video-card-bar-id</p>
