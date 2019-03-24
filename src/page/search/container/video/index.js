@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  MDBBtn,
   MDBCol,
   MDBListGroup,
   MDBListGroupItem,
@@ -92,47 +91,24 @@ class SearchVideoResultReact extends React.Component {
             <MDBCol className={classes.sideBar} size="2">
               <MDBListGroup style={{fontSize: '1.1vw'}}>
                 <MDBListGroupItem
-                  className={`d-flex justify-content-start align-items-center ${classes.listGroupItems}`}
-                  style={{borderTopWidth: 0, borderLeftWidth: 0, borderRightWidth: 0}}>
-                  <p style={{...navyFont, fontSize: '1.41vw', margin: '0'}}>标签</p>
+                  className={classes.listGroupItemsTag}
+                >
+                  <p style={navyFont}>标签</p>
                 </MDBListGroupItem>
                 <MDBListGroupItem
-                  className={`py-0 d-flex justify-content-start align-items-center ${classes.listGroupItems}`}
-                  style={{borderTopWidth: 0, borderLeftWidth: 0, borderRightWidth: 0}}>
-                  <MDBBtn className={classes.tagBtn}>求职技巧</MDBBtn>
+                  className={classes.listGroupItems}
+                >
+                  <button className={classes.tagBtn}>求职技巧</button>
                 </MDBListGroupItem>
                 <MDBListGroupItem
-                  className={`py-0 d-flex justify-content-start align-items-center ${classes.listGroupItems}`}
-                  style={{borderTopWidth: 0, borderLeftWidth: 0, borderRightWidth: 0}}>
-                  <MDBBtn className={classes.tagBtnSelected}>面试经历</MDBBtn>
+                  className={classes.listGroupItems}
+                >
+                  <button className={classes.tagBtnSelected}>面试经历</button>
                 </MDBListGroupItem>
                 <MDBListGroupItem
-                  style={{height: '10vh', borderTopWidth: 0, borderLeftWidth: 0, borderRightWidth: 0}} />
+                  className={classes.listGroupItems}
+                  style={{height: '10vh'}} />
               </MDBListGroup>
-
-              {/*<Switch>*/}
-              {/*{*/}
-              {/*this.isUserLogin() &&*/}
-              {/*<Route*/}
-              {/*path="/article/create"*/}
-              {/*component={routeProps => <ArticleCreate {...routeProps} />}*/}
-              {/*/>*/}
-              {/*}*/}
-              {/*{*/}
-              {/*this.isUserLogin() &&*/}
-              {/*<Route*/}
-              {/*path="/question/create"*/}
-              {/*component={routeProps => <QuestionCreate {...routeProps} />}*/}
-              {/*/>*/}
-              {/*}*/}
-              {/*{*/}
-              {/*this.isUserLogin() &&*/}
-              {/*<Route*/}
-              {/*path="/review/create"*/}
-              {/*component={routeProps => <ReviewCreate {...routeProps} />}*/}
-              {/*/>*/}
-              {/*}*/}
-              {/*</Switch>*/}
             </MDBCol>
           </MDBRow>
         </div>

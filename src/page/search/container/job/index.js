@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  MDBBtn,
   MDBCol,
   MDBDropdown,
   MDBDropdownItem,
@@ -95,64 +94,35 @@ class SearchJobResultReact extends React.Component {
                 </MDBCol>
               </MDBRow>
             </MDBCol>
-            <MDBCol style={{marginTop: '4vw'}} size="2">
+            <MDBCol style={{marginTop: '4vw', marginLeft: 0, padding: 0}} size="2">
               <div>
                 <div
                   className={`d-flex justify-content-center align-items-center ${classes.collectionSidebar}`}>
-                  <MDBRow>
-                    <MDBCol size="10" className="p-0">
-                      <img src={heart} className={classes.collectionIcon} alt="icon"/>
-                      <span className="pl-2" style={{...navyFont, fontSize: '1.1vw'}}>我收藏的职位</span>
-                    </MDBCol>
-                    <MDBCol size="2" className="p-0" style={{fontSize: '0.93vw'}}>
-                      <MDBBtn rounded size="sm" className={`mx-0 my-0 py-1 px-2 ${classes.collectionBtn}`}>99</MDBBtn>
-                    </MDBCol>
-                  </MDBRow>
+                  <img src={heart} className={classes.collectionIcon} alt="icon" />
+                  <span style={{...navyFont, fontSize: '1.1vw', marginLeft: '0.5vw', marginRight: '0.5vw'}}>我收藏的职位</span>
+                  <button className={classes.collectionBtn}>99</button>
                 </div>
                 <MDBListGroup
-                  style={{fontSize: '1.1vw'}}>
+                  style={{fontSize: '1.1vw', marginLeft: '1.56vw'}}>
                   <MDBListGroupItem
-                    className={`d-flex justify-content-start align-items-center ${classes.listGroupItems}`}
-                    style={{borderTopWidth: 0, borderLeftWidth: 0, borderRightWidth: 0}}>
-                    <p style={{...navyFont, fontSize: '1.41vw', margin: '0'}}>标签</p>
+                    className={classes.listGroupItemsTag}
+                  >
+                    <p style={navyFont}>标签</p>
                   </MDBListGroupItem>
                   <MDBListGroupItem
-                    className={`py-0 d-flex justify-content-start align-items-center ${classes.listGroupItems}`}
-                    style={{borderTopWidth: 0, borderLeftWidth: 0, borderRightWidth: 0}}>
-                    <MDBBtn outline rounded size="sm" className={classes.tagBtn}>求职技巧</MDBBtn>
+                    className={classes.listGroupItems}
+                  >
+                    <button className={classes.tagBtn}>求职技巧</button>
                   </MDBListGroupItem>
                   <MDBListGroupItem
-                    className={`py-0 d-flex justify-content-start align-items-center ${classes.listGroupItems}`}
-                    style={{borderTopWidth: 0, borderLeftWidth: 0, borderRightWidth: 0}}>
-                    <MDBBtn outline rounded size="sm" className={classes.tagBtnSelected}>面试经历</MDBBtn>
+                    className={classes.listGroupItems}
+                  >
+                    <button className={classes.tagBtnSelected}>面试经历</button>
                   </MDBListGroupItem>
                   <MDBListGroupItem
-                    style={{height: '10vh', borderTopWidth: 0, borderLeftWidth: 0, borderRightWidth: 0}} />
+                    className={classes.listGroupItems}
+                    style={{height: '10vh'}} />
                 </MDBListGroup>
-
-                {/*<Switch>*/}
-                {/*{*/}
-                {/*this.isUserLogin() &&*/}
-                {/*<Route*/}
-                {/*path="/article/create"*/}
-                {/*component={routeProps => <ArticleCreate {...routeProps} />}*/}
-                {/*/>*/}
-                {/*}*/}
-                {/*{*/}
-                {/*this.isUserLogin() &&*/}
-                {/*<Route*/}
-                {/*path="/question/create"*/}
-                {/*component={routeProps => <QuestionCreate {...routeProps} />}*/}
-                {/*/>*/}
-                {/*}*/}
-                {/*{*/}
-                {/*this.isUserLogin() &&*/}
-                {/*<Route*/}
-                {/*path="/review/create"*/}
-                {/*component={routeProps => <ReviewCreate {...routeProps} />}*/}
-                {/*/>*/}
-                {/*}*/}
-                {/*</Switch>*/}
               </div>
             </MDBCol>
           </MDBRow>

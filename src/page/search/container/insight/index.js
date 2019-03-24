@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  MDBBtn,
   MDBCol,
   MDBListGroup,
   MDBListGroupItem,
@@ -49,27 +48,27 @@ class SearchInsightResultReact extends React.Component {
             <MDBCol className="px-0" size="10">
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <ArticleCardBarId id={1}/>
+                  <ArticleCardBarId id={1} />
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <ReviewCardBarId id={1}/>
+                  <ReviewCardBarId id={1} />
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <AnswerCardBarId id={1}/>
+                  <AnswerCardBarId id={1} />
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <ReviewCardBarId id={1}/>
+                  <ReviewCardBarId id={1} />
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <ArticleCardBarId id={1}/>
+                  <ArticleCardBarId id={1} />
                 </MDBCol>
               </MDBRow>
             </MDBCol>
@@ -78,43 +77,44 @@ class SearchInsightResultReact extends React.Component {
                 <MDBListGroupItem
                   hover
                   href="/article/create"
-                  className={`d-flex justify-content-center align-items-center ${classes.listGroupItems}`}
-                  style={{borderTopWidth: 0, borderLeftWidth: 0, borderRightWidth: 0}}>
-                  <img src={wrtiteArticle} className={classes.sidebarIcon} alt="icon"/> 写文章
+                  className={classes.listGroupItemsInsight}
+                >
+                  <img src={wrtiteArticle} className={classes.sidebarIcon} alt="icon" /> 写文章
                 </MDBListGroupItem>
                 <MDBListGroupItem
                   hover
                   href="/question/create"
-                  className={`d-flex justify-content-center align-items-center ${classes.listGroupItems}`}
-                  style={{borderTopWidth: 0, borderLeftWidth: 0, borderRightWidth: 0}}>
-                  <img  src={writeQuestion} className={classes.sidebarIcon} alt="icon"/> 提问题
+                  className={classes.listGroupItemsInsight}
+                >
+                  <img src={writeQuestion} className={classes.sidebarIcon} alt="icon" /> 提问题
                 </MDBListGroupItem>
                 <MDBListGroupItem
                   hover
                   href="/review/create"
-                  className={`d-flex justify-content-center align-items-center ${classes.listGroupItems}`}
-                  style={{borderTopWidth: 0, borderLeftWidth: 0, borderRightWidth: 0, borderBottomWidth: 0}}>
-                  <img src={writeReview} className={classes.sidebarIcon} alt="icon"/> 写短评
+                  className={classes.listGroupItemsInsight}
+                >
+                  <img src={writeReview} className={classes.sidebarIcon} alt="icon" /> 写短评
                 </MDBListGroupItem>
               </MDBListGroup>
               <MDBListGroup style={{fontSize: '1.1vw'}}>
                 <MDBListGroupItem
-                  className={`d-flex justify-content-start align-items-center ${classes.listGroupItems}`}
-                  style={{borderTopWidth: 0, borderLeftWidth: 0, borderRightWidth: 0}}>
-                  <p style={{...navyFont, fontSize: '1.41vw', margin: '0'}}>标签</p>
+                  className={classes.listGroupItemsTag}
+                >
+                  <p style={navyFont}>标签</p>
                 </MDBListGroupItem>
                 <MDBListGroupItem
-                  className={`py-0 d-flex justify-content-start align-items-center ${classes.listGroupItems}`}
-                  style={{borderTopWidth: 0, borderLeftWidth: 0, borderRightWidth: 0}}>
-                  <MDBBtn className={classes.tagBtn}>求职技巧</MDBBtn>
+                  className={classes.listGroupItems}
+                >
+                  <button className={classes.tagBtn}>求职技巧</button>
                 </MDBListGroupItem>
                 <MDBListGroupItem
-                  className={`py-0 d-flex justify-content-start align-items-center ${classes.listGroupItems}`}
-                  style={{borderTopWidth: 0, borderLeftWidth: 0, borderRightWidth: 0}}>
-                  <MDBBtn className={classes.tagBtnSelected}>面试经历</MDBBtn>
+                  className={classes.listGroupItems}
+                >
+                  <button className={classes.tagBtnSelected}>面试经历</button>
                 </MDBListGroupItem>
                 <MDBListGroupItem
-                  style={{height: '10vh', borderTopWidth: 0, borderLeftWidth: 0, borderRightWidth: 0}} />
+                  className={classes.listGroupItems}
+                  style={{height: '10vh'}} />
               </MDBListGroup>
 
               {/*<Switch>*/}
