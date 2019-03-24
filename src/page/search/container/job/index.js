@@ -17,7 +17,7 @@ import classes from './index.module.css';
 import filter from '../../assets/filter.svg';
 import heart from '../../assets/heart.svg';
 
-import {CompanyCardBarId} from '../../../playground/general-component/company-card-bar-id';
+import {JobCardBarId} from '../../../playground/general-component/job-card-bar-id';
 import {languageHelper} from '../../../../tool/language-helper';
 
 const basicCHNFont = {
@@ -33,13 +33,13 @@ const navyFont = {
 };
 
 // todo,动态显示结果数
-class SearchCompanyResultReact extends React.Component {
+class SearchJobResultReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {};
     // i18n
-    this.text = SearchCompanyResultReact.i18n[languageHelper()];
+    this.text = SearchJobResultReact.i18n[languageHelper()];
   }
 
   render() {
@@ -49,7 +49,7 @@ class SearchCompanyResultReact extends React.Component {
           <MDBRow style={{marginTop: '2vw'}}>
             <MDBCol className="px-0" size="10">
               <MDBRow style={{marginBottom: '1.2vw'}}>
-                <MDBCol 
+                <MDBCol
                   size="2" className="px-0 d-flex justify-content-center align-items-center"
                   style={{color: '#8D9AAF', fontSize: '1.09vw'}}>
                   5个结果
@@ -69,29 +69,29 @@ class SearchCompanyResultReact extends React.Component {
                   </MDBDropdown>
                 </MDBCol>
               </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
+              <MDBRow className={classes.jobCardBarRow}>
                 <MDBCol>
-                  <CompanyCardBarId />
+                  <JobCardBarId />
                 </MDBCol>
               </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
+              <MDBRow className={classes.jobCardBarRow}>
                 <MDBCol>
-                  <CompanyCardBarId />
+                  <JobCardBarId />
                 </MDBCol>
               </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
+              <MDBRow className={classes.jobCardBarRow}>
                 <MDBCol>
-                  <CompanyCardBarId />
+                  <JobCardBarId />
                 </MDBCol>
               </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
+              <MDBRow className={classes.jobCardBarRow}>
                 <MDBCol>
-                  <CompanyCardBarId />
+                  <JobCardBarId />
                 </MDBCol>
               </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
+              <MDBRow className={classes.jobCardBarRow}>
                 <MDBCol>
-                  <CompanyCardBarId />
+                  <JobCardBarId />
                 </MDBCol>
               </MDBRow>
             </MDBCol>
@@ -101,8 +101,8 @@ class SearchCompanyResultReact extends React.Component {
                   className={`d-flex justify-content-center align-items-center ${classes.collectionSidebar}`}>
                   <MDBRow>
                     <MDBCol size="10" className="p-0">
-                      <img  src={heart} className={classes.collectionIcon} alt="icon"/>
-                      <span className="pl-2" style={{...navyFont, fontSize: '1.1vw'}}>我收藏的公司</span>
+                      <img src={heart} className={classes.collectionIcon} alt="icon"/>
+                      <span className="pl-2" style={{...navyFont, fontSize: '1.1vw'}}>我收藏的职位</span>
                     </MDBCol>
                     <MDBCol size="2" className="p-0" style={{fontSize: '0.93vw'}}>
                       <MDBBtn rounded size="sm" className={`mx-0 my-0 py-1 px-2 ${classes.collectionBtn}`}>99</MDBBtn>
@@ -162,12 +162,12 @@ class SearchCompanyResultReact extends React.Component {
   }
 }
 
-SearchCompanyResultReact.i18n = [
+SearchJobResultReact.i18n = [
   {},
   {}
 ];
 
-SearchCompanyResultReact.propTypes = {
+SearchJobResultReact.propTypes = {
   // self
 
   // React Router
@@ -177,10 +177,10 @@ SearchCompanyResultReact.propTypes = {
   // React Redux
 };
 
-export const SearchCompanyResult = withRouter(connect(
+export const SearchJobResult = withRouter(connect(
   (state) => {
     return {
       bodyClientWidth: state.bodyClientWidth
     };
   }
-)(SearchCompanyResultReact));
+)(SearchJobResultReact));
