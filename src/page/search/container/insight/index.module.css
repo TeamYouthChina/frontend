@@ -2,24 +2,16 @@
   color: #4F65E1 !important;
 }
 
-.collectionIcon {
-  color: #FFC93E;
-  width: 1vw;
-}
-
-.collectionBtn {
-  background-color: #4F65E1 !important;
-  box-shadow: none !important;
-  font-size: 0.93vw;
-  font-family: "PingFang SC";
-}
-
 .tagBtn {
   color: #4F65E1 !important;
+  background-color: #FFFFFF !important;
   border: #4F65E1 0.08vw solid !important;
   box-shadow: none !important;
+  border-radius: 1.56vw;
+  box-sizing: border-box;
   font-size: 0.93vw;
   font-family: "PingFang SC";
+  padding: 0.5vw 1vw;
 }
 
 .tagBtn:hover {
@@ -32,8 +24,11 @@
   background-color: #4F65E1 !important;
   border: #4F65E1 0.08vw solid !important;
   box-shadow: none !important;
+  border-radius: 1.56vw;
+  box-sizing: border-box;
   font-size: 0.93vw;
   font-family: "PingFang SC";
+  padding: 0.5vw 1vw;
 }
 
 .tagBtnSelected:hover {
@@ -67,21 +62,16 @@
   font-size: 1.09vw !important;
 }
 
-.filter {
-  width: 1.09vw;
-  margin-left: 0.2vw;
-}
-
 .cardBarRow {
   margin-bottom: 1.56vw;
   margin-left: 1.6vw;
 }
 
-.collectionSidebar {
-  background-color: #FFFFFF;
+.sideBar {
   padding-left: 1.56vw;
-  padding-right: 1.56vw;
-  padding-top: 1.72vw;
-  padding-bottom: 1.72vw;
-  margin-bottom: 1.56vw;
+}
+
+.sidebarIcon {
+  width: 1.09vw;
+  margin-right: 0.75vw;
 }

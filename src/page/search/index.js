@@ -11,21 +11,15 @@ import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-// import {SearchJobResult} from "./search-job";
-// import {SearchCompanyResult} from './search-company';
-// import {SearchCommunityResult} from "./search-insight";
-// import {SearchVideoResult} from "./search-video";
-// import {SearchConnectionResult} from './search-connection';
-// import {JobNavbarItem} from './navbar-items/job-navbarItem';
-// import {CompanyNavbarItem} from './navbar-items/company-navbarItem';
-// import {CommunityNavbarItem} from './navbar-items/insight-navbarItem';
-// import {VideoNavbarItem} from './navbar-items/video-navbarItem';
 import {SearchJobsNavItem} from './secondary-navagations/job';
 import {SearchCompaniesNavItem} from './secondary-navagations/company';
 import {SearchInsightNavItem} from './secondary-navagations/insight';
 import {SearchVideoNavItem} from './secondary-navagations/video';
 import {SearchConnectionNavItem} from './secondary-navagations/coonection';
+import {SearchJobResult} from './container/job';
 import {SearchCompanyResult} from './container/company';
+import {SearchVideoResult} from './container/video';
+import {SearchInsightResult} from './container/insight';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 
@@ -133,16 +127,28 @@ class SearchReact extends React.Component {
         </div>
 
         {/*搜索结果细胞*/}
-        <div className="cell-wall" style={{height: '500px', backgroundColor: '#F3F5F7'}}>
+        <div className="cell-wall" style={{backgroundColor: '#F3F5F7'}}>
           <div className="cell-membrane">
             <Switch>
               <Route
                 path={`${this.props.match.url}/job`}
-                component={routeProps => <SearchCompanyResult basicCHNFont={basicCHNFont} />}
+                component={routeProps => <SearchJobResult basicCHNFont={basicCHNFont} />}
               />
               <Route
                 path={`${this.props.match.url}/company`}
                 component={routeProps => <SearchCompanyResult basicCHNFont={basicCHNFont} />}
+              />
+              <Route
+                path={`${this.props.match.url}/video`}
+                component={routeProps => <SearchVideoResult basicCHNFont={basicCHNFont} />}
+              />
+              <Route
+                path={`${this.props.match.url}/insight`}
+                component={routeProps => <SearchInsightResult basicCHNFont={basicCHNFont} />}
+              />
+              <Route
+                path={`${this.props.match.url}/connection`}
+                component={routeProps => <SearchVideoResult basicCHNFont={basicCHNFont} />}
               />
               <Redirect to={`${this.props.match.url}/job`} />
             </Switch>
