@@ -8,7 +8,6 @@ import {
   MDBIcon
 } from 'mdbreact';
 import PropTypes from 'prop-types';
-import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import {SearchJobsNavItem} from './secondary-navagations/job';
@@ -172,8 +171,8 @@ SearchReact.prototypes = {
   
 };
 
-export const Search = withRouter(connect((state) => {
+export const Search = connect((state) => {
   return {
     bodyClientWidth: state.bodyClientWidth
   };
-})(SearchReact));
+})(SearchReact);
