@@ -45,7 +45,7 @@ class VideoReact extends React.Component {
           videoTitle={this.state.backend.videoTitle}
         />
         <div style={{marginTop:'3.28vw'}} 
-             className="cell-wall">
+          className="cell-wall">
           <div
             className="cell-membrane"
           >
