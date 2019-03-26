@@ -3,8 +3,8 @@ import {MDBBtn, MDBRow} from 'mdbreact';
 import PropTypes from 'prop-types';
 
 import { AddComment } from '../components/add-comment';
-import ThumbUp from '../../public/thumb-up.svg';
-import Comment from '../../public/comment.svg';
+import ThumbUp from '../../../public/thumb-up.svg';
+import Comment from '../../../public/comment.svg';
 
 export const CommentFooter = (props) => (
   <React.Fragment>

@@ -1,51 +1,69 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
-import {MDBCol, MDBIcon} from 'mdbreact';
+// import {Link} from 'react-router-dom';
+import {MDBIcon} from 'mdbreact';
 import {connect} from 'react-redux';
 import {languageHelper} from '../../../../tool/language-helper';
 
 import classes from './review-dex.module.css';
 
+import Comment from '../../public/comment.svg';
+import Share from '../../public/share.svg';
+import ThumbUp from '../../public/thumb-up.svg';
+
 const ReviewDes = (props) => (
-  <div>
-    <MDBCol className={classes.mdbCol}>
-      <div className={classes.titleWrapper}>
-        
-        <div className={classes.readingWrapper}>
-          <span className={classes.viewSpanStyle}>
-            <MDBIcon className={classes.viewIcon} far icon="eye" />
-              被浏览  <strong className={classes.readingColor}>1872W</strong>
-          </span>
+  <div className={classes.reviewDesWrapper}>
+    <div className={classes.readingWrapper}>
+      <div style={{display:'flex',marginTop:'1.17vw'}}>
+        <div style={{display:'inline-block'}}>
+          <img
+            style={{width: '4.21vw', background: '#F4F4F4', marginRight: '0.859vw'}}
+            src={'https://s3.amazonaws.com/youthchina/WechatIMG29.jpeg'}
+            alt="123"
+            className="rounded-circle"
+          />
         </div>
+        
+        <div className={classes.spanWrapper}>
+          <span className={classes.titleSpan}>{props.user}</span>
+          <span className={classes.desSpan}>{props.description}</span>
+        </div>
+        <button className={classes.btnStyleFocus}>
+          +关注TA
+        </button>
       </div>
-      <br />
+      <span className={classes.viewSpanStyle}>
+        <MDBIcon className={classes.viewIcon} far icon="eye" />
+              被浏览  <strong className={classes.readingColor}>1872W</strong>
+      </span>
+    </div>
+    <br />
+    <div style={{width:'66.1vw'}}>
       <p className={classes.questionTitle}>{props.content.title}</p>
 
       <p className={classes.questionDetail}>
         {/*dangerouslySetInnerHTML={{__html: props.editorState.toHTML(props.content.description)}}*/}
         {props.content.detail}
       </p>
-      <div>
-        <button className={classes.btnAnswer}>
-          {props.text.toFocus}
-        </button>
-        <button className={classes.btnFocus}>
-          +
-          <Link to={`/question/${props.questionId}/answer/create`}>关注问题</Link>
-        </button>
-        <button className={classes.btnOthers}>
-          <MDBIcon className={classes.btnIcon} icon="thumbs-up"/>{props.text.toInvite}
-        </button>
-        <button className={classes.btnOthers}>
-          <MDBIcon className={classes.btnIcon} icon="comment"/>{props.text.pinglun}
-        </button>
-        <button className={classes.btnOthers}>
-          <MDBIcon className={classes.btnIcon} icon="share" />{props.text.share}
-        </button>
+      <div className={classes.reviewFooter}>
+        <span className={classes.footerFont}>2019-1-1</span>
+        <div>
+          <span className={classes.footerFont}>
+            <img className={classes.footerIcon} src={ThumbUp} alt="" />
+            198k点赞
+          </span>
+          <span className={classes.footerFont}>
+            <img className={classes.footerIcon} src={Comment} alt="" />
+            {props.commentsText}
+          </span>
+          <span className={classes.footerFontEnd}>
+            <img className={classes.footerIcon} src={Share} alt="" />
+            分享
+          </span>
+        </div>
       </div>
-    </MDBCol>
-
+    </div>
+    
   </div>
 );
 
@@ -70,12 +88,12 @@ const i18n = [
 
 ReviewDes.propTypes = {
   // self
-  tags: PropTypes.array.isRequired,
   content: PropTypes.object.isRequired,
   text: PropTypes.object.isRequired,
-  questionId: PropTypes.number.isRequired,
+  user: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  commentsText: PropTypes.string.isRequired,
   // editorState: PropTypes.object.isRequired,
-  basicFont: PropTypes.object.isRequired,
   // React Redux
   bodyClientWidth: PropTypes.number.isRequired
 };
