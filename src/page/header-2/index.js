@@ -6,7 +6,6 @@ import {Link, withRouter} from 'react-router-dom';
 import classes from './index.module.css';
 import {languageHelper} from '../../tool/language-helper';
 
-
 class Header2React extends React.Component {
   constructor(props) {
     super(props);
@@ -53,20 +52,13 @@ class Header2React extends React.Component {
               this.props.itemList.map((item, index) => {
                 return (
                   <div
-                    className={classes.intervalVw}
-                    style={
-                      this.props.location.pathname.indexOf(item.subPath) > -1 ? {
-                        ...this.margin,
-                        borderBottom: '4px solid #4F65E1'
-                      } : this.margin
-                    }
+                    className={this.props.location.pathname.indexOf(item.subPath) > -1 ? classes['interval-selected'] : classes.interval}
+                    style={this.margin}
                     key={index}
                   >
                     <Link
+                      className={this.props.location.pathname.indexOf(item.subPath) > -1 ? classes['interval-text-selected'] : classes['interval-text']}
                       to={`${this.props.match.url}${item.subPath}`}
-                      style={
-                        this.props.location.pathname.indexOf(item.subPath) > -1 ? {color: '#4F65E1'} : {color: '#454F69'}
-                      }
                     >
                       {item.name}
                     </Link>

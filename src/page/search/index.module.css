@@ -6,9 +6,13 @@
 
 }
 
+.md-form {
+  margin-bottom: 0 !important;
+}
+
 .searchInput {
-  margin-bottom: 0;
-  border: 0;
+  margin-bottom: 0 !important;
+  border: 0 !important;
 }
 
 .searchInput::-webkit-input-placeholder {

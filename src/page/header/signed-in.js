@@ -91,7 +91,7 @@ class SignedInReact extends React.Component {
                 nav 
                 className="py-0"
                 style={{
-                  width:'5.125vw',
+                  width:'4.125vw',
                 }}>
                 <img
                   style={getType(this.props.bodyClientWidth) === 1 ? {width: '30px'} : {width: '50px'}}

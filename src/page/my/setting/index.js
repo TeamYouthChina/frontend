@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
-import {languageHelper} from '../../tool/language-helper';
-import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
+import {languageHelper} from '../../../tool/language-helper';
+import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 
 class SettingReact extends React.Component {
   constructor(props) {
