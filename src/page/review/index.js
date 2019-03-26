@@ -9,7 +9,7 @@ import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 import ReviewDes from './containers/reviewDes';
 
 import data from './data';
-import Comments from './containers/comment-card-bar';
+import Comments from './components/comment-card-bar';
 
 class ReviewReact extends React.Component {
   constructor(props) {
