@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
-import {languageHelper} from '../../tool/language-helper';
-import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
+import {languageHelper} from '../../../tool/language-helper';
+import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 
-class ReviewEditReact extends React.Component {
+class SettingReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {};
     // i18n
-    this.text = ReviewEditReact.i18n[languageHelper()];
+    this.text = SettingReact.i18n[languageHelper()];
   }
 
   render() {
@@ -36,14 +36,14 @@ class ReviewEditReact extends React.Component {
   }
 }
 
-ReviewEditReact.i18n = [
+SettingReact.i18n = [
   {},
   {}
 ];
 
-ReviewEditReact.propTypes = {
+SettingReact.propTypes = {
   // self
-  create: PropTypes.bool.isRequired,
+
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
@@ -52,10 +52,10 @@ ReviewEditReact.propTypes = {
   bodyClientWidth: PropTypes.number.isRequired
 };
 
-export const ReviewEdit = connect(
+export const Setting = connect(
   (state) => {
     return {
       bodyClientWidth: state.bodyClientWidth
     };
   }
-)(ReviewEditReact);
+)(SettingReact);

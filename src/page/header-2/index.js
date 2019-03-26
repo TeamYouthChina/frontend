@@ -6,7 +6,6 @@ import {Link, withRouter} from 'react-router-dom';
 import classes from './index.module.css';
 import {languageHelper} from '../../tool/language-helper';
 
-
 class Header2React extends React.Component {
   constructor(props) {
     super(props);
@@ -53,19 +52,19 @@ class Header2React extends React.Component {
               this.props.itemList.map((item, index) => {
                 return (
                   <div
-                    className={classes.intervalVw}
+                    className={classes.interval}
                     style={
                       this.props.location.pathname.indexOf(item.subPath) > -1 ? {
                         ...this.margin,
-                        borderBottom: '4px solid #4F65E1'
-                      } : this.margin
+                        borderBottom: '4px solid #4F65E1',fontWeight:'bolder'
+                      } : {...this.margin, color:'black'}
                     }
                     key={index}
                   >
                     <Link
                       to={`${this.props.match.url}${item.subPath}`}
                       style={
-                        this.props.location.pathname.indexOf(item.subPath) > -1 ? {color: '#4F65E1'} : {color: '#454F69'}
+                        {}
                       }
                     >
                       {item.name}
