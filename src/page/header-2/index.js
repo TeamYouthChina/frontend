@@ -52,20 +52,13 @@ class Header2React extends React.Component {
               this.props.itemList.map((item, index) => {
                 return (
                   <div
-                    className={classes.interval}
-                    style={
-                      this.props.location.pathname.indexOf(item.subPath) > -1 ? {
-                        ...this.margin,
-                        borderBottom: '4px solid #4F65E1',fontWeight:'bolder'
-                      } : {...this.margin, color:'black'}
-                    }
+                    className={this.props.location.pathname.indexOf(item.subPath) > -1 ? classes['interval-selected'] : classes.interval}
+                    style={this.margin}
                     key={index}
                   >
                     <Link
+                      className={this.props.location.pathname.indexOf(item.subPath) > -1 ? classes['interval-text-selected'] : classes['interval-text']}
                       to={`${this.props.match.url}${item.subPath}`}
-                      style={
-                        {}
-                      }
                     >
                       {item.name}
                     </Link>
