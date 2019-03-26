@@ -1,8 +1,10 @@
 import React from 'react';
-import {MDBBtn, MDBIcon, MDBRow} from 'mdbreact';
+import {MDBBtn, MDBRow} from 'mdbreact';
 import PropTypes from 'prop-types';
 
 import { AddComment } from '../components/add-comment';
+import ThumbUp from '../../public/thumb-up.svg';
+import Comment from '../../public/comment.svg';
 
 export const CommentFooter = (props) => (
   <React.Fragment>
@@ -13,10 +15,11 @@ export const CommentFooter = (props) => (
         fontSize: '1.093vw',
         color: '#8D9AAF', ...props.basicFont
       }}>
-        <MDBIcon style={{marginRight: '0.39vw'}} far icon="thumbs-up" />支持
+        <img style={{marginTop:'-.39vw',marginRight:'0.78vw'}} src={ThumbUp} alt="" />
+        <span style={{verticalAlign:'bottom'}}>支持</span>
       </MDBBtn>
       <MDBBtn onClick={props.giveReplies} flat style={{padding: '0.39vw 0.78vw', fontSize: '1.093vw', color: '#8D9AAF', ...props.basicFont}}>
-        <MDBIcon style={{marginRight: '0.39vw'}} icon="reply" />
+        <img style={{marginTop:'-.39vw',marginRight:'0.78vw'}} src={Comment} alt="" />
         {props.replyText}
       </MDBBtn>
     </MDBRow>

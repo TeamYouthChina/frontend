@@ -1,6 +1,7 @@
 import React from 'react';
 import {MDBIcon, MDBListGroup, MDBListGroupItem} from 'mdbreact';
 import classes from './groupList.module.css';
+import Create from '../../../public/create.svg';
 
 const GroupList = () => (
   <MDBListGroup style={{
@@ -23,7 +24,7 @@ const GroupList = () => (
       hover
       href="/review/create"
       className={`d-flex justify-content-center align-items-center ${classes.listStyle}`}>
-      <MDBIcon fal icon="comments" className={`mr-2 ${classes.groupIcon}`}/> 写短评
+      <img src={Create} className={`mr-2 ${classes.groupIcon}`}/> 写短评
     </MDBListGroupItem>
   </MDBListGroup>
 );
