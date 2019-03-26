@@ -26,8 +26,6 @@ class Comments extends React.Component {
       showCommentsText: '查看回复',
       replyText: '回复',
       allReplies: [],
-      start:0,
-      end:3,
     };
     this.text = Comments.i18n[languageHelper()];
     this.addComments = this.addComments.bind(this);
@@ -73,14 +71,7 @@ class Comments extends React.Component {
     });
   }
 
-  getCurrentPage(index){
-    const start = 3 * (index-1);
-    const end = 3 * index;
-    this.setState({
-      start,
-      end
-    });
-  }
+  getCurrentPage(){}
   
   render() {
     return (this.state.commentLists !== null) ? (
@@ -96,19 +87,11 @@ class Comments extends React.Component {
           addComments={this.addComments} 
           basicFont={basicFont}
         />
-        {this.state.commentLists.length < 3 ? this.state.commentLists.map((item) => (
+        {this.state.commentLists.map((item) => (
           <CommentCard 
             key={item.id} 
             user={item.creator.username} 
             time={item.create_at} 
-            content={item.content}
-            addComments={this.addComments}
-          />
-        )) : this.state.commentLists.slice(this.state.start, this.state.end).map((item)=>(
-          <CommentCard
-            key={item.id}
-            user={item.creator.username}
-            time={item.create_at}
             content={item.content}
             addComments={this.addComments}
           />

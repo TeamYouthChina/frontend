@@ -16,5 +16,27 @@
 
 .interval:hover {
   border-bottom: 4px solid #4F65E1;
-  color: #4F65E1
+}
+
+.interval-selected {
+  border-bottom: 4px solid #4F65E1;
+}
+
+.interval-text {
+  color: #000000;
+}
+
+.interval-text:hover {
+  color: #4F65E1;
+  font-weight: bolder;
+}
+
+.interval-text-selected {
+  color: #4F65E1;
+  font-weight: bolder;
+}
+
+.interval-text-selected:hover {
+  color: #4F65E1;
+  font-weight: bolder;
 }

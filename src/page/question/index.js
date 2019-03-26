@@ -7,8 +7,8 @@ import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 
 import QuestionDes from './containers/question-des/';
-import Answers from './containers/answers/';
-import SideBar from './containers/side-bar/';
+import Answers from './components/answers/';
+import SideBar from './components/side-bar/';
 
 import classes from './index.module.css';
 

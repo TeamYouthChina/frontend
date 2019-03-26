@@ -1,0 +1,141 @@
+.basicFont {
+  font-family: PingFang SC;
+  line-height: normal;
+}
+.titleSpan {
+  margin-right: 0.781vw;
+  padding: 0;
+  color: #31394D;
+  font-size: 1.25vw;
+  font-family: PingFang SC;
+  line-height: 2.26vw;
+}
+.desSpan {
+  padding: 0;
+  color: #8D9AAF;
+  font-size: 1.093vw;
+  font-family: PingFang SC;
+  line-height: 1.95vw;
+}
+.btnStyleFocus {
+  font-family: PingFang SC;
+  font-size: 16px;
+  line-height: normal;
+  text-align: center;
+  color:#FFFFFF;
+  background-color: #4F65E1;
+  border-radius: 2px;
+  width:7.96vw;
+  height:3.12vw;
+  align-self: center;
+  margin-left: 3.12vw;
+}
+.reviewDesWrapper {
+  padding: 1.95vw 0 1.56vw 10.15vw;
+  display:flex;
+  flex-direction: column;
+}
+.titleWrapper{
+  margin-left: 0;
+  display: flex;
+}
+.tagWrapper {
+  flex-grow: 0;
+}
+.viewIcon {
+  margin-right: 0.78vw;
+}
+.readingColor {
+  color: #31394D;
+}
+.btnStyle {
+  background: #F0F3FA;
+  border: 0 none;
+  border-radius: 1.09vw;
+  color: #4F65E1;
+  font-size: 1.09vw;
+  padding: 0.39vw 1.17vw;
+  margin-right:0.39vw;
+  font-family: PingFang SC;
+  line-height: normal;
+}
+.viewSpanStyle {
+  background: #F0F3FA;
+  border-radius: 0.31vw;
+  color: #8D9AAF;
+  padding: 0.39vw 1.56vw;
+  height:100%;
+}
+.readingWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.questionTitle {
+  color: #31394D;
+  font-size: 1.87vw;
+  font-family: PingFang SC;
+  line-height: normal;
+}
+.questionDetail {
+  color:#31394D;
+  font-size:1.25vw;
+}
+.btnAnswer {
+  padding: .7vw 0.93vw;
+  color:#FFFFFF;
+  background: #4F65E1;
+  font-size: 1.25vw;
+  font-family: PingFang SC;
+  line-height: normal;
+  margin-right:0.78vw;
+  text-align: center;
+  border:.078vw solid #4F65E1;
+  border-radius: .156vw;
+}
+.btnFocus {
+  padding: .7vw .93vw;
+  color:#4F65E1;
+  background: #FFFFFF;
+  font-size: 1.25vw;
+  font-family: PingFang SC;
+  line-height: normal;
+  margin-right:1.56vw;
+  text-align: center;
+  border: .078vw solid #4F65E1;
+  border-radius: .156vw;
+}
+.btnOthers{
+  border:none;
+  font-family: PingFang SC;
+  line-height: normal;
+  color:#8D9AAF;
+  font-size:1.09vw;
+  padding:.78vw 1.56vw;
+}
+.btnIcon{
+  margin-right:.78vw;
+}
+.spanWrapper {
+  display: flex;
+  flex-direction: column;
+}
+.reviewFooter {
+  display: flex;
+  justify-content: space-between;
+}
+.footerFont {
+  font-family: PingFang SC;
+  font-size: 1.09vw;
+  line-height: normal;
+  color: #8D9AAF;
+  margin-right:1.17vw
+}
+.footerIcon {
+  margin-right: 0.78vw;
+}
+.footerFontEnd {
+  font-family: PingFang SC;
+  font-size: 1.09vw;
+  line-height: normal;
+  color: #8D9AAF;
+}
