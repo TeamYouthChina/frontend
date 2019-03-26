@@ -16,7 +16,7 @@ import classes from './index.module.css';
 import filter from '../../assets/filter.svg';
 import heart from '../../assets/heart.svg';
 
-import {CompanyCardBarId} from '../../../playground/general-component/company-card-bar-id';
+import {JobCardBarId} from '../../../playground/general-component/job-card-bar-id';
 import {languageHelper} from '../../../../tool/language-helper';
 
 const basicCHNFont = {
@@ -32,13 +32,13 @@ const navyFont = {
 };
 
 // todo,动态显示结果数
-class SearchCompanyResultReact extends React.Component {
+class SearchJobResultReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {};
     // i18n
-    this.text = SearchCompanyResultReact.i18n[languageHelper()];
+    this.text = SearchJobResultReact.i18n[languageHelper()];
   }
 
   render() {
@@ -68,38 +68,38 @@ class SearchCompanyResultReact extends React.Component {
                   </MDBDropdown>
                 </MDBCol>
               </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
+              <MDBRow className={classes.jobCardBarRow}>
                 <MDBCol>
-                  <CompanyCardBarId />
+                  <JobCardBarId />
                 </MDBCol>
               </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
+              <MDBRow className={classes.jobCardBarRow}>
                 <MDBCol>
-                  <CompanyCardBarId />
+                  <JobCardBarId />
                 </MDBCol>
               </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
+              <MDBRow className={classes.jobCardBarRow}>
                 <MDBCol>
-                  <CompanyCardBarId />
+                  <JobCardBarId />
                 </MDBCol>
               </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
+              <MDBRow className={classes.jobCardBarRow}>
                 <MDBCol>
-                  <CompanyCardBarId />
+                  <JobCardBarId />
                 </MDBCol>
               </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
+              <MDBRow className={classes.jobCardBarRow}>
                 <MDBCol>
-                  <CompanyCardBarId />
+                  <JobCardBarId />
                 </MDBCol>
               </MDBRow>
             </MDBCol>
             <MDBCol style={{marginTop: '4vw', marginLeft: 0, padding: 0}} size="2">
               <div>
                 <div
-                  className={classes.collectionSidebar}>
+                  className={`d-flex justify-content-center align-items-center ${classes.collectionSidebar}`}>
                   <img src={heart} className={classes.collectionIcon} alt="icon" />
-                  <span className="" style={{...navyFont, fontSize: '1.1vw', marginLeft: '0.5vw', marginRight: '0.5vw'}}>我收藏的公司</span>
+                  <span style={{...navyFont, fontSize: '1.1vw', marginLeft: '0.5vw', marginRight: '0.5vw'}}>我收藏的职位</span>
                   <button className={classes.collectionBtn}>99</button>
                 </div>
                 <MDBListGroup
@@ -132,12 +132,12 @@ class SearchCompanyResultReact extends React.Component {
   }
 }
 
-SearchCompanyResultReact.i18n = [
+SearchJobResultReact.i18n = [
   {},
   {}
 ];
 
-SearchCompanyResultReact.propTypes = {
+SearchJobResultReact.propTypes = {
   // self
 
   // React Router
@@ -147,10 +147,10 @@ SearchCompanyResultReact.propTypes = {
   // React Redux
 };
 
-export const SearchCompanyResult = withRouter(connect(
+export const SearchJobResult = withRouter(connect(
   (state) => {
     return {
       bodyClientWidth: state.bodyClientWidth
     };
   }
-)(SearchCompanyResultReact));
+)(SearchJobResultReact));
