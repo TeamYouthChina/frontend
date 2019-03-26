@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-// import classes from './index.module.css';
-// import {isLogin} from '../../../../../tool/api-helper';
-import {languageHelper} from '../../../../../tool/language-helper';
+import {languageHelper} from '../../../../tool/language-helper';
 
 class DiscoveryTopNavReact extends React.Component {
   constructor(props) {
