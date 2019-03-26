@@ -1,28 +1,24 @@
-.background {
-  background-color: white;
-}
-
 .content {
-  display: flex;
-  height: 4vw;
-  font-family: PingFang SC;
-  font-size: 1.25vw;
-  line-height: normal;
-  text-align: center;
-  padding-top: 1.35vw;
-  margin-left: 32.875vw;
   color: #454F69;
+  display: flex;
+  font-size: 1.25vw;
+  height: 4vw;
+  line-height: normal;
+  padding-top: 1.35vw;
+  text-align: center;
 }
 
-
-.interval{
-  margin-right: 4.2vw;
+.interval {
   cursor: pointer;
   transition: all 0.3s;
   -webkit-transition: all 0.3s;
 }
 
-.interval:hover{
+.interval:hover {
   border-bottom: 4px solid #4F65E1;
   color: #4F65E1
+}
+
+a {
+  color: black;
 }

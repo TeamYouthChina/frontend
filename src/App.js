@@ -15,6 +15,7 @@ import {Header} from './page/header';
 import {Help} from './page/help';
 import {Job} from './page/job';
 import {Login} from './page/login';
+import {My} from './page/my';
 import {OnlineApplication} from './page/online-application';
 import {Promotion} from './page/promotion';
 import {PageNoFound} from './page/page-no-found';
@@ -96,6 +97,10 @@ export class App extends React.Component {
               <Route
                 path="/login"
                 component={routeProps => <Login {...routeProps} />}
+              />
+              <Route
+                path="/my"
+                component={routeProps => <My {...routeProps} />}
               />
               <Route
                 path="/promotion"
