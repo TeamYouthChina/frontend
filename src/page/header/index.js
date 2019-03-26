@@ -191,7 +191,7 @@ class HeaderReact extends React.Component {
             </MDBNavbar>
             <div
               style={{
-                height: '56px'
+                height: '4.08vw'
               }}
             >
 

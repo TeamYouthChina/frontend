@@ -18,8 +18,8 @@ import {VideoCardBarId} from './video-card-bar-id';
 import {VideoCardBarFulltext} from './video-card-bar-fulltext';
 import {ReviewCardBarId} from './review-card-bar-id';
 import {ReviewCardBarFulltext} from './review-card-bar-fulltext';
-import {UserCardBarId} from './user-card-bar-id';
-import {UserCardSquareId} from './user-card-square-id';
+import {UserCardSquareAuth} from './user-card-square-auth';
+import {UserCardBarAuth} from './user-card-bar-auth';
 
 class GeneralComponentReact extends React.Component {
   constructor(props) {
@@ -51,25 +51,18 @@ class GeneralComponentReact extends React.Component {
           intervalVw={4.2}
           itemList={[
             {
-              name: '名称1',
+              name: '校园招聘',
               subPath: '/sub-path-1'
             },
             {
-              name: '名称2',
+              name: '社会招聘',
               subPath: '/sub-path-2'
             },
             {
-              name: '名称3',
+              name: '实习',
               subPath: '/sub-path-3'
             },
-            {
-              name: '名称4',
-              subPath: '/sub-path-4'
-            },
-            {
-              name: '名称5',
-              subPath: '/sub-path-5'
-            }
+            
           ]}
         />
         <div
@@ -352,11 +345,11 @@ class GeneralComponentReact extends React.Component {
             </div>
             <div className={classes.space}>
               <p>user-card-bar-id</p>
-              <UserCardBarId />
+              <UserCardBarAuth/>
             </div>
             <div className={classes.space}>
               <p>user-card-square-id</p>
-              <UserCardSquareId />
+              <UserCardSquareAuth/>
             </div>
             <div className={classes.space}>
               <p>video-card-bar-id</p>
