@@ -67,7 +67,7 @@ export class AddComment extends React.Component {
           background: '#C4C4C4',
           padding: '.625vw 1.562vw',
           color: '#FFFFFF', ...this.props.basicFont,
-          margin: '.468vw .468vw .391vw .468vw',
+          margin: '.468vw 0 .391vw .468vw',
         }}>
           发布
         </MDBBtn>

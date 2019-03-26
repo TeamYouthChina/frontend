@@ -1,33 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {MDBAvatar, MDBIcon, MDBRow} from 'mdbreact';
+import { MDBIcon, MDBRow} from 'mdbreact';
 
 export const UserInfor = (props) => (
   <div>
-    <MDBRow style={{margin: '0.781vw 0'}}>
-      <MDBAvatar style={{height: '100%', margin: '0.469vw 0.859vw 0.469vw 0'}}>
+    <MDBRow style={{margin: '0.781vw 0', display:'flex'}}>
+      <div style={{flewGrow:'0'}}>
         <img
-          style={{width: '2.5vw', background: '#F4F4F4'}}
+          style={{width: '2.5vw', background: '#F4F4F4',marginRight:'0.859vw'}}
           src={'https://s3.amazonaws.com/youthchina/WechatIMG29.jpeg'}
           alt="123"
           className="rounded-circle"
         />
-      </MDBAvatar>
-      <span style={{
-        marginRight: '0.781vw',
-        padding: '0.781vw 0',
-        color: '#31394D',
-        fontSize: '1.093vw', ...props.basicFont
-      }}>
-        {props.user}
-      </span>
-      <span style={{
-        padding: '0.781vw 0',
-        color: '#8D9AAF',
-        justifyContent: 'flex-start',
-        fontSize: '1.093vw', ...props.basicFont
-      }}>{props.description}
-      </span>
+
+        <span style={{
+          marginRight: '0.781vw',
+          padding: '0.781vw 0',
+          color: '#31394D',
+          fontSize: '1.093vw', ...props.basicFont
+        }}>
+          {props.user}
+        </span>
+        <span style={{
+          padding: '0.781vw 0',
+          color: '#8D9AAF',
+          fontSize: '1.093vw', ...props.basicFont
+        }}>
+          {props.description}
+        </span>
+      </div>
+      <div style={{flexGrow:'1',display: 'flex', justifyContent: 'flex-end'}}>
+        <MDBIcon icon="ellipsis-h" />
+      </div>
+
     </MDBRow>
 
     {props.isCollapsed ? (
@@ -45,7 +50,7 @@ export const UserInfor = (props) => (
             fontSize: '1.093vw', ...props.liBasicNoLine, ...props.basicFont,
             margin: '0.781vw 0 0 0'
           }}>
-            展开更多<MDBIcon style={{marginLeft: '0.391vw'}} icon="arrow-down" />
+            {/*展开更多<MDBIcon style={{marginLeft: '0.391vw'}} icon="arrow-down" />*/}
           </li>
         </ul>
 
