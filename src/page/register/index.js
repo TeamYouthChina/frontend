@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
+import img from './assets/img.png';
+import classes from './index.module.css';
+import {PersonalInfo} from './personalInfo';
+import {BasicInfo} from './basicInfo';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 
@@ -10,10 +14,24 @@ class RegisterReact extends React.Component {
   constructor(props) {
     super(props);
     // state
-    this.state = {};
+    this.state = {
+      passwordInputType: 'password',
+      registerType: 'personal', //记录个人登陆还是企业登陆
+      showDetail: false
+    };
     // i18n
     this.text = RegisterReact.i18n[languageHelper()];
   }
+
+  // handleRegisterType = (event) => {
+  //   this.setState({
+  //     registerType: event.target.value === 'personal' ? 'personal' : 'company'
+  //   });
+  // };
+
+  handleShowDetail = () => {
+    this.setState({showDetail: true});
+  };
 
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
@@ -26,9 +44,15 @@ class RegisterReact extends React.Component {
           className="cell-wall"
         >
           <div
-            className="cell-membrane"
+            className="cell-membrane d-flex"
           >
+            <div className={classes.leftCol}>
+              <img className="img-fluid" src={img} alt="view" />
+            </div>
 
+            <div className={classes.rightCol}>
+              {this.state.showDetail ? <PersonalInfo /> : <BasicInfo handleShowDetail={this.handleShowDetail} />}
+            </div>
           </div>
         </div>
       </div>

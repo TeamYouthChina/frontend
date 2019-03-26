@@ -22,6 +22,9 @@ import {PageNoFound} from './page/page-no-found';
 import {Playground} from './page/playground';
 import {Question} from './page/question';
 import {QuestionEdit} from './page/question-edit';
+import {Register} from './page/register';
+import {Review} from './page/review';
+import {ReviewEdit} from './page/review-edit';
 import {Search} from './page/search';
 import {Video} from './page/video';
 import {VideoEdit} from './page/video-edit';
@@ -129,6 +132,22 @@ export class App extends React.Component {
               <Route
                 path="/question/:qid"
                 component={routeProps => <Question {...routeProps} />}
+              />
+              <Route
+                path="/register"
+                component={routeProps => <Register {...routeProps} />}
+              />
+              <Route
+                path="/review/:id/edit"
+                component={routeProps => <ReviewEdit {...routeProps} create={false} />}
+              />
+              <Route
+                path="/review/create"
+                component={routeProps => <ReviewEdit {...routeProps} create={true} />}
+              />
+              <Route
+                path="/review/:id"
+                component={routeProps => <Review {...routeProps} />}
               />
               <Route
                 path="/search"
