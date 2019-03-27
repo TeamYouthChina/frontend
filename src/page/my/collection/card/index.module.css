@@ -5,7 +5,15 @@
   padding: 1.17vw 1.5625vw;
   background: #FFFFFF;
   border-radius: 4px;
+  align-items: start;
+ 
 }
+.content:hover {
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  border-color: #eee;
+  transition: all 0.2s ease-in-out;
+}
+
 .name{
   font-family: PingFang SC;
   font-size: 1.25vw;
@@ -16,17 +24,26 @@
   color: #454F69;
 
 }
+.tag{
+  width: 4.56vw;
+  margin-left: 2.11vw;
+  margin-top: 0.92vw;
+  background: #F0F3FA;
+  border-radius: 0.74vw;
+  font-family: PingFang SC;
+  font-size: 12px;
+  line-height: normal;
+  text-align: center;
+  
+
+  color: #4F65E1;
+
+}
 .bg{
-  display: flex;
+  
   background-image: url("./Shape.png");
   background-repeat:no-repeat;
   width: 5.47vw;
   height: 4.375vw;
-  align-items: center;
-  justify-items: center;
-}
-.logo{
-  
-  align-items: center;
-  justify-items: center;
+  text-align: center;
 }
