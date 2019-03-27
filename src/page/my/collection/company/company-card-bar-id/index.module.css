@@ -1,0 +1,135 @@
+.Card {
+  position: relative;
+  width: 100%;
+  height: 8.26vw;
+  background-color: #FFFFFF
+}
+
+.Card p{
+    margin: 0;
+}
+
+.Clickable {
+  position: absolute;
+  width: 100%;
+  height: 8.26vw;
+  z-index: 100;
+}
+
+.UnClickable {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 8.26vw;
+}
+
+.Icon img {
+  width: 6.25vw;
+  height: 6.26vw;
+  box-sizing: content-box;
+  padding: 1.05vw 1.56vw 1.05vw 1.56vw;
+}
+
+.Info {
+  display: flex;
+  flex-direction: column;
+  padding: 1.17vw 2.34vw;
+  justify-content: space-between;
+}
+
+.Name p {
+  font-family: PingFang SC;
+  font-size: 1.25vw;
+  line-height: normal;
+  color: #454f69;
+  padding-left: 0.375vw;
+}
+
+.Des1 {
+  display: flex;
+}
+
+.Des2 {
+  display: flex;
+}
+
+.Actions {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  position: relative;
+}
+
+.Positions {
+  display: flex;
+  position: absolute;
+  height: auto;
+  left: 0;
+  bottom: 1.17vw;
+}
+
+.UnLike {
+  display: flex;
+  position: absolute;
+  height: auto;
+  right: 2.88vw;
+  bottom: 1.17vw;
+}
+
+.Des1 img {
+  box-sizing: content-box;
+  padding: 0.375vw;
+  width: 1.11vw;
+  height: 0.87vw;
+}
+
+.Des2 img {
+  box-sizing: content-box;
+  padding: 0.375vw;
+  width: 1.24vw;
+  height: 0.8vw;
+}
+
+.Positions img {
+  box-sizing: content-box;
+  padding: 0.3vw;
+  width: 0.94vw;
+  height: 0.94vw;
+}
+
+.UnLike img {
+  box-sizing: content-box;
+  padding: 0.25vw;
+  width: 1.09vw;
+  height: 1vw;
+}
+
+.Des1 p,
+.Des2 p,
+.UnLike p {
+  font-family: PingFang SC;
+  font-size: 1.1vw;
+  line-height: normal;
+  color: #8d9aaf;
+}
+
+.Positions p {
+  font-family: PingFang SC;
+  font-size: 1.1vw;
+  line-height: normal;
+  color: #4f65e1;
+}
+
+.Positions button {
+  z-index: 200;
+  display: flex;
+  border: none;
+  padding: 0;
+}
+
+.UnLike button {
+  z-index: 200;
+  display: flex;
+  border: none;
+  padding: 0;
+}
