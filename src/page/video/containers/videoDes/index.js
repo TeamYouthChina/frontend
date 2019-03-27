@@ -11,6 +11,7 @@ import ThumbUp from '../../public/thumb-up.svg';
 import Comment from '../../public/comment.svg';
 import Share from '../../public/share.svg';
 import Favorite from '../../public/favorite-outline.svg';
+import VideoPlayer from '../player';
 
 const VideoDes = (props) => (
   <div className={classes.mdbCol}>
@@ -34,7 +35,9 @@ const VideoDes = (props) => (
 
     <div className={classes.articleDetailWrapper}>
       <div style={{flexGrow:'1'}}>
-        <video src=""></video>
+        <div style={{display:'inline-block',height:'80%'}}>
+          <VideoPlayer />
+        </div>
         <div style={{display: 'flex', justifyContent:'space-between',marginTop: '1.17vw'}}>
           <div style={{display:'flex'}}>
             <div style={{display: 'inline-block'}}>
