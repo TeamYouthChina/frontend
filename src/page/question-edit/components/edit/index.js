@@ -45,8 +45,8 @@ class ArticleCreate extends React.Component {
           code: 2000
         }
       };
-    const write = this.props.match.params.id !== undefined ? '编辑问题' : '写问题';
-    const submit = this.props.match.params.id !== undefined ? '提交' : '发布';
+    const write = this.props.match.params.qid !== undefined ? '编辑问题' : '写问题';
+    const submit = this.props.match.params.qid !== undefined ? '提交' : '发布';
     this.setState(() => {
       return {
         backend: mockData,
