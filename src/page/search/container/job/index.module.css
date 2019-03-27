@@ -101,7 +101,7 @@
   margin-left: 0.2vw;
 }
 
-.cardBarRow {
+.jobCardBarRow {
   margin-bottom: 1.56vw;
   margin-left: 1.6vw;
 }
@@ -113,6 +113,6 @@
   background-color: #FFFFFF;
   padding-top: 1.72vw;
   padding-bottom: 1.72vw;
-  margin-bottom: 1.56vw;
   margin-left: 1.56vw;
+  margin-bottom: 1.56vw;
 }
