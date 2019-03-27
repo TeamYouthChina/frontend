@@ -1,0 +1,32 @@
+.content{
+  display: flex;
+  height: 6.56vw;
+  width: 40.625vw;
+  padding: 1.17vw 1.5625vw;
+  background: #FFFFFF;
+  border-radius: 4px;
+}
+.name{
+  font-family: PingFang SC;
+  font-size: 1.25vw;
+  font-weight: bolder;
+  margin-left: 2.11vw;
+  line-height: normal;
+
+  color: #454F69;
+
+}
+.bg{
+  display: flex;
+  background-image: url("./Shape.png");
+  background-repeat:no-repeat;
+  width: 5.47vw;
+  height: 4.375vw;
+  align-items: center;
+  justify-items: center;
+}
+.logo{
+  
+  align-items: center;
+  justify-items: center;
+}
