@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {Redirect} from 'react-router-dom';
+import {Redirect, withRouter} from 'react-router-dom';
 
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
+
+import ArticleCreate from './components/edit';
 
 class QuestionEditReact extends React.Component {
   constructor(props) {
@@ -22,9 +24,11 @@ class QuestionEditReact extends React.Component {
     }
     return (
       <div>
+        <ArticleCreate />
         <div
           className="cell-wall"
         >
+
           <div
             className="cell-membrane"
           >
@@ -52,10 +56,10 @@ QuestionEditReact.propTypes = {
   bodyClientWidth: PropTypes.number.isRequired
 };
 
-export const QuestionEdit = connect(
+export const QuestionEdit = withRouter(connect(
   (state) => {
     return {
       bodyClientWidth: state.bodyClientWidth
     };
   }
-)(QuestionEditReact);
+)(QuestionEditReact));
