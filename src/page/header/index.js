@@ -216,6 +216,7 @@ HeaderReact.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
+  // React Redux
   bodyClientWidth: PropTypes.number.isRequired
 };
 

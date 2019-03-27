@@ -19,26 +19,52 @@ const generateHeaders = () => {
   return headers;
 };
 
-const loginMiddleware = (response) => {
+const preprocessResponse = (response) => {
+  // New login credential is generated.
   const token = response.headers.get('x-authentication');
   if (token) {
     Cookies.set('token', token, {expires: 1});
   }
-};
-
-const logoutMiddleware = (response) => {
-  const responseJson = response.json();
+  let responseJson = response.json();
   try {
-    if (responseJson.status.code === 4010) {
+    // Login credential is expired.
+    if (responseJson.status.code.toString().startsWith('401')) {
       Cookies.remove('token');
     }
-  } catch (e) {
-    /* eslint-disable no-console */
-    console.log('这是后端的锅！');
-    console.log(responseJson);
-    /* eslint-enable no-console */
+  } catch (error) {
+    if (error instanceof TypeError) {
+      /* eslint-disable no-console */
+      console.log('error: ', error);
+      console.log('response.json: ', responseJson);
+      console.log('致后端的朋友们：任何的请求的 response.json.status.code 都必须存在。');
+      /* eslint-enable no-console */
+      return {
+        ...responseJson,
+        status: {
+          code: 5001,
+          reason: '后端未给出 response.json.status.code 。'
+        }
+      };
+    } else {
+      throw error;
+    }
   }
   return responseJson;
+};
+
+const fetchError = (error) => {
+  return {
+    status: {
+      code: 5000,
+      reason: error.toString()
+    }
+  };
+};
+
+const wait = (ms) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
 };
 
 export const isLogin = () => {
@@ -57,16 +83,8 @@ export const get = (urlSuffix) => {
       headers: generateHeaders()
     }
   ).then((response) => {
-    loginMiddleware(response);
-    return logoutMiddleware(response);
-  }).catch((error) => {
-    return {
-      status: {
-        code: 5000,
-        reason: error.toString()
-      }
-    };
-  });
+    return preprocessResponse(response);
+  }).catch(fetchError);
 };
 
 export const postAsync = async (urlSuffix, requestBody) => {
@@ -82,16 +100,8 @@ export const post = (urlSuffix, requestBody) => {
       body: JSON.stringify(requestBody)
     }
   ).then((response) => {
-    loginMiddleware(response);
-    return logoutMiddleware(response);
-  }).catch((error) => {
-    return {
-      status: {
-        code: 5000,
-        reason: error.toString()
-      }
-    };
-  });
+    return preprocessResponse(response);
+  }).catch(fetchError);
 };
 
 export const putAsync = async (urlSuffix, requestBody) => {
@@ -107,16 +117,8 @@ export const put = (urlSuffix, requestBody) => {
       body: JSON.stringify(requestBody)
     }
   ).then((response) => {
-    loginMiddleware(response);
-    return logoutMiddleware(response);
-  }).catch((error) => {
-    return {
-      status: {
-        code: 5000,
-        reason: error.toString()
-      }
-    };
-  });
+    return preprocessResponse(response);
+  }).catch(fetchError);
 };
 
 export const deleteAsync = async (urlSuffix) => {
@@ -131,22 +133,8 @@ export const deleteHttp = (urlSuffix) => {
       headers: generateHeaders()
     }
   ).then((response) => {
-    loginMiddleware(response);
-    return logoutMiddleware(response);
-  }).catch((error) => {
-    return {
-      status: {
-        code: 5000,
-        reason: error.toString()
-      }
-    };
-  });
-};
-
-const wait = (ms) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
+    return preprocessResponse(response);
+  }).catch(fetchError);
 };
 
 export const mockGetAsync = async (content, delayMs) => {
@@ -185,8 +173,7 @@ export const mockError = (statusCode, delayMs) => {
     () => {
       return {
         status: {
-          code: statusCode,
-          reason: ''
+          code: statusCode
         }
       };
     }
