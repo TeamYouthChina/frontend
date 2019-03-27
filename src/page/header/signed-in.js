@@ -130,7 +130,8 @@ SignedInReact.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  bodyClientWidth: PropTypes.object.isRequired
+  // React Redux
+  bodyClientWidth: PropTypes.number.isRequired
 };
 
 export const SignedIn = withRouter(connect(

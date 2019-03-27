@@ -1,0 +1,125 @@
+.Card {
+  position: relative;
+  display: flex;
+  height: 11.02vw;
+  width: auto;
+  background-color: white;
+}
+
+.Card p {
+  margin: 0;
+  padding: 0;
+}
+
+.Clickable {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+
+.UnClickable {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.Img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 11.64vw;
+}
+
+.Img img {
+  width: 7.73vw;
+  height: 7.41vw;
+}
+
+.Info {
+  height: 100%;
+  width: 58vw;
+  padding: 1.56vw 0 1.56vw 0.39vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.Des2 {
+  display: flex;
+  flex-direction: column;
+}
+
+.Des2 p,
+.Action button {
+  font-family: PingFang SC;
+  font-size: 1.09vw;
+  line-height: normal;
+  color: #8d9aaf;
+}
+
+.Des2 img {
+  box-sizing: content-box;
+  width: 1.48vw;
+  height: 1.45vw;
+  padding-right: 0.5vw;
+}
+
+.Row {
+  display: flex;
+  width: 100%;
+  height: 50%;
+  padding: 0.2vw;
+}
+
+.Column {
+  display: flex;
+  height: 100%;
+  width: 50%;
+}
+
+.Action {
+  position: relative;
+  height: 100%;
+  flex-grow: 1;
+}
+
+.Action img {
+  box-sizing: border-box;
+  width: 1.48vw;
+  height: 1.45vw;
+  padding: 0.15vw;
+  /* padding-right: 0.5vw; */
+}
+
+.Like {
+  /* display: flex; */
+  position: absolute;
+  bottom: 1.56vw;
+  right: 1.56vw;
+  padding: 0.4vw;
+  z-index: 200;
+}
+
+.Like button {
+  display: flex;
+  border: none;
+  width: 100%;
+  height: 100%;
+  border-radius: 1.56vw;
+  padding: 0;
+}
+
+/* .Like button:hover {
+  background-color: #4f65e1;
+  color: white;
+} */
+
+.P1 {
+  font-family: PingFang SC;
+  font-size: 1.25vw;
+  line-height: normal;
+  color: #454f69;
+}
