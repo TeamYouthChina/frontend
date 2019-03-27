@@ -15,6 +15,7 @@ import {Header} from './page/header';
 import {Help} from './page/help';
 import {Job} from './page/job';
 import {Login} from './page/login';
+import {My} from './page/my';
 import {OnlineApplication} from './page/online-application';
 import {Promotion} from './page/promotion';
 import {PageNoFound} from './page/page-no-found';
@@ -25,7 +26,6 @@ import {Register} from './page/register';
 import {Review} from './page/review';
 import {ReviewEdit} from './page/review-edit';
 import {Search} from './page/search';
-import {Setting} from './page/setting';
 import {Video} from './page/video';
 import {VideoEdit} from './page/video-edit';
 import {store} from './redux/store';
@@ -102,6 +102,10 @@ export class App extends React.Component {
                 component={routeProps => <Login {...routeProps} />}
               />
               <Route
+                path="/my"
+                component={routeProps => <My {...routeProps} />}
+              />
+              <Route
                 path="/promotion"
                 component={routeProps => <Promotion {...routeProps} />}
               />
@@ -148,10 +152,6 @@ export class App extends React.Component {
               <Route
                 path="/search"
                 component={routeProps => <Search {...routeProps} />}
-              />
-              <Route
-                path="/setting"
-                component={routeProps => <Setting {...routeProps} />}
               />
               <Route
                 path="/video/:id/edit"

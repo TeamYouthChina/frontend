@@ -10,6 +10,6 @@ fi
 BRANCH=$1
 
 cd ${SCRIPT_PATH}
-git push origin :${BRANCH}
 ./sync.sh
+git push origin :${BRANCH}
 git branch -d ${BRANCH}

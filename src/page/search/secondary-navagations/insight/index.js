@@ -84,7 +84,7 @@ class SearccInsightNavItemReact extends React.Component {
           <MDBCollapse id="navbarCollapse" isOpen={this.state.collapseID} navbar>
             <MDBNavbarNav left>
 
-              <MDBNavItem className="mx-0">
+              <MDBNavItem className="mx-2">
                 <MDBDropdown>
                   <MDBDropdownToggle nav>
                     <div className="d-md-inline" style={navyFont}>

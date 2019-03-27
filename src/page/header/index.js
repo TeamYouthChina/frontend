@@ -191,7 +191,7 @@ class HeaderReact extends React.Component {
             </MDBNavbar>
             <div
               style={{
-                height: '56px'
+                height: '4.08vw'
               }}
             >
 
@@ -216,6 +216,7 @@ HeaderReact.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
+  // React Redux
   bodyClientWidth: PropTypes.number.isRequired
 };
 
