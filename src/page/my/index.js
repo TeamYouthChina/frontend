@@ -6,6 +6,7 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 import {Application} from './application';
 import {CollectionSwitch} from './collection/index.switch';
 import {content} from './index.mock';
+import {File} from './file';
 import {Message} from './message';
 import {Notification} from './notification';
 import {Profile} from './profile';
@@ -110,7 +111,7 @@ class MyReact extends React.Component {
                 },
                 {
                   name: '我的文件',
-                  subPath: '/sub-path-3'
+                  subPath: '/file'
                 },
                 {
                   name: '我的发布',
@@ -133,6 +134,10 @@ class MyReact extends React.Component {
           <Route
             path={`${this.props.match.url}/collection`}
             component={routeProps => <CollectionSwitch {...routeProps} />}
+          />
+          <Route
+            path={`${this.props.match.url}/file`}
+            component={routeProps => <File {...routeProps} />}
           />
           <Route
             path={`${this.props.match.url}/message`}

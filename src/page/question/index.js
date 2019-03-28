@@ -47,7 +47,8 @@ class QuestionReact extends React.Component {
             title:'搞什么副业能稳定收入一万元',
             detail:'平时上班比较清闲，经常在电脑周围，平时闲来无事的时候后'}}
           basicFont={basicFont}
-          questionId={1}/>
+          questionId={1}
+        />
         <div
           className="cell-wall"
           style={{backgroundColor:'#F0F3FA'}}

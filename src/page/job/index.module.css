@@ -1,0 +1,49 @@
+.background{
+  background: #E5E5E5;
+}
+.bg{
+  height: 26.7vw;
+  margin-top: -4.2vw;
+  width:100%
+  
+}
+.img{
+  width:100%;
+  height: auto;
+}
+
+
+.companydesci{
+  margin-top:1.48vw;
+  
+  width: 66.4vw;
+
+  background: #FFFFFF;
+}
+
+.menu{
+  
+  margin-left: 5.69vw;
+  margin-top: 2.2vw;
+  
+}
+
+.font{
+  font-family: PingFang SC;
+  font-size: 1.09vw;
+  font-weight: bolder;
+  line-height: normal;
+  padding:0.9375vw 0;
+
+  color: #454F69;
+  cursor: pointer;
+  transition: color 0.3s;
+  -webkit-transition: color 0.3s;
+  
+}
+.font:hover{
+  
+  color: #4F65E1;
+
+
+}
