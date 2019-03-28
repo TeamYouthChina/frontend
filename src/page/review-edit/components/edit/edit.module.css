@@ -1,0 +1,75 @@
+.inputStyle::placeholder {
+  font-family: PingFang SC;
+  font-size: 36px;
+  line-height: normal;
+  color: #C1C4CA;
+}
+.inputStyle {
+  font-family: PingFang SC;
+  font-size: 36px;
+  line-height: normal;
+  padding:0;
+  margin:0;
+  border-width: 0;
+  width: 100%;
+}
+.titleSpan {
+  margin-right: 0.781vw;
+  padding: 0;
+  font-family: PingFang SC;
+  font-size: 1.09vw;
+  line-height: normal;
+  color: #454F69;
+}
+.desSpan {
+  padding: 0;
+  color: #8D9AAF;
+  font-size: 1.093vw;
+  font-family: PingFang SC;
+  line-height: 1.95vw;
+}
+.FTDquestion{
+  padding-left: 0;
+  margin-top:16px!important;
+  margin-left: -1.25rem;
+}
+.FTDquestion .form-check-input[type="checkbox"] + label:before, .form-check-input[type="checkbox"]:not(.filled-in) + label:after, label.btn input[type="checkbox"] + label:before, label.btn input[type="checkbox"]:not(.filled-in) + label:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  z-index: 0;
+  border: 2px solid #8a8a8a;
+  border-radius: 50%;
+  margin-top: 3px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.FTDquestion .form-check-input[type="checkbox"]:checked + label:before, label.btn input[type="checkbox"]:checked + label:before {
+  border-radius: 1px;
+  top: -4px;
+  left: -5px;
+  width: 12px;
+  height: 1.375rem;
+  border-top: 2px solid transparent;
+  border-left: 2px solid transparent;
+  border-right: 2px solid #4285f4;
+  border-bottom: 2px solid #4285f4;
+  -webkit-transform: rotate(40deg);
+  transform: rotate(40deg);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform-origin: 100% 100%;
+  transform-origin: 100% 100%;
+}
+.FTDquestion .form-check-input[type="checkbox"]:checked + label:before, label.btn input[type="checkbox"]:checked + label{
+  font-family: PingFang SC;
+  line-height: normal;
+  font-size: 14px;
+  text-align: center;
+  color: #8D9AAF;
+}
+

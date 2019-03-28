@@ -5,6 +5,7 @@ import {Redirect} from 'react-router-dom';
 
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
+import AnswerCreate from './components/edit';
 
 class AnswerEditReact extends React.Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class AnswerEditReact extends React.Component {
     }
     return (
       <div>
+        <AnswerCreate />
         <div
           className="cell-wall"
         >

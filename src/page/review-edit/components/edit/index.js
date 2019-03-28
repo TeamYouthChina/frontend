@@ -17,7 +17,7 @@ const basicFont = {
   lineHeight: 'normal',
 };
 
-class ArticleCreate extends React.Component {
+class ReviewCreate extends React.Component {
   constructor(props) {
     super(props);
     /*
@@ -27,9 +27,10 @@ class ArticleCreate extends React.Component {
       showPic: false,
       title:'空标题',
       write:null,
-      submit:null
+      submit:null,
+      hint:true
     };
-    this.text = ArticleCreate.i18n[languageHelper()];
+    this.text = ReviewCreate.i18n[languageHelper()];
     this.handleInputClick = this.handleInputClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.getObjectURL = this.getObjectURL.bind(this);
@@ -45,13 +46,15 @@ class ArticleCreate extends React.Component {
           code: 2000
         }
       };
-    const write = this.props.match.params.qid !== undefined ? '编辑问题' : '写问题';
-    const submit = this.props.match.params.qid !== undefined ? '提交' : '发布';
+    const write = this.props.match.params.id !== undefined ? '编辑短则' : '写短则';
+    const submit = this.props.match.params.id !== undefined ? '提交' : '发布';
+    const hint = this.props.match.params.id === undefined;
     this.setState(() => {
       return {
         backend: mockData,
         write,
-        submit
+        submit,
+        hint
       };
     });
   }
@@ -130,18 +133,41 @@ class ArticleCreate extends React.Component {
               </MDBCol>
 
             </MDBRow>
-            <MDBRow style={{marginTop:'20px'}}>
-              <MDBCol>
-                <input className={classes.inputStyle} style={{height:'50px'}} onChange={(e)=>this.handleSetInput(e)} placeholder={this.text.title}/>
-              </MDBCol>
+            <MDBRow style={{margin: '1.71vw 0px'}}>
+              <div>
+                <img
+                  style={{width: '2.96vw', background: '#F4F4F4', marginRight: '0.859vw'}}
+                  src={'https://s3.amazonaws.com/youthchina/WechatIMG29.jpeg'}
+                  alt="123"
+                  className="rounded-circle"
+                />
+                <span className={classes.titleSpan}>weYouth负责人</span>
+              </div>
             </MDBRow>
-            <div style={{marginTop:'98px'}}>
-              <ArticleEditInit
-                inputData={this.state.title}
-                ref={(answerText) => this.answerText = answerText}
-              />
+            <MDBRow style={{marginTop:'20px'}}>
+            </MDBRow>
+            <ArticleEditInit 
+              inputData={this.state.title}
+              hint={this.state.hint}
+              ref={(answerText) => this.answerText = answerText}
+            />
+            <div style={{
+              width:'88px',
+              height:'28px',
+              marginTop:'10px',
+              background: '#F0F3FA',
+              borderRadius: '20px',
+              justifyContent: 'center',
+              display:'flex',
+              alignItems:'center',
+              fontSize: '14px',
+              color:'#4F65E1',
+              ...basicFont}}>
+              标签1
             </div>
-            
+            {/*<div className={classes.FTDquestion} style={{margin:'0px'}}>*/}
+            {/*<MDBInput style={{padding:'0px'}} label="匿名提问" type="checkbox" id="checkbox1" />*/}
+            {/*</div>*/}
           </MDBCol>
           <MDBCol size="1">
 
@@ -152,13 +178,13 @@ class ArticleCreate extends React.Component {
   }
 }
 
-ArticleCreate.propTypes = {
+ReviewCreate.propTypes = {
   match: PropTypes.object.isRequired,
 };
 
-ArticleCreate.i18n = [
+ReviewCreate.i18n = [
   {
-    title: '请输入问题标题（限50字以内）',
+    title: '请输入回答标题（限50字以内）',
     submitBtn: '提交文章',
     write: '写文章'
   },
@@ -169,4 +195,4 @@ ArticleCreate.i18n = [
   },
 ];
 
-export default withRouter(ArticleCreate);
+export default withRouter(ReviewCreate);

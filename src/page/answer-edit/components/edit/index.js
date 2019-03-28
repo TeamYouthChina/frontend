@@ -17,7 +17,7 @@ const basicFont = {
   lineHeight: 'normal',
 };
 
-class ArticleCreate extends React.Component {
+class AnswerCreate extends React.Component {
   constructor(props) {
     super(props);
     /*
@@ -29,7 +29,7 @@ class ArticleCreate extends React.Component {
       write:null,
       submit:null
     };
-    this.text = ArticleCreate.i18n[languageHelper()];
+    this.text = AnswerCreate.i18n[languageHelper()];
     this.handleInputClick = this.handleInputClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.getObjectURL = this.getObjectURL.bind(this);
@@ -45,8 +45,8 @@ class ArticleCreate extends React.Component {
           code: 2000
         }
       };
-    const write = this.props.match.params.qid !== undefined ? '编辑问题' : '写问题';
-    const submit = this.props.match.params.qid !== undefined ? '提交' : '发布';
+    const write = this.props.match.params.aid !== undefined ? '编辑回答' : '写回答';
+    const submit = this.props.match.params.aid !== undefined ? '提交' : '发布';
     this.setState(() => {
       return {
         backend: mockData,
@@ -135,13 +135,11 @@ class ArticleCreate extends React.Component {
                 <input className={classes.inputStyle} style={{height:'50px'}} onChange={(e)=>this.handleSetInput(e)} placeholder={this.text.title}/>
               </MDBCol>
             </MDBRow>
-            <div style={{marginTop:'98px'}}>
-              <ArticleEditInit
-                inputData={this.state.title}
-                ref={(answerText) => this.answerText = answerText}
-              />
-            </div>
-            
+            <br/>
+            <ArticleEditInit 
+              inputData={this.state.title} 
+              ref={(answerText) => this.answerText = answerText}
+            />
           </MDBCol>
           <MDBCol size="1">
 
@@ -152,13 +150,13 @@ class ArticleCreate extends React.Component {
   }
 }
 
-ArticleCreate.propTypes = {
+AnswerCreate.propTypes = {
   match: PropTypes.object.isRequired,
 };
 
-ArticleCreate.i18n = [
+AnswerCreate.i18n = [
   {
-    title: '请输入问题标题（限50字以内）',
+    title: '请输入回答标题（限50字以内）',
     submitBtn: '提交文章',
     write: '写文章'
   },
@@ -169,4 +167,4 @@ ArticleCreate.i18n = [
   },
 ];
 
-export default withRouter(ArticleCreate);
+export default withRouter(AnswerCreate);
