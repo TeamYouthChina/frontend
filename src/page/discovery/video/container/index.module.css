@@ -62,6 +62,17 @@
 }
 
 .sideBar {
-  margin-top: 2.4vw;
+  /*margin-top: 2.4vw;*/
   padding: 1.56vw;
+  padding-top: 0;
+}
+
+.videoCreateSidebar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FFFFFF;
+  padding-top: 1.72vw;
+  padding-bottom: 1.72vw;
+  margin-bottom: 1.56vw;
 }

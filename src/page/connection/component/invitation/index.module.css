@@ -1,0 +1,43 @@
+.title {
+  font-family: PingFang SC;
+  font-size: 1.25vw;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  color: #454F69;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  height: 3.5vw;
+}
+
+.content {
+  font-family: PingFang SC;
+  font-size: 1.1vw;
+  line-height: normal;
+  color: #8D9AAF;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  height: 3.5vw;
+}
+
+.manageAll {
+  font-family: PingFang SC;
+  font-size: 0.94vw;
+  font-weight: 400;
+  line-height: normal;
+  color: #4F65E1;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  height: 3vw;
+}
+
+.invitationCard {
+  background-color: #FFFFFF;
+  height: 10.55vw;
+  border-radius: 0.16vw;
+  margin-bottom: 1.56vw;
+  padding-left: 1.72vw;
+}
