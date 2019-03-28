@@ -1,0 +1,8 @@
+.tabItems {
+  color: #454f69 !important;
+}
+
+.tabItems:focus {
+  color: #4F65E1;
+  font-weight: 500;
+}

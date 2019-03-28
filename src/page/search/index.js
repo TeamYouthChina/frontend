@@ -19,6 +19,7 @@ import {SearchJobResult} from './container/job';
 import {SearchCompanyResult} from './container/company';
 import {SearchVideoResult} from './container/video';
 import {SearchInsightResult} from './container/insight';
+import {SearchConnectionResult} from './container/connection';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 
@@ -27,16 +28,6 @@ const basicCHNFont = {
   fontStyle: 'normal',
   fontWeight: 'normal',
   lineHeight: 'normal'
-};
-// eslint-disable-next-line
-const navyFont = {
-  ...basicCHNFont,
-  color: '#31394D'
-};
-// eslint-disable-next-line
-const navlinkIcon = {
-  width: '20px',
-  marginRight: '5px'
 };
 
 class SearchReact extends React.Component {
@@ -147,7 +138,7 @@ class SearchReact extends React.Component {
               />
               <Route
                 path={`${this.props.match.url}/connection`}
-                component={routeProps => <SearchVideoResult basicCHNFont={basicCHNFont} />}
+                component={routeProps => <SearchConnectionResult basicCHNFont={basicCHNFont} />}
               />
               <Redirect to={`${this.props.match.url}/job`} />
             </Switch>
