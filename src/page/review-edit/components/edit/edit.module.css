@@ -72,4 +72,27 @@
   text-align: center;
   color: #8D9AAF;
 }
+.tagWrapper {
+  margin-top:10px;
+  display:flex;
+  align-items:center;
+}
+.reviewTag {
+  width:88px;
+  height:28px;
+  background: #F0F3FA;
+  border-radius: 20px;
+  font-size: 14px;
+  color:#4F65E1;
+  font-family: PingFang SC;
+  line-height: 28px;
+  text-align: center;
+}
+
+.deleteIcon {
+  font-size: 16px;
+  float: none;
+  margin-left:5px;
+  padding: 0;
+}
 
