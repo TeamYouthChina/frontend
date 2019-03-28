@@ -5,6 +5,7 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 
 import {Insight} from './insight';
 import {Video} from './video';
+import {TopNav} from './secondary-navagations';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 
@@ -25,6 +26,7 @@ class DiscoveryReact extends React.Component {
     return (
       <div>
         {/* 二级导航条 */}
+        <TopNav/>
         <Switch>
           <Route
             path={`${this.props.match.url}/insight`}
