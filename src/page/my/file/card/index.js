@@ -4,17 +4,18 @@ import {connect} from 'react-redux';
 
 import classes from './index.module.css';
 import more from './more.png';
+import shape from './Shape.png';
 import {languageHelper} from '../../../../tool/language-helper';
 import {withRouter} from 'react-router-dom';
 
 
-class CollectionCardReact extends React.Component {
+class FileCardReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {};
     // i18n
-    this.text = CollectionCardReact.i18n[languageHelper()];
+    this.text = FileCardReact.i18n[languageHelper()];
   }
 
   render() {
@@ -23,13 +24,13 @@ class CollectionCardReact extends React.Component {
       <div 
         className={classes.content}
         onClick={()=>{
-          this.props.history.push(`/my/collection/${this.props.url}`);
+          //this.props.history.push(`/my/collection/${this.props.url}`);
         }}
       >
-        <div className={classes.bg}>
+        <div className={classes.bg} >
 
           <img
-            src={this.props.logo}
+            src={shape}
             style={{verticalAlign:'center',padding:'1.17vw 0'}}
           />
 
@@ -41,25 +42,37 @@ class CollectionCardReact extends React.Component {
           <div className={classes.tag}>
             {this.props.tag}
           </div>
+
+          <div className={classes.modify}>
+            {this.props.date}
+          </div>
+
+
+
           <span className="red-text h6">API没有</span>
         </div>
-        
         <div>
-          <img src={more} style={{marginTop:'-1.1vw'}}/>
+          <div>
+            <img src={more} style={{marginTop:'-1.1vw'}}/>
+          </div>
+          <div className={classes.delete}>
+            删除
+          </div>
         </div>
+        
 
       </div>
     );
   }
 }
 
-CollectionCardReact.i18n = [
+FileCardReact.i18n = [
   {},
   {}
   
 ];
 
-CollectionCardReact.propTypes = {
+FileCardReact.propTypes = {
   // self
 
   // React Router
@@ -67,17 +80,18 @@ CollectionCardReact.propTypes = {
   logo: PropTypes.string.isRequired,
   tag: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
   history:PropTypes.object.isRequired,
   
   // React Redux
   
 };
 
-export const CollectionCard = withRouter(connect(
+export const FileCard = withRouter(connect(
   (state) => {
     return {
       bodyClientWidth: state.bodyClientWidth
     };
   }
-)(CollectionCardReact));
+)(FileCardReact));
 

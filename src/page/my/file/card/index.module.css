@@ -1,11 +1,12 @@
 .content{
   display: flex;
-  height: 6.56vw;
+  
   width: 40.625vw;
   padding: 1.17vw 1.5625vw;
   background: #FFFFFF;
   border-radius: 4px;
   align-items: start;
+  justify-content: space-between;
  
 }
 .content:hover {
@@ -41,9 +42,27 @@
 }
 .bg{
   
-  background-image: url("./Shape.png");
-  background-repeat:no-repeat;
   width: 5.47vw;
   height: 4.375vw;
   text-align: center;
+}
+.modify{
+  margin-left: 2.11vw;
+  margin-top: 0.85vw;
+  font-family: PingFang SC;
+  font-size: 0.93vw;
+  line-height: normal;
+
+  color: #8D9AAF;
+}
+.delete{
+  width: 2.58vw;
+  font-family: PingFang SC;
+  font-size: 0.93vw;
+  line-height: normal;
+  margin-top: 2.90625vw;
+  margin-left: -0.3vw;
+
+  color: #4F65E1;
+
 }
