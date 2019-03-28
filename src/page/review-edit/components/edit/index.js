@@ -24,11 +24,13 @@ class ReviewCreate extends React.Component {
     * */
     this.state = {
       backend: null,
+      allTags:['标签一'],
       showPic: false,
       title:'空标题',
       write:null,
       submit:null,
-      hint:true
+      hint:true,
+      inputValue:null
     };
     this.text = ReviewCreate.i18n[languageHelper()];
     this.handleInputClick = this.handleInputClick.bind(this);
@@ -36,6 +38,8 @@ class ReviewCreate extends React.Component {
     this.getObjectURL = this.getObjectURL.bind(this);
     this.deletePic = this.deletePic.bind(this);
     this.handleSetInput = this.handleSetInput.bind(this);
+    this.deleteIcon = this.deleteIcon.bind(this);
+    this.newTag = this.newTag.bind(this);
   }
 
   componentWillMount() {
@@ -109,6 +113,30 @@ class ReviewCreate extends React.Component {
     ),100);
   }
 
+  deleteIcon(index){
+    let array = this.state.allTags;
+    this.setState({
+      allTags:array.slice(0,index).concat(array.slice(index+1,array.length))
+    });
+  }
+  
+  newTag(e){
+    const value = e.target.value;
+    let array = this.state.allTags;
+    if(e.keyCode === 13) {
+      if(array.indexOf(value) === 1) {
+        alert('sorry for repeat');
+        e.target.value = null;
+        return;
+      }
+      array.push(value);
+      e.target.value = null;
+      this.setState({
+        allTags:array
+      });
+    }
+  }
+  
   render() {
     return (this.state.backend && this.state.backend.status && this.state.backend.status.code === 2000) ? (
       <div>
@@ -151,20 +179,16 @@ class ReviewCreate extends React.Component {
               hint={this.state.hint}
               ref={(answerText) => this.answerText = answerText}
             />
-            <div style={{
-              width:'88px',
-              height:'28px',
-              marginTop:'10px',
-              background: '#F0F3FA',
-              borderRadius: '20px',
-              justifyContent: 'center',
-              display:'flex',
-              alignItems:'center',
-              fontSize: '14px',
-              color:'#4F65E1',
-              ...basicFont}}>
-              标签1
+            <div className={classes.tagWrapper}>
+              {this.state.allTags.map((item,index)=>(
+                <span key={index} className={classes.reviewTag}>
+                  {item}
+                  <i onClick={() => this.deleteIcon(index)} className={`fa fa-times close ${classes.deleteIcon}`} />
+                </span>
+              ))}
+              <input className={classes.reviewTag} onKeyDown={(e) => this.newTag(e)} type="text" placeholder='输入新标签' />
             </div>
+            
             {/*<div className={classes.FTDquestion} style={{margin:'0px'}}>*/}
             {/*<MDBInput style={{padding:'0px'}} label="匿名提问" type="checkbox" id="checkbox1" />*/}
             {/*</div>*/}
