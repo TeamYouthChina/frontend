@@ -6,7 +6,6 @@ import {
   MDBBtn,
   MDBRow,
   MDBCol,
-  MDBInput,
 } from 'mdbreact';
 import ArticleEditInit from '../articleEditInit';
 import classes from './edit.module.css';
@@ -28,7 +27,8 @@ class ReviewCreate extends React.Component {
       showPic: false,
       title:'空标题',
       write:null,
-      submit:null
+      submit:null,
+      hint:true
     };
     this.text = ReviewCreate.i18n[languageHelper()];
     this.handleInputClick = this.handleInputClick.bind(this);
@@ -46,13 +46,15 @@ class ReviewCreate extends React.Component {
           code: 2000
         }
       };
-    const write = this.props.match.params.aid !== undefined ? '编辑短则' : '写短则';
-    const submit = this.props.match.params.aid !== undefined ? '提交' : '发布';
+    const write = this.props.match.params.id !== undefined ? '编辑短则' : '写短则';
+    const submit = this.props.match.params.id !== undefined ? '提交' : '发布';
+    const hint = this.props.match.params.id === undefined;
     this.setState(() => {
       return {
         backend: mockData,
         write,
-        submit
+        submit,
+        hint
       };
     });
   }
@@ -139,13 +141,14 @@ class ReviewCreate extends React.Component {
                   alt="123"
                   className="rounded-circle"
                 />
-                <span className={classes.titleSpan}>123</span>
+                <span className={classes.titleSpan}>weYouth负责人</span>
               </div>
             </MDBRow>
             <MDBRow style={{marginTop:'20px'}}>
             </MDBRow>
             <ArticleEditInit 
-              inputData={this.state.title} 
+              inputData={this.state.title}
+              hint={this.state.hint}
               ref={(answerText) => this.answerText = answerText}
             />
             <div style={{
@@ -162,9 +165,9 @@ class ReviewCreate extends React.Component {
               ...basicFont}}>
               标签1
             </div>
-            <div className={classes.FTDquestion} style={{margin:'0px'}}>
-              <MDBInput style={{padding:'0px'}} label="匿名提问" type="checkbox" id="checkbox1" />
-            </div>
+            {/*<div className={classes.FTDquestion} style={{margin:'0px'}}>*/}
+            {/*<MDBInput style={{padding:'0px'}} label="匿名提问" type="checkbox" id="checkbox1" />*/}
+            {/*</div>*/}
           </MDBCol>
           <MDBCol size="1">
 

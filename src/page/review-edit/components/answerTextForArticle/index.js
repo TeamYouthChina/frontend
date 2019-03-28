@@ -5,6 +5,7 @@ import 'braft-editor/dist/index.css';
 // import {postAsync} from '../../../../tool/api-helper';
 import {MDBModal, MDBModalBody, MDBModalFooter, MDBBtn, MDBIcon} from 'mdbreact';
 import classes from './answerText.module.css';
+import PropTypes from 'prop-types';
 const basicFont = {
   fontFamily: 'PingFang SC',
   lineHeight: 'normal',
@@ -82,6 +83,7 @@ class AnswerTextForArticle extends React.Component {
     // 使用BraftEditor.createEditorState将html字符串转换为编辑器需要的editorState数据
     this.setState({
       editorState: BraftEditor.createEditorState(htmlContent),
+      showInit:this.props.hint
     });
   }
 
@@ -191,4 +193,9 @@ class AnswerTextForArticle extends React.Component {
     );
   }
 }
+
+AnswerTextForArticle.propTypes = {
+  hint: PropTypes.bool.isRequired,
+};
+
 export default AnswerTextForArticle;

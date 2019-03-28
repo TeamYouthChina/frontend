@@ -11,7 +11,7 @@ class ArticleEditInit extends React.Component {
     return (
       <div className={classes.articleWrapper}>
         <MDBRow className={classes.mdbRowWrapper}>
-          <AnswerTextForArticle data={this.props.inputData} />
+          <AnswerTextForArticle data={this.props.inputData} hint={this.props.hint}/>
         </MDBRow>
       </div>
     );
@@ -21,6 +21,7 @@ class ArticleEditInit extends React.Component {
 
 ArticleEditInit.propTypes = {
   inputData: PropTypes.string.isRequired,
+  hint: PropTypes.bool.isRequired,
 };
 
 export default ArticleEditInit;
