@@ -1,0 +1,23 @@
+.content{
+  margin-top: 1.5vw;
+  width: 66.4vw;
+  padding:1.56vw 2.42vw ;
+  
+  background: #FFFFFF;
+}
+.name {
+  font-family: PingFang SC;
+  font-size: 1.41vw;
+  font-weight: bolder;
+  line-height: normal;
+
+  color: #454F69;
+}
+.note{
+  margin-top: 1.37vw;
+  font-family: PingFang SC;
+  font-size: 1.09vw;
+  line-height: normal;
+
+  color: #454F69;
+}
