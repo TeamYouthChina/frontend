@@ -1,0 +1,50 @@
+.jobcard{
+  display: flex;
+  justify-content: space-between;
+  margin-top:-5.1vw;
+  
+  width: 66.4vw;
+  padding:1.95vw 2.42vw;
+
+  background: #FFFFFF;
+
+}
+.title{
+  font-family: PingFang SC;
+  font-size: 1.875vw;
+  font-weight: bolder;
+  line-height: normal;
+  margin-top: 0.78125vw;
+
+  color: #454F69;
+}
+.date{
+  font-family: PingFang SC;
+  font-size: 1.09vw;
+  line-height: normal;
+  margin-top: 0.78125vw;
+
+  color: #8D9AAF;
+}
+.detail{
+  font-family: PingFang SC;
+  font-size: 1.09vw;
+  line-height: normal;
+  margin-top: 0.78125vw;
+
+  color: #454F69;
+
+}
+.btn{
+  width: 7.96875vw;
+  height: 2.65vw;
+  background: #4F65E1;
+  font-family: PingFang SC;
+  font-size: 1.25vw;
+  line-height: normal;
+  text-align: center;
+  
+  color: #FFFFFF;
+
+
+}

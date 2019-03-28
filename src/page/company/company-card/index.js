@@ -39,7 +39,7 @@ class CompanyCardReact extends React.Component {
         <div
           style={{
             marginLeft:'2.25vw',
-            width:'48.25vw'
+            width:'47.25vw'
           }}>
           <div>
             <p
