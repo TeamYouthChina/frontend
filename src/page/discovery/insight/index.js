@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
 import classes from './index.module.css';
-import {DiscoveryInsight} from './container';
+// import {DiscoveryInsight} from './container';
 import {isLogin} from '../../../tool/api-helper';
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
@@ -26,15 +26,8 @@ class InsightReact extends React.Component {
     }
     switch (device.getType()) {
       case device.DESKTOP:
-    return (
-      <div>
-        <div
-          className="cell-wall"
-          style={{backgroundColor: '#F3F5F7'}}
-        >
-          <div
-            className="cell-membrane"
-          >
+        return (
+          <div>
             <div
               className="cell-wall"
             >
@@ -55,22 +48,8 @@ class InsightReact extends React.Component {
                       </div>
                     )
                   }
-                  <div>{/* 右侧部分 */}</div>
                 </div>
               </div>
-              {
-                isLogin() ? (
-                  <div>
-                    {/* 已登陆：从后端获取 id 给卡片 */}
-                  </div>
-                ) : (
-                  <div>
-                    {/* 未登陆：从后端获取 fullText 给卡片 */}
-                    <DiscoveryInsight/>
-                  </div>
-                )
-              }
-              <div>{/* 右侧部分 */}</div>
             </div>
           </div>
         );
