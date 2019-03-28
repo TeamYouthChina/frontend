@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
 import classes from './index.module.css';
+import {DiscoveryInsight} from './container';
 import {isLogin} from '../../../tool/api-helper';
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
@@ -26,6 +27,7 @@ class InsightReact extends React.Component {
       <div>
         <div
           className="cell-wall"
+          style={{backgroundColor: '#F3F5F7'}}
         >
           <div
             className="cell-membrane"
@@ -41,6 +43,7 @@ class InsightReact extends React.Component {
                 ) : (
                   <div>
                     {/* 未登陆：从后端获取 fullText 给卡片 */}
+                    <DiscoveryInsight/>
                   </div>
                 )
               }

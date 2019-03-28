@@ -41,6 +41,7 @@ class VideoReact extends React.Component {
                 ) : (
                   <div>
                     {/* 未登陆：从后端获取 fullText 给卡片 */}
+                    video
                   </div>
                 )
               }
