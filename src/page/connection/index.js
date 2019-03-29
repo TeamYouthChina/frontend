@@ -6,7 +6,7 @@ import {Redirect} from 'react-router-dom';
 import classes from './index.module.css';
 import imgTopViewLeft from './assets/img-topview-left.png';
 import imgTopViewRight from './assets/img-topview-right.png';
-import {UserCardSquareAuth} from '../playground/general-component/user-card-square-auth';
+import {UserCardSquareAuth} from './component/card/user-card-square-auth';
 import {FriendSideBar} from './component/friends';
 import {InvitationSideBar} from './component/invitation';
 import {TagesSideBar} from './component/tag';
@@ -51,22 +51,22 @@ class ConnectionReact extends React.Component {
             <div className="d-flex justify-content-center">
               <div style={{display: 'flex', margin: '0', padding: '0'}}>
                 <div className={classes.userCardRow}>
-                  <div className={classes.userCardCol} size="5"><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol} size="5"><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol} size="5"><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol} size="5"><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol} size="5"><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol} size="5"><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol} size="5"><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol} size="5"><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol} size="5"><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol} size="5"><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol} size="5"><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol} size="5"><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol} size="5"><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol} size="5"><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol} size="5"><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol} size="5"><UserCardSquareAuth /></div>
+                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
+                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
+                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
+                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
+                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
+                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
+                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
+                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
+                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
+                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
+                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
+                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
+                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
+                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
+                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
+                  <div className={classes.userCardCol}><UserCardSquareAuth /></div> 
                 </div> 
               </div>
               <div className={classes.sideBar}>
