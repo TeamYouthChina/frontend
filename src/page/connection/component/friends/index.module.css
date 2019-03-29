@@ -1,8 +1,8 @@
 .friendCard {
   background-color: #FFFFFF;
   height: 10.55vw;
-  border-radius: 0.16vw;
   margin-bottom: 1.56vw;
+  border-radius: 0.16vw;
 }
 
 .friendCardRow {
@@ -15,7 +15,8 @@
   align-items: center;
   justify-content: start;
   height: 5.25vw;
-  box-shadow: 0 0.08vw 0 #F0F3FA;
+  border-radius: 0.16vw;
+  box-shadow:#F3F5F7 0 0.08vw 0;
 }
 
 .friendCardRow img {

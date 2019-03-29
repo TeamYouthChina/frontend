@@ -107,6 +107,7 @@
 }
 
 .collectionSidebar {
+  border-radius: 0.16vw;
   display: flex;
   align-items: center;
   justify-content: center;
