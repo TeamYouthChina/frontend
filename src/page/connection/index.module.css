@@ -1,0 +1,43 @@
+.topViewImg {
+  width: 20vw;
+}
+
+.topViewTitle1 {
+  color: #31394D;
+  font-family: PingFang SC;
+  font-size: 2.81vw;
+  font-weight: 500;
+  line-height: normal;
+  text-align: center;
+}
+
+.topViewTitle2 {
+  color: #8D9AAF;
+  font-family: PingFang SC;
+  font-size: 1.41vw;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+}
+
+.userCardCol {
+  margin-bottom: 1.56vw;
+  padding-left: 0.78vw;
+  padding-right: 0.78vw;
+}
+
+.userCardRow {
+  padding: 0;
+  margin: 0;
+  margin-top: 2.34vw;
+  display: flex;
+  flex-wrap: wrap;
+  width: 68vw;
+}
+
+.sideBar {
+  margin-top: 2.34vw;
+  margin-left: 0.78vw;
+  margin-right: 1.56vw;
+  width: 15.39vw;
+}

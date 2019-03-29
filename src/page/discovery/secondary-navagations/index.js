@@ -12,7 +12,7 @@ class TopNavReact extends React.Component {
     super(props);
     // state
     this.state = {
-      selectedTab: null
+      selectedTab: 1
     };
     // i18n
     this.text = TopNavReact.i18n[languageHelper()];
@@ -35,10 +35,7 @@ class TopNavReact extends React.Component {
                   }
                 }
                 className={classes.tabItems}
-                style={{
-                  color: '#454F69',
-                  fontSize: '16px'
-                }}>
+              >
                 洞见
               </MDBNavLink>
             </MDBNavItem>
@@ -52,10 +49,7 @@ class TopNavReact extends React.Component {
                   }
                 }
                 className={classes.tabItems}
-                style={{
-                  color: '#454F69',
-                  fontSize: '16px'
-                }}>
+              >
                 视频
               </MDBNavLink>
             </MDBNavItem>

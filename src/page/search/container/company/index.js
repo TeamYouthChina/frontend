@@ -99,7 +99,7 @@ class SearchCompanyResultReact extends React.Component {
                 <div
                   className={classes.collectionSidebar}>
                   <img src={heart} className={classes.collectionIcon} alt="icon" />
-                  <span className="" style={{...navyFont, fontSize: '1.1vw', marginLeft: '0.5vw', marginRight: '0.5vw'}}>我收藏的公司</span>
+                  <span style={{...navyFont, fontSize: '1.1vw', marginLeft: '0.5vw', marginRight: '0.5vw'}}>我收藏的公司</span>
                   <button className={classes.collectionBtn}>99</button>
                 </div>
                 <MDBListGroup

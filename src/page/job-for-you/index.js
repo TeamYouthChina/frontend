@@ -6,6 +6,7 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 import {Campus} from './campus';
 import {General} from './general';
 import {Intern} from './intern';
+import {RecommendationJobsTopNav} from './secondary-navagation';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 
@@ -26,6 +27,7 @@ class JobForYouReact extends React.Component {
     return (
       <div>
         {/* 二级导航条 */}
+        <RecommendationJobsTopNav/>
         <Switch>
           <Route
             path={`${this.props.match.url}/campus`}
