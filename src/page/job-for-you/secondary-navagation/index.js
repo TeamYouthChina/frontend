@@ -5,8 +5,7 @@ import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import classes from './index.module.css';
-// import {isLogin} from '../../../../../tool/api-helper';
-import {languageHelper} from '../../../../tool/language-helper';
+import {languageHelper} from '../../../tool/language-helper';
 
 const basicCHNFont = {
   fontFamily: 'PingFang SC',
@@ -43,11 +42,10 @@ class RecommendationJobsTopNavReact extends React.Component {
           <MDBNav
             classicTabs
             expand="md"
-            className="d-flex justify-content-left"
+            className="d-flex justify-content-center"
             style={{
               boxShadow: 'none',
               borderBottom: 'solid #E0E0E0 1px',
-              paddingLeft: '156px',
             }}
           >
             <MDBRow>
@@ -69,8 +67,6 @@ class RecommendationJobsTopNavReact extends React.Component {
               })}
             </MDBRow>
           </MDBNav>
-        </div>
-        <div style={{height: '78px'}}>
         </div>
       </div>
     );

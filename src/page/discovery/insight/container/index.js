@@ -30,7 +30,6 @@ const navyFont = {
   color: '#31394D'
 };
 
-// todo,动态显示结果数
 class DiscoveryInsightReact extends React.Component {
   constructor(props) {
     super(props);

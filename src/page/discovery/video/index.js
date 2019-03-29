@@ -5,6 +5,7 @@ import {Redirect} from 'react-router-dom';
 
 import classes from './index.module.css';
 import {isLogin} from '../../../tool/api-helper';
+import {DiscoveryVideo} from './container';
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 
@@ -26,6 +27,7 @@ class VideoReact extends React.Component {
       <div>
         <div
           className="cell-wall"
+          style={{backgroundColor: '#F3F5F7'}}
         >
           <div
             className="cell-membrane"
@@ -41,11 +43,12 @@ class VideoReact extends React.Component {
                 ) : (
                   <div>
                     {/* 未登陆：从后端获取 fullText 给卡片 */}
-                    video
+                    <DiscoveryVideo/>
                   </div>
                 )
               }
-              <div>{/* 右侧部分 */}</div>
+              <div>{/* 右侧部分 */}
+              </div>
             </div>
           </div>
         </div>
