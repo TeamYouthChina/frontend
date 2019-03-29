@@ -10,7 +10,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import classes from './index.module.css';
 
-import {VideoCardBarId} from '../../../playground/general-component/video-card-bar-id';
+import {VideoCardBarId} from '../../card/video-card-bar-id';
 import {languageHelper} from '../../../../tool/language-helper';
 
 const basicCHNFont = {

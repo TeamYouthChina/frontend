@@ -16,7 +16,7 @@ import classes from './index.module.css';
 import filter from '../../assets/filter.svg';
 import heart from '../../assets/heart.svg';
 
-import {JobCardBarId} from '../../../playground/general-component/job-card-bar-id';
+import {JobCardBarId} from '../../card/job-card-bar-id';
 import {languageHelper} from '../../../../tool/language-helper';
 
 const basicCHNFont = {
