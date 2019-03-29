@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import classes from './index.module.css';
 
-import {UserCardBarAuth} from '../../../playground/general-component/user-card-bar-auth';
+import {UserCardBarAuth} from '../../card/user-card-bar-auth';
 import {ConnectionFilter} from './filter';
 import {languageHelper} from '../../../../tool/language-helper';
 
