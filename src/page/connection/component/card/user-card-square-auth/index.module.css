@@ -1,0 +1,56 @@
+.content{
+  
+  width: 32.34vw;
+  height: 10.54vw;
+  background: #FFFFFF;
+  border-radius: 4px;
+  padding: 25px 20px;
+}
+
+.name{
+  font-family: PingFang SC;
+  font-size: 1.41vw;
+  font-weight: bolder;
+  line-height: normal;
+
+  color: #454F69;
+}
+.position{
+  font-family: PingFang SC;
+  font-size: 1.25vw;
+  line-height: normal;
+
+  color: #454F69;
+
+
+}
+.university{
+  width:12.34vw;
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.1vw;
+  line-height: normal;
+
+  color: #8D9AAF;
+
+}
+.friend{
+  width: 100%;
+  height: 100%;
+
+  font-family: PingFang SC;
+  font-size: 1.1vw;
+  font-weight: bolder;
+  line-height: normal;
+  text-align: center;
+
+  color: #4F65E1;
+}
+.btn{
+  width:7.8vw;
+  height: 2.35vw;
+  border: 1px solid #4F65E1;
+  box-sizing: border-box;
+  border-radius: 2px;
+}
