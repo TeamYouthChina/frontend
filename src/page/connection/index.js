@@ -9,7 +9,7 @@ import imgTopViewRight from './assets/img-topview-right.png';
 import {UserCardSquareAuth} from '../playground/general-component/user-card-square-auth';
 import {FriendSideBar} from './component/friends';
 import {InvitationSideBar} from './component/invitation';
-import {TagesSideBar} from './component/tags';
+import {TagesSideBar} from './component/tag';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 
