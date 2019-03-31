@@ -5,7 +5,7 @@ import {MDBCol, MDBDropdown, MDBDropdownItem, MDBDropdownMenu, MDBDropdownToggle
 import filter from '../../assets/filter.svg';
 
 export const FilterRow = (props) => (
-  <MDBRow style={{marginBottom: '1.2vw'}}>
+  <MDBRow style={{marginBottom: '0.5vw'}}>
     <MDBCol
       size="2" className="px-0 d-flex justify-content-center align-items-center"
       style={{color: '#8D9AAF', fontSize: '1.09vw'}}>

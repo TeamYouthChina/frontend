@@ -5,11 +5,11 @@ import {connect} from 'react-redux';
 import {content} from './mock';
 import {Redirect, withRouter} from 'react-router-dom';
 
-import {JobCardBarId} from '../../playground/general-component/job-card-bar-id';
+import {JobCardBarId} from '../card/job-card-bar-id';
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 import {mockGetAsync} from '../../../tool/api-helper';
-import {Loading} from '../../playground/zhicheng/loading';
+import {Loading} from '../component/loading';
 
 class JobForYouWrapperReact extends React.Component {
   constructor(props) {
