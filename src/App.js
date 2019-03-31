@@ -14,6 +14,7 @@ import {Footer} from './page/footer';
 import {Header} from './page/header';
 import {Help} from './page/help';
 import {Job} from './page/job';
+import {JobForYou} from './page/job-for-you';
 import {Login} from './page/login';
 import {My} from './page/my';
 import {OnlineApplication} from './page/online-application';
@@ -96,6 +97,10 @@ export class App extends React.Component {
               <Route
                 path="/job/:id"
                 component={routeProps => <Job {...routeProps} />}
+              />
+              <Route
+                path="/job-for-you"
+                component={routeProps => <JobForYou {...routeProps} />}
               />
               <Route
                 path="/login"

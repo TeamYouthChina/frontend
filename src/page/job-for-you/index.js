@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Redirect, Route, Switch} from 'react-router-dom';
 
-import {Campus} from './campus';
-import {General} from './general';
-import {Intern} from './intern';
+import {Campus} from './container/campus';
+import {General} from './container/general';
+import {Intern} from './container/intern';
 import {RecommendationJobsTopNav} from './secondary-navagation';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
