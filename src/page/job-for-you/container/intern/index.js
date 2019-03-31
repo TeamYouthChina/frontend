@@ -3,8 +3,14 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
-import {languageHelper} from '../../../tool/language-helper';
-import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
+import {JobForYouWrapper} from '../../wrapper';
+import {CollectionCard} from '../../component/collectionCard';
+import {TagSidebar} from '../../component/tag';
+import {FilterRow} from '../../component/filter';
+import {languageHelper} from '../../../../tool/language-helper';
+import {removeUrlSlashSuffix} from '../../../../tool/remove-url-slash-suffix';
+import {MDBRow, MDBCol} from 'mdbreact';
+import classes from '../index.module.css';
 
 class InternReact extends React.Component {
   constructor(props) {
@@ -24,11 +30,21 @@ class InternReact extends React.Component {
       <div>
         <div
           className="cell-wall"
+          style={{backgroundColor: '#F3F5F7'}}
         >
           <div
             className="cell-membrane"
           >
-
+            <MDBRow style={{marginTop: '2vw'}}>
+              <MDBCol className="px-0" size="10">
+                <FilterRow number={55} />
+                <JobForYouWrapper />
+              </MDBCol>
+              <MDBCol className={classes.sidebar} size="2">
+                <CollectionCard number={21} />
+                <TagSidebar tags={['面试经历', '删库经历', '跑路经历']} />
+              </MDBCol>
+            </MDBRow>
           </div>
         </div>
       </div>
