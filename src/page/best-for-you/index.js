@@ -3,8 +3,17 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
+import classes from './index.module.css';
+import {AnswerCardSquare} from '../playground/general-component/answer-card-square-id';
+import {ArticleCardSquare} from '../playground/general-component/article-card-square-id';
+import {CompanyCardSquare} from '../playground/general-component/company-card-square-id';
+import {JobCardSquare} from '../playground/general-component/job-card-square-id';
+import {ReviewCardSquare} from '../playground/general-component/review-card-square-id';
+
+
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
+
 
 class BestForYouReact extends React.Component {
   constructor(props) {
@@ -23,14 +32,140 @@ class BestForYouReact extends React.Component {
     return (
       <div>
         <div
-          className="cell-wall"
+          className="cell-wall" style={{height:'15.23vw',background:'#4F65E1'}}
+        >
+          <div
+            className="cell-membrane d-flex align-items-center"
+          >
+            <div className={classes.logo}>
+              <img
+                src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg"
+                className="rounded-circle img-fluid p-0 float-right w-100"
+              />
+            </div>
+            <div className="ml-4">
+              <p className={classes.name}>郭益豪，欢迎来到职道！</p>
+              
+              <p className={classes.review}>查看个人档案 →</p>
+            </div>
+           
+          </div>
+        </div>
+
+        <div
+          className="cell-wall" style={{padding:'2.82vw 0',background:'#FFFFFF'}}
         >
           <div
             className="cell-membrane"
           >
+            <div className={classes.title}>职位推荐</div>
+            <div className={classes.subtitle} style={{marginTop:'0.78vw'}}>根据您的求职档案推荐</div>
+            <div className="d-flex justify-content-between" style={{padding:'1.40vw 0'}}>
+              <JobCardSquare/>
+              <JobCardSquare/>
+              <JobCardSquare/>
+            </div>
+            <div className={classes.seemore}>查看更多 →</div>
+            <div className={classes.subtitle} style={{marginTop:'0.78vw'}}>根据您的浏览偏好推荐</div>
+            <div className="d-flex justify-content-between" style={{padding:'1.40vw 0'}}>
+              <JobCardSquare/>
+              <JobCardSquare/>
+              <JobCardSquare/>
+            </div>
+            <div className={classes.seemore}>查看更多 →</div>
+          </div>
+          
+        </div>
 
+        <div
+          className="cell-wall" style={{padding:'2.82vw 0',background:'#FAFAFF'}}
+        >
+          <div
+            className="cell-membrane"
+          >
+            <div className={classes.title}>公司推荐</div>
+            <div className="d-flex justify-content-between" style={{padding:'1.40vw 0'}}>
+              <CompanyCardSquare/>
+              <CompanyCardSquare/>
+              <CompanyCardSquare/>
+            </div>
+            <div className={classes.seemore}>查看更多 →</div>
           </div>
         </div>
+        <div
+          className="cell-wall" style={{padding:'2.82vw 0',background:'#FFFFFF'}}
+        >
+          <div
+            className="cell-membrane"
+          >
+            <div className={classes.title}>精选问答</div>
+            <div className="d-flex justify-content-between" style={{padding:'1.40vw 0'}}>
+              <AnswerCardSquare/>
+              <AnswerCardSquare/>
+              <AnswerCardSquare/>
+            </div>
+            <div className={classes.seemore}>查看更多 →</div>
+          </div>
+        </div>
+        <div
+          className="cell-wall" style={{padding:'2.82vw 0',background:'#FAFAFF'}}
+        >
+          <div
+            className="cell-membrane"
+          >
+            <div className={classes.title}>精选短则</div>
+            <div className="d-flex justify-content-between" style={{padding:'1.40vw 0'}}>
+              <ReviewCardSquare/>
+              <ReviewCardSquare/>
+              <ReviewCardSquare/>
+            </div>
+            <div className="d-flex justify-content-between" style={{padding:'1.40vw 0'}}>
+              <ReviewCardSquare/>
+              <ReviewCardSquare/>
+              <ReviewCardSquare/>
+            </div>
+            <div className={classes.seemore}>查看更多 →</div>
+          </div>
+        </div>
+        <div
+          className="cell-wall" style={{padding:'2.82vw 0',background:'#FFFFFF'}}
+        >
+          <div
+            className="cell-membrane"
+          >
+            <div className={classes.title}>精选文章</div>
+            <div className="d-flex justify-content-between" style={{padding:'1.40vw 0'}}>
+              <ArticleCardSquare/>
+              <ArticleCardSquare/>
+            </div>
+            <div className="d-flex justify-content-between" style={{padding:'1.40vw 0'}}>
+              <ArticleCardSquare/>
+              <ArticleCardSquare/>
+            </div>
+            <div className={classes.seemore}>查看更多 →</div>
+          </div>
+        </div>
+        <div
+          className="cell-wall" style={{padding:'2.82vw 0',background:'#FAFAFF'}}
+        >
+          <div
+            className="cell-membrane"
+          >
+            <div className={classes.title}>精选视频</div>
+          </div>
+        </div>
+        <div
+          className="cell-wall" style={{padding:'2.82vw 0',background:'#FFFFFF'}}
+        >
+          <div
+            className="cell-membrane"
+          >
+            <div className={classes.title}>精选人脉</div>
+            
+            <div className={classes.seemore}>查看更多 →</div>
+          </div>
+        </div>
+        
       </div>
     );
   }
