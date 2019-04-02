@@ -30,6 +30,7 @@ class CollectionCardReact extends React.Component {
 
           <img
             src={this.props.logo}
+            className="justify-content-center align-self-center"
             style={{verticalAlign:'center',padding:'1.17vw 0'}}
           />
 

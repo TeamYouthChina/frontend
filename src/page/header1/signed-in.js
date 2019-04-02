@@ -5,6 +5,7 @@ import {
   MDBDropdownMenu,
   MDBDropdownToggle,
   MDBIcon,
+  MDBNavbarNav,
   MDBNavItem
 } from 'mdbreact';
 import PropTypes from 'prop-types';
@@ -29,64 +30,73 @@ class SignedInReact extends React.Component {
     return (
       <div className="d-flex flex-row">
         <div className="flex-fill align-self-center">
-          <ul
-            className="mr-1 d-flex navbar-nav"
+          <MDBNavbarNav
+            right
+            className="mr-1 mr-md-3"
           >
-            <ul className="d-flex nav-item align-items-center mr-1">
-              <div className="d-flex align-items-center">
-                <MDBIcon
-                  icon="user-friends"
-                  style={{color:'#C1C4CA'}}
-                  
-                  className="mr-2"
-                />
-                <div
-                  className={classes.mouse2}
-                >
-                  好友
-                </div>
-                
-                <ul className="d-flex nav-item align-items-center">
-
-                  <MDBIcon
-                    icon="envelope"
-                    style={{color:'#C1C4CA'}}
-                    className="mr-2"
-                  />
-                  <div
-                    style={{
-                      fontFamily:'PingFang SC',
-                      fontSize:'1.25vw',
-                      color:'#C1C4CA'
-                    }}
-                  >消息</div>
-                </ul></div>
-              <div>
-                
+            <MDBNavItem className="d-flex align-items-center mr-3">
+              <MDBIcon
+                icon="user-friends"
+                style={{color:'#C1C4CA'}}
+                //className={`${classes.icon} mr-2`}
+                className="mr-2"
+              />
+              <div
+                className={classes.mouse2}
+              >好友</div>
+              <div
+                style={{ 
+                  background:'#F51A83',
+                  fontFamily:'PingFang SC',
+                  fontSize:'0.58vw',
+                  color:'#FFFFFF',
+                  width:'18px',
+                  height:'16px',
+                  marginLeft:'-2px',
+                  alignSelf:'baseline',
+                  borderRadius:'8px'
+                }}
+              >
+                <div className="d-flex align-items-center justify-content-center">
+                  19 
+                </div>    
               </div>
-            </ul>
+            </MDBNavItem>
+            <MDBNavItem className="d-flex align-items-center">
+              
+              <MDBIcon
+                icon="envelope"
+                style={{color:'#C1C4CA'}}
+                className="mr-2"
+              />
+              <div
+                style={{
+                  fontFamily:'PingFang SC',
+                  fontSize:'1.25vw',
+                  color:'#C1C4CA'
+                }}
+              >消息</div>
+            </MDBNavItem>
             
-           
-            
-          </ul>
+          </MDBNavbarNav>
         </div>
-        <ul
-          className="navbar-nav"
+        <MDBNavbarNav
+          right
         >
           <MDBNavItem
-            className="pl-5 ml-4 align-items-center"
+            className="p-0 align-items-center"
           >
             <MDBDropdown>
-              <MDBDropdownToggle
-                nav
+              <MDBDropdownToggle 
+                nav 
                 className="py-0"
                 style={{
-                  width:'3.125vw',
+                  width:'4.125vw',
                 }}>
                 <img
                   style={getType(this.props.bodyClientWidth) === 1 ? {width: '30px'} : {width: '50px'}}
-                  //src="https://vignette.wikia.nocookie.net/pkmnshuffle/images/7/7e/Pikachu_%28Dizzy%29.png/revision/latest?cb=20170410223549"
-                  src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg"
+                  src="https://vignette.wikia.nocookie.net/pkmnshuffle/images/7/7e/Pikachu_%28Dizzy%29.png/revision/latest?cb=20170410223549"
+                  // src="https://s2.ax1x.com/2019/01/27/kuUMYq.jpg"
                   className="rounded-circle img-fluid p-0 float-right w-100"
                   alt="Sample avatar"
                 />
@@ -102,7 +112,7 @@ class SignedInReact extends React.Component {
               </MDBDropdownMenu>
             </MDBDropdown>
           </MDBNavItem>
-        </ul>
+        </MDBNavbarNav>
       </div>
     );
   }

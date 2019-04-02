@@ -1,0 +1,52 @@
+
+.name{
+  font-family: PingFang SC;
+  font-size: 1.875vw;
+  font-weight: bolder;
+  line-height: normal;
+  padding: 0;
+  margin-bottom: 2.42vw;
+
+  color: #FFFFFF;
+
+}
+.review{
+  font-family: PingFang SC;
+  font-size: 1.09vw;
+  line-height: normal;
+  padding: 0;
+
+  color: #F0F3FA;
+}
+.logo{
+  width: 8.05vw;
+  height: auto;
+}
+.title{
+  font-family: PingFang SC;
+  font-size: 1.72vw;
+  font-weight: bolder;
+  line-height: normal;
+
+  color: #31394D;
+
+}
+.subtitle{
+  font-family: PingFang SC;
+  font-size: 1.25vw;
+  line-height: normal;
+
+  color: #31394D;
+
+}
+
+.seemore{
+  font-family: PingFang SC;
+  font-size: 1.09vw;
+  font-weight: bolder;
+  line-height: normal;
+  text-align: end;
+  margin-top: 1.5625vw;
+
+  color: #4F65E1;
+}

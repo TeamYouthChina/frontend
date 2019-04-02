@@ -1,5 +1,5 @@
 import React from 'react';
-import {MDBIcon, MDBNavbar, MDBNavbarBrand, MDBNavItem, MDBNavLink} from 'mdbreact';
+import {MDBIcon} from 'mdbreact';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
@@ -32,116 +32,62 @@ class HeaderReact extends React.Component {
       case device.DESKTOP:
         return (
           <header>
-            <MDBNavbar
-              dark
-              expand="md"
-              fixed="top"
-              className="d-flex justify-content-start align-items-center"
+            <nav
+              className="navbar fixed-top  d-flex justify-content-start align-items-center"
               style={{background: '#31394D'}}
             >
               <div className="cell-wall">
                 <div className={`cell-membrane ${classes['header-flex']} align-items-center`}>
                   
-                  <MDBNavbarBrand className={`py-2 ${classes.yc}`} href="/choice">
+                  <a className={`py-2 ${classes.yc} navbar-brand`} href="/choice">
                     <MDBIcon className="mr-sm-2" icon="cubes" />
                     职 道
-                  </MDBNavbarBrand>
+                  </a>
                   
                   <ul className={`d-flex list-inline  pl-md-3 my-0 mr-auto ${classes.nav}`}>
-                    <MDBNavItem
-                      className={`${classes.navItem} list-inline-item mr-3`}
-                      onMouseEnter={
-                        () => {
-                          this.setState({
-                            hover: 1
-                          });
-                        }
-                      }
-                      onMouseLeave={
-                        () => {
-                          this.setState({
-                            hover: 0
-                          });
-                        }
-                      }
-                      style={this.props.location.pathname.indexOf('/job-for-you') > -1 || this.state.hover === 1 ? {borderBottom: '4px solid #FFFFFF'} : null}
+                    <li
+                      className={`${classes.navItem} nav-item list-inline-item mr-3`}
                     >
-                      <MDBNavLink 
+                      <a 
+                        className="nav-link"
                         to="/job-for-you2"
-                        style={this.state.hover===1?{color:'#FAFBFD'}:{color:'#C1C4CA'}}
+                        
                       >
                         职场社交
-                      </MDBNavLink>
-                    </MDBNavItem>
-                    <MDBNavItem
-                      className={`${classes.navItem} mr-3`}
-                      onMouseEnter={
-                        () => {
-                          this.setState({
-                            hover: 2
-                          });
-                        }
-                      }
-                      onMouseLeave={
-                        () => {
-                          this.setState({
-                            hover: 0
-                          });
-                        }
-                      }
-                      style={this.props.location.pathname.indexOf('/discovery') > -1 || this.state.hover === 2 ? {borderBottom: '4px solid #FFFFFF'} : null}
+                      </a>
+                    </li>
+                    <li
+                      className={`${classes.navItem} mr-3 nav-item`}
                     >
-                      <MDBNavLink 
+                      <a
+                        className="nav-link"  
                         to="/discovery"
-                        style={this.state.hover===2?{color:'#FAFBFD'}:{color:'#C1C4CA'}}>
+                      >
                         智慧招聘
-                      </MDBNavLink>
-                    </MDBNavItem>
-                    <MDBNavItem
-                      className={`${classes.navItem} list-inline-item mr-5`}
-                      onMouseEnter={
-                        () => {
-                          this.setState({
-                            hover: 3
-                          });
-                        }
-                      }
-                      onMouseLeave={
-                        () => {
-                          this.setState({
-                            hover: 0
-                          });
-                        }
-                      }
-                      style={this.props.location.pathname.indexOf('/job-for-you') > -1 || this.state.hover === 3 ? {borderBottom: '4px solid #FFFFFF'} : null}
+                      </a>
+                    </li>
+                    <li
+                      className={`${classes.navItem} mr-3 nav-item`}
                     >
-                      <MDBNavLink 
+                      <a
+                        className="nav-link"
                         to="/job-for-you2"
-                        style={this.state.hover===3?{color:'#FAFBFD'}:{color:'#C1C4CA'}}
                       >
                         人 脉
-                      </MDBNavLink>
-                    </MDBNavItem>
-                    <MDBNavItem 
-                      className="ml-3 d-flex align-items-center"
-                      onMouseEnter={
-                        () => {
-                          this.setState({
-                            hover: 4
-                          });
-                        }
-                      }
-                      onMouseLeave={
-                        () => {
-                          this.setState({
-                            hover: 0
-                          });
-                        }
-                      }
+                      </a>
+                    </li>
+                    <ul
+                      className={`${classes.navItem} nav-item list-inline-item mr-2`}
                     >
-                      <MDBNavLink
+                     
+                    </ul>
+                    <ul 
+                      className="ml-3 d-flex nav-item align-items-center"
+                    >
+                      <a
+                        className="nav-link"
                         to="/job-for-you2"
-                        style={this.state.hover===1?{color:'#FAFBFD'}:{color:'#C1C4CA'}}
+                        
                       >
                         <div
                           className="d-flex align-items-center"
@@ -152,24 +98,19 @@ class HeaderReact extends React.Component {
                           }
 
                         >
-                          {/*<input
-                          className="form-control disabled mr-3"
-                          type="text"
-                          placeholder="搜索"
-                          aria-label="Search"
-                        />*/}
+                         
                           <MDBIcon
                             icon="search"
                             size="lg"
                             style={this.state.hover===4?{color:'#FAFBFD'}:{color:'#C1C4CA'}}
                           />
                         </div>
-                      </MDBNavLink>
+                      </a>
                      
-                    </MDBNavItem>
+                    </ul>
                   </ul>
                   <ul className={`d-flex list-inline my-0 ml-auto ${classes.nav}`}>
-                    <MDBNavItem className="ml-auto">
+                    <ul className="ml-auto nav-item">
                       {/*<div className="d-flex flex-row">
                         {
                           isLogin() ? (
@@ -184,11 +125,11 @@ class HeaderReact extends React.Component {
                         <SignedIn />
                           
                       </div>
-                    </MDBNavItem>
+                    </ul>
                   </ul>
                 </div>
               </div>
-            </MDBNavbar>
+            </nav>
             <div
               style={{
                 height: '4.08vw'
