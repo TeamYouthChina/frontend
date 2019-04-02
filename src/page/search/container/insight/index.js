@@ -13,9 +13,9 @@ import wrtiteArticle from '../../assets/writeArticle.svg';
 import writeQuestion from '../../assets/writeQuestion.svg';
 import writeReview from '../../assets/writeReview.svg';
 
-import {AnswerCardBarId} from '../../../playground/general-component/answer-card-bar-id';
-import {ArticleCardBarId} from '../../../playground/general-component/article-card-bar-id';
-import {ReviewCardBarId} from '../../../playground/general-component/review-card-bar-id';
+import {ArticleCardBarId} from '../../card/article-card-bar-id';
+import {AnswerCardBarId} from '../../card/answer-card-bar-id';
+import {ReviewCardBarId} from '../../card/review-card-bar-id';
 import {languageHelper} from '../../../../tool/language-helper';
 
 const basicCHNFont = {
