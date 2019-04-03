@@ -1,0 +1,6 @@
+.MainBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 2.81vw;
+}

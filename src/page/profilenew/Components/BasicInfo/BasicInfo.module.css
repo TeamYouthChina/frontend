@@ -1,0 +1,101 @@
+.BasicInfo {
+  background: #FFFFFF;
+  /*box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.08);*/
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.56vw;
+}
+
+.BasicInfo input {
+  font-family: "PingFang SC";
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  font-size: 1.41vw;
+  color: #62686C;
+  margin: 0;
+}
+
+.BasicInfo input {
+  padding-left: 4px;
+}
+
+.BasicInfo input:disabled {
+  border: 2px solid white;
+  padding-left: 4px;
+}
+
+.Headline {
+  width: 90%;
+  height: 52px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.row {
+  width: 90%;
+  height: 52px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.SectionName {
+  font-family: IBM Plex Sans;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  font-size: 18px;
+
+  color: #3E4850;
+  margin: 0%;
+
+}
+
+.AttributeName {
+  font-family: IBM Plex Sans;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  font-size: 14px;
+
+  color: #62686C;
+  margin: 0%;
+  width: 139px;
+}
+
+.Value {
+  font-family: IBM Plex Sans;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  font-size: 16px;
+
+  color: #62686C;
+  margin: 0%;
+}
+
+.CornerButton {
+  width: 45px;
+  font-family: IBM Plex Sans;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  font-size: 16px;
+  color: #62686C;
+  transition-duration: 0.4s;
+  text-align: center;
+  border: none;
+}
+
+.CornerButton:hover {
+  background-color: #e7e7e7;
+
+}

@@ -1,0 +1,24 @@
+.ResumeButtons {
+    box-sizing: border-box;
+    padding: 0%;
+    margin-top: 34px;
+    margin-bottom: 36px;
+}
+
+.ResumeButtons button{
+    background: #D8D8D8;
+    font-family: IBM Plex Sans;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    font-size: 18px;
+    text-align: center;
+
+    color: #FFFFFF;
+    box-sizing: border-box;
+    border: none;
+    padding: 4px 6px;
+    margin-right: 10px;
+    border-radius: 4px;
+
+}
