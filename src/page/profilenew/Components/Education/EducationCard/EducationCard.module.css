@@ -1,0 +1,94 @@
+.EducationCard{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    box-sizing: border-box;
+    padding: 5px 0;
+    align-items: center;
+    border-bottom: 1px solid grey
+}
+
+.EducationCard input {
+    font-family: IBM Plex Sans;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 14px;
+    color: #62686C;
+    margin: 3px 0;
+    width: 100%;
+    border-top: hidden;
+    border-left: hidden;
+    border-right: hidden;
+    border-bottom: 1px solid #e7e7e7
+}
+
+.EducationCard input:disabled {
+    border-top: hidden;
+    border-left: hidden;
+    border-right: hidden;
+    border-bottom: 1px solid white
+}
+
+.twoP {
+    margin: 3px 0;
+    padding: 1px;
+    border-top: hidden;
+    border-left: hidden;
+    border-right: hidden;
+    border-bottom: 1px solid white
+}
+
+.EducationCard img {
+    height: 65px;
+    width: 65px;
+}
+
+.SchoolInfo {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 90%;
+    width: 590px;
+    flex-grow: 1;
+}
+
+.SchoolInfo h1{
+    font-family: IBM Plex Sans;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    font-size: 16px;
+    color: #62686C;
+    margin: 0%;
+}
+
+.SchoolInfo p{
+    font-family: IBM Plex Sans;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 14px;
+
+    color: #62686C;
+    margin: 0%;
+}
+
+.SchoolInfo div p{
+    font-family: IBM Plex Sans;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 14px;
+
+    color: #62686C;
+    margin: 0%;
+}
+
+.SchoolInfo div{
+    display: flex;
+    flex-direction: row;
+}
+
+
