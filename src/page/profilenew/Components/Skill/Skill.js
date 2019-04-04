@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {MDBBtn} from 'mdbreact';
 import {MDBSelectOption} from 'mdbreact';
 
 import SkillCard from './SkillCard/SkillCard';
 import classes from './Skill.module.css';
 import {getAsync} from '../../../../tool/api-helper';
 import {languageHelper} from '../../../../tool/language-helper';
+import addIcon from '../../assets/add.svg';
 
 const translation = [
   {
@@ -21,15 +21,6 @@ const translation = [
 ];
 
 const text = translation[languageHelper()];
-
-const MDBButtonStyle = {
-  font_family: 'IBM Plex Sans',
-  font_style: 'normal',
-  font_weight: '600',
-  line_height: 'normal',
-  font_size: '18px',
-  text_align: 'center',
-};
 
 class skill extends Component {
   constructor(props) {
@@ -91,7 +82,7 @@ class skill extends Component {
     // make a hard copy
     let temp = this.state.cards.splice(0);
     temp.forEach((e, i) => {
-      if (e.key == id) {
+      if (e.key === id) {
         temp.splice(i, 1);
         return;
       }
@@ -119,7 +110,7 @@ class skill extends Component {
     // make a hard copy
     let temp = this.state.cards.splice(0);
     temp.forEach((e, i) => {
-      if (e.key == id) {
+      if (e.key === id) {
         temp.splice(
           i,
           1,
@@ -168,21 +159,18 @@ class skill extends Component {
 
   render() {
     let toShow;
-    if (this.state.cards.length == 0) {
+    if (this.state.cards.length === 0) {
       toShow = (
         <div className={classes.Skill}>
           <div className={classes.row}>
             <p className={classes.SectionName}>{text.skill}</p>
+            <img
+              className={classes.addIcon}
+              src={addIcon} alt="icon"
+              onClick={this.addHandler}
+            />
           </div>
           <p>{text.noSkill}</p>
-          <MDBBtn
-            flat
-            className={classes.MDBButton}
-            style={MDBButtonStyle}
-            onClick={this.addHandler}
-          >
-            {text.addSkill}
-          </MDBBtn>
         </div>
       );
     } else {
@@ -192,14 +180,6 @@ class skill extends Component {
             <p className={classes.SectionName}>{text.skill}</p>
           </div>
           {this.state.cards}
-          <MDBBtn
-            flat
-            className={classes.MDBButton}
-            style={MDBButtonStyle}
-            onClick={this.addHandler}
-          >
-            {text.addSkill}
-          </MDBBtn>
         </div>
       );
     }

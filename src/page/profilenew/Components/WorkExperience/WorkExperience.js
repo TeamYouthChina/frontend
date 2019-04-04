@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {MDBBtn} from 'mdbreact';
 
 import WorkExperienceCard from './WorkExperienceCard/WorkExperienceCard';
 import classes from './WorkExperience.module.css';
+import addIcon from '../../assets/add.svg';
 import {getAsync} from '../../../../tool/api-helper';
 import {languageHelper} from '../../../../tool/language-helper';
 
@@ -20,15 +20,6 @@ const translation = [
 ];
 
 const text = translation[languageHelper()];
-
-const MDBButtonStyle = {
-  font_family: 'IBM Plex Sans',
-  font_style: 'normal',
-  font_weight: '600',
-  line_height: 'normal',
-  font_size: '18px',
-  text_align: 'center',
-};
 
 class WorkExperience extends Component {
   constructor(props) {
@@ -76,7 +67,7 @@ class WorkExperience extends Component {
     // make a hard copy
     let temp = this.state.cards.splice(0);
     temp.forEach((e, i) => {
-      if (e.key == id) {
+      if (e.key === id) {
         temp.splice(i, 1);
         return;
       }
@@ -105,7 +96,7 @@ class WorkExperience extends Component {
     // make a hard copy
     let temp = this.state.cards.splice(0);
     temp.forEach((e, i) => {
-      if (e.key == id) {
+      if (e.key === id) {
         temp.splice(
           i,
           1,
@@ -158,21 +149,18 @@ class WorkExperience extends Component {
 
   render() {
     let toShow;
-    if (this.state.cards.length == 0) {
+    if (this.state.cards.length === 0) {
       toShow = (
         <div className={classes.WorkExperience}>
           <div className={classes.row}>
             <p className={classes.SectionName}>{text.workExperience}</p>
+            <img
+              className={classes.addIcon}
+              src={addIcon} alt="icon"
+              onClick={this.addHandler}
+            />
           </div>
           <p>{text.noWorkExperience}</p>
-          <MDBBtn
-            flat
-            className={classes.MDBButton}
-            style={MDBButtonStyle}
-            onClick={this.addHandler}
-          >
-            {text.addWorkExperience}
-          </MDBBtn>
         </div>
       );
     } else {
@@ -182,14 +170,6 @@ class WorkExperience extends Component {
             <p className={classes.SectionName}>{text.workExperience}</p>
           </div>
           {this.state.cards}
-          <MDBBtn
-            flat
-            className={classes.MDBButton}
-            style={MDBButtonStyle}
-            onClick={this.addHandler}
-          >
-            {text.addWorkExperience}
-          </MDBBtn>
         </div>
       );
     }
