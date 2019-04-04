@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {MDBBtn} from 'mdbreact';
+// import {MDBBtn} from 'mdbreact';
 // import {MDBAnimation} from 'mdbreact';
 
 import EducationCard from './EducationCard/EducationCard';
@@ -8,15 +8,16 @@ import {getAsync} from '../../../../tool/api-helper';
 // import {putAsync} from '../../../../tool/api-helper';
 // import {postAsync} from '../../../../tool/api-helper';
 import {languageHelper} from '../../../../tool/language-helper';
+import addIcon from '../../assets/add.svg';
 
-const MDBButtonStyle = {
-  font_family: 'IBM Plex Sans',
-  font_style: 'normal',
-  font_weight: '600',
-  line_height: 'normal',
-  font_size: '18px',
-  text_align: 'center',
-};
+// const MDBButtonStyle = {
+//   font_family: 'IBM Plex Sans',
+//   font_style: 'normal',
+//   font_weight: '600',
+//   line_height: 'normal',
+//   font_size: '18px',
+//   text_align: 'center',
+// };
 
 const translation = [
   {
@@ -168,16 +169,21 @@ class Education extends Component {
         <div className={classes.Education}>
           <div className={classes.row}>
             <p className={classes.SectionName}>{text.education}</p>
+            <img
+              className={classes.addIcon}
+              src={addIcon} alt="icon"
+              onClick={this.addHandler}
+            />
           </div>
           <p>{text.noEducation}</p>
-          <MDBBtn
-            flat
-            className={classes.MDBButton}
-            style={MDBButtonStyle}
-            onClick={this.addHandler}
-          >
-            {text.addEducation}
-          </MDBBtn>
+          {/*<MDBBtn*/}
+          {/*flat*/}
+          {/*className={classes.MDBButton}*/}
+          {/*style={MDBButtonStyle}*/}
+          {/*onClick={this.addHandler}*/}
+          {/*>*/}
+          {/*{text.addEducation}*/}
+          {/*</MDBBtn>*/}
         </div>
       );
     } else {
@@ -187,14 +193,14 @@ class Education extends Component {
             <p className={classes.SectionName}>{text.education}</p>
           </div>
           {this.state.cards}
-          <MDBBtn
-            flat
-            className={classes.MDBButton}
-            style={MDBButtonStyle}
-            onClick={this.addHandler}
-          >
-            {text.addEducation}
-          </MDBBtn>
+          {/*<MDBBtn*/}
+          {/*flat*/}
+          {/*className={classes.MDBButton}*/}
+          {/*style={MDBButtonStyle}*/}
+          {/*onClick={this.addHandler}*/}
+          {/*>*/}
+          {/*{text.addEducation}*/}
+          {/*</MDBBtn>*/}
         </div>
       );
     }

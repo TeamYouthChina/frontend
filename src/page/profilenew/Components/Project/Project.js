@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import {MDBBtn} from 'mdbreact';
 
 import ProjectCard from './ProjectCard/ProjectCard';
 import classes from './Project.module.css';
 import {getAsync} from '../../../../tool/api-helper';
 import {languageHelper} from '../../../../tool/language-helper';
+import addIcon from '../../assets/add.svg';
 
 const translation = [
   {
@@ -20,15 +20,6 @@ const translation = [
 ];
 
 const text = translation[languageHelper()];
-
-const MDBButtonStyle = {
-  font_family: 'IBM Plex Sans',
-  font_style: 'normal',
-  font_weight: '600',
-  line_height: 'normal',
-  font_size: '18px',
-  text_align: 'center',
-};
 
 class Project extends Component {
   constructor(props) {
@@ -105,7 +96,7 @@ class Project extends Component {
     // make a hard copy
     let temp = this.state.cards.splice(0);
     temp.forEach((e, i) => {
-      if (e.key == id) {
+      if (e.key === id) {
         temp.splice(
           i,
           1,
@@ -158,23 +149,19 @@ class Project extends Component {
 
   render() {
     let toShow;
-    if (this.state.cards.length == 0) {
+    if (this.state.cards.length === 0) {
       toShow = (
         <div className={classes.Project}>
           <div className={classes.row}>
             <p className={classes.SectionName}>{text.project}</p>
+            <img
+              className={classes.addIcon}
+              src={addIcon} alt="icon"
+              onClick={this.addHandler}
+            />
           </div>
           <div className={classes.Container}>
             <p>{text.noProject}</p>
-            <MDBBtn
-              outline
-              className={classes.MDBButton}
-              style={MDBButtonStyle}
-              color="blue-grey"
-              onClick={this.addHandler}
-            >
-              {text.addProject}
-            </MDBBtn>
           </div>
         </div>
       );
@@ -186,15 +173,6 @@ class Project extends Component {
           </div>
           <div className={classes.Container}>
             {this.state.cards}
-            <MDBBtn
-              outline
-              className={classes.MDBButton}
-              style={MDBButtonStyle}
-              color="blue-grey"
-              onClick={this.addHandler}
-            >
-              {text.addProject}
-            </MDBBtn>
           </div>
         </div>
       );

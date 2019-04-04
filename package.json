@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@wojtekmaj/react-daterange-picker": "^2.1.0",
     "braft-editor": "^2.2.9",
     "eslint-plugin-react": "^7.12.4",
     "griffith": "^1.2.1",
@@ -12,6 +13,7 @@
     "prop-types": "^15.7.2",
     "query-string": "^6.3.0",
     "react": "^16.8.4",
+    "react-date-picker": "^7.5.0",
     "react-dom": "^16.8.4",
     "react-infinite-scroll-component": "^4.5.2",
     "react-redux": "^6.0.1",

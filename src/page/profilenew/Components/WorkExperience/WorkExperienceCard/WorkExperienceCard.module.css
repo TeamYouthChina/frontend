@@ -3,54 +3,51 @@
   flex-direction: row;
   width: 90%;
   box-sizing: border-box;
-  padding: 5px 0;
-  align-items: center;
-  border-bottom: 1px solid grey;
+  /*padding: 5px 0;*/
+  align-items: start;
+  padding: 1vw;
 }
 
 .WorkExperienceCard input {
-  font-family: IBM Plex Sans;
+  font-family: "PingFang SC";
   font-style: normal;
   font-weight: normal;
   line-height: normal;
-  font-size: 14px;
+  font-size: 1.1vw;
   color: #62686c;
-  margin: 3px 0;
-  border-top: hidden;
-  border-left: hidden;
-  border-right: hidden;
-  border-bottom: 1px solid #e7e7e7;
+  border: 0;
 }
 
 .WorkExperienceCard input:disabled {
-  border-top: hidden;
-  border-left: hidden;
-  border-right: hidden;
-  border-bottom: 1px solid white;
+  border: 0;
 }
 
 .twoP {
+  font-family: "PingFang SC";
   margin: 3px 0;
   padding: 1px;
   border-top: hidden;
   border-left: hidden;
   border-right: hidden;
-  border-bottom: 1px solid white
+}
+
+.description {
+  border: 0;
+  font-size: 1.1vw;
+  resize: none;
 }
 
 .WorkExperienceCard img {
-  height: 65px;
-  width: 65;
+  width: 65px;
 }
 
 .WorkInfo {
   margin-left: 20px;
   height: 90%;
-  width: 590px;
+  width: 64.38vw;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  flex-grow: 1;
 }
 
 .WorkInfo p {
@@ -59,12 +56,11 @@
   font-weight: normal;
   line-height: normal;
   font-size: 14px;
-
   color: #62686c;
   margin: 0%;
 }
 
 .WorkInfo div {
-  display: flex;
-  flex-direction: row;
+  /*display: flex;*/
+  /*flex-direction: row;*/
 }

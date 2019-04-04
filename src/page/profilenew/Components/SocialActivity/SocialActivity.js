@@ -5,6 +5,7 @@ import SocialActivityCard from './SocialActivityCard/SocialActivityCard';
 import classes from './SocialActivity.module.css';
 import {getAsync} from '../../../../tool/api-helper';
 import {languageHelper} from '../../../../tool/language-helper';
+import addIcon from '../../assets/add.svg';
 
 const translation = [
   {
@@ -76,7 +77,7 @@ class SocialActivity extends Component {
     // make a hard copy
     let temp = this.state.cards.splice(0);
     temp.forEach((e, i) => {
-      if (e.key == id) {
+      if (e.key === id) {
         temp.splice(i, 1);
         return;
       }
@@ -105,7 +106,7 @@ class SocialActivity extends Component {
     // make a hard copy
     let temp = this.state.cards.splice(0);
     temp.forEach((e, i) => {
-      if (e.key == id) {
+      if (e.key === id) {
         temp.splice(
           i,
           1,
@@ -158,21 +159,18 @@ class SocialActivity extends Component {
 
   render() {
     let toShow;
-    if (this.state.cards.length == 0) {
+    if (this.state.cards.length === 0) {
       toShow = (
         <div className={classes.SocialActivity}>
           <div className={classes.row}>
             <p className={classes.SectionName}>{text.social}</p>
+            <img
+              className={classes.addIcon}
+              src={addIcon} alt="icon"
+              onClick={this.addHandler}
+            />
           </div>
           <p>{text.noSocial}</p>
-          <MDBBtn
-            flat
-            className={classes.MDBButton}
-            style={MDBButtonStyle}
-            onClick={this.addHandler}
-          >
-            {text.addSocial}
-          </MDBBtn>
         </div>
       );
     } else {
@@ -180,6 +178,7 @@ class SocialActivity extends Component {
         <div className={classes.SocialActivity}>
           <div className={classes.row}>
             <p className={classes.SectionName}>{text.social}</p>
+            
           </div>
           {this.state.cards}
           <MDBBtn

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 
 import classes from './WorkExperienceCard.module.css';
 import workIcon from '../../../assets/google.jpg';
@@ -42,7 +43,7 @@ class WorkExperienceCard extends Component {
           position: '',
           employer: '',
           duration: {
-            begin: '',
+            begin: null,
             end: '',
           },
           note: '',
@@ -76,13 +77,14 @@ class WorkExperienceCard extends Component {
   };
 
   inputOnChange = () => {
+
     this.setState({
       ...this.state,
       workData: {
         position: this.posRef.current.value,
         employer: this.employerRef.current.value,
         duration: {
-          begin: this.beginRef.current.value,
+          begin: this.state.workData.duration.begin,
           end: this.endRef.current.value,
         },
         note: this.noteRef.current.value,
@@ -90,48 +92,64 @@ class WorkExperienceCard extends Component {
     });
   };
 
-  render() {
-    let toShow = (
-      <div className={classes.WorkExperienceCard}>
-        <img src={workIcon} alt="no img" />
-        <div className={classes.WorkInfo}>
-          <input
-            disabled
-            type="text"
-            value={this.state.workData.position}
-            ref={this.posRef}
-            placeholder={text.position}
-            onChange={this.inputOnChange}
-          />
-          <input
-            disabled
-            type="text"
-            value={this.state.workData.employer}
-            ref={this.employerRef}
-            placeholder={text.employer}
-            onChange={this.inputOnChange}
-          />
-          <div className={classes.twoP}>
-            <p>
-              {this.state.workData.duration.begin} -{' '}
-              {this.state.workData.duration.end}
-            </p>
-          </div>
-          <input
-            style={{margin: '15px 0px 3px 0px'}}
-            disabled
-            type="text"
-            value={this.state.workData.note ? this.state.workData.note : ''}
-            ref={this.noteRef}
-            placeholder={text.note}
-            onChange={this.inputOnChange}
-          />
-        </div>
-        <Dropdown delete={this.deleteHandler} edit={this.editHandler} />
-      </div>
-    );
+  handleDate = begin => {
+    this.setState({
+      workData: {
+        duration: {
+          begin: begin
+        }
+      }
+    });
+  };
 
-    if (this.state.editing) {
+  render() {
+    let toShow;
+    if (!this.state.editing) {
+      toShow = (
+        <div className={classes.WorkExperienceCard}>
+          <img src={workIcon} alt="no img" />
+          <div className={classes.WorkInfo}>
+            <input
+              disabled
+              style={{fontSize: '1.25vw', fontWeight: '500'}}
+              type="text"
+              value={this.state.workData.position}
+              ref={this.posRef}
+              placeholder={text.position}
+              onChange={this.inputOnChange}
+            />
+            <input
+              disabled
+              style={{fontSize: '1.25vw'}}
+              type="text"
+              value={this.state.workData.employer}
+              ref={this.employerRef}
+              placeholder={text.employer}
+              onChange={this.inputOnChange}
+            />
+            {/*<div className={classes.twoP}>*/}
+            {/*<p>*/}
+            {/*{this.state.workData.duration.begin} -{' '}*/}
+            {/*{this.state.workData.duration.end}*/}
+            {/*</p>*/}
+            {/*</div>*/}
+            <DateRangePicker
+              value={this.state.workData.duration.begin}
+              disabled
+            />
+            <textarea
+              disabled
+              className={classes.description}
+              value={this.state.workData.note ? this.state.workData.note : ''}
+              ref={this.noteRef}
+              placeholder={text.note}
+              onChange={this.inputOnChange}
+            />
+          </div>
+          <Dropdown delete={this.deleteHandler} edit={this.editHandler} />
+        </div>
+      );
+    } else {
       toShow = (
         <div className={classes.WorkExperienceCard}>
           <img src={workIcon} alt="no img" />
@@ -152,21 +170,25 @@ class WorkExperienceCard extends Component {
               placeholder={text.employer}
               onChange={this.inputOnChange}
             />
-            <input
-              style={{margin: '3px 0px'}}
-              type="text"
+            {/*<input*/}
+            {/*style={{margin: '3px 0px'}}*/}
+            {/*type="date"*/}
+            {/*value={this.state.workData.duration.begin}*/}
+            {/*ref={this.beginRef}*/}
+            {/*placeholder={text.begin}*/}
+            {/*onChange={this.inputOnChange}*/}
+            {/*/>*/}
+            {/*<input*/}
+            {/*style={{margin: '3px 0px'}}*/}
+            {/*type="date"*/}
+            {/*value={this.state.workData.duration.end}*/}
+            {/*ref={this.endRef}*/}
+            {/*placeholder={text.end}*/}
+            {/*onChange={this.inputOnChange}*/}
+            {/*/>*/}
+            <DateRangePicker
+              onChange={this.handleDate}
               value={this.state.workData.duration.begin}
-              ref={this.beginRef}
-              placeholder={text.begin}
-              onChange={this.inputOnChange}
-            />
-            <input
-              style={{margin: '3px 0px'}}
-              type="text"
-              value={this.state.workData.duration.end}
-              ref={this.endRef}
-              placeholder={text.end}
-              onChange={this.inputOnChange}
             />
             <input
               style={{margin: '3px 0px'}}
