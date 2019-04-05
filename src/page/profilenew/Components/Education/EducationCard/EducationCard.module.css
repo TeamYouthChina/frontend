@@ -4,12 +4,11 @@
     width: 90%;
     box-sizing: border-box;
     padding: 5px 0;
-    align-items: center;
-    border-bottom: 1px solid grey
+    align-items: start;
 }
 
 .EducationCard input {
-    font-family: IBM Plex Sans;
+    font-family: "PingFang SC";
     font-style: normal;
     font-weight: normal;
     line-height: normal;
@@ -55,7 +54,7 @@
 }
 
 .SchoolInfo h1{
-    font-family: IBM Plex Sans;
+    font-family: "PingFang SC";
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -65,7 +64,7 @@
 }
 
 .SchoolInfo p{
-    font-family: IBM Plex Sans;
+    font-family: "PingFang SC";
     font-style: normal;
     font-weight: normal;
     line-height: normal;
@@ -76,7 +75,7 @@
 }
 
 .SchoolInfo div p{
-    font-family: IBM Plex Sans;
+    font-family: "PingFang SC";
     font-style: normal;
     font-weight: normal;
     line-height: normal;

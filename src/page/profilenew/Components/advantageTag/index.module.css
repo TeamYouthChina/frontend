@@ -1,4 +1,4 @@
-.Certification {
+.advantageTag {
   background: #FFFFFF;
   width: 79.69vw;
   display: flex;
@@ -32,8 +32,11 @@
   font-weight: 600;
   line-height: normal;
   font-size: 1.41vw;
-  color: #3E4850;
+  color: #454F69;
   margin: 0;
+  flex-grow: 5;
+  display: flex;
+  justify-content: space-between;
 }
 
 .CornerButton {
@@ -51,8 +54,18 @@
 
 .CornerButton:hover {
   background-color: #e7e7e7;
+
 }
 
 .MDBButton {
   width: 90%;
+}
+
+.tags {
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+  padding-left: 1.7vw;
+  padding-right: 1vw;
+  margin-bottom: 1.17vw;
 }

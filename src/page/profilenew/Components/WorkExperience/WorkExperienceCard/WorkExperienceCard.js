@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import DateRangePicker from '@wojtekmaj/react-daterange-picker';
+import DateRangePicker from '@wojtekmaj/react-daterange-picker/';
 
 import classes from './WorkExperienceCard.module.css';
 import workIcon from '../../../assets/google.jpg';
@@ -189,6 +189,7 @@ class WorkExperienceCard extends Component {
             <DateRangePicker
               onChange={this.handleDate}
               value={this.state.workData.duration.begin}
+              maxDate={new Date()}
             />
             <input
               style={{margin: '3px 0px'}}

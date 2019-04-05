@@ -10,7 +10,7 @@
 }
 
 .ProjectCard input {
-  font-family: IBM Plex Sans;
+  font-family: "PingFang SC";
   font-style: normal;
   font-weight: normal;
   line-height: normal;
@@ -49,7 +49,7 @@
 } */
 
 .ProjectCard p {
-  font-family: IBM Plex Sans;
+  font-family: "PingFang SC";
   font-style: normal;
   font-weight: normal;
   line-height: normal;

@@ -9,7 +9,7 @@ import {content} from './index.mock';
 import {File} from './file';
 import {Message} from './message';
 import {Notification} from './notification';
-import {Profile} from './profile';
+import {ProfileMainBody} from '../profilenew';
 import {Setting} from './setting';
 import classes from './index.module.css';
 import {Header2} from '../header-2';
@@ -149,7 +149,7 @@ class MyReact extends React.Component {
           />
           <Route
             path={`${this.props.match.url}/profile`}
-            component={routeProps => <Profile {...routeProps} />}
+            component={routeProps => <ProfileMainBody {...routeProps} />}
           />
           <Route
             path={`${this.props.match.url}/setting`}

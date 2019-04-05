@@ -8,9 +8,14 @@ import Certifications from './Components/Certification/Certification';
 import SocialActivicies from './Components/SocialActivity/SocialActivity';
 import Projects from './Components/Project/Project';
 import Skills from './Components/Skill/Skill';
+import AdvantageTag from './Components/advantageTag/';
+import {withRouter} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+
 // import {getAsync} from '../../tool/api-helper';
 
-export class MainBody extends Component {
+class ProfileMainBodyReact extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,7 +25,6 @@ export class MainBody extends Component {
   }
 
   componentWillMount() {
-    // eslint-disable-next-line
     this.setState({requestID: this.props.match.params.id});
   }
 
@@ -88,6 +92,7 @@ export class MainBody extends Component {
             <Skills requestID={this.state.requestID} />
             <Certifications requestID={this.state.requestID} />
             <SocialActivicies requestID={this.state.requestID} />
+            <AdvantageTag/>
           </div>
         </div>
       </div>
@@ -95,3 +100,15 @@ export class MainBody extends Component {
     return toShow;
   }
 }
+
+ProfileMainBodyReact.propTypes = {
+  match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+};
+
+export const ProfileMainBody = withRouter(connect((state) => {
+  return {
+    bodyClientWidth: state.bodyClientWidth
+  };
+})(ProfileMainBodyReact));

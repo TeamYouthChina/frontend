@@ -191,6 +191,11 @@ class Education extends Component {
         <div className={classes.Education}>
           <div className={classes.row}>
             <p className={classes.SectionName}>{text.education}</p>
+            <img
+              className={classes.addIcon}
+              src={addIcon} alt="icon"
+              onClick={this.addHandler}
+            />
           </div>
           {this.state.cards}
           {/*<MDBBtn*/}
