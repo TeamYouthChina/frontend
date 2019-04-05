@@ -15,7 +15,11 @@
   line-height: normal;
   font-size: 1.1vw;
   color: #62686c;
-  border: 0;
+  margin: 3px 0;
+  border-top: hidden;
+  border-left: hidden;
+  border-right: hidden;
+  border-bottom: 1px solid #e7e7e7
 }
 
 .WorkExperienceCard input:disabled {
@@ -51,7 +55,7 @@
 }
 
 .WorkInfo p {
-  font-family: IBM Plex Sans;
+  font-family: "PingFang SC";
   font-style: normal;
   font-weight: normal;
   line-height: normal;

@@ -96,7 +96,7 @@ class Project extends Component {
     // make a hard copy
     let temp = this.state.cards.splice(0);
     temp.forEach((e, i) => {
-      if (e.key === id) {
+      if (e.key == id) {
         temp.splice(
           i,
           1,
@@ -170,6 +170,11 @@ class Project extends Component {
         <div className={classes.Project}>
           <div className={classes.row}>
             <p className={classes.SectionName}>{text.project}</p>
+            <img
+              className={classes.addIcon}
+              src={addIcon} alt="icon"
+              onClick={this.addHandler}
+            />
           </div>
           <div className={classes.Container}>
             {this.state.cards}

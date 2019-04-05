@@ -104,7 +104,7 @@ class BasicInfoReact extends React.Component {
                 onClick={this.props.handleShowDetail}
                 className={classes.submitButtonRounded}
                 type="submit">
-                完善个人信息 <img src={arrow} />
+                完善个人信息 <img src={arrow} alt="arrow"/>
               </button>
             </div>
           </div>

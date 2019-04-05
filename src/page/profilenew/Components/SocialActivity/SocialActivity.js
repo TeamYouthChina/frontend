@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {MDBBtn} from 'mdbreact';
 
 import SocialActivityCard from './SocialActivityCard/SocialActivityCard';
 import classes from './SocialActivity.module.css';
@@ -21,15 +20,6 @@ const translation = [
 ];
 
 const text = translation[languageHelper()];
-
-const MDBButtonStyle = {
-  font_family: 'IBM Plex Sans',
-  font_style: 'normal',
-  font_weight: '600',
-  line_height: 'normal',
-  font_size: '18px',
-  text_align: 'center',
-};
 
 class SocialActivity extends Component {
   constructor(props) {
@@ -77,7 +67,7 @@ class SocialActivity extends Component {
     // make a hard copy
     let temp = this.state.cards.splice(0);
     temp.forEach((e, i) => {
-      if (e.key === id) {
+      if (e.key == id) {
         temp.splice(i, 1);
         return;
       }
@@ -106,7 +96,7 @@ class SocialActivity extends Component {
     // make a hard copy
     let temp = this.state.cards.splice(0);
     temp.forEach((e, i) => {
-      if (e.key === id) {
+      if (e.key == id) {
         temp.splice(
           i,
           1,
@@ -178,17 +168,13 @@ class SocialActivity extends Component {
         <div className={classes.SocialActivity}>
           <div className={classes.row}>
             <p className={classes.SectionName}>{text.social}</p>
-            
+            <img
+              className={classes.addIcon}
+              src={addIcon} alt="icon"
+              onClick={this.addHandler}
+            />
           </div>
           {this.state.cards}
-          <MDBBtn
-            flat
-            className={classes.MDBButton}
-            style={MDBButtonStyle}
-            onClick={this.addHandler}
-          >
-            {text.addSocial}
-          </MDBBtn>
         </div>
       );
     }

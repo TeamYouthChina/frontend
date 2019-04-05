@@ -47,7 +47,7 @@
 }
 
 .SectionName {
-  font-family: IBM Plex Sans;
+  font-family: "PingFang SC";
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -59,7 +59,7 @@
 }
 
 .AttributeName {
-  font-family: IBM Plex Sans;
+  font-family: "PingFang SC";
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -71,7 +71,7 @@
 }
 
 .Value {
-  font-family: IBM Plex Sans;
+  font-family: "PingFang SC";
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -83,7 +83,7 @@
 
 .CornerButton {
   width: 45px;
-  font-family: IBM Plex Sans;
+  font-family: "PingFang SC";
   font-style: normal;
   font-weight: 500;
   line-height: normal;

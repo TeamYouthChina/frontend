@@ -82,7 +82,7 @@ class skill extends Component {
     // make a hard copy
     let temp = this.state.cards.splice(0);
     temp.forEach((e, i) => {
-      if (e.key === id) {
+      if (e.key == id) {
         temp.splice(i, 1);
         return;
       }
@@ -110,7 +110,7 @@ class skill extends Component {
     // make a hard copy
     let temp = this.state.cards.splice(0);
     temp.forEach((e, i) => {
-      if (e.key === id) {
+      if (e.key == id) {
         temp.splice(
           i,
           1,
@@ -178,6 +178,11 @@ class skill extends Component {
         <div className={classes.Skill}>
           <div className={classes.row}>
             <p className={classes.SectionName}>{text.skill}</p>
+            <img
+              className={classes.addIcon}
+              src={addIcon} alt="icon"
+              onClick={this.addHandler}
+            />
           </div>
           {this.state.cards}
         </div>
