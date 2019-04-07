@@ -55,6 +55,16 @@
 
 .navItem {
   display: flex;
+  
+  color:#C1C4CA;
+  cursor: pointer;
+  transition: border-bottom 0.3s,color 0.1s;
+  -webkit-transition: border-bottom 0.3s,color 0.1s;
+}
+.navItem:hover{
+
+  color:#FAFBFD;
+  border-bottom: 4px solid #FFFFFF;
 }
 
 .navItem a {

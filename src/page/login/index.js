@@ -133,28 +133,28 @@ class LoginReact extends React.Component {
                       href="https://www.facebook.com"
                       className={classes.outterLoginIcon}
                     >
-                      <img src={facebook} />
+                      <img src={facebook} alt="cpnIcon"/>
                     </a>
                     <a
                       type="button"
                       href="https://twitter.com"
                       className={classes.outterLoginIcon}
                     >
-                      <img src={google} />
+                      <img src={google} alt="cpnIcon"/>
                     </a>
                     <a
                       type="button"
                       href="https://www.google.com"
                       className={classes.outterLoginIcon}
                     >
-                      <img src={instgram} />
+                      <img src={instgram} alt="cpnIcon"/>
                     </a>
                     <a
                       type="button"
                       href="https://www.google.com"
                       className={classes.outterLoginIcon}
                     >
-                      <img src={linkedin} />
+                      <img src={linkedin} alt="cpnIcon"/>
                     </a>
                   </div>
                 </MDBCol>
