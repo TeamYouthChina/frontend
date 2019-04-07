@@ -5,14 +5,17 @@ import { withRouter } from 'react-router-dom';
 
 import arrow from './arrow.svg';
 import classes from './index.module.css';
-import {content} from './index.mock';
+// import { content } from './index.mock';
 import bag from './bag.svg';
 import des1 from './des1.svg';
 import employee from './employee.svg';
 import heart from './heart.svg';
-import icon from './amazon.svg';
+import emptyHeart from './emptyHeart.svg';
+// import icon from './amazon.svg';
 import { languageHelper } from '../../../../tool/language-helper';
-import { mockGetAsync } from '../../../../tool/api-helper';
+// import { mockGetAsync, getAsync, putAsync } from '../../../../tool/api-helper';
+// import { all } from 'rsvp';
+// import {getID} from 
 
 class CompanyCardBarIdReact extends React.Component {
   constructor(props) {
@@ -34,33 +37,71 @@ class CompanyCardBarIdReact extends React.Component {
           reason: null,
         },
       },
+      isLiked : false,
     };
     // i18n
     this.text = CompanyCardBarIdReact.i18n[languageHelper()];
   }
 
   async componentDidMount() {
-    // const requestedData = await getAsync();
-    // this.setState({ cardData: requestedData, ...this.state });
-
-    const requestedData = await mockGetAsync(content);
-    this.setState({ ...this.state, cardData: requestedData});
+    // const requestedCompanyData = await getAsync(`/companies/${this.props.id}`);
+    // const allLikedCompaniesData = await getAsync(`/users/${getID()}/attentions?type=company`);
+    // let testIsLiked = false;
+    // allLikedCompaniesData.content.forEach(e=>{
+    //   if(e.id === this.state.cardData.content.id){
+    //     testIsLiked = true;
+    //     break;
+    //   }
+    // })
+    // console.log(requestedCompanyData)
+    // console.log(allLikedCompaniesData)
+    // this.setState({ ...this.state, cardData: requestedCompanyData, isLiked: testIsLiked});
   }
 
   clickOnCard = () => {};
 
   clickPositions = () => {};
 
-  unlikeClicked = () => {};
+  likeClicked = () => {
+    // putAsync(`/companies/${this.state.cardData.content.id}/attention`)
+
+  };
+
+  unlikeClicked = () => {
+    // putAsync(`/companies/attention/${this.state.cardData.content.id}`)
+  };
+
 
   render() {
+    // 收藏
+    let likeButton = (
+      <div className={classes.Like} onClick={this.likeClicked}>
+        <button>
+          <img src={emptyHeart} alt="no img" />
+          <p>{this.text.like}</p>
+        </button>
+        {/* <span style={{ color: "red" }}>api没有这个</span> */}
+      </div>
+    );
+    
+    // 取消收藏
+    let unlikeButton = (
+      <div className={classes.UnLike} onClick={this.unlikeClicked}>
+        <button>
+          <img src={heart} alt="no img" />
+          <p>{this.text.unLike}</p>
+        </button>
+        {/* <span style={{ color: "red" }}>api没有这个</span> */}
+      </div>
+    );
+
+    let likeOrUnlikeButton = (this.state.isLiked) ? unlikeButton : likeButton;
     return (
       <div className={classes.Card}>
         <div className={classes.Clickable} onClick={this.clickOnCard} />
         <div className={classes.UnClickable}>
           <div className={classes.Icon}>
-            {/* <img src={this.state.cardData.content.avatarUrl} alt="no img" /> */}
-            <img src={icon} alt="no img" />
+            <img src={this.state.cardData.content.avatarUrl} alt="no img" />
           </div>
           <div className={classes.Info}>
             <div className={classes.Name}>
@@ -91,13 +132,7 @@ class CompanyCardBarIdReact extends React.Component {
                 <img src={arrow} alt="no img" />
               </button>
             </div>
-            <div className={classes.UnLike} onClick={this.unlikeClicked}>
-              <button>
-                <img src={heart} alt="no img" />
-                <p>{this.text.unLike}</p>
-              </button>
-              <span style={{ color: 'red' }}>api没有这个</span>
-            </div>
+            {likeOrUnlikeButton}
           </div>
         </div>
       </div>
@@ -108,12 +143,14 @@ class CompanyCardBarIdReact extends React.Component {
 CompanyCardBarIdReact.i18n = [
   {
     unLike: '取消收藏',
+    like: '收藏',
     currently: '目前',
     openPos: '个空缺职位',
     employee: '个职位',
   },
   {
     unLike: 'UnLike',
+    like: 'Like',
     currently: 'Currently',
     openPos: 'Open Position',
     employee: 'employees',
