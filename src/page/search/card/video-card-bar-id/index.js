@@ -52,18 +52,16 @@ class VideoCardBarIdReact extends React.Component {
           
           <div style={{color: '#454F69', flexGrow: '0'}}>
             <VideoInfor
-              short={<span><u>在软件行业，操作系统平台就是那个八，其他的应用软件就是那个二。微软已经踩到了一次狗屎运，得到了软件行业80%的利润，现在，他所需要</u>
-                <span style={{color: 'red'}}> API没有。。。</span>
-              </span>}
-              title={<span><u>腾讯の问题</u><span style={{color: 'red'}}> API没有。。。</span></span>}
+              short={'在软件行业，操作系统平台就是那个八，其他的应用软件就是那个二。微软已经踩到了一次狗屎运，得到了软件行业80%的利润，现在，他所需要'}
+              title={'腾讯の问题'}
               basicFont={{
                 fontFamily: 'PingFang SC',
                 lineHeight: 'normal'
               }}
-              description={<span><u>WeYouth创始人</u><span style={{color: 'red'}}> API没有。。。</span></span>}
+              description={'WeYouth创始人'}
               user={this.state.backend.videos[0].uploader.username}
-              readingTime={<span><u>912</u><span style={{color: 'red'}}> API没有。。。</span></span>} 
-              editTime={<span>{this.state.createdTime}以前</span>} />
+              readingTime={912} 
+              editTime={`${this.state.createdTime}以前`} />
           </div>
 
         </div>
@@ -83,7 +81,7 @@ VideoCardBarIdReact.i18n = [
 
 VideoCardBarIdReact.propTypes = {
   // self
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,

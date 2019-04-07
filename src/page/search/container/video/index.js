@@ -64,27 +64,27 @@ class SearchVideoResultReact extends React.Component {
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <VideoCardBarId />
+                  <VideoCardBarId id={'1'}/>
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <VideoCardBarId />
+                  <VideoCardBarId id={'1'}/>
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <VideoCardBarId />
+                  <VideoCardBarId id={'1'}/>
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <VideoCardBarId />
+                  <VideoCardBarId id={'1'}/>
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <VideoCardBarId />
+                  <VideoCardBarId id={'1'}/>
                 </MDBCol>
               </MDBRow>
             </MDBCol>
