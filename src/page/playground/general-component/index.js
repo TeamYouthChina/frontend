@@ -249,11 +249,11 @@ class GeneralComponentReact extends React.Component {
             </div>
             <div className={classes.space}>
               <p>company-card-bar-id</p>
-              <CompanyCardBarId />
+              <CompanyCardBarId id={'5'}/>
             </div>
             <div className={classes.space}>
               <p>job-card-bar-id</p>
-              <JobCardBarId />
+              <JobCardBarId id={'5'}/>
             </div>
             <div className={classes.space}>
               <p>review-card-bar-id</p>
