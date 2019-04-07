@@ -24,8 +24,8 @@ class ZepeiReact extends React.Component {
       return <Redirect to={pathname} />;
     }
     let id = 1400184624;
-    let sig = "eJxlj1FPgzAYRd-5FYTXGfdRqFlM9oAMJ0lxIW7G*UIaWliZQG3LmFv870bUiPG*nnNzc8*WbdvOmjxc0jxvu8Zk5k1yx762HXAufqGUgmXUZJ5i-yA-SqF4RgvD1QBdjDECGDuC8caIQnwbG82VP8Ka7bNh46vvA7gz-wr9UUQ5wCRKw3jJp3HxWAXBiTAiYUHyoDvBKix36eRusSTlfVSVU3zc40MgbspeSzl5UUlDSbjqk81a*W0dv1b0dkujZ9W1qE41PO22-Xw*mjSi5j*HwMPIn40vHbjSom0GAYGLXeTBZxzr3foAMUZdvg__";
-    let imURL = `http://127.0.0.1:8080?id=${id}&sig=${sig}`
+    let sig = 'eJxlj1FPgzAYRd-5FYTXGfdRqFlM9oAMJ0lxIW7G*UIaWliZQG3LmFv870bUiPG*nnNzc8*WbdvOmjxc0jxvu8Zk5k1yx762HXAufqGUgmXUZJ5i-yA-SqF4RgvD1QBdjDECGDuC8caIQnwbG82VP8Ka7bNh46vvA7gz-wr9UUQ5wCRKw3jJp3HxWAXBiTAiYUHyoDvBKix36eRusSTlfVSVU3zc40MgbspeSzl5UUlDSbjqk81a*W0dv1b0dkujZ9W1qE41PO22-Xw*mjSi5j*HwMPIn40vHbjSom0GAYGLXeTBZxzr3foAMUZdvg__';
+    let imURL = `http://127.0.0.1:8080?id=${id}&sig=${sig}`;
     return (
       <div>
         <div className="cell-wall">
