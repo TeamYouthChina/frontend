@@ -73,6 +73,7 @@ class SearchConnectionNavItemReact extends React.Component {
           boxShadow: 'none',
           borderTop: 'solid #E0E0E0 1px',
           // borderBottom: 'solid #E0E0E0 1px'
+          fontSize: '1.25vw'
         }}>
           {/*<MDBContainer>*/}
           <MDBNavbarToggler onClick={this.toggleCollapse('navbarCollapse')} />
