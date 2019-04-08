@@ -1,12 +1,7 @@
 import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import classes from './index.module.css';
-import {
-  MDBCol,
-  MDBContainer,
-  MDBRow,
-  MDBIcon
-} from 'mdbreact';
+import {MDBCol, MDBContainer, MDBRow} from 'mdbreact';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
@@ -77,14 +72,11 @@ class SearchReact extends React.Component {
             <MDBContainer>
               <MDBRow>
                 <MDBCol className="mt-5 p-0 d-flex align-items-center">
-                  <MDBIcon className={`${classes.searchIcon} mr-1 mr-md-3`} icon="search" size="2x" />
+                  {/*<MDBIcon className={`${classes.searchIcon}`} icon="search" size="2x" />*/}
                   <input
                     className={`flex-fill p-0 form-control ${classes.searchInput}`}
                     placeholder="通过以下方式搜索"
-                    style={{
-                      fontSize: '36px',
-                      width: '80vw'
-                    }} />
+                  />
                 </MDBCol>
               </MDBRow>
             </MDBContainer>
@@ -159,7 +151,7 @@ SearchReact.prototypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  
+
 };
 
 export const Search = connect((state) => {

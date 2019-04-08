@@ -6,6 +6,15 @@
   box-shadow: 0 12px 20px rgba(141, 154, 175, 0.15);
 }
 
+.dropdownItems {
+  color: #31394D;
+  font-family: "PingFang SC";
+  font-size: 1.25vw;
+  font-weight: 600;
+  line-height: normal;
+  text-align: left;
+}
+
 .dropdownItems.active,
 .dropdownItems:active,
 .dropdownItems:hover {
@@ -18,3 +27,20 @@
 .dropdownItems:hover a {
   color: white !important;
 }
+
+.nav {
+  background-color: #ffffff;
+  border-top: solid #E0E0E0 1px;
+  box-shadow: none;
+  font-size: 1.25vw;
+}
+
+.navyFont {
+  color: #31394D;
+  font-family: "PingFang SC";
+  font-size: 1.25vw;
+  font-weight: 400;
+  line-height: normal;
+  text-align: right;
+}
+
