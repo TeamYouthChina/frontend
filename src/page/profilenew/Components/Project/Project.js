@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import ProjectCard from './ProjectCard/ProjectCard';
 import classes from './Project.module.css';
-import {getAsync} from '../../../../tool/api-helper';
-import {languageHelper} from '../../../../tool/language-helper';
+import { getAsync } from '../../../../tool/api-helper';
+import { languageHelper } from '../../../../tool/language-helper';
 import addIcon from '../../assets/add.svg';
 
 const translation = [
@@ -25,49 +25,47 @@ class Project extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: Array(),
-      flipper: true,
+      cards: [],
     };
-    this.date = null;
   }
+
+  // time stamp
+  getTimeStamp = () => {
+    const date = new Date();
+    return date.getTime();
+  };
 
   // get work data set requestedData and cards in state
   async componentDidMount() {
     let data = await getAsync(
-      '/applicants/' + this.props.requestID + '/projects',      // eslint-disable-line
+      "/applicants/" + this.props.requestID + "/projects", // eslint-disable-line
       true
     );
-    console.log(data);      // eslint-disable-line
     let temp =
-      data &&
-      data.content &&
-      data.content.projects &&
-      data.status.code === 2000
+      data && data.content && data.content.projects && data.status.code === 2000
         ? data.content.projects.map(e => {
+          const time = this.getTimeStamp();
           return (
             <ProjectCard
-              key={e.id}
-              id={e.id}
+              key={time}
+              id={time}
               data={e}
               deleteHandler={this.deleteHandler}
               saveHandler={this.saveHandler}
             />
           );
         })
-        : Array();
-    this.setState({cards: temp});
-  }
-
-  async componentDidUpdate() {
+        : [];
+    this.setState({ cards: temp });
   }
 
   // delte data on server, delete data in state.cards
-  deleteHandler = id => {
+  deleteHandler = (localID, serverID) => { // eslint-disable-line
     // TODO: delete data on server according to id
     // make a hard copy
     let temp = this.state.cards.splice(0);
     temp.forEach((e, i) => {
-      if (e.key == id) {
+      if (e.id == localID) {
         temp.splice(i, 1);
         return;
       }
@@ -75,34 +73,29 @@ class Project extends Component {
     this.setState(
       {
         cards: temp,
-        flipper: !this.state.flipper,
       },
       () => {
-        // prepare the data to be sent back to server
-        let dataToSend = this.state.cards.map(e => {      // eslint-disable-line
-          return e.props.data;
-        });
+        // call delete api using serverID
       }
     );
   };
 
   // save data locally and send back to server
-  saveHandler = (newCertification, id) => {
+  saveHandler = (newCertification, localID, serverID) => { // eslint-disable-line
     // TODO: update server with new saved cards
     // PUT {...this.state.requestedData, newEducation}
     // timestamp
-    this.date = new Date();
-    const time = this.date.getTime();
     // make a hard copy
     let temp = this.state.cards.splice(0);
     temp.forEach((e, i) => {
-      if (e.key == id) {
+      if (e.id == localID) {
+        // const time = getTimeStamp()
         temp.splice(
           i,
           1,
           <ProjectCard
-            key={time}
-            id={time}
+            key={localID}
+            id={localID}
             data={newCertification}
             deleteHandler={this.deleteHandler}
             saveHandler={this.saveHandler}
@@ -114,13 +107,9 @@ class Project extends Component {
     this.setState(
       {
         cards: temp,
-        flipper: !this.state.flipper,
       },
       () => {
-        // prepare data to be sent back to server
-        let dataToSend = this.state.cards.map(e => {      // eslint-disable-line
-          return e.props.data;
-        });
+        // save api using server ID
       }
     );
   };
@@ -129,8 +118,7 @@ class Project extends Component {
   // update the data in server and local happens in saveHandler
   addHandler = () => {
     // timestamp
-    this.date = new Date();
-    const time = this.date.getTime();
+    const time = this.getTimeStamp();
     // make a hard copy
     let temp = this.state.cards.splice(0);
     temp.push(
@@ -143,7 +131,6 @@ class Project extends Component {
     );
     this.setState({
       cards: temp,
-      flipper: !this.state.flipper,
     });
   };
 
@@ -156,7 +143,8 @@ class Project extends Component {
             <p className={classes.SectionName}>{text.project}</p>
             <img
               className={classes.addIcon}
-              src={addIcon} alt="icon"
+              src={addIcon}
+              alt="icon"
               onClick={this.addHandler}
             />
           </div>
@@ -172,13 +160,12 @@ class Project extends Component {
             <p className={classes.SectionName}>{text.project}</p>
             <img
               className={classes.addIcon}
-              src={addIcon} alt="icon"
+              src={addIcon}
+              alt="icon"
               onClick={this.addHandler}
             />
           </div>
-          <div className={classes.Container}>
-            {this.state.cards}
-          </div>
+          <div className={classes.Container}>{this.state.cards}</div>
         </div>
       );
     }
