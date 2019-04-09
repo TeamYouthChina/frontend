@@ -5,18 +5,18 @@ import {Redirect} from 'react-router-dom';
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 
-/*
-import Zhenyi from './components';
 
-import AnswerCard  from '../general-component/answer-card-bar-id/components/answer-card';
-import AnswerCardWithoutAuth  from '../general-component/answer-card-bar-fulltext';
-import ReviewCard  from '../general-component/review-card-bar-id';
-import ReviewCardWithoutAuth  from '../general-component/review-card-bar-fulltext';
-import ArticleCard  from '../general-component/article-card-bar-id';
-import {VideoCardBarAuth}  from '../general-component/video-card-bar-id';
+// import Zhenyi from './components';
 
-import data from '../general-component/answer-card-bar-id/components/index.data';
-*/
+// import AnswerCard  from '../general-component/answer-card-bar-id/components/answer-card';
+// import AnswerCardWithoutAuth  from '../general-component/answer-card-bar-fulltext';
+import {ReviewCardBarId}  from '../general-component/review-card-bar-id';
+// import ReviewCardWithoutAuth  from '../general-component/review-card-bar-fulltext';
+// import ArticleCard  from '../general-component/article-card-bar-id';
+// import {VideoCardBarAuth}  from '../general-component/video-card-bar-id';
+//
+// import data from '../general-component/answer-card-bar-id/components/index.data';
+
 class ZhenyiReact extends React.Component {
   constructor(props) {
     super(props);
@@ -31,31 +31,10 @@ class ZhenyiReact extends React.Component {
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
-    return (/*
+    return (
       <div style={{background:'#E5E5E5'}}>
-        <div
-          className="cell-wall"
-        >
-          <div
-            className="cell-membrane"
-          >
-            <Zhenyi />
-            <AnswerCard answerId={1} />
-            <br />
-            <AnswerCardWithoutAuth fullText={data.content[0]}/>
-            <br />
-            <ReviewCard reviewId={1} />
-            <br />
-            <ReviewCardWithoutAuth fullText={data.content[0]} />
-            <br />
-            <ArticleCard articleId={1} />
-            <br />
-            <VideoCardBarAuth videoId={1} />
-          </div>
-        </div>
+        <ReviewCardBarId id={1}/>
       </div>
-    */
-      null
     );
   }
 }

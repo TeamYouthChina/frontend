@@ -2,3 +2,11 @@
   display:flex;
   margin-top:2.34vw;
 }
+.answerWrapper2 {
+  flex-grow:0;
+}
+.sideBar {
+  width:100%;
+  margin-top:2.73vw;
+  margin-right:0;
+}

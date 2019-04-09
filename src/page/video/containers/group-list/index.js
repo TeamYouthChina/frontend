@@ -22,7 +22,7 @@ const GroupList = () => (
       hover
       href="/review/create"
       className={`d-flex justify-content-center align-items-center ${classes.listStyle}`}>
-      <img src={Create} className={`mr-2 ${classes.groupIcon}`}/> 写短评
+      <img src={Create} alt="create" className={`mr-2 ${classes.groupIcon}`}/> 写短评
     </MDBListGroupItem>
   </MDBListGroup>
 );

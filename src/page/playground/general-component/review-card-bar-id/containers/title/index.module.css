@@ -1,0 +1,13 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.title {
+  color: #31394D;
+  font-size: 1.406vw;
+  font-family: PingFang SC;
+  line-height: normal;
+}
+.iconStyle {
+  justify-content: flex-end;
+}
