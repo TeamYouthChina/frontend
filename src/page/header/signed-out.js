@@ -1,7 +1,6 @@
 import React from 'react';
 import {MDBNavbarNav, MDBNavItem, MDBNavLink} from 'mdbreact';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 import {languageHelper} from '../../tool/language-helper';
@@ -49,10 +48,4 @@ SignedOutReact.propTypes = {
   location: PropTypes.object.isRequired
 };
 
-export const SignedOut = withRouter(connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(SignedOutReact));
+export const SignedOut = withRouter(SignedOutReact);

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import { withRouter} from 'react-router-dom';
 
 
@@ -73,10 +72,4 @@ JobCardReact.propTypes = {
   backend: PropTypes.object.isRequired
 };
 
-export const JobCard = withRouter(connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(JobCardReact));
+export const JobCard = withRouter(JobCardReact);

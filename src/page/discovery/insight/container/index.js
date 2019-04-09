@@ -6,7 +6,6 @@ import {
   MDBRow
 } from 'mdbreact';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import classes from './index.module.css';
 import wrtiteArticle from '../../assets/writeArticle.svg';
@@ -158,14 +157,7 @@ DiscoveryInsightReact.propTypes = {
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  // React Redux
+  location: PropTypes.object.isRequired
 };
 
-export const DiscoveryInsight = withRouter(connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(DiscoveryInsightReact));
+export const DiscoveryInsight = withRouter(DiscoveryInsightReact);

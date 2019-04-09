@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 import classes from './index.module.css';
@@ -41,15 +40,9 @@ JobDescriReact.propTypes = {
   // self
   backend: PropTypes.object.isRequired,
   // React Router
-  
-  // React Redux
-  bodyClientWidth: PropTypes.number.isRequired
+  match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired
 };
 
-export const JobDesci = withRouter(connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(JobDescriReact));
+export const JobDesci = withRouter(JobDescriReact);

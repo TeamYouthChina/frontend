@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import { withRouter} from 'react-router-dom';
 
 
@@ -103,10 +102,4 @@ CompanyCardReact.propTypes = {
   backend: PropTypes.object.isRequired
 };
 
-export const CompanyCard = withRouter(connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(CompanyCardReact));
+export const CompanyCard = withRouter(CompanyCardReact);
