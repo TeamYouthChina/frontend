@@ -1,0 +1,36 @@
+.mdbRow {
+  margin: 0;
+  display: flex;
+}
+.avatar {
+  height: 100%;
+  margin: .469vw .859vw .469vw 0;
+}
+.imgStyle {
+  width: 2.5vw;
+  background: #F4F4F4;
+}
+.addComment {
+  margin-top: .391vw;
+  flex-grow: 1;
+}
+.inputStyle {
+  width: 100%;
+  background: #FFFFFF;
+  border: 0.078vw solid #DBE5F7;
+  box-sizing: border-box;
+  border-radius: .156vw;
+  padding: .624vw 0 .624vw 1.562vw;
+  font-size: 1.091vw;
+  color: #B3C1DB;
+  height: 2.891vw;
+  font-family: PingFang SC;
+  line-height: normal;
+}
+.btnStyle {
+  flex-grow: 0;
+  background: #C4C4C4;
+  padding: .625vw 1.562vw;
+  color: #FFFFFF;
+  margin: .468vw 0 .391vw .468vw;
+}

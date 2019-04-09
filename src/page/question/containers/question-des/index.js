@@ -75,7 +75,7 @@ const i18n = [
 
 QuestionDes.propTypes = {
   // self
-  tags: PropTypes.array.isRequired,
+  // tags: PropTypes.array.isRequired,
   content: PropTypes.object.isRequired,
   text: PropTypes.object.isRequired,
   questionId: PropTypes.number.isRequired,
