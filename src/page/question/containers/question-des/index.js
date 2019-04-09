@@ -45,7 +45,7 @@ const QuestionDes = (props) => (
         <MDBIcon className={classes.btnIcon} icon="thumbs-up" />{props.text.toInvite}
       </button>
       <button className={classes.btnOthers}>
-        <MDBIcon className={classes.btnIcon} icon="comment" />{props.text.pinglun}
+        <MDBIcon className={classes.btnIcon} icon="heart" />{props.text.collection}
       </button>
       <button className={classes.btnOthers}>
         <MDBIcon className={classes.btnIcon} icon="share" />{props.text.share}
@@ -61,7 +61,7 @@ const i18n = [
     toFocus: '我来回答',
     toInvite: '邀请回答',
     share: '分享',
-    pinglun: '评论'
+    collection: '收藏'
   },
   {
     focusNum: 'focus number',
