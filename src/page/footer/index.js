@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import classes from './index.module.css';
 import {withRouter} from 'react-router-dom';
 
 import {languageHelper} from '../../tool/language-helper';
@@ -17,19 +18,16 @@ export class FooterReact extends React.Component {
   render() {
     return (
       <footer
-        className="page-footer font-small py-2"
-        style={{
-          background: '#31394D',
-        }}
+        className={classes.footerBackGround}
       >
         <div className="cell-wall">
           <div className="cell-membrane">
             <div
               style={{backgroundColor: '#31394D'}}
-              className="footer-copyright text-center py-3"
+              className={classes.footer}
             >
-              <span>&copy; {new Date().getFullYear()} Copyright:{' '}</span>
-              <a href="http://weyouth.co/">weyouth.co</a>
+              <span className={classes.footerCopyright}>&copy; {new Date().getFullYear()} Copyright:{' '}</span>
+              <a className={classes.footerLink} href="http://weyouth.co/">weyouth.co</a>
             </div>
           </div>
         </div>

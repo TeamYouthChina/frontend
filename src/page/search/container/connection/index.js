@@ -30,27 +30,27 @@ class SearchConnectionResultReact extends React.Component {
             <MDBCol className="px-0" size="10">
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol className="p-0">
-                  <UserCardBarAuth />
+                  <UserCardBarAuth id={'1'}/>
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol className="p-0">
-                  <UserCardBarAuth />
+                  <UserCardBarAuth id={'1'}/>
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol className="p-0">
-                  <UserCardBarAuth />
+                  <UserCardBarAuth id={'1'}/>
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol className="p-0">
-                  <UserCardBarAuth />
+                  <UserCardBarAuth id={'1'}/>
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol className="p-0">
-                  <UserCardBarAuth />
+                  <UserCardBarAuth id={'1'}/>
                 </MDBCol>
               </MDBRow>
             </MDBCol>

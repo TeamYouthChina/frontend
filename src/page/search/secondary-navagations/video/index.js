@@ -72,12 +72,7 @@ class SearchVideoNavItemReact extends React.Component {
 
     return (
       <div>
-        <MDBNavbar light expand="md" style={{
-          background: 'white',
-          boxShadow: 'none',
-          borderTop: 'solid #E0E0E0 1px',
-          // borderBottom: 'solid #E0E0E0 1px'
-        }}>
+        <MDBNavbar light expand="md" className={classes.nav}>
           {/*<MDBContainer>*/}
           <MDBNavbarToggler onClick={this.toggleCollapse('navbarCollapse')} />
           <MDBCollapse id="navbarCollapse" isOpen={this.state.collapseID} navbar>
