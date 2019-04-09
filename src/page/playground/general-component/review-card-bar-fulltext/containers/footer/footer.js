@@ -2,7 +2,6 @@ import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {MDBBtn, MDBCol, MDBIcon, MDBRow} from 'mdbreact';
 import classes from './index.module.css';
-import share from '../../public/share.svg';
 import {connect} from 'react-redux';
 import {languageHelper} from '../../../../../../tool/language-helper';
 
@@ -16,34 +15,17 @@ const Footer = (props) => (
       </MDBCol>
       <MDBCol size="9">
         <div className={classes.btnWrapper}>
-          <MDBBtn onClick={()=>props.clickActive('evaluateStatus')} className={props.evaluateStatus === 1 ? classes.btnStyleActive : classes.btnStyle} flat>
-            {props.evaluateStatus === 1 ? (
-              <span>
-                已点赞
-              </span>
-            ) : (
-              <span>
-                <MDBIcon className={classes.iconStyle} far icon="thumbs-up"/>{props.upvoteCount}个{props.text.thumb}
-              </span>
-            )}
+          <MDBBtn className={classes.btnStyle} flat>
+            <MDBIcon className={classes.iconStyle} far icon="thumbs-up"/>{props.text.thumb}
           </MDBBtn>
-          <MDBBtn onClick={()=>props.clickActive('attention')} className={props.attention ? classes.btnStyleActive : classes.btnStyle} flat>
-            {props.attention ? (
-              <span>
-                已收藏  
-              </span>
-            ) : (
-              <span>
-                <MDBIcon className={classes.iconStyle} far icon="heart"/>{props.attentionCount}个{props.text.collection}
-              </span>
-            )}
-            
+          <MDBBtn className={classes.btnStyle} flat>
+            <MDBIcon className={classes.iconStyle} far icon="heart"/>{props.text.collection}
           </MDBBtn>
           <MDBBtn onClick={props.showComments} className={classes.btnStyle} flat>
             <MDBIcon className={classes.iconStyle} far icon="comment"/>{props.commentsText}
           </MDBBtn>
           <MDBBtn className={classes.btnStyle} flat>
-            <img src={share} alt="share" className={classes.iconStyle} />{props.text.share}
+            <MDBIcon className={classes.iconStyle} far icon="share"/>{props.text.share}
           </MDBBtn>
           {/*<MDBBtn flat style={{padding: '5px 10px',}}>*/}
           {/*<MDBIcon style={{marginRight: '5px'}} icon="ban"/>*/}
@@ -68,11 +50,6 @@ Footer.propTypes = {
   commentsText: PropTypes.string.isRequired,
   isCollapsed: PropTypes.bool.isRequired,
   text: PropTypes.object.isRequired,
-  upvoteCount: PropTypes.number.isRequired,
-  attentionCount: PropTypes.number.isRequired,
-  attention: PropTypes.bool.isRequired,
-  evaluateStatus: PropTypes.number.isRequired,
-  clickActive: PropTypes.func.isRequired,
   // func
   showComments: PropTypes.func.isRequired,
   handleSpanClick: PropTypes.func.isRequired,

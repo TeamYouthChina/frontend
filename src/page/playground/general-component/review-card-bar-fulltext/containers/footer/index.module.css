@@ -20,15 +20,6 @@
   font-family: PingFang SC;
   line-height: normal;
 }
-.btnStyleActive {
-  padding: 0.391vw 0.781vw;
-  margin-left: 1.172vw;
-  font-size: 1.094vw;
-  background-color: red!important;
-  color:#8D9AAF;
-  font-family: PingFang SC;
-  line-height: normal;
-}
 .iconStyle {
   margin-right: 0.391vw;
 }
