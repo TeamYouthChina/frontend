@@ -1,26 +1,26 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import DatePicker from "react-date-picker";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import DatePicker from 'react-date-picker';
 
-import classes from "./WorkExperienceCard.module.css";
-import workIcon from "../../../assets/google.jpg";
-import Dropdown from "../../Dropdown/Dropdown";
-import { languageHelper } from "../../../../../tool/language-helper";
+import classes from './WorkExperienceCard.module.css';
+import workIcon from '../../../assets/google.jpg';
+import Dropdown from '../../Dropdown/Dropdown';
+import { languageHelper } from '../../../../../tool/language-helper';
 
 const translation = [
   {
-    position: "职位",
-    employer: "雇主",
-    begin: "开始日期",
-    end: "结束日期",
-    note: "说明",
+    position: '职位',
+    employer: '雇主',
+    begin: '开始日期',
+    end: '结束日期',
+    note: '说明',
   },
   {
-    position: "Position",
-    employer: "Employer",
-    begin: "Begin",
-    end: "End",
-    note: "Note",
+    position: 'Position',
+    employer: 'Employer',
+    begin: 'Begin',
+    end: 'End',
+    note: 'Note',
   },
 ];
 const text = translation[languageHelper()];
@@ -32,27 +32,27 @@ class WorkExperienceCard extends Component {
       editing: this.props.data ? false : true, // eslint-disable-line
       workData: this.props.data // eslint-disable-line
         ? {
-            id: this.props.data.id,
+          id: this.props.data.id,
             employer: this.props.data.employer, // eslint-disable-line
             position: this.props.data.position, // eslint-disable-line
-            duration: {
+          duration: {
               begin: this.props.data.duration.begin.substring(0, 10), // eslint-disable-line
               end: this.props.data.duration.end.substring(0, 10), // eslint-disable-line
-            },
-            location: this.props.data.location,
-            note: this.props.data.note, // eslint-disable-line
-          }
-        : {
-            id: "",
-            employer: "",
-            position: "",
-            duration: {
-              begin: null,
-              end: "",
-            },
-            location: "",
-            note: "",
           },
+          location: this.props.data.location,
+            note: this.props.data.note, // eslint-disable-line
+        }
+        : {
+          id: '',
+          employer: '',
+          position: '',
+          duration: {
+            begin: null,
+            end: '',
+          },
+          location: '',
+          note: '',
+        },
     };
 
     this.posRef = React.createRef();
@@ -85,7 +85,7 @@ class WorkExperienceCard extends Component {
       this.props.saveHandler(
         this.state.workData,
         this.state.workData.id,
-        "update"
+        'update'
       ); // eslint-disable-line
     } else {
       this.props.saveHandler(this.state.workData, null, "add"); // eslint-disable-line
@@ -105,7 +105,7 @@ class WorkExperienceCard extends Component {
   };
 
   handleStartChange = (startDate) => {
-    let parsed = startDate.toString().split(" ");
+    let parsed = startDate.toString().split(' ');
     parsed = `${parsed[1]}/${parsed[2]}/${parsed[3]}`;
     this.setState({
       ...this.state,
@@ -120,7 +120,7 @@ class WorkExperienceCard extends Component {
   }
 
   handleEndChange = (endDate) => {
-    let parsed = endDate.toString().split(" ");
+    let parsed = endDate.toString().split(' ');
     parsed = `${parsed[1]}/${parsed[2]}/${parsed[3]}`;
     this.setState({
       ...this.state,
@@ -143,10 +143,10 @@ class WorkExperienceCard extends Component {
           <div className={classes.WorkInfo}>
             <input
               disabled
-              style={{ fontSize: "1.25vw", fontWeight: "500" }}
+              style={{ fontSize: '1.25vw', fontWeight: '500' }}
               type="text"
               value={
-                this.state.workData.position ? this.state.workData.position : ""
+                this.state.workData.position ? this.state.workData.position : ''
               }
               ref={this.posRef}
               placeholder={text.position}
@@ -154,12 +154,12 @@ class WorkExperienceCard extends Component {
             />
             <input
               disabled
-              style={{ fontSize: "1.25vw" }}
+              style={{ fontSize: '1.25vw' }}
               type="text"
               value={
                 this.state.workData.employer
                   ? this.state.workData.exmployer
-                  : ""
+                  : ''
               }
               ref={this.employerRef}
               placeholder={text.employer}
@@ -185,7 +185,7 @@ class WorkExperienceCard extends Component {
             <textarea
               disabled
               className={classes.description}
-              value={this.state.workData.note ? this.state.workData.note : ""}
+              value={this.state.workData.note ? this.state.workData.note : ''}
               ref={this.noteRef}
               placeholder={text.note}
               onChange={this.inputOnChange}
@@ -200,20 +200,20 @@ class WorkExperienceCard extends Component {
           <img src={workIcon} alt="no img" />
           <div className={classes.WorkInfo}>
             <input
-              style={{ margin: "3px 0px" }}
+              style={{ margin: '3px 0px' }}
               type="text"
               value={
-                this.state.workData.position ? this.state.workData.position : ""
+                this.state.workData.position ? this.state.workData.position : ''
               }
               ref={this.posRef}
               placeholder={text.position}
               onChange={this.inputOnChange}
             />
             <input
-              style={{ margin: "3px 0px" }}
+              style={{ margin: '3px 0px' }}
               type="text"
               value={
-                this.state.workData.employer ? this.state.workData.employer : ""
+                this.state.workData.employer ? this.state.workData.employer : ''
               }
               ref={this.employerRef}
               placeholder={text.employer}
@@ -235,9 +235,9 @@ class WorkExperienceCard extends Component {
             </div>
             
             <input
-              style={{ margin: "3px 0px" }}
+              style={{ margin: '3px 0px' }}
               type="text"
-              value={this.state.workData.note ? this.state.workData.note : ""}
+              value={this.state.workData.note ? this.state.workData.note : ''}
               ref={this.noteRef}
               placeholder={text.note}
               onChange={this.inputOnChange}
@@ -260,6 +260,7 @@ class WorkExperienceCard extends Component {
 WorkExperienceCard.propTypes = {
   cancel: PropTypes.func,
   data: PropTypes.object.isRequired,
+  saveHandler: PropTypes.func.isRequired
 };
 
 export default WorkExperienceCard;

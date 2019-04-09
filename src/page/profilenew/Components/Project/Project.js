@@ -1,27 +1,27 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import ProjectCard from "./ProjectCard/ProjectCard";
-import classes from "./Project.module.css";
+import ProjectCard from './ProjectCard/ProjectCard';
+import classes from './Project.module.css';
 import {
   getAsync,
   postAsync,
   putAsync,
   deleteAsync,
-} from "../../../../tool/api-helper";
-import { languageHelper } from "../../../../tool/language-helper";
-import addIcon from "../../assets/add.svg";
+} from '../../../../tool/api-helper';
+import { languageHelper } from '../../../../tool/language-helper';
+import addIcon from '../../assets/add.svg';
 
 const translation = [
   {
-    project: "项目",
-    addProject: "+ 添加项目",
-    noProject: "无项目",
+    project: '项目',
+    addProject: '+ 添加项目',
+    noProject: '无项目',
   },
   {
-    project: "Project",
-    addProject: "+ Add Project",
-    noProject: "No Project",
+    project: 'Project',
+    addProject: '+ Add Project',
+    noProject: 'No Project',
   },
 ];
 
@@ -43,7 +43,7 @@ class Project extends Component {
 
   async postRequest(content) {
     await postAsync(
-      "/applicants/" + this.props.requestID + "/projects",
+      '/applicants/' + this.props.requestID + '/projects',
       content
     );
     // console.log(`posting ${content} and response is ${response}`)
@@ -51,7 +51,7 @@ class Project extends Component {
 
   async putRequest(id, content) {
     await putAsync(
-      "/applicants/" + this.props.requestID + "/projects/" + id,
+      '/applicants/' + this.props.requestID + '/projects/' + id,
       content
     );
     // console.log(`putting ${content} with id ${id} and response is ${response}`)
@@ -59,29 +59,29 @@ class Project extends Component {
 
   async deleteRequest(id) {
     await deleteAsync(
-      "/applicants/" + this.props.requestID + "/projects/" + id
+      '/applicants/' + this.props.requestID + '/projects/' + id
     );
     // console.log(`deleting ${id} and response is ${response}`)
   }
 
   async getRequest() {
     let data = await getAsync(
-      "/applicants/" + this.props.requestID + "/projects"
+      '/applicants/' + this.props.requestID + '/projects'
     );
 
     // console.log('getting'+data);
     let temp =
       data && data.content && data.content.data && data.status.code === 2000
         ? data.content.data.map(e => {
-            return (
-              <ProjectCard
-                key={e.id}
-                data={e}
-                deleteHandler={this.deleteHandler}
-                saveHandler={this.saveHandler}
-              />
-            );
-          })
+          return (
+            <ProjectCard
+              key={e.id}
+              data={e}
+              deleteHandler={this.deleteHandler}
+              saveHandler={this.saveHandler}
+            />
+          );
+        })
         : [];
     this.setState(
       { ...this.state, cards: temp, adding: false, addingCard: null },
@@ -103,11 +103,11 @@ class Project extends Component {
 
   // save data locally and send back to server
   saveHandler = async (content, id, mode) => {
-    if (mode === "add") {
+    if (mode === 'add') {
       // console.log('adding');
       await this.postRequest(content);
       await this.getRequest();
-    } else if (mode === "update") {
+    } else if (mode === 'update') {
       // console.log('updating');
       await this.putRequest(id, content);
       await this.getRequest();
@@ -118,7 +118,7 @@ class Project extends Component {
   // update the data in server and local happens in saveHandler
   addHandler = () => {
     if (this.state.adding === true) {
-      alert("请先完成当前编辑");
+      alert('请先完成当前编辑');
       return;
     }
     // make a hard copy
