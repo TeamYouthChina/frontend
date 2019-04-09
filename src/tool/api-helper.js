@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import fetch from 'isomorphic-fetch';
 
 /* 生产环境 / 测试环境 */
-const urlPrefix = 'http://47.252.87.218:8080/api/v1';
+const urlPrefix = 'http://test.zzc-tongji.com/api/v1';
 
 const generateHeaders = () => {
   let language = Cookies.get('language');
@@ -26,31 +26,31 @@ const preprocessResponse = (response) => {
   if (token) {
     Cookies.set('token', token, {expires: 1});
   }
-  let responseJson = response.json();
-  try {
-    // Login credential is expired.
-    if (responseJson.status.code.toString().startsWith('401')) {
-      Cookies.remove('token');
+  return response.json((data) => {
+    try {
+      // Login credential is expired.
+      if (data.status.code.toString().startsWith('401')) {
+        Cookies.remove('token');
+      }
+    } catch (error) {
+      if (error instanceof TypeError) {
+        /* eslint-disable no-console */
+        console.log('error: ', error);
+        console.log('response.json: ', data);
+        console.log('致后端的朋友们：任何的请求的 response.json.status.code 都必须存在。');
+        /* eslint-enable no-console */
+        return {
+          ...data,
+          status: {
+            code: 5001,
+            reason: '后端未给出 response.json.status.code 。'
+          }
+        };
+      } else {
+        throw error;
+      }
     }
-  } catch (error) {
-    if (error instanceof TypeError) {
-      /* eslint-disable no-console */
-      console.log('error: ', error);
-      console.log('response.json: ', responseJson);
-      console.log('致后端的朋友们：任何的请求的 response.json.status.code 都必须存在。');
-      /* eslint-enable no-console */
-      return {
-        ...responseJson,
-        status: {
-          code: 5001,
-          reason: '后端未给出 response.json.status.code 。'
-        }
-      };
-    } else {
-      throw error;
-    }
-  }
-  return responseJson;
+  });
 };
 
 const fetchError = (error) => {
