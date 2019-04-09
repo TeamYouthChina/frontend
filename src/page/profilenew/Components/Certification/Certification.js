@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import CertificationCard from './CertificationCard/CertificationCard';
 import classes from './Certification.module.css';
-import {getAsync} from '../../../../tool/api-helper';
+// import {getAsync} from '../../../../tool/api-helper';
 import {languageHelper} from '../../../../tool/language-helper';
 import addIcon from '../../assets/add.svg';
 
@@ -25,37 +25,35 @@ class Certification extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: Array(),
-      flipper: true,
+      cards: [],
     };
     this.date = null;
   }
 
   // get work data set requestedData and cards in state
   async componentDidMount() {
-    let data = await getAsync(
-      '/applicants/' + this.props.requestID + '/certificates',      // eslint-disable-line
-      true
-    );
-    console.log(data);      // eslint-disable-line
-    let temp =
-      data &&
-      data.content &&
-      data.content.certificates &&
-      data.status.code === 2000
-        ? data.content.certificates.map(e => {
-          return (
-            <CertificationCard
-              key={e.id}
-              id={e.id}
-              data={e}
-              deleteHandler={this.deleteHandler}
-              saveHandler={this.saveHandler}
-            />
-          );
-        })
-        : Array();
-    this.setState({cards: temp});
+    // let data = await getAsync(
+    //   '/applicants/' + this.props.requestID + '/certificates',      // eslint-disable-line
+    //   true
+    // );
+    // let temp =
+    //   data &&
+    //   data.content &&
+    //   data.content.certificates &&
+    //   data.status.code === 2000
+    //     ? data.content.certificates.map(e => {
+    //       return (
+    //         <CertificationCard
+    //           key={e.id}
+    //           id={e.id}
+    //           data={e}
+    //           deleteHandler={this.deleteHandler}
+    //           saveHandler={this.saveHandler}
+    //         />
+    //       );
+    //     })
+    //     : Array();
+    // this.setState({cards: temp});
   }
 
   async componentDidUpdate() {
@@ -75,7 +73,6 @@ class Certification extends Component {
     this.setState(
       {
         cards: temp,
-        flipper: !this.state.flipper,
       },
       () => {
         // prepare the data to be sent back to server
@@ -114,7 +111,6 @@ class Certification extends Component {
     this.setState(
       {
         cards: temp,
-        flipper: !this.state.flipper,
       },
       () => {
         // prepare data to be sent back to server
@@ -143,7 +139,6 @@ class Certification extends Component {
     );
     this.setState({
       cards: temp,
-      flipper: !this.state.flipper,
     });
   };
 

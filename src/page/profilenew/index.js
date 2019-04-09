@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import classes from './index.module.css';
 // import ResumeButtons from './Components/ResumeButtons/ResumeButtons';
 // import BasicInfo from './Components/BasicInfo/BasicInfo';
-import Education from './Components/Education/Education';
-import WorkExperience from './Components/WorkExperience/WorkExperience';
-import Certifications from './Components/Certification/Certification';
-import SocialActivicies from './Components/SocialActivity/SocialActivity';
+import Education from './Components/Education/Education'; // eslint-disable-line
+import WorkExperience from './Components/WorkExperience/WorkExperience'; // eslint-disable-line
+import Certifications from './Components/Certification/Certification'; // eslint-disable-line
+import SocialActivicies from './Components/SocialActivity/SocialActivity'; // eslint-disable-line
 import Projects from './Components/Project/Project';
-import Skills from './Components/Skill/Skill';
-import AdvantageTag from './Components/advantageTag/';
+import Skills from './Components/Skill/Skill'; // eslint-disable-line
+import AdvantageTag from './Components/advantageTag/'; // eslint-disable-line
 import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
@@ -20,12 +20,11 @@ class ProfileMainBodyReact extends Component {
     super(props);
     this.state = {
       requestID: this.props.requestID,       // eslint-disable-line
-      requestedData: this.props.data,       // eslint-disable-line
     };
   }
 
   componentWillMount() {
-    this.setState({requestID: this.props.match.params.id});
+    // this.setState({requestID: this.props.match.params.id});
   }
 
   async componentDidMount() {
@@ -84,15 +83,13 @@ class ProfileMainBodyReact extends Component {
       <div className="cell-wall" style={{backgroundColor: '#F3F5F7'}}>
         <div className="cell-membrane">
           <div className={classes.MainBody}>
-            {/* <ResumeButtons/> */}
-            {/*<BasicInfo requestID={this.state.requestID} />*/}
             <Projects requestID={this.state.requestID} />
-            <WorkExperience requestID={this.state.requestID} />
+            {/* <WorkExperience requestID={this.state.requestID} />
             <Education requestID={this.state.requestID} />
             <Skills requestID={this.state.requestID} />
             <Certifications requestID={this.state.requestID} />
             <SocialActivicies requestID={this.state.requestID} />
-            <AdvantageTag/>
+            <AdvantageTag requestID={this.state.requestID}/> */}
           </div>
         </div>
       </div>

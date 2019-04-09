@@ -146,7 +146,7 @@ CompanyCardBarIdReact.i18n = [
     like: '收藏',
     currently: '目前',
     openPos: '个空缺职位',
-    employee: '个职位',
+    employee: '个员工',
   },
   {
     unLike: 'UnLike',
