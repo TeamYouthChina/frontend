@@ -5,8 +5,8 @@ import {Redirect, withRouter} from 'react-router-dom';
 
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
-
 import ArticleCreate from './components/edit';
+
 
 class ArticleEditReact extends React.Component {
   constructor(props) {
@@ -17,6 +17,11 @@ class ArticleEditReact extends React.Component {
     this.text = ArticleEditReact.i18n[languageHelper()];
   }
 
+  shouldComponentUpdate() {
+    return false;
+  }
+
+
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
     if (pathname) {
@@ -24,17 +29,9 @@ class ArticleEditReact extends React.Component {
     }
     return (
       <div>
+        {/*{console.log(editor)}*/}
         <ArticleCreate />
-        <div
-          className="cell-wall"
-        >
-          
-          <div
-            className="cell-membrane"
-          >
-
-          </div>
-        </div>
+        {/*<EditorNew />*/}
       </div>
     );
   }
