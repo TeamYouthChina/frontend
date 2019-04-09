@@ -69,8 +69,7 @@ export class CommentCard extends React.Component {
                 showGive={this.state.showGive}
                 addComments={this.addComments}
               />
-
-              <span onClick={this.showRepliesFunc} flat="true" style={{fontSize: '1.093vw', color: '#31394D', ...basicFont}}>
+              <span onClick={this.showRepliesFunc} style={{fontSize: '1.093vw', color: '#31394D', ...basicFont}}>
                 {this.showCommentsText}<MDBIcon style={{marginLeft: '.196vw'}} far icon="arrow-down" /></span>
               {this.showReplies ? (
                 this.state.allReplies.map((item) => (

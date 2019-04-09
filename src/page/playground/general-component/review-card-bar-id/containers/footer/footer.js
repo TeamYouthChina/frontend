@@ -21,7 +21,7 @@ const Footer = (props) => (
           <MDBBtn className={classes.btnStyle} flat>
             <MDBIcon className={classes.iconStyle} far icon="heart"/>{props.text.collection}
           </MDBBtn>
-          <MDBBtn className={classes.btnStyle} flat>
+          <MDBBtn onClick={props.showComments} className={classes.btnStyle} flat>
             <MDBIcon className={classes.iconStyle} far icon="comment"/>{props.commentsText}
           </MDBBtn>
           <MDBBtn className={classes.btnStyle} flat>

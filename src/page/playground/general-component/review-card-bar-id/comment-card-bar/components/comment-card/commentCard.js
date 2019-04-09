@@ -64,7 +64,7 @@ export class CommentCard extends React.Component {
                 addComments={this.addComments}
               />
 
-              <span className={classes.showSpan} onClick={this.showRepliesFunc} flat>
+              <span className={classes.showSpan} onClick={this.showRepliesFunc}>
                 {this.state.showCommentsText}<MDBIcon className={classes.iconStyle} far icon="arrow-down" />
               </span>
               {this.state.showReplies ? (

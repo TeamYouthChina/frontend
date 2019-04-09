@@ -29,8 +29,9 @@
 }
 .btnStyle {
   flex-grow: 0;
-  background: #C4C4C4;
+  background: #C4C4C4!important;
   padding: .625vw 1.562vw;
-  color: #FFFFFF;
+  color: #FFFFFF!important;
   margin: .468vw 0 .391vw .468vw;
+  box-shadow: none;
 }

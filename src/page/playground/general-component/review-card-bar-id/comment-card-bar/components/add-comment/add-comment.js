@@ -51,7 +51,7 @@ export class AddComment extends React.Component {
           this.setState({
             inputValue:''
           });
-        }} flat>
+        }}>
           发布
         </MDBBtn>
       </MDBRow>
