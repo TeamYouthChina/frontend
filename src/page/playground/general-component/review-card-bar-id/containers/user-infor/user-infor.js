@@ -10,7 +10,7 @@ export const UserInfor = (props) => (
         <img
           className={`rounded-circle ${classes.imgStyle}`}
           src={'https://s3.amazonaws.com/youthchina/WechatIMG29.jpeg'}
-          alt="user-photo"
+          alt="user"
         />
         <span className={classes.user}>
           {props.user}
