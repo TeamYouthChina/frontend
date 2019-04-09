@@ -98,7 +98,7 @@ class LoginReact extends React.Component {
         modalDisplay: !this.state.modalDisplay
       });
     }
-  }
+  };
   
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);

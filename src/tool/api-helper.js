@@ -1,7 +1,8 @@
 import Cookies from 'js-cookie';
 import fetch from 'isomorphic-fetch';
 
-const urlPrefix = 'http://47.252.87.218:8080/api/v1';
+/* 生产环境 / 测试环境 */
+const urlPrefix = 'http://test.zzc-tongji.com/api/v1';
 
 const generateHeaders = () => {
   let language = Cookies.get('language');
