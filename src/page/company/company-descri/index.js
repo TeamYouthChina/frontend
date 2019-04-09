@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 import classes from './index.module.css';
@@ -65,15 +64,9 @@ CompanyDescriReact.propTypes = {
   // self
   backend: PropTypes.object.isRequired,
   // React Router
-  
-  // React Redux
-  bodyClientWidth: PropTypes.number.isRequired
+  match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired
 };
 
-export const CompanyDesci = withRouter(connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(CompanyDescriReact));
+export const CompanyDesci = withRouter(CompanyDescriReact);

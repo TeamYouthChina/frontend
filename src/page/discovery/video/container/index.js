@@ -1,7 +1,6 @@
 import React from 'react';
 import {MDBCol, MDBListGroup, MDBListGroupItem, MDBRow} from 'mdbreact';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {withRouter, Link} from 'react-router-dom';
 import classes from './index.module.css';
 
@@ -109,14 +108,7 @@ DiscoveryVideoReact.propTypes = {
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  // React Redux
+  location: PropTypes.object.isRequired
 };
 
-export const DiscoveryVideo = withRouter(connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(DiscoveryVideoReact));
+export const DiscoveryVideo = withRouter(DiscoveryVideoReact);

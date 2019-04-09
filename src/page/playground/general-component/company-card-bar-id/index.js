@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import arrow from './arrow.svg';
@@ -164,15 +163,7 @@ CompanyCardBarIdReact.propTypes = {
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  // React Redux
-  bodyClientWidth: PropTypes.number.isRequired,
+  location: PropTypes.object.isRequired
 };
 
-export const CompanyCardBarId = withRouter(
-  connect(state => {
-    return {
-      bodyClientWidth: state.bodyClientWidth,
-    };
-  })(CompanyCardBarIdReact)
-);
+export const CompanyCardBarId = withRouter(CompanyCardBarIdReact);

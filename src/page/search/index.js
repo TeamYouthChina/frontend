@@ -3,7 +3,6 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 import classes from './index.module.css';
 import {MDBCol, MDBContainer, MDBRow} from 'mdbreact';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 
 import {SearchJobsNavItem} from './secondary-navagations/job';
 import {SearchCompaniesNavItem} from './secondary-navagations/company';
@@ -154,8 +153,4 @@ SearchReact.prototypes = {
 
 };
 
-export const Search = connect((state) => {
-  return {
-    bodyClientWidth: state.bodyClientWidth
-  };
-})(SearchReact);
+export const Search = SearchReact;

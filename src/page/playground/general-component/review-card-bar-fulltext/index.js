@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 import AnswerCard from './components/answer-card';
@@ -33,15 +32,7 @@ ReviewCardBarFulltextReact.propTypes = {
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  // React Redux
-  bodyClientWidth: PropTypes.number.isRequired
+  location: PropTypes.object.isRequired
 };
 
-export const ReviewCardBarFulltext = withRouter(connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(ReviewCardBarFulltextReact));
+export const ReviewCardBarFulltext = withRouter(ReviewCardBarFulltextReact);

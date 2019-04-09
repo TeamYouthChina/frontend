@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
 import {languageHelper} from '../../../tool/language-helper';
@@ -72,17 +71,9 @@ ZhenyiReact.propTypes = {
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  // React Redux
-  bodyClientWidth: PropTypes.number.isRequired
+  location: PropTypes.object.isRequired
 };
 
-export const ZhenyiWrapper = connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(ZhenyiReact);
+export const ZhenyiWrapper = ZhenyiReact;
 // 我能改吗？
 
