@@ -37,7 +37,7 @@ class projectCard extends Component {
           note: this.props.data.note,      // eslint-disable-line
         }
         : {
-          id: null,
+          id: '',
           name: '',
           role: '',
           duration: {
@@ -60,7 +60,11 @@ class projectCard extends Component {
 
   // tell parent the id of the current card
   deleteHandler = () => {
-    this.props.deleteHandler(this.state.id, this.state.proData.id);      // eslint-disable-line
+    if(this.state.proData.id){
+      this.props.deleteHandler(this.state.proData.id);      // eslint-disable-line
+    }else{
+      this.props.cancel();
+    }
   };
 
   saveHandler = () => {
@@ -68,8 +72,12 @@ class projectCard extends Component {
       ...this.state,
       editing: false,
     });
-    
-    this.props.saveHandler(this.state.proData, this.state.id, this.state.proData.id);      // eslint-disable-line
+    if(this.state.proData.id){
+      console.log(`id to delete is ${this.state.proData.id}`)
+      this.props.saveHandler(this.state.proData, this.state.proData.id, 'update');      // eslint-disable-line
+    }else{
+      this.props.saveHandler(this.state.proData, null, 'add');      // eslint-disable-line
+    }
   };
 
   inputOnChange = () => {
@@ -93,7 +101,7 @@ class projectCard extends Component {
         <input
           disabled
           type="text"
-          value={this.state.proData.name}
+          value={this.state.proData.name ? this.state.proData.name: ''}
         />
         <div className={classes.twoP}>
           <p>
@@ -105,40 +113,39 @@ class projectCard extends Component {
           style={{margin: '15px 0px 3px 0px'}}
           disabled
           type="text"
-          value={this.state.proData.note}
+          value={this.state.proData.note ? this.state.proData.note: ''}
         />
         <Dropdown delete={this.deleteHandler} edit={this.editHandler} />
       </div>
     );
 
     if (this.state.editing) {
-      console.log(this.state.proData.duration.end);      // eslint-disable-line
       toShow = (
         <div className={classes.ProjectCard}>
           <input
             type="text"
-            value={this.state.proData.name}
+            value={this.state.proData.name ? this.state.proData.name : ''}
             ref={this.nameRef}
             placeholder={text.name}
             onChange={this.inputOnChange}
           />
           <input
             type="text"
-            value={this.state.proData.duration.begin}
+            value={this.state.proData.duration.begin ? this.state.proData.duration.begin : ''}
             ref={this.beginRef}
             placeholder={text.begin}
             onChange={this.inputOnChange}
           />
           <input
             type="text"
-            value={this.state.proData.duration.end}
+            value={this.state.proData.duration.end ? this.state.proData.duration.end : ''}
             ref={this.endRef}
             placeholder={text.end}
             onChange={this.inputOnChange}
           />
           <input
             type="text"
-            value={this.state.proData.note}
+            value={this.state.proData.note ? this.state.proData.note : ''}
             ref={this.noteRef}
             placeholder={text.note}
             onChange={this.inputOnChange}

@@ -28,6 +28,7 @@ class ProfileMainBodyReact extends Component {
   }
 
   async componentDidMount() {
+    console.log("parent componentDidMout")
     // using mock if no second argument
     // let data = await getAsync("/applicants/" + this.state.requestID, true);
     // console.log(data);
