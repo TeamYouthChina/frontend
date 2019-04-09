@@ -27,6 +27,7 @@ class ProfileMainBodyReact extends Component {
   }
 
   async componentDidMount() {
+    // console.log('parent componentDidMout');
     // using mock if no second argument
     // let data = await getAsync("/applicants/" + this.state.requestID, true);
     // console.log(data);
@@ -83,8 +84,8 @@ class ProfileMainBodyReact extends Component {
         <div className="cell-membrane">
           <div className={classes.MainBody}>
             <Projects requestID={this.state.requestID} />
-            {/* <WorkExperience requestID={this.state.requestID} />
-            <Education requestID={this.state.requestID} />
+            <WorkExperience requestID={this.state.requestID} />
+            {/* <Education requestID={this.state.requestID} />
             <Skills requestID={this.state.requestID} />
             <Certifications requestID={this.state.requestID} />
             <SocialActivicies requestID={this.state.requestID} />
