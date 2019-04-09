@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import CertificationCard from './CertificationCard/CertificationCard';
 import classes from './Certification.module.css';
-import {getAsync} from '../../../../tool/api-helper';
+// import {getAsync} from '../../../../tool/api-helper';
 import {languageHelper} from '../../../../tool/language-helper';
 import addIcon from '../../assets/add.svg';
 

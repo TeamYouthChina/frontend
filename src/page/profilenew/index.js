@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import classes from './index.module.css';
 // import ResumeButtons from './Components/ResumeButtons/ResumeButtons';
 // import BasicInfo from './Components/BasicInfo/BasicInfo';
-import Education from './Components/Education/Education';
-import WorkExperience from './Components/WorkExperience/WorkExperience';
-import Certifications from './Components/Certification/Certification';
-import SocialActivicies from './Components/SocialActivity/SocialActivity';
+import Education from './Components/Education/Education'; // eslint-disable-line
+import WorkExperience from './Components/WorkExperience/WorkExperience'; // eslint-disable-line
+import Certifications from './Components/Certification/Certification'; // eslint-disable-line
+import SocialActivicies from './Components/SocialActivity/SocialActivity'; // eslint-disable-line
 import Projects from './Components/Project/Project';
-import Skills from './Components/Skill/Skill';
-import AdvantageTag from './Components/advantageTag/';
+import Skills from './Components/Skill/Skill'; // eslint-disable-line
+import AdvantageTag from './Components/advantageTag/'; // eslint-disable-line
 import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';

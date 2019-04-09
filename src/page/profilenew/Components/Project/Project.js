@@ -1,21 +1,21 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import ProjectCard from "./ProjectCard/ProjectCard";
-import classes from "./Project.module.css";
-import { getAsync } from "../../../../tool/api-helper";
-import { languageHelper } from "../../../../tool/language-helper";
-import addIcon from "../../assets/add.svg";
+import ProjectCard from './ProjectCard/ProjectCard';
+import classes from './Project.module.css';
+import { getAsync } from '../../../../tool/api-helper';
+import { languageHelper } from '../../../../tool/language-helper';
+import addIcon from '../../assets/add.svg';
 
 const translation = [
   {
-    project: "项目",
-    addProject: "+ 添加项目",
-    noProject: "无项目",
+    project: '项目',
+    addProject: '+ 添加项目',
+    noProject: '无项目',
   },
   {
-    project: "Project",
-    addProject: "+ Add Project",
-    noProject: "No Project",
+    project: 'Project',
+    addProject: '+ Add Project',
+    noProject: 'No Project',
   },
 ];
 
@@ -44,23 +44,23 @@ class Project extends Component {
     let temp =
       data && data.content && data.content.projects && data.status.code === 2000
         ? data.content.projects.map(e => {
-            const time = this.getTimeStamp();
-            return (
-              <ProjectCard
-                key={time}
-                id={time}
-                data={e}
-                deleteHandler={this.deleteHandler}
-                saveHandler={this.saveHandler}
-              />
-            );
-          })
+          const time = this.getTimeStamp();
+          return (
+            <ProjectCard
+              key={time}
+              id={time}
+              data={e}
+              deleteHandler={this.deleteHandler}
+              saveHandler={this.saveHandler}
+            />
+          );
+        })
         : [];
     this.setState({ cards: temp });
   }
 
   // delte data on server, delete data in state.cards
-  deleteHandler = (localID, serverID) => {
+  deleteHandler = (localID, serverID) => { // eslint-disable-line
     // TODO: delete data on server according to id
     // make a hard copy
     let temp = this.state.cards.splice(0);
@@ -81,7 +81,7 @@ class Project extends Component {
   };
 
   // save data locally and send back to server
-  saveHandler = (newCertification, localID, serverID) => {
+  saveHandler = (newCertification, localID, serverID) => { // eslint-disable-line
     // TODO: update server with new saved cards
     // PUT {...this.state.requestedData, newEducation}
     // timestamp

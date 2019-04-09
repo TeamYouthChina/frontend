@@ -27,9 +27,9 @@ class projectCard extends Component {
       editing: this.props.data ? false : true,      // eslint-disable-line
       proData: this.props.data      // eslint-disable-line
         ? {
-          id: this.props.data.id,
+          id: this.props.data.id, // eslint-disable-line
           name: this.props.data.name,      // eslint-disable-line
-          role: this.props.data.role,
+          role: this.props.data.role, // eslint-disable-line
           duration: {
             begin: this.props.data.duration.begin.substring(0, 10),      // eslint-disable-line
             end: this.props.data.duration.end.substring(0, 10),      // eslint-disable-line
