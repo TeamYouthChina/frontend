@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 import {languageHelper} from '../../../../../tool/language-helper';
 import classes from './index.module.css';
 import {mockGetAsync} from '../../../../../tool/api-helper';
 import {content} from './index.mock';
-import {getType} from '../../../../../tool/device-helper';
+import * as deviceHelper from '../../../../../tool/device-helper';
 
 class UserCardSquareAuthReact extends React.Component {
   constructor(props) {
@@ -52,7 +51,7 @@ class UserCardSquareAuthReact extends React.Component {
       <div className={`${classes.content} d-flex align-items-center justify-content-around`}>
         <div>
           <img
-            style={getType(this.props.bodyClientWidth) === 1 ? {width: '50px'} : {width: '70px'}}
+            style={deviceHelper.getType() === deviceHelper.MOBILE ? {width: '50px'} : {width: '70px'}}
             src="https://vignette.wikia.nocookie.net/pkmnshuffle/images/7/7e/Pikachu_%28Dizzy%29.png/revision/latest?cb=20170410223549"
             // src="https://s2.ax1x.com/2019/01/27/kuUMYq.jpg"
             className="rounded-circle img-fluid p-0 float-right"
@@ -86,15 +85,7 @@ UserCardSquareAuthReact.propTypes = {
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  // React Redux
-  bodyClientWidth: PropTypes.number.isRequired
+  location: PropTypes.object.isRequired
 };
 
-export const UserCardSquareAuth = withRouter(connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(UserCardSquareAuthReact));
+export const UserCardSquareAuth = withRouter(UserCardSquareAuthReact);

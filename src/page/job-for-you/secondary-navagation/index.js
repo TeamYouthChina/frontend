@@ -2,7 +2,6 @@ import React from 'react';
 import {MDBCol, MDBRow, MDBNav, MDBNavItem, MDBNavLink} from 'mdbreact';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
-import {connect} from 'react-redux';
 
 import classes from './index.module.css';
 import {languageHelper} from '../../../tool/language-helper';
@@ -87,10 +86,4 @@ RecommendationJobsTopNavReact.propTypes = {
   location: PropTypes.object.isRequired
 };
 
-export const RecommendationJobsTopNav = withRouter(connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(RecommendationJobsTopNavReact));
+export const RecommendationJobsTopNav = withRouter(RecommendationJobsTopNavReact);

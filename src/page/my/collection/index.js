@@ -7,7 +7,6 @@ import comment from './comment.png';
 import company from './company.png';
 import job from './job.png';
 import video from './video.png';
-import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import {CollectionCard} from './card';
 import {languageHelper} from '../../../tool/language-helper';
@@ -81,15 +80,7 @@ CollectionReact.propTypes = {
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  // React Redux
-  bodyClientWidth: PropTypes.number.isRequired
+  location: PropTypes.object.isRequired
 };
 
-export const Collection = connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(CollectionReact);
+export const Collection = CollectionReact;

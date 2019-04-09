@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 
 import classes from './index.module.css';
 import more from './more.png';
@@ -74,24 +73,16 @@ FileCardReact.i18n = [
 
 FileCardReact.propTypes = {
   // self
-
-  // React Router
   text: PropTypes.string.isRequired,
   logo: PropTypes.string.isRequired,
   tag: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
-  history:PropTypes.object.isRequired,
-  
-  // React Redux
-  
+  // React Router
+  match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
 };
 
-export const FileCard = withRouter(connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(FileCardReact));
+export const FileCard = withRouter(FileCardReact);
 

@@ -14,7 +14,6 @@ import {
 } from 'mdbreact';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
-import {connect} from 'react-redux';
 
 import {languageHelper} from '../../../../tool/language-helper';
 import classes from '../index.module.css';
@@ -198,8 +197,4 @@ SearchVideoNavItemReact.prototypes = {
   location: PropTypes.object.isRequired,
 };
 
-export const SearchVideoNavItem = withRouter(connect((state) => {
-  return {
-    bodyClientWidth: state.bodyClientWidth
-  };
-})(SearchVideoNavItemReact));
+export const SearchVideoNavItem = withRouter(SearchVideoNavItemReact);
