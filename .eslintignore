@@ -1,0 +1,4 @@
+build/
+git-hooks/
+node_module/
+public/
