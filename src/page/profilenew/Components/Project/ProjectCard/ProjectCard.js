@@ -27,7 +27,9 @@ class projectCard extends Component {
       editing: this.props.data ? false : true,      // eslint-disable-line
       proData: this.props.data      // eslint-disable-line
         ? {
+          id: this.props.data.id,
           name: this.props.data.name,      // eslint-disable-line
+          role: this.props.data.role,
           duration: {
             begin: this.props.data.duration.begin.substring(0, 10),      // eslint-disable-line
             end: this.props.data.duration.end.substring(0, 10),      // eslint-disable-line
@@ -35,7 +37,9 @@ class projectCard extends Component {
           note: this.props.data.note,      // eslint-disable-line
         }
         : {
+          id: null,
           name: '',
+          role: '',
           duration: {
             begin: '',
             end: '',
@@ -56,7 +60,7 @@ class projectCard extends Component {
 
   // tell parent the id of the current card
   deleteHandler = () => {
-    this.props.deleteHandler(this.props.id);      // eslint-disable-line
+    this.props.deleteHandler(this.state.id, this.state.proData.id);      // eslint-disable-line
   };
 
   saveHandler = () => {
@@ -64,13 +68,15 @@ class projectCard extends Component {
       ...this.state,
       editing: false,
     });
-    this.props.saveHandler(this.state.proData, this.props.id);      // eslint-disable-line
+    
+    this.props.saveHandler(this.state.proData, this.state.id, this.state.proData.id);      // eslint-disable-line
   };
 
   inputOnChange = () => {
     this.setState({
       ...this.state,
       proData: {
+        ...this.state.proData,
         name: this.nameRef.current.value,
         duration: {
           begin: this.beginRef.current.value,

@@ -20,12 +20,11 @@ class ProfileMainBodyReact extends Component {
     super(props);
     this.state = {
       requestID: this.props.requestID,       // eslint-disable-line
-      requestedData: this.props.data,       // eslint-disable-line
     };
   }
 
   componentWillMount() {
-    this.setState({requestID: this.props.match.params.id});
+    // this.setState({requestID: this.props.match.params.id});
   }
 
   async componentDidMount() {
@@ -84,15 +83,13 @@ class ProfileMainBodyReact extends Component {
       <div className="cell-wall" style={{backgroundColor: '#F3F5F7'}}>
         <div className="cell-membrane">
           <div className={classes.MainBody}>
-            {/* <ResumeButtons/> */}
-            {/*<BasicInfo requestID={this.state.requestID} />*/}
             <Projects requestID={this.state.requestID} />
-            <WorkExperience requestID={this.state.requestID} />
+            {/* <WorkExperience requestID={this.state.requestID} />
             <Education requestID={this.state.requestID} />
             <Skills requestID={this.state.requestID} />
             <Certifications requestID={this.state.requestID} />
             <SocialActivicies requestID={this.state.requestID} />
-            <AdvantageTag/>
+            <AdvantageTag requestID={this.state.requestID}/> */}
           </div>
         </div>
       </div>

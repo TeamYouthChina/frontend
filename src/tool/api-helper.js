@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import fetch from 'isomorphic-fetch';
 
-const urlPrefix = 'http://47.254.46.117:8080/api/v1';
+const urlPrefix = 'http://47.252.87.218:8080/api/v1';
 
 const generateHeaders = () => {
   let language = Cookies.get('language');
