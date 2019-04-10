@@ -10,13 +10,6 @@ import {
 import ArticleEditInit from '../articleEditInit';
 import classes from './edit.module.css';
 
-const basicFont = {
-  fontFamily: 'IBM Plex Sans',
-  fontStyle: 'normal',
-  fontWeight: '600',
-  lineHeight: 'normal',
-};
-
 class ArticleCreate extends React.Component {
   constructor(props) {
     super(props);
@@ -108,43 +101,40 @@ class ArticleCreate extends React.Component {
 
   render() {
     return (this.state.backend && this.state.backend.status && this.state.backend.status.code === 2000) ? (
-      <div>
-        <MDBRow style={{margin: '3.67vw 0'}}>
+      <div className={classes.wrapper}>
+        <MDBRow className={classes.mdbRow}>
           <MDBCol size="1"></MDBCol>
-          <MDBCol size="10" style={{height: '100%'}}>
-            <MDBRow style={{margin: '1.71vw 0px'}}>
-              <MDBCol size="4" style={{paddingLeft:'0',fontSize: '1.87vw',color:'#8D9AAF',verticalAlign: 'middle', ...basicFont}}>
+          <MDBCol size="10" className={classes.mdbCol}>
+            <MDBRow className={classes.mdbRow2}>
+              <MDBCol size="4" className={classes.mdbCol4}>
                 {this.state.write}
               </MDBCol>
               <MDBCol size="4">
                 
               </MDBCol>
-              <MDBCol size="4" style={{paddingRight: '0'}}>
-                <MDBBtn color="indigo" style={{
-                  fontSize: '1.25vw',
-                  padding: '0.78vw 2.65vw',
-                  margin: '-.39vw 0',
-                  float: 'right', ...basicFont
-                }}>{this.state.submit}
+              <MDBCol size="4" className={classes.mdbCol42}>
+                <MDBBtn className={classes.colBtn} color="indigo">
+                  {this.state.submit}
                 </MDBBtn>
               </MDBCol>
-
             </MDBRow>
-            <MDBRow style={{marginTop:'20px'}}>
+            <MDBRow className={classes.mdbRow3}>
               <MDBCol>
-                <input className={classes.inputStyle} style={{height:'50px'}} onChange={(e)=>this.handleSetInput(e)} placeholder={this.text.title}/>
+                <input 
+                  className={classes.inputStyle} 
+                  onChange={(e)=>this.handleSetInput(e)} 
+                  placeholder={this.text.title}
+                />
               </MDBCol>
             </MDBRow>
-            <div style={{marginTop:'98px'}}>
+            <div className={classes.editWrapper}>
               <ArticleEditInit
                 inputData={this.state.title}
                 ref={(answerText) => this.answerText = answerText}
               />
             </div>
-            
           </MDBCol>
           <MDBCol size="1">
-
           </MDBCol>
         </MDBRow>
       </div>

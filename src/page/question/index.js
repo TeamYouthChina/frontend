@@ -4,17 +4,11 @@ import {Redirect} from 'react-router-dom';
 
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
-
+import {isLogin, getAsync} from '../../tool/api-helper';
 import QuestionDes from './containers/question-des/';
 import Answers from './components/answers/';
 import SideBar from './components/side-bar/';
-
 import classes from './index.module.css';
-
-const basicFont = {
-  fontFamily: 'PingFang SC',
-  lineHeight: 'normal',
-};
 
 class QuestionReact extends React.Component {
   constructor(props) {
@@ -27,10 +21,24 @@ class QuestionReact extends React.Component {
     this.text = QuestionReact.i18n[languageHelper()];
   }
   
-  componentDidMount() {
-    this.setState({
-      backend:'123'
-    });
+  async componentDidMount() {
+    if(isLogin()) {
+      const id = this.props.match.params.qid;
+      try{
+        const result = await getAsync(`/questions/${id}`);
+        if(result.status.code === 2000) {
+          this.setState(()=>({
+            backend:result.content
+          }));
+        } else {
+          return (<Redirect to={'/page-not-found'} />);
+        }
+      } catch (e) {
+        alert(e);
+      }
+    } else {
+      return (<Redirect to={'/login'} />);
+    }
   }
 
   render() {
@@ -38,14 +46,14 @@ class QuestionReact extends React.Component {
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
+    const backend = this.state.backend;
     return (this.state.backend !== null) ? (
       <div>
         <QuestionDes
           content={{
-            title:'搞什么副业能稳定收入一万元',
-            detail:'平时上班比较清闲，经常在电脑周围，平时闲来无事的时候后'}}
-          basicFont={basicFont}
-          questionId={1}
+            title:backend.title,
+            detail:backend.body}}
+          questionId={this.props.match.params.qid}
         />
         <div
           className="cell-wall"
@@ -56,7 +64,7 @@ class QuestionReact extends React.Component {
           >
             <div className={classes.answerWrapper}>
               <div className={classes.answerWrapper2}>
-                <Answers answers={[1,2,3]} />
+                <Answers answers={backend.answers}/>
               </div>
               <div className={classes.sideBar}>
                 <SideBar />
