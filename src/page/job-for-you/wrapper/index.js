@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import {connect} from 'react-redux';
 import {content} from './mock';
 import {Redirect, withRouter} from 'react-router-dom';
 
@@ -80,15 +79,7 @@ JobForYouWrapperReact.propTypes = {
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  // React Redux
-  bodyClientWidth: PropTypes.number.isRequired
+  location: PropTypes.object.isRequired
 };
 
-export const JobForYouWrapper = withRouter(connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(JobForYouWrapperReact));
+export const JobForYouWrapper = withRouter(JobForYouWrapperReact);

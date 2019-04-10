@@ -10,7 +10,6 @@ import {
   MDBRow
 } from 'mdbreact';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import classes from './index.module.css';
 import filter from '../../assets/filter.svg';
@@ -144,13 +143,6 @@ SearchCompanyResultReact.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  // React Redux
 };
 
-export const SearchCompanyResult = withRouter(connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(SearchCompanyResultReact));
+export const SearchCompanyResult = withRouter(SearchCompanyResultReact);

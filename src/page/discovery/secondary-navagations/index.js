@@ -2,7 +2,6 @@ import React from 'react';
 import {MDBNav, MDBNavItem, MDBNavLink} from 'mdbreact';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
-import {connect} from 'react-redux';
 
 import classes from './index.module.css';
 import {languageHelper} from '../../../tool/language-helper';
@@ -75,10 +74,4 @@ TopNavReact.propTypes = {
   location: PropTypes.object.isRequired
 };
 
-export const TopNav = withRouter(connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(TopNavReact));
+export const TopNav = withRouter(TopNavReact);

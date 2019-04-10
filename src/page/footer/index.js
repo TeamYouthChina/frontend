@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import classes from './index.module.css';
 import {withRouter} from 'react-router-dom';
 
@@ -48,10 +47,4 @@ FooterReact.propTypes = {
   location: PropTypes.object.isRequired
 };
 
-export const Footer = withRouter(connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(FooterReact));
+export const Footer = withRouter(FooterReact);

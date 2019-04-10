@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import amazon from '../amazon.svg';
 import classes from './index.module.css';
@@ -49,15 +48,9 @@ KnowCompanyReact.propTypes = {
   // self
   backend: PropTypes.object.isRequired,
   // React Router
-  
-  // React Redux
-  bodyClientWidth: PropTypes.number.isRequired
+  match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired
 };
 
-export const KnowCompany = withRouter(connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(KnowCompanyReact));
+export const KnowCompany = withRouter(KnowCompanyReact);

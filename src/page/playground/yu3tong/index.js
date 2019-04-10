@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
 import {languageHelper} from '../../../tool/language-helper';
@@ -77,14 +76,6 @@ Yu3tongReact.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  // React Redux
-  bodyClientWidth: PropTypes.number.isRequired
 };
 
-export const Yu3tong = connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(Yu3tongReact);
+export const Yu3tong = Yu3tongReact;

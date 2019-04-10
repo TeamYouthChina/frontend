@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {Redirect, Route, Switch} from 'react-router-dom';
 
 import {Insight} from './insight';
@@ -54,15 +53,7 @@ DiscoveryReact.propTypes = {
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  // React Redux
-  bodyClientWidth: PropTypes.number.isRequired
+  location: PropTypes.object.isRequired
 };
 
-export const Discovery = connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(DiscoveryReact);
+export const Discovery = DiscoveryReact;

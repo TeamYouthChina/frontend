@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
 import {languageHelper} from '../../../tool/language-helper';
@@ -49,14 +48,6 @@ YuweiReact.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  // React Redux
-  bodyClientWidth: PropTypes.number.isRequired
 };
 
-export const Yuwei = connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(YuweiReact);
+export const Yuwei = YuweiReact;

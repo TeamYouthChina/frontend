@@ -14,7 +14,6 @@ import {
 } from 'mdbreact';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
-import {connect} from 'react-redux';
 
 import {languageHelper} from '../../../../tool/language-helper';
 import classes from '../index.module.css';
@@ -208,8 +207,4 @@ SearccInsightNavItemReact.prototypes = {
   location: PropTypes.object.isRequired,
 };
 
-export const SearchInsightNavItem = withRouter(connect((state) => {
-  return {
-    bodyClientWidth: state.bodyClientWidth
-  };
-})(SearccInsightNavItemReact));
+export const SearchInsightNavItem = withRouter(SearccInsightNavItemReact);

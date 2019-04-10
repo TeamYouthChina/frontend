@@ -11,7 +11,6 @@ import Skills from './Components/Skill/Skill'; // eslint-disable-line
 import AdvantageTag from './Components/advantageTag/'; // eslint-disable-line
 import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 
 // import {getAsync} from '../../tool/api-helper';
 
@@ -28,6 +27,7 @@ class ProfileMainBodyReact extends Component {
   }
 
   async componentDidMount() {
+    // console.log('parent componentDidMout');
     // using mock if no second argument
     // let data = await getAsync("/applicants/" + this.state.requestID, true);
     // console.log(data);
@@ -84,8 +84,8 @@ class ProfileMainBodyReact extends Component {
         <div className="cell-membrane">
           <div className={classes.MainBody}>
             <Projects requestID={this.state.requestID} />
-            {/* <WorkExperience requestID={this.state.requestID} />
-            <Education requestID={this.state.requestID} />
+            <WorkExperience requestID={this.state.requestID} />
+            {/* <Education requestID={this.state.requestID} />
             <Skills requestID={this.state.requestID} />
             <Certifications requestID={this.state.requestID} />
             <SocialActivicies requestID={this.state.requestID} />
@@ -104,8 +104,4 @@ ProfileMainBodyReact.propTypes = {
   location: PropTypes.object.isRequired,
 };
 
-export const ProfileMainBody = withRouter(connect((state) => {
-  return {
-    bodyClientWidth: state.bodyClientWidth
-  };
-})(ProfileMainBodyReact));
+export const ProfileMainBody = withRouter(ProfileMainBodyReact);

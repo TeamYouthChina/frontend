@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import {Link} from 'react-router-dom';
 import {MDBIcon} from 'mdbreact';
 import {connect} from 'react-redux';
 import {languageHelper} from '../../../../tool/language-helper';
@@ -111,9 +110,7 @@ VideoDes.propTypes = {
   user: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   commentsText: PropTypes.string.isRequired,
-  // editorState: PropTypes.object.isRequired,
-  // React Redux
-  bodyClientWidth: PropTypes.number.isRequired
+  // editorState: PropTypes.object.isRequired
 };
 
 export default connect(
