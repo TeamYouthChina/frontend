@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
 import {languageHelper} from '../../tool/language-helper';
@@ -42,7 +41,6 @@ class QuestionReact extends React.Component {
     return (this.state.backend !== null) ? (
       <div>
         <QuestionDes
-          tags={['创业','赚钱','副业','白领']}
           content={{
             title:'搞什么副业能稳定收入一万元',
             detail:'平时上班比较清闲，经常在电脑周围，平时闲来无事的时候后'}}
@@ -57,10 +55,10 @@ class QuestionReact extends React.Component {
             className="cell-membrane"
           >
             <div className={classes.answerWrapper}>
-              <div style={{flexGrow:'0'}}>
+              <div className={classes.answerWrapper2}>
                 <Answers answers={[1,2,3]} />
               </div>
-              <div style={{width:'100%',marginTop:'2.73vw',marginRight:'0'}}>
+              <div className={classes.sideBar}>
                 <SideBar />
               </div>
             </div>
@@ -86,15 +84,7 @@ QuestionReact.propTypes = {
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  // React Redux
-  bodyClientWidth: PropTypes.number.isRequired
+  location: PropTypes.object.isRequired
 };
 
-export const Question = connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(QuestionReact);
+export const Question = QuestionReact;

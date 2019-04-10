@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
 import {languageHelper} from '../../tool/language-helper';
@@ -40,13 +39,15 @@ class CompanyReact extends React.Component {
     // i18n
     this.text = CompanyReact.i18n[languageHelper()];
   }
+
   async componentDidMount() {
     // const requestedData = await getAsync();
     // this.setState({ cardData: requestedData, ...this.state });
 
     const requestedData = await mockGetAsync(content);
-    this.setState({ ...this.state, backend: requestedData});
+    this.setState({...this.state, backend: requestedData});
   }
+
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
     if (pathname) {
@@ -55,19 +56,19 @@ class CompanyReact extends React.Component {
     return (
       <div className={classes.background}>
         <div className={classes.bg}>
-          <img src={bg} alt="bg" className={classes.img}/>
+          <img src={bg} alt="bg" className={classes.img} />
         </div>
         <div className="cell-wall">
           <div className="cell-membrane">
             <div className="d-flex">
               <div>
-                <CompanyCard backend={this.state.backend}/>
-                <CompanyDesci backend={this.state.backend}/>
-                <CompanyJob/>
-                <CompanyPic/>
+                <CompanyCard backend={this.state.backend} />
+                <CompanyDesci backend={this.state.backend} />
+                <CompanyJob />
+                <CompanyPic />
               </div>
               <div className={classes.menu}>
-                <div className={classes.font} style={{color:'#4F65E1'}}>概况</div>
+                <div className={classes.font} style={{color: '#4F65E1'}}>概况</div>
                 <div className={classes.font}>在招职位</div>
                 <div className={classes.font}>评价</div>
                 <div className={classes.font}>问答</div>
@@ -89,19 +90,11 @@ CompanyReact.i18n = [
 
 CompanyReact.propTypes = {
   // self
-
-  // React Router
   backend: PropTypes.object.isRequired,
-  
-  location: PropTypes.object.isRequired,
-  // React Redux
-  bodyClientWidth: PropTypes.number.isRequired
+  // React Router
+  match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired
 };
 
-export const Company = connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(CompanyReact);
+export const Company = CompanyReact;

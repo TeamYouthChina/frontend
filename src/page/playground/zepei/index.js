@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 
@@ -72,12 +71,6 @@ ZepeiReact.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  // React Redux
-  bodyClientWidth: PropTypes.number.isRequired,
 };
 
-export const Zepei = connect(state => {
-  return {
-    bodyClientWidth: state.bodyClientWidth,
-  };
-})(ZepeiReact);
+export const Zepei = ZepeiReact;

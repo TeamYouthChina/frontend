@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {Redirect, Route, Switch} from 'react-router-dom';
 
 import {Application} from './application';
@@ -15,7 +14,7 @@ import classes from './index.module.css';
 import {Header2} from '../header-2';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
-import {getType} from '../../tool/device-helper';
+import * as deviceHelper from '../../tool/device-helper';
 import {mockGetAsync} from '../../tool/api-helper';
 
 
@@ -71,7 +70,7 @@ class MyReact extends React.Component {
           >
             <div>
               <img
-                style={getType(this.props.bodyClientWidth) === 1 ? {width: '5.3vw',height:'5.3vw',marginTop:'-2.65vw'} : {width: '8.67vw',height:'8.67vw',marginTop:'-4.335vw'}}
+                style={deviceHelper.getType() === deviceHelper.MOBILE ? {width: '5.3vw',height:'5.3vw',marginTop:'-2.65vw'} : {width: '8.67vw',height:'8.67vw',marginTop:'-4.335vw'}}
                 src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg"
                 className="rounded-circle img-fluid p-0 float-right"
                 alt="Sample avatar"
@@ -173,15 +172,7 @@ MyReact.propTypes = {
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  // React Redux
-  bodyClientWidth: PropTypes.number.isRequired
+  location: PropTypes.object.isRequired
 };
 
-export const My = connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(MyReact);
+export const My = MyReact;

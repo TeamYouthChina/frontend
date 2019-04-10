@@ -1,7 +1,6 @@
 import React from 'react';
 import {MDBListGroup, MDBListGroupItem} from 'mdbreact';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import classes from './index.module.css';
 
@@ -74,13 +73,6 @@ ConnectionFilterReact.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  // React Redux
 };
 
-export const ConnectionFilter = withRouter(connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(ConnectionFilterReact));
+export const ConnectionFilter = withRouter(ConnectionFilterReact);

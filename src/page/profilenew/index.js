@@ -11,7 +11,6 @@ import Skills from './Components/Skill/Skill'; // eslint-disable-line
 import AdvantageTag from './Components/advantageTag/'; // eslint-disable-line
 import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 
 // import {getAsync} from '../../tool/api-helper';
 
@@ -105,8 +104,4 @@ ProfileMainBodyReact.propTypes = {
   location: PropTypes.object.isRequired,
 };
 
-export const ProfileMainBody = withRouter(connect((state) => {
-  return {
-    bodyClientWidth: state.bodyClientWidth
-  };
-})(ProfileMainBodyReact));
+export const ProfileMainBody = withRouter(ProfileMainBodyReact);

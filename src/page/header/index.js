@@ -2,7 +2,6 @@ import React from 'react';
 import {MDBIcon} from 'mdbreact';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
-import {connect} from 'react-redux';
 
 import {SignedIn} from './signed-in';
 //import {SignedOut} from './signed-out';
@@ -156,15 +155,7 @@ HeaderReact.propTypes = {
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  // React Redux
-  bodyClientWidth: PropTypes.number.isRequired
+  location: PropTypes.object.isRequired
 };
 
-export const Header = withRouter(connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(HeaderReact));
+export const Header = withRouter(HeaderReact);

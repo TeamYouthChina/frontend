@@ -14,7 +14,6 @@ import {
 } from 'mdbreact';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
-import {connect} from 'react-redux';
 
 import {languageHelper} from '../../../../tool/language-helper';
 import classes from '../index.module.css';
@@ -55,7 +54,6 @@ class SearchCompaniesNavItemReact extends React.Component {
   }
 
   handleTabsContent = tabsContent => { // eslint-disable-line 
-    console.log('handleTabsContent call')// eslint-disable-line 
     this.setState({
       ...this.state,
       tabsContent
@@ -276,8 +274,4 @@ SearchCompaniesNavItemReact.prototypes = {
   location: PropTypes.object.isRequired,
 };
 
-export const SearchCompaniesNavItem = withRouter(connect((state) => {
-  return {
-    bodyClientWidth: state.bodyClientWidth
-  };
-})(SearchCompaniesNavItemReact));
+export const SearchCompaniesNavItem = withRouter(SearchCompaniesNavItemReact);

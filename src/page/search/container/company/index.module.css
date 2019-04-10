@@ -16,26 +16,6 @@
   margin: 0;
 }
 
-.collectionIcon {
-  color: #FFC93E;
-  width: 1vw;
-}
-
-.collectionBtn {
-  background-color: #4F65E1;
-  box-shadow: none;
-  border-radius: 0.78vw;
-  border: 0;
-  color: #FFFFFF;
-  font-size: 0.93vw;
-  font-family: "PingFang SC";
-  padding-left: 0.3vw;
-  padding-right: 0.3vw;
-  padding-top: 0;
-  padding-bottom: 0;
-  margin: 0;
-}
-
 .tagBtn {
   color: #4F65E1;
   background-color: #FFFFFF;
@@ -106,14 +86,3 @@
   margin-left: 1.6vw;
 }
 
-.collectionSidebar {
-  border-radius: 0.16vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #FFFFFF;
-  padding-top: 1.72vw;
-  padding-bottom: 1.72vw;
-  margin-bottom: 1.56vw;
-  margin-left: 1.56vw;
-}

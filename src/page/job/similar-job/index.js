@@ -1,6 +1,4 @@
 import React from 'react';
-
-import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 import classes from './index.module.css';
@@ -36,10 +34,4 @@ SimilarJobReact.propTypes = {
   
 };
 
-export const SimilarJob = withRouter(connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(SimilarJobReact));
+export const SimilarJob = withRouter(SimilarJobReact);
