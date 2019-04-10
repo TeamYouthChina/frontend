@@ -48,7 +48,7 @@ class SearchCompanyResultReact extends React.Component {
         this.setState(() => {
           return {collectionNum: result.content.length};
         });
-      } 
+      }
       else {
         this.setState(() => {
           return {collectionNum: 0};

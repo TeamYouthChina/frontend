@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Redirect, Route, Switch} from 'react-router-dom';
+import {Redirect, Route} from 'react-router-dom';
 
 import {Insight} from './insight';
-import {Video} from './video';
-import {TopNav} from './secondary-navagations';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 
@@ -25,18 +23,23 @@ class DiscoveryReact extends React.Component {
     return (
       <div>
         {/* 二级导航条 */}
-        <TopNav/>
-        <Switch>
-          <Route
-            path={`${this.props.match.url}/insight`}
-            component={routeProps => <Insight {...routeProps} />}
-          />
-          <Route
-            path={`${this.props.match.url}/video`}
-            component={routeProps => <Video {...routeProps} />}
-          />
-          <Redirect to={`${this.props.match.url}/insight`} />
-        </Switch>
+        {/*<TopNav/>*/}
+        {/*<Switch>*/}
+        {/*<Route*/}
+        {/*path={`${this.props.match.url}/insight`}*/}
+        {/*component={routeProps => <Insight {...routeProps} />}*/}
+        {/*/>*/}
+        {/*<Route*/}
+        {/*path={`${this.props.match.url}/video`}*/}
+        {/*component={routeProps => <Video {...routeProps} />}*/}
+        {/*/>*/}
+        {/*<Redirect to={`${this.props.match.url}/insight`} />*/}
+        {/*</Switch>*/}
+        <Route
+          path={`${this.props.match.url}/insight`}
+          component={routeProps => <Insight {...routeProps} />}
+        />
+        <Redirect to={`${this.props.match.url}/insight`} />
       </div>
     );
   }
