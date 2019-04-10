@@ -55,7 +55,6 @@ class SearccInsightNavItemReact extends React.Component {
 
   // eslint-disable-next-line
   handleTabsContent = tabsContent => {
-    console.log('handleTabsContent call'); //eslint-disable-line no-console
     this.setState({
       ...this.state,
       tabsContent

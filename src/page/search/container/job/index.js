@@ -13,10 +13,11 @@ import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import classes from './index.module.css';
 import filter from '../../assets/filter.svg';
-import heart from '../../assets/heart.svg';
 
 import {JobCardBarId} from '../../card/job-card-bar-id';
+import {CollectionSidebar} from '../../component/collection-card';
 import {languageHelper} from '../../../../tool/language-helper';
+import {getAsync} from '../../../../tool/api-helper';
 
 const basicCHNFont = {
   fontFamily: 'PingFang SC',
@@ -35,11 +36,34 @@ class SearchJobResultReact extends React.Component {
   constructor(props) {
     super(props);
     // state
-    this.state = {};
+    this.state = {
+      collectionType: 'job',
+      collectionNum: null
+    };
     // i18n
     this.text = SearchJobResultReact.i18n[languageHelper()];
   }
 
+  async componentDidMount() {
+    try {
+      const result = await getAsync(`/users/${localStorage.getItem('id')}/attentions?type=${this.state.collectionType}`);
+      // console.log(result)
+      if (result && result.status) {
+        this.setState(() => {
+          return {collectionNum: result.content.length};
+        });
+      }
+      else {
+        this.setState(() => {
+          return {collectionNum: 0};
+        });
+      }
+    } catch (error) {
+      // eslint-disable-next-line
+      console.log(error);
+    }
+  }
+  
   render() {
     return (
       <div className="cell-wall">
@@ -95,12 +119,7 @@ class SearchJobResultReact extends React.Component {
             </MDBCol>
             <MDBCol style={{marginTop: '4vw', marginLeft: 0, padding: 0}} size="2">
               <div>
-                <div
-                  className={`d-flex justify-content-center align-items-center ${classes.collectionSidebar}`}>
-                  <img src={heart} className={classes.collectionIcon} alt="icon" />
-                  <span style={{...navyFont, fontSize: '1.1vw', marginLeft: '0.5vw', marginRight: '0.5vw'}}>我收藏的职位</span>
-                  <button className={classes.collectionBtn}>99</button>
-                </div>
+                <CollectionSidebar number={this.state.collectionNum} collectionType="职位"/>
                 <MDBListGroup
                   style={{fontSize: '1.1vw', marginLeft: '1.56vw'}}>
                   <MDBListGroupItem
