@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import DatePicker from 'react-date-picker';
+import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 
 import classes from './WorkExperienceCard.module.css';
 import workIcon from '../../../assets/google.jpg';
@@ -53,6 +53,7 @@ class WorkExperienceCard extends Component {
           location: '',
           note: '',
         },
+      dateRange: [new Date(), new Date()],
     };
 
     this.posRef = React.createRef();
@@ -99,40 +100,20 @@ class WorkExperienceCard extends Component {
         ...this.state.workData,
         position: this.posRef.current.value,
         employer: this.employerRef.current.value,
+        duration: {
+          begin: this.state.dateRange[0].toDateString(),
+          end: this.state.dateRange[1].toDateString(),
+        },
         note: this.noteRef.current.value,
       },
     });
   };
 
-  handleStartChange = (startDate) => {
-    let parsed = startDate.toString().split(' ');
-    parsed = `${parsed[1]}/${parsed[2]}/${parsed[3]}`;
-    this.setState({
-      ...this.state,
-      workData: {
-        ...this.state.workData,
-        duration: {
-          ...this.state.workData.duration,
-          begin: parsed,
-        },
-      },
+  dateRangePickerOnChange = newDateRange => {
+    this.setState({ ...this.state, dateRange: newDateRange }, () => {
+      this.inputOnChange();
     });
-  }
-
-  handleEndChange = (endDate) => {
-    let parsed = endDate.toString().split(' ');
-    parsed = `${parsed[1]}/${parsed[2]}/${parsed[3]}`;
-    this.setState({
-      ...this.state,
-      workData: {
-        ...this.state.workData,
-        duration: {
-          ...this.state.workData.duration,
-          end: parsed,
-        },
-      },
-    });
-  }
+  };
 
   render() {
     let toShow;
@@ -166,18 +147,9 @@ class WorkExperienceCard extends Component {
               onChange={this.inputOnChange}
             />
             <div className={classes.twoP}>
-              <DatePicker
-                selected={this.state.workData.duration.begin}
-                onChange={this.handleStartChange}
-                dateFormat="MM/yyyy"
-                showMonthYearPicker
-                disabled={true}
-              />
-              <DatePicker
-                selected={this.state.workData.duration.end}
-                onChange={this.handleEndChange}
-                dateFormat="MM/yyyy"
-                showMonthYearPicker
+              <DateRangePicker
+                onChange={this.dateRangePickerOnChange}
+                value={this.state.dateRange}
                 disabled={true}
               />
             </div>
@@ -220,20 +192,12 @@ class WorkExperienceCard extends Component {
               onChange={this.inputOnChange}
             />
             <div className={classes.twoP}>
-              <DatePicker
-                selected={this.state.workData.duration.begin}
-                onChange={this.handleStartChange}
-                dateFormat="MM/yyyy"
-                showMonthYearPicker
-              />
-              <DatePicker
-                selected={this.state.workData.duration.end}
-                onChange={this.handleEndChange}
-                dateFormat="MM/yyyy"
-                showMonthYearPicker
+              <DateRangePicker
+                onChange={this.dateRangePickerOnChange}
+                value={this.state.dateRange}
               />
             </div>
-            
+
             <input
               style={{ margin: '3px 0px' }}
               type="text"
@@ -259,8 +223,8 @@ class WorkExperienceCard extends Component {
 
 WorkExperienceCard.propTypes = {
   cancel: PropTypes.func,
-  data: PropTypes.object.isRequired,
-  saveHandler: PropTypes.func.isRequired
+  data: PropTypes.object,
+  saveHandler: PropTypes.func.isRequired,
 };
 
 export default WorkExperienceCard;
