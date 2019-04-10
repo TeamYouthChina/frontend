@@ -85,8 +85,8 @@ class Project extends Component {
         : [];
     this.setState(
       (prevState)=>{ 
-        return {...prevState, cards: temp, adding: false, addingCard: null }}
-      );
+        return {...prevState, cards: temp, adding: false, addingCard: null };}
+    );
   }
 
   // get work data set requestedData and cards in state

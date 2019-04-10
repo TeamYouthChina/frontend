@@ -31,10 +31,10 @@ class projectCard extends Component {
             id: this.props.data.id, // eslint-disable-line
             name: this.props.data.name, // eslint-disable-line
             role: this.props.data.role, // eslint-disable-line
-            duration: {
+          duration: {
               begin: this.props.data.duration.begin.substring(0, 10), // eslint-disable-line
               end: this.props.data.duration.end.substring(0, 10), // eslint-disable-line
-            },
+          },
             note: this.props.data.note, // eslint-disable-line
         }
         : {
