@@ -1,6 +1,5 @@
 import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
-import classes from './index.module.css';
 import {MDBCol, MDBContainer, MDBRow} from 'mdbreact';
 import PropTypes from 'prop-types';
 
@@ -14,6 +13,7 @@ import {SearchCompanyResult} from './container/company';
 import {SearchVideoResult} from './container/video';
 import {SearchInsightResult} from './container/insight';
 import {SearchConnectionResult} from './container/connection';
+import {SearchInput} from './component/search-input';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 
@@ -33,12 +33,22 @@ class SearchReact extends React.Component {
       // activeItemClassicTabs1: "1",
       collapseID: '',
       tabsContent: '职位',
-      keyword: '' //搜索关键词
+      keyword: null //搜索关键词
     };
 
     // this.toggleClassicTabs1 = this.toggleClassicTabs1.bind(this);
   }
 
+  handleInputKeyword = event => {
+    this.setState({
+      keyword: event.target.value
+    });
+  };
+  
+  handleKeywordSearch = () => {
+    
+  };
+  
   handleTabsContent = tabsContent => {
     this.setState({
       ...this.state,
@@ -71,11 +81,7 @@ class SearchReact extends React.Component {
             <MDBContainer>
               <MDBRow>
                 <MDBCol className="mt-5 p-0 d-flex align-items-center">
-                  {/*<MDBIcon className={`${classes.searchIcon}`} icon="search" size="2x" />*/}
-                  <input
-                    className={`flex-fill p-0 form-control ${classes.searchInput}`}
-                    placeholder="通过以下方式搜索"
-                  />
+                  <SearchInput keyword={this.state.keyword} onSubmit={this.handleKeywordSearch} onChange={this.handleInputKeyword}/>
                 </MDBCol>
               </MDBRow>
             </MDBContainer>
@@ -113,23 +119,23 @@ class SearchReact extends React.Component {
             <Switch>
               <Route
                 path={`${this.props.match.url}/job`}
-                component={routeProps => <SearchJobResult basicCHNFont={basicCHNFont} />}
+                component={SearchJobResult}
               />
               <Route
                 path={`${this.props.match.url}/company`}
-                component={routeProps => <SearchCompanyResult basicCHNFont={basicCHNFont} />}
+                component={SearchCompanyResult}
               />
               <Route
                 path={`${this.props.match.url}/video`}
-                component={routeProps => <SearchVideoResult basicCHNFont={basicCHNFont} />}
+                component={SearchVideoResult}
               />
               <Route
                 path={`${this.props.match.url}/insight`}
-                component={routeProps => <SearchInsightResult basicCHNFont={basicCHNFont} />}
+                component={SearchInsightResult}
               />
               <Route
                 path={`${this.props.match.url}/connection`}
-                component={routeProps => <SearchConnectionResult basicCHNFont={basicCHNFont} />}
+                component={SearchConnectionResult}
               />
               <Redirect to={`${this.props.match.url}/job`} />
             </Switch>

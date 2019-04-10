@@ -54,7 +54,6 @@ class SearchCompaniesNavItemReact extends React.Component {
   }
 
   handleTabsContent = tabsContent => { // eslint-disable-line 
-    console.log('handleTabsContent call')// eslint-disable-line 
     this.setState({
       ...this.state,
       tabsContent
