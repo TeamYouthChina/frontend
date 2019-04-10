@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import ProjectCard from './ProjectCard/ProjectCard';
 import classes from './Project.module.css';
-import { getAsync } from '../../../../tool/api-helper';
+import {
+  getAsync,
+  postAsync,
+  putAsync,
+  deleteAsync,
+} from '../../../../tool/api-helper';
 import { languageHelper } from '../../../../tool/language-helper';
 import addIcon from '../../assets/add.svg';
 
@@ -26,29 +32,50 @@ class Project extends Component {
     super(props);
     this.state = {
       cards: [],
+      adding: false,
+      addingCard: null,
     };
   }
 
-  // time stamp
-  getTimeStamp = () => {
-    const date = new Date();
-    return date.getTime();
+  cancelAdding = () => {
+    this.setState({ ...this.state, addingCard: null, adding: false });
   };
 
-  // get work data set requestedData and cards in state
-  async componentDidMount() {
-    let data = await getAsync(
-      "/applicants/" + this.props.requestID + "/projects", // eslint-disable-line
-      true
+  async postRequest(content) {
+    await postAsync(
+      '/applicants/' + this.props.requestID + '/projects',
+      content
     );
+    // console.log(`posting ${content} and response is ${response}`)
+  }
+
+  async putRequest(id, content) {
+    await putAsync(
+      '/applicants/' + this.props.requestID + '/projects/' + id,
+      content
+    );
+    // console.log(`putting ${content} with id ${id} and response is ${response}`)
+  }
+
+  async deleteRequest(id) {
+    await deleteAsync(
+      '/applicants/' + this.props.requestID + '/projects/' + id
+    );
+    // console.log(`deleting ${id} and response is ${response}`)
+  }
+
+  async getRequest() {
+    let data = await getAsync(
+      '/applicants/' + this.props.requestID + '/projects'
+    );
+
+    // console.log('getting'+data);
     let temp =
-      data && data.content && data.content.projects && data.status.code === 2000
-        ? data.content.projects.map(e => {
-          const time = this.getTimeStamp();
+      data && data.content && data.content.data && data.status.code === 2000
+        ? data.content.data.map(e => {
           return (
             <ProjectCard
-              key={time}
-              id={time}
+              key={e.id}
               data={e}
               deleteHandler={this.deleteHandler}
               saveHandler={this.saveHandler}
@@ -56,87 +83,65 @@ class Project extends Component {
           );
         })
         : [];
-    this.setState({ cards: temp });
+    this.setState(
+      { ...this.state, cards: temp, adding: false, addingCard: null },
+      () => {}
+    );
+  }
+
+  // get work data set requestedData and cards in state
+  async componentDidMount() {
+    // console.log('componentDidMout');
+    await this.getRequest();
   }
 
   // delte data on server, delete data in state.cards
-  deleteHandler = (localID, serverID) => { // eslint-disable-line
-    // TODO: delete data on server according to id
-    // make a hard copy
-    let temp = this.state.cards.splice(0);
-    temp.forEach((e, i) => {
-      if (e.id == localID) {
-        temp.splice(i, 1);
-        return;
-      }
-    });
-    this.setState(
-      {
-        cards: temp,
-      },
-      () => {
-        // call delete api using serverID
-      }
-    );
+  deleteHandler = async id => {
+    await this.deleteRequest(id);
+    await this.getRequest();
   };
 
   // save data locally and send back to server
-  saveHandler = (newCertification, localID, serverID) => { // eslint-disable-line
-    // TODO: update server with new saved cards
-    // PUT {...this.state.requestedData, newEducation}
-    // timestamp
-    // make a hard copy
-    let temp = this.state.cards.splice(0);
-    temp.forEach((e, i) => {
-      if (e.id == localID) {
-        // const time = getTimeStamp()
-        temp.splice(
-          i,
-          1,
-          <ProjectCard
-            key={localID}
-            id={localID}
-            data={newCertification}
-            deleteHandler={this.deleteHandler}
-            saveHandler={this.saveHandler}
-          />
-        );
-        return;
-      }
-    });
-    this.setState(
-      {
-        cards: temp,
-      },
-      () => {
-        // save api using server ID
-      }
-    );
+  saveHandler = async (content, id, mode) => {
+    if (mode === 'add') {
+      // console.log('adding');
+      await this.postRequest(content);
+      await this.getRequest();
+    } else if (mode === 'update') {
+      // console.log('updating');
+      await this.putRequest(id, content);
+      await this.getRequest();
+    }
   };
 
-  // addhandler only create a empty cards in state.cards
+  // addhandler only create a empty cards
   // update the data in server and local happens in saveHandler
   addHandler = () => {
-    // timestamp
-    const time = this.getTimeStamp();
+    if (this.state.adding === true) {
+      alert('请先完成当前编辑');
+      return;
+    }
     // make a hard copy
-    let temp = this.state.cards.splice(0);
-    temp.push(
+    // let temp = this.state.cards.splice(0);
+    let temp = (
       <ProjectCard
-        key={time}
-        id={time}
+        id="addingCard"
         deleteHandler={this.deleteHandler}
         saveHandler={this.saveHandler}
+        cancel={this.cancelAdding}
       />
     );
     this.setState({
-      cards: temp,
+      ...this.state,
+      addingCard: temp,
+      adding: true,
     });
   };
 
   render() {
+    // console.log('rendering'+this.state.cards);
     let toShow;
-    if (this.state.cards.length === 0) {
+    if (this.state.cards.length === 0 && this.state.addingCard === null) {
       toShow = (
         <div className={classes.Project}>
           <div className={classes.row}>
@@ -166,11 +171,15 @@ class Project extends Component {
             />
           </div>
           <div className={classes.Container}>{this.state.cards}</div>
+          {this.state.addingCard}
         </div>
       );
     }
     return toShow;
   }
 }
+Project.propTypes = {
+  requestID: PropTypes.string.isRequired,
+};
 
 export default Project;

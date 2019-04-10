@@ -8,9 +8,8 @@ import {
   MDBNavItem
 } from 'mdbreact';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import {getType} from '../../tool/device-helper';
+import * as deviceHelper from '../../tool/device-helper';
 import {languageHelper} from '../../tool/language-helper';
 import classes from './index.module.css';
 
@@ -84,7 +83,7 @@ class SignedInReact extends React.Component {
                   width:'3.125vw',
                 }}>
                 <img
-                  style={getType(this.props.bodyClientWidth) === 1 ? {width: '30px'} : {width: '50px'}}
+                  style={deviceHelper.getType() === deviceHelper.MOBILE ? {width: '30px'} : {width: '50px'}}
                   //src="https://vignette.wikia.nocookie.net/pkmnshuffle/images/7/7e/Pikachu_%28Dizzy%29.png/revision/latest?cb=20170410223549"
                   src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg"
                   className="rounded-circle img-fluid p-0 float-right w-100"
@@ -119,15 +118,7 @@ SignedInReact.propTypes = {
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  // React Redux
-  bodyClientWidth: PropTypes.number.isRequired
+  location: PropTypes.object.isRequired
 };
 
-export const SignedIn = withRouter(connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(SignedInReact));
+export const SignedIn = withRouter(SignedInReact);

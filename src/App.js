@@ -21,6 +21,7 @@ import {OnlineApplication} from './page/online-application';
 import {Promotion} from './page/promotion';
 import {PageNoFound} from './page/page-no-found';
 import {Playground} from './page/playground';
+import {ZhenyiWrapper} from './page/playground/zhenyi';
 import {Question} from './page/question';
 import {QuestionEdit} from './page/question-edit';
 import {Register} from './page/register';
@@ -184,6 +185,10 @@ export class App extends React.Component {
               <Route
                 path="/playground"
                 component={routeProps => <Playground {...routeProps} />}
+              />
+              <Route
+                path="/playground/zhenyi"
+                component={routeProps => <ZhenyiWrapper {...routeProps} />}
               />
               {/* ====== playground: END ====== */}
               <Route

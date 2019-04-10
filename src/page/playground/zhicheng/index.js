@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import {Redirect} from 'react-router-dom';
-import {connect} from 'react-redux';
 
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
@@ -64,12 +63,12 @@ class ZhichengReact extends React.Component {
             }}
           >
             <div>
-              <p>逻辑分辨率：{this.props.bodyClientWidth}px</p>
+              <p>逻辑分辨率：{document.body.clientWidth}px</p>
               <p>
                 设备类型：
                 {
                   (() => {
-                    switch (deviceHelper.getType(this.props.bodyClientWidth)) {
+                    switch (deviceHelper.getType()) {
                       case deviceHelper.MOBILE:
                         return '移动端';
                       case deviceHelper.DESKTOP:
@@ -136,15 +135,7 @@ ZhichengReact.propTypes = {
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  // React Redux
-  bodyClientWidth: PropTypes.number.isRequired
+  location: PropTypes.object.isRequired
 };
 
-export const Zhicheng = connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(ZhichengReact);
+export const Zhicheng = ZhichengReact;

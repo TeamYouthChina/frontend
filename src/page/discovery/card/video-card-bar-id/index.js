@@ -1,7 +1,6 @@
 import React from 'react';
 import {MDBCard} from 'mdbreact';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 import {videoData} from './index.mock';
@@ -85,16 +84,8 @@ VideoCardBarIdReact.propTypes = {
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  // React Redux
-  bodyClientWidth: PropTypes.number
+  location: PropTypes.object.isRequired
 };
 
-export const VideoCardBarId = withRouter(connect(
-  (state) => {
-    return {
-      bodyClientWidth: state.bodyClientWidth
-    };
-  }
-)(VideoCardBarIdReact));
+export const VideoCardBarId = withRouter(VideoCardBarIdReact);
 

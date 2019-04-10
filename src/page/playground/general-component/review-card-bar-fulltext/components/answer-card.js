@@ -3,27 +3,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {languageHelper} from '../../../../../tool/language-helper';
 
-import UserInfor from '../containers/user-infor';
+import UserInfor from '../containers/user-infor/user-infor';
 import Comments from '../comment-card-bar';
-import Footer from '../containers/footer';
+import Footer from '../containers/footer/footer';
+import classes from './index.module.css';
 
 import data from '../data/index.data';
-
-const basicFont = {
-  fontFamily: 'PingFang SC',
-  lineHeight: 'normal'
-};
-const ulBasicNoLine = {
-  listStyle: 'none',
-  padding: '0',
-  margin: '0'
-};
-const liBasicNoLine = {
-  listStyle: 'none',
-  padding: '0',
-  margin: '0'
-};
-
 
 export class AnswerCard extends React.Component {
   constructor(props) {
@@ -117,11 +102,11 @@ export class AnswerCard extends React.Component {
   componentDidMount() {
     window.addEventListener('scroll', this.orderScroll);
     if(this.props.reviewId !== undefined) {
+      // console.log(data.content[this.props.reviewId])
       this.setState({
         backend:data.content[this.props.reviewId]
       });
     } else {
-      // console.log(this.props.fullText)
       this.setState({
         backend:this.props.fullText
       });
@@ -135,7 +120,7 @@ export class AnswerCard extends React.Component {
   render() {
     return (this.state.backend !== null) ? (
       <React.Fragment>
-        <div style={{background: '#FFFFFF', padding: '1.563vw 2.344vw', borderRadius: '.156vw'}} ref={(span) => this.scrollSpan = span}>
+        <div className={classes.cardWrapper} ref={(span) => this.scrollSpan = span}>
           <UserInfor
             score={5}
             user={this.state.backend.creator.username}
@@ -144,10 +129,8 @@ export class AnswerCard extends React.Component {
             isCollapsed={this.state.isCollapsed}
             short={this.sliceText(this.state.backend.answers)}
             handleSpanClick={this.handleSpanClick}
-            basicFont={basicFont}
             // editorState={this.state.editorState.toHTML()}
-            liBasicNoLine={liBasicNoLine}
-            ulBasicNoLine={ulBasicNoLine} />
+          />
           {this.state.showBottom || this.state.isCollapsed ? (
             <Footer
               editTime={'1天前'}
@@ -155,7 +138,6 @@ export class AnswerCard extends React.Component {
               isCollapsed={this.state.isCollapsed}
               showComments={this.showCommentsFunc}
               handleSpanClick={this.handleSpanClick}
-              basicFont={basicFont}
               stickyRow={this.state.stickyRow} />
           ) : null}
         </div>

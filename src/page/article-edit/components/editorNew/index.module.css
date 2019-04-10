@@ -1,0 +1,9 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+.wrapper2 {
+  flex-basis: 70vw;
+  background-color:#FFFFFF;
+}
+
