@@ -2,9 +2,9 @@ import Cookies from 'js-cookie';
 import fetch from 'isomorphic-fetch';
 
 /* 生产环境 / 测试环境 */
-const urlPrefix = 'http://test.zzc-tongji.com/api/v1';
+export const urlPrefix = 'http://test.zzc-tongji.com/api/v1';
 
-const generateHeaders = () => {
+export const generateHeaders = () => {
   let language = Cookies.get('language');
   if (!language) {
     language = 'zh_CN';

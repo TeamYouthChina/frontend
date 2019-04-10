@@ -1,0 +1,21 @@
+.bf-content {
+  height: 200px;
+}
+.bf-container{
+  border-radius: 3px;
+  height: 400px;
+}
+.inputWrapper {
+  display: table;
+}
+
+.inputCell {
+  display: table-cell;
+  vertical-align: middle;
+}
+.bf-container .bf-dropdown.active .dropdown-content {
+  display: inline;
+}
+.bf-container .bf-dropdown.active .dropdown-content li{
+  clear: none;
+}

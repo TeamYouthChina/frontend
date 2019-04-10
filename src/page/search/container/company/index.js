@@ -1,21 +1,15 @@
 import React from 'react';
 import {
-  MDBCol,
-  MDBDropdown,
-  MDBDropdownItem,
-  MDBDropdownMenu,
-  MDBDropdownToggle,
-  MDBListGroup,
-  MDBListGroupItem,
-  MDBRow
+  MDBCol, MDBDropdown, MDBDropdownItem, MDBDropdownMenu, MDBDropdownToggle, MDBListGroup, MDBListGroupItem, MDBRow
 } from 'mdbreact';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import classes from './index.module.css';
 import filter from '../../assets/filter.svg';
-import heart from '../../assets/heart.svg';
 
+import {CollectionSidebar} from '../../component/collection-card';
 import {CompanyCardBarId} from '../../card/company-card-bar-id';
+import {getAsync} from '../../../../tool/api-helper';
 import {languageHelper} from '../../../../tool/language-helper';
 
 const basicCHNFont = {
@@ -35,9 +29,36 @@ class SearchCompanyResultReact extends React.Component {
   constructor(props) {
     super(props);
     // state
-    this.state = {};
+    this.state = {
+      collectionType: 'company',
+      collectionNum: null
+    };
     // i18n
     this.text = SearchCompanyResultReact.i18n[languageHelper()];
+  }
+  
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState.collectionNum !== this.state.collectionNum;
+  }
+
+  async componentDidMount() {
+    try {
+      const result = await getAsync(`/users/${localStorage.getItem('id')}/attentions?type=${this.state.collectionType}`);
+      // console.log(result)
+      if (result && result.status) {
+        this.setState(() => {
+          return {collectionNum: result.content.length};
+        });
+      } 
+      else {
+        this.setState(() => {
+          return {collectionNum: 0};
+        });
+      }
+    } catch (error) {
+      // eslint-disable-next-line
+      console.log(error);
+    }
   }
 
   render() {
@@ -95,12 +116,7 @@ class SearchCompanyResultReact extends React.Component {
             </MDBCol>
             <MDBCol style={{marginTop: '4vw', marginLeft: 0, padding: 0}} size="2">
               <div>
-                <div
-                  className={classes.collectionSidebar}>
-                  <img src={heart} className={classes.collectionIcon} alt="icon" />
-                  <span style={{...navyFont, fontSize: '1.1vw', marginLeft: '0.5vw', marginRight: '0.5vw'}}>我收藏的公司</span>
-                  <button className={classes.collectionBtn}>99</button>
-                </div>
+                <CollectionSidebar number={this.state.collectionNum} collectionType="公司"/>
                 <MDBListGroup
                   style={{fontSize: '1.1vw', marginLeft: '1.56vw'}}>
                   <MDBListGroupItem
