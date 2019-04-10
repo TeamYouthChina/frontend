@@ -1,5 +1,5 @@
 import React from 'react';
-import {Redirect, Route, Switch} from 'react-router-dom';
+import {Redirect, Route, Switch, withRouter} from 'react-router-dom';
 import {MDBCol, MDBContainer, MDBRow} from 'mdbreact';
 import PropTypes from 'prop-types';
 
@@ -16,6 +16,7 @@ import {SearchConnectionResult} from './container/connection';
 import {SearchInput} from './component/search-input';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
+import {getAsync} from '../../tool/api-helper';
 
 const basicCHNFont = {
   fontFamily: 'PingFang SC',
@@ -33,9 +34,10 @@ class SearchReact extends React.Component {
       // activeItemClassicTabs1: "1",
       collapseID: '',
       tabsContent: '职位',
-      keyword: null //搜索关键词
+      keyword: null, //搜索关键词
+      backend: null, //搜索到的数据
+      searchType: null
     };
-
     // this.toggleClassicTabs1 = this.toggleClassicTabs1.bind(this);
   }
 
@@ -44,22 +46,71 @@ class SearchReact extends React.Component {
       keyword: event.target.value
     });
   };
-  
-  handleKeywordSearch = () => {
-    
-  };
-  
-  handleTabsContent = tabsContent => {
-    this.setState({
-      ...this.state,
-      tabsContent
-    });
+
+  handleKeywordSearch = async (event) => {
+    event.preventDefault();
+    try {
+      const result = await getAsync(`/search?type=${this.state.searchType}&title=${this.state.keyword}`);
+      // eslint-disable-next-line
+      console.log(result);
+      if (result && result.status) {
+        this.setState(() => {
+          return {backend: result.content};
+        });
+      } else {
+        this.setState(() => {
+          return {collectionNum: 0};
+        });
+      }
+    } catch (error) {
+      // eslint-disable-next-line
+      console.log(error);
+    }
   };
 
-  toggleCollapse = collapseID => () => {
-    this.setState(prevState => ({collapseID: (prevState.collapseID !== collapseID ? collapseID : '')}));
+  // handleTabsContent = tabsContent => {
+  //   this.setState({
+  //     ...this.state,
+  //     tabsContent
+  //   });
+  // };
+  //
+  // toggleCollapse = collapseID => () => {
+  //   this.setState(prevState => ({collapseID: (prevState.collapseID !== collapseID ? collapseID : '')}));
+  // };
+
+  handleSearchType = () => {
+    // eslint-disable-next-line
+    const path = this.props.location.pathname;
+
+    switch (true) {
+      case path.includes('/job'):
+        this.setState(() => {
+          return {searchType: 'job'};
+        });
+        break;
+      case path.includes('/company'):
+        this.setState(() => {
+          return {searchType: 'company'};
+        });
+        break;
+      case path.includes('/insight'):
+        this.setState(() => {
+          //todo, 洞见搜索应该整合问题，回答和短则的结果。
+          return {searchType: 'article'};
+        });
+        break;
+      case path.includes('/connection'):
+        this.setState(() => {
+          return {searchType: 'connection'};
+        });
+    }
   };
 
+  componentDidMount() {
+    this.handleSearchType();
+  }
+  
   render() {
     // eslint-disable-next-line
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
@@ -81,7 +132,10 @@ class SearchReact extends React.Component {
             <MDBContainer>
               <MDBRow>
                 <MDBCol className="mt-5 p-0 d-flex align-items-center">
-                  <SearchInput keyword={this.state.keyword} onSubmit={this.handleKeywordSearch} onChange={this.handleInputKeyword}/>
+                  <SearchInput
+                    keyword={this.state.keyword}
+                    onSubmit={this.handleKeywordSearch}
+                    onChange={this.handleInputKeyword} />
                 </MDBCol>
               </MDBRow>
             </MDBContainer>
@@ -99,6 +153,7 @@ class SearchReact extends React.Component {
               <Route
                 path={`${this.props.match.url}/insight`}
                 component={routeProps => <SearchInsightNavItem basicCHNFont={basicCHNFont} />}
+                render={(props) => <SearchInsightNavItem {...props} />}
               />
               <Route
                 path={`${this.props.match.url}/video`}
@@ -119,23 +174,29 @@ class SearchReact extends React.Component {
             <Switch>
               <Route
                 path={`${this.props.match.url}/job`}
-                component={SearchJobResult}
+                render={(props) => <SearchJobResult {...props} keyword={this.state.keyword}
+                                                    handleSearchType={this.handleSearchType} />}
+                // component={SearchJobResult}
               />
               <Route
                 path={`${this.props.match.url}/company`}
-                component={SearchCompanyResult}
+                render={(props) => <SearchCompanyResult {...props} keyword={this.state.keyword}
+                                                        handleSearchType={this.handleSearchType} />}
               />
               <Route
                 path={`${this.props.match.url}/video`}
-                component={SearchVideoResult}
+                render={(props) => <SearchVideoResult {...props} keyword={this.state.keyword}
+                                                      handleSearchType={this.handleSearchType} />}
               />
               <Route
                 path={`${this.props.match.url}/insight`}
-                component={SearchInsightResult}
+                render={(props) => <SearchInsightResult {...props} keyword={this.state.keyword}
+                                                        handleSearchType={this.handleSearchType} />}
               />
               <Route
                 path={`${this.props.match.url}/connection`}
-                component={SearchConnectionResult}
+                render={(props) => <SearchConnectionResult {...props} keyword={this.state.keyword}
+                                                           handleSearchType={this.handleSearchType} />}
               />
               <Redirect to={`${this.props.match.url}/job`} />
             </Switch>
@@ -159,4 +220,4 @@ SearchReact.prototypes = {
 
 };
 
-export const Search = SearchReact;
+export const Search = withRouter(SearchReact);

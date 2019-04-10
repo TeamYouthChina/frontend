@@ -44,7 +44,6 @@ class SearchCompanyResultReact extends React.Component {
   async componentDidMount() {
     try {
       const result = await getAsync(`/users/${localStorage.getItem('id')}/attentions?type=${this.state.collectionType}`);
-      // console.log(result)
       if (result && result.status) {
         this.setState(() => {
           return {collectionNum: result.content.length};
@@ -59,6 +58,7 @@ class SearchCompanyResultReact extends React.Component {
       // eslint-disable-next-line
       console.log(error);
     }
+    this.props.handleSearchType();
   }
 
   render() {
@@ -159,6 +159,7 @@ SearchCompanyResultReact.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
+  handleSearchType: PropTypes.func.isRequired
 };
 
 export const SearchCompanyResult = withRouter(SearchCompanyResultReact);
