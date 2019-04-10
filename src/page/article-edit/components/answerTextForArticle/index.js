@@ -5,7 +5,7 @@ import 'braft-editor/dist/index.css';
 import {MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBBtn,MDBIcon} from 'mdbreact';
 import PropTypes from 'prop-types';
 
-const myUploadFn = async (param) => {
+const myUploadFn = async (param) => { // /api/v1/static post form key file: binary
   // console.log(param)
   const serverURL = 'http://youthchinatest.oss-cn-shanghai.aliyuncs.com/2848699711584473088?Expires=1549472548&OSSAccessKeyId=LTAI0j1nGyLy6XMw&Signature=iKKT0zlXISw1eJXddMRsBSLV%2B2M%3D';
   // 数据传输协议，添加注释，类似json

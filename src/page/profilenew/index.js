@@ -6,7 +6,7 @@ import Education from './Components/Education/Education'; // eslint-disable-line
 import WorkExperience from './Components/WorkExperience/WorkExperience'; // eslint-disable-line
 import Certifications from './Components/Certification/Certification'; // eslint-disable-line
 import SocialActivicies from './Components/SocialActivity/SocialActivity'; // eslint-disable-line
-import Projects from './Components/Project/Project';
+// import Projects from './Components/Project/Project';
 import Skills from './Components/Skill/Skill'; // eslint-disable-line
 import AdvantageTag from './Components/advantageTag/'; // eslint-disable-line
 import {withRouter} from 'react-router-dom';
@@ -83,13 +83,13 @@ class ProfileMainBodyReact extends Component {
       <div className="cell-wall" style={{backgroundColor: '#F3F5F7'}}>
         <div className="cell-membrane">
           <div className={classes.MainBody}>
-            <Projects requestID={this.state.requestID} />
+            {/* <Projects requestID={this.state.requestID} /> */}
+            <Education requestID={this.state.requestID} />
             <WorkExperience requestID={this.state.requestID} />
-            {/* <Education requestID={this.state.requestID} />
-            <Skills requestID={this.state.requestID} />
+            {/* <Skills requestID={this.state.requestID} />
             <Certifications requestID={this.state.requestID} />
-            <SocialActivicies requestID={this.state.requestID} />
-            <AdvantageTag requestID={this.state.requestID}/> */}
+            <SocialActivicies requestID={this.state.requestID} /> */}
+            <AdvantageTag requestID={this.state.requestID}/>
           </div>
         </div>
       </div>
