@@ -84,8 +84,8 @@ class Project extends Component {
         })
         : [];
     this.setState(
-      { ...this.state, cards: temp, adding: false, addingCard: null },
-      () => {}
+      (prevState)=>{ 
+        return {...prevState, cards: temp, adding: false, addingCard: null };}
     );
   }
 

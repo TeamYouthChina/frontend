@@ -1,23 +1,11 @@
 import React, {Component} from 'react';
-// import {MDBBtn} from 'mdbreact';
-// import {MDBAnimation} from 'mdbreact';
+import PropTypes from 'prop-types';
 
 import EducationCard from './EducationCard/EducationCard';
 import classes from './Education.module.css';
-import {getAsync} from '../../../../tool/api-helper';
-// import {putAsync} from '../../../../tool/api-helper';
-// import {postAsync} from '../../../../tool/api-helper';
+import {getAsync, postAsync, putAsync, deleteAsync} from '../../../../tool/api-helper';
 import {languageHelper} from '../../../../tool/language-helper';
 import addIcon from '../../assets/add.svg';
-
-// const MDBButtonStyle = {
-//   font_family: 'IBM Plex Sans',
-//   font_style: 'normal',
-//   font_weight: '600',
-//   line_height: 'normal',
-//   font_size: '18px',
-//   text_align: 'center',
-// };
 
 const translation = [
   {
@@ -39,132 +27,102 @@ class Education extends Component {
     super(props);
     this.state = {
       cards: [],
+      adding: false,
+      addingCard: null,
     };
   }
 
-  // get educations data set requestedData and cards in state
-  async componentDidMount() {
+  cancelAdding = () => {
+    this.setState({...this.state, addingCard: null, adding: false});
+  }
+
+  async postRequest(content){
+    await postAsync('/applicants/' + this.props.requestID + '/educations', content);
+    // console.log(`posting ${content} and response is ${response}`)
+  }
+
+  async putRequest(id, content){
+    await putAsync('/applicants/' + this.props.requestID + '/educations/' + id, content);
+    // console.log(`putting ${content} with id ${id} and response is ${response}`)
+  }
+
+  async deleteRequest(id){
+    await deleteAsync('/applicants/' + this.props.requestID + '/educations/' + id);
+    // console.log(`deleting ${id} and response is ${response}`)
+  }
+
+  async getRequest() {
     let data = await getAsync(
-      '/applicants/' + this.props.requestID + '/educations',      // eslint-disable-line
-      true
-    );
+      '/applicants/' + this.props.requestID + '/educations');
+
+    // console.log('getting'+data);
     let temp =
-      data &&
-      data.content &&
-      data.content.educations &&
-      data.status.code === 2000
-        ? data.content.educations.map(e => {
+      data && data.content && data.content.data && data.status.code === 2000
+        ? data.content.data.map(e => {
           return (
             <EducationCard
               key={e.id}
-              id={e.id}
               data={e}
               deleteHandler={this.deleteHandler}
               saveHandler={this.saveHandler}
             />
           );
         })
-        : Array();
-    this.setState({cards: temp});
+        : [];
+    this.setState({ ...this.state, cards: temp, adding: false, addingCard: null }, ()=>{
+    });
   }
 
-  async componentDidUpdate() {
-    // let dataToSend = this.state.cards.map(e => {
-    //   return e.props.data;
-    // });
-
-    // console.log(dataToSend)
-
-    // // let response = putAsync(
-    // //   "/applicants/" + this.props.requestID + "/educations",
-    // //   dataToSend,
-    // //   true
-    // // );
+  /// get work data set requestedData and cards in state
+  async componentDidMount() {
+    // console.log('componentDidMout');
+    await this.getRequest();
   }
 
   // delte data on server, delete data in state.cards
   deleteHandler = async (id) => {
-    // TODO: delete data on server according to id
-    let temp = this.state.cards.filter(e => {
-      return e.key != id;
-    });
-
-    this.setState(
-      {
-        cards: temp,
-      },
-      () => {
-        // prepare the data to be sent back to server
-        let dataToSend = this.state.cards.map(e => {
-          return e.props.data;
-        });
-        console.log(dataToSend);      // eslint-disable-line
-        // let response = putAsync(
-        //   "/applicants/" + this.props.requestID + "/educations",
-        //   dataToSend,
-        //   true
-        // );
-      }
-    );
+    await this.deleteRequest(id);
+    await this.getRequest();
   };
 
   // save data locally and send back to server
-  saveHandler = (newEducation, id) => {
-    // TODO: update server with new saved cards
-    // PUT {...this.state.requestedData, newEducation}
-    // timestamp
-    let temp = this.state.cards.splice(0);
-    temp.forEach((e, i) => {
-      if (e.key == id) {
-        temp.splice(
-          i,
-          1,
-          <EducationCard
-            key={i}
-            id={i}
-            data={newEducation}
-            deleteHandler={this.deleteHandler}
-            saveHandler={this.saveHandler}
-          />
-        );
-        return;
-      }
-    });
-    this.setState(
-      {
-        cards: temp,
-      },
-      () => {
-        // prepare data to be sent back to server
-        let dataToSend = this.state.cards.map(e => {
-          return e.props.data;
-        });
-        console.log(dataToSend);      // eslint-disable-line
-      }
-    );
+  saveHandler = async (content, id, mode) => {
+    if (mode === 'add') {
+      // console.log('adding');
+      await this.postRequest(content);
+      await this.getRequest();
+    } else if (mode === 'update') {
+      // console.log('updating');
+      await this.putRequest(id,content);
+      await this.getRequest();
+    }
   };
 
-  // addhandler only create a empty cards in state.cards
+  /// addhandler only create a empty cards
   // update the data in server and local happens in saveHandler
   addHandler = () => {
-    // timestamp
-    let temp = this.state.cards.splice(0);
-    temp.push(
-      <EducationCard
-        key={temp.length}
-        id={temp.length}
-        deleteHandler={this.deleteHandler}
-        saveHandler={this.saveHandler}
-      />
-    );
+    if (this.state.adding === true) {
+      alert('请先完成当前编辑');
+      return;
+    }
+    // make a hard copy
+    // let temp = this.state.cards.splice(0);
+    let temp = <EducationCard
+      id="addingCard"
+      deleteHandler={this.deleteHandler}
+      saveHandler={this.saveHandler}
+      cancel={this.cancelAdding}
+    />;
     this.setState({
-      cards: temp,
+      ...this.state,
+      addingCard: temp,
+      adding: true,
     });
   };
 
   render() {
     let toShow;
-    if (this.state.cards.length === 0) {
+    if (this.state.cards.length === 0  && this.state.addingCard === null) {
       toShow = (
         <div className={classes.Education}>
           <div className={classes.row}>
@@ -176,14 +134,6 @@ class Education extends Component {
             />
           </div>
           <p>{text.noEducation}</p>
-          {/*<MDBBtn*/}
-          {/*flat*/}
-          {/*className={classes.MDBButton}*/}
-          {/*style={MDBButtonStyle}*/}
-          {/*onClick={this.addHandler}*/}
-          {/*>*/}
-          {/*{text.addEducation}*/}
-          {/*</MDBBtn>*/}
         </div>
       );
     } else {
@@ -198,19 +148,16 @@ class Education extends Component {
             />
           </div>
           {this.state.cards}
-          {/*<MDBBtn*/}
-          {/*flat*/}
-          {/*className={classes.MDBButton}*/}
-          {/*style={MDBButtonStyle}*/}
-          {/*onClick={this.addHandler}*/}
-          {/*>*/}
-          {/*{text.addEducation}*/}
-          {/*</MDBBtn>*/}
+          {this.state.addingCard}
         </div>
       );
     }
     return toShow;
   }
 }
+
+Education.propTypes = {
+  requestID: PropTypes.string.isRequired
+};
 
 export default Education;

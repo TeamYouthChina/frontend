@@ -148,7 +148,7 @@ class MyReact extends React.Component {
           />
           <Route
             path={`${this.props.match.url}/profile`}
-            component={routeProps => <ProfileMainBody requestID={'2'} {...routeProps} />}
+            component={routeProps => <ProfileMainBody requestID={localStorage.getItem('id')} {...routeProps} />}
           />
           <Route
             path={`${this.props.match.url}/setting`}
