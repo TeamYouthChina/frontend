@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
+import braftEditor from 'braft-editor';
 import {MDBCol, MDBIcon} from 'mdbreact';
 import {connect} from 'react-redux';
 import {languageHelper} from '../../../../tool/language-helper';
 
 import classes from './question-des.module.css';
 
-const QuestionDes = (props) => (
+const QuestionDes = React.memo((props) => (
   <MDBCol className={classes.mdbCol}>
     {/*<div className={classes.titleWrapper}>*/}
     {/*{props.tags.map((item) => {*/}
@@ -28,18 +28,14 @@ const QuestionDes = (props) => (
     {/*</div>*/}
     <br />
     <p className={classes.questionTitle}>{props.content.title}</p>
-
-    <p className={classes.questionDetail}>
-      {/*dangerouslySetInnerHTML={{__html: props.editorState.toHTML(props.content.description)}}*/}
-      {props.content.detail}
+    <p dangerouslySetInnerHTML={{__html: braftEditor.createEditorState(props.content.detail.braftEditorRaw).toHTML()}}>
     </p>
     <div>
       <button className={classes.btnAnswer}>
         {props.text.toFocus}
       </button>
       <button className={classes.btnFocus}>
-        +
-        <Link to={`/question/${props.questionId}/answer/create`}>关注问题</Link>
+        + 关注问题
       </button>
       <button className={classes.btnOthers}>
         <MDBIcon className={classes.btnIcon} icon="thumbs-up" />{props.text.toInvite}
@@ -52,7 +48,7 @@ const QuestionDes = (props) => (
       </button>
     </div>
   </MDBCol>
-);
+));
 
 const i18n = [
   {
@@ -78,12 +74,12 @@ QuestionDes.propTypes = {
   // tags: PropTypes.array.isRequired,
   content: PropTypes.object.isRequired,
   text: PropTypes.object.isRequired,
-  questionId: PropTypes.number.isRequired,
+  questionId: PropTypes.string.isRequired,
   // editorState: PropTypes.object.isRequired,
-  basicFont: PropTypes.object.isRequired,
   // React Redux
   bodyClientWidth: PropTypes.number.isRequired
 };
+QuestionDes.displayName = 'QuestionDes';
 
 export default connect(
   (state) => {

@@ -153,7 +153,7 @@ export class AnswerCard extends React.Component {
         <div className={classes.cardWrapper} ref={(span) => this.scrollSpan = span}>
           <UserInfor
             score={5}
-            user={backend.author.username}
+            user={backend.author === undefined ? backend.creator.username : backend.author.username}
             description={backend.author.role[0]}
             isCollapsed={this.state.isCollapsed}
             short={this.sliceText(backend.body)}
