@@ -34,9 +34,33 @@ class SearchInsightResultReact extends React.Component {
   constructor(props) {
     super(props);
     // state
-    this.state = {};
+    this.state = {
+      backend: null,
+      searchType: 'article'
+    };
     // i18n
     this.text = SearchInsightResultReact.i18n[languageHelper()];
+  }
+
+  async componentDidMount() {
+    // try {
+    //   const result = await getAsync(`/search?type=${this.state.searchType}&title=%E4%B8%BA%E4%BB%80%E4%B9%88`);
+    //   // console.log(result)
+    //   if (result && result.status) {
+    //     this.setState(() => {
+    //       return {backend: result.content};
+    //     }, () => {console.log(this.state.backend,this.props.keyword);});
+    //   }
+    //   else {
+    //     this.setState(() => {
+    //       return {collectionNum: 0};
+    //     });
+    //   }
+    // } catch (error) {
+    //   // eslint-disable-next-line
+    //   console.log(error);
+    // }
+    this.props.handleSearchType();
   }
 
   render() {
@@ -158,7 +182,8 @@ SearchInsightResultReact.propTypes = {
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
+  location: PropTypes.object.isRequired,
+  handleSearchType: PropTypes.func.isRequired
 };
 
 export const SearchInsightResult = withRouter(SearchInsightResultReact);
