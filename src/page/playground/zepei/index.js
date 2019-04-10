@@ -5,6 +5,8 @@ import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 
 import { languageHelper } from '../../../tool/language-helper';
 import { removeUrlSlashSuffix } from '../../../tool/remove-url-slash-suffix';
+import Select from '../general-component/select-with-search/select-with-search';
+// import { select } from 'glamor';
 // import * as tim from '../../../tim/sdk/webim';
 // import * as json2 from '../../../tim/sdk/json2';
 // import {webimLogin} from '../../../tim/js/login/login';
@@ -22,6 +24,11 @@ class ZepeiReact extends React.Component {
 
   onChange = date => {
     this.setState({ date });
+  };
+
+  handleSelectChange = () => {
+    
+    // console.log(selected);
   };
 
   render() {
@@ -55,6 +62,33 @@ class ZepeiReact extends React.Component {
             </div>
 
             <DateRangePicker onChange={this.onChange} value={this.state.date} />
+            <Select
+              title="学校名称"
+              handleSelectChange={this.handleSelectChange}
+              items={[
+                {
+                  checked: false,
+                  disabled: false,
+                  icon: null,
+                  text: '乔治华盛顿大学',
+                  value: '1',
+                },
+                {
+                  checked: false,
+                  disabled: false,
+                  icon: null,
+                  text: '加州大学圣地亚哥大学',
+                  value: '2',
+                },
+                {
+                  checked: false,
+                  disabled: false,
+                  icon: null,
+                  text: '北京王府学校',
+                  value: '3',
+                },
+              ]}
+            />
           </div>
         </div>
       </div>

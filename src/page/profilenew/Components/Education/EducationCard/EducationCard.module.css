@@ -5,6 +5,7 @@
     box-sizing: border-box;
     padding: 5px 0;
     align-items: start;
+    padding: 1vw;
 }
 
 .EducationCard input {
@@ -30,12 +31,10 @@
 }
 
 .twoP {
+    font-family: "PingFang SC";
     margin: 3px 0;
     padding: 1px;
-    border-top: hidden;
-    border-left: hidden;
-    border-right: hidden;
-    border-bottom: 1px solid white
+    border: none;
 }
 
 .EducationCard img {
@@ -48,9 +47,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 90%;
-    width: 590px;
-    flex-grow: 1;
+    width: 64.38vw;
 }
 
 .SchoolInfo h1{
@@ -83,11 +80,6 @@
 
     color: #62686C;
     margin: 0%;
-}
-
-.SchoolInfo div{
-    display: flex;
-    flex-direction: row;
 }
 
 
