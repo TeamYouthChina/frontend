@@ -14,6 +14,7 @@ import Cookies from 'js-cookie';
 import queryString from 'query-string';
 import {LoginFailPrompt} from './login-fail';
 import {postAsync} from '../../tool/api-helper';
+import {isLogin} from '../../tool/api-helper';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 
@@ -26,8 +27,7 @@ class LoginReact extends React.Component {
       loginType: 'personal', //记录个人登陆还是企业登陆
       id: '',
       password: '',
-      modalDisplay: false,
-      ifRedirect: false
+      modalDisplay: false
     };
     // i18n
     this.text = LoginReact.i18n[languageHelper()];
@@ -82,16 +82,10 @@ class LoginReact extends React.Component {
     // must clean token, valid token will always cause 200 OK return.
     // Cookies.remove('token');
     if (backend && backend.status && backend.status.code === 2000) {
-      Cookies.set('id', backend.content.id, {expires: 1});
-      // Cookies.set('username', backend.content.username, {expires: 1}); //store username onto the local storage
-      Cookies.set('avatar', backend.content.avatarUrl ? backend.content.avatarUrl : 'https://s2.ax1x.com/2019/01/27/kuUMYq.jpg', {expires: 1});
-      // login success: --> /best-for-you /home /choice
+      localStorage.setItem('id', backend.content.id);
+      localStorage.setItem('avatar', backend.content.avatarUrl ? backend.content.avatarUrl : 'https://s2.ax1x.com/2019/01/27/kuUMYq.jpg', {expires: 1});
       const to = queryString.parse(this.props.location.search).to;
       this.props.history.push(to ? to : '/my');
-      //if login success, set ifRedirect value to be true and re-render the page.
-      if (Cookies.get('token')) {
-        this.setState({ifRedirect: true});
-      }
     } else {
       // login fail
       this.setState({
@@ -113,7 +107,7 @@ class LoginReact extends React.Component {
           <div
             className="cell-membrane d-flex"
           >
-            {this.state.ifRedirect ?
+            {isLogin() ?
               <Redirect to="/"/> : null
             }
             
