@@ -49,3 +49,12 @@
   border-width: 0;
   width: 100%;
 }
+.articleWrapper {
+  height: 100%;
+  margin: 1.56vw 0 0 0;
+  box-shadow: 1px 1px 1.56vw rgba(0, 0, 0, 0.08);
+}
+.mdbRowWrapper {
+  height: 100%;
+  margin: 1.56vw 0 0 0;
+}

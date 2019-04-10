@@ -64,7 +64,7 @@ class QuestionReact extends React.Component {
           >
             <div className={classes.answerWrapper}>
               <div className={classes.answerWrapper2}>
-                <Answers answers={backend.answers}/>
+                {backend.answers && (<Answers answers={backend.answers}/>)}
               </div>
               <div className={classes.sideBar}>
                 <SideBar />

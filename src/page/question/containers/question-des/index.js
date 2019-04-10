@@ -28,8 +28,7 @@ const QuestionDes = React.memo((props) => (
     {/*</div>*/}
     <br />
     <p className={classes.questionTitle}>{props.content.title}</p>
-    <p className={classes.questionDetail} dangerouslySetInnerHTML={{__html: braftEditor.createEditorState(props.content.detail).toHTML()}}>
-      
+    <p dangerouslySetInnerHTML={{__html: braftEditor.createEditorState(props.content.detail.braftEditorRaw).toHTML()}}>
     </p>
     <div>
       <button className={classes.btnAnswer}>
