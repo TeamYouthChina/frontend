@@ -1,0 +1,20 @@
+.btn {
+  background-color: #4F65E1;
+  border: 0;
+  box-shadow: none;
+  color: #FFFFFF;
+  font-size: 1.1vw;
+  font-family: "PingFang SC";
+  padding: 0.5vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
+}
+
+.prompt {
+  color: #31394D;
+  font-size: 1.1vw;
+  font-family: "PingFang SC";
+  padding: 0.5vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
+}
