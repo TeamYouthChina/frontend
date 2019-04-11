@@ -5,41 +5,36 @@ import PropTypes from 'prop-types';
 import { AddComment } from '../../components/add-comment/add-comment';
 import ThumbUp from '../../../public/thumb-up.svg';
 import Comment from '../../../public/comment.svg';
+import classes from './index.module.css';
 
-export const CommentFooter = (props) => (
+export const CommentFooter = React.memo((props) => (
   <React.Fragment>
-    <MDBRow style={props.stickyRow}>
-      <MDBBtn flat style={{
-        padding: '0.39vw 0',
-        marginLeft: '1.17vw',
-        fontSize: '1.093vw',
-        color: '#8D9AAF', ...props.basicFont
-      }}>
-        <img style={{marginTop:'-.39vw',marginRight:'0.78vw'}} src={ThumbUp} alt="" />
-        <span style={{verticalAlign:'bottom'}}>支持</span>
+    <MDBRow>
+      <MDBBtn className={classes.btnStyle} flat>
+        <img className={classes.imgStyle} src={ThumbUp} alt="agree" />
+        <span onClick={props.onVote} className={props.evaluateStatus === 1 ? classes.spanStyleActive : classes.spanStyle}>{props.upvoteCount}个点赞</span>
       </MDBBtn>
-      <MDBBtn onClick={props.giveReplies} flat style={{padding: '0.39vw 0.78vw', fontSize: '1.093vw', color: '#8D9AAF', ...props.basicFont}}>
-        <img style={{marginTop:'-.39vw',marginRight:'0.78vw'}} src={Comment} alt="" />
+      <MDBBtn className={classes.btnStyle2} onClick={props.giveReplies} flat>
+        <img className={classes.imgStyle} src={Comment} alt="comment" />
         {props.replyText}
       </MDBBtn>
     </MDBRow>
     {props.showGive ? (
       <AddComment
         addComments={props.addComments}
-        basicFont={props.basicFont}
       />
     ) : null}
   </React.Fragment>
-);
+));
 
+CommentFooter.displayName = 'CommentFooter';
 
 CommentFooter.propTypes = {
   giveReplies: PropTypes.func.isRequired,
+  onVote: PropTypes.func.isRequired,
   replyText: PropTypes.string.isRequired,
+  upvoteCount: PropTypes.number.isRequired,
   addComments: PropTypes.func,
-  
+  evaluateStatus: PropTypes.number,
   showGive: PropTypes.bool.isRequired,
-
-  stickyRow: PropTypes.object,
-  basicFont: PropTypes.object.isRequired,
 };

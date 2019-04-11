@@ -51,7 +51,7 @@ class Comments extends React.Component {
     };
     try {
       fetch(
-        `${urlPrefix}/editorials/1/comments`,
+        `${urlPrefix}/${this.props.type}/${this.props.id}/comments`,
         {
           method:'POST',
           headers:generateHeaders(),
@@ -114,7 +114,7 @@ class Comments extends React.Component {
         />
         {this.state.commentLists.length < 3 ? this.state.commentLists.map((item) => (
           <CommentCard
-            key={item.id}
+            key={item.modified_at}
             user={item.creator.username}
             time={timeHelper(item.modified_at)}
             content={item.body}
@@ -162,6 +162,8 @@ Comments.propTypes = {
   commentsText: PropTypes.string.isRequired,
   commentsData: PropTypes.array.isRequired,
   history: PropTypes.object,
+  id: PropTypes.number,
+  type: PropTypes.string,
   // 收起评论
   showComments: PropTypes.func.isRequired,
   

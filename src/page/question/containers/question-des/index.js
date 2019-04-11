@@ -29,25 +29,38 @@ const QuestionDes = React.memo((props) => (
     {/*</div>*/}
     <br />
     <p className={classes.questionTitle}>{props.content.title}</p>
-    <p dangerouslySetInnerHTML={{__html: braftEditor.createEditorState(JSON.parse(props.content.detail).braftEditorRaw).toHTML()}} />
+    <p dangerouslySetInnerHTML={{__html: props.content.detail === '' ? braftEditor.createEditorState(props.content.detail).toHTML() : braftEditor.createEditorState(JSON.parse(props.content.detail).braftEditorRaw).toHTML()}} />
     <div>
-      <Link to={{
-        pathname:`/question/${props.questionId}/answer/create`,
-        state:{
-          content:props.content
-        },
-      }}>
-        <button className={classes.btnAnswer}>
-          {props.text.toFocus}
-        </button>
-      </Link>
+      {props.answerStatus !== false ? (
+        <Link to={{
+          pathname:`/question/${props.questionId}/answer/${props.answerStatus}/edit`,
+          state:{
+            content:props.content
+          },
+        }}>
+          <button className={classes.btnAnswer}>
+            {props.text.hasAnswer}
+          </button>
+        </Link>
+      ) : (
+        <Link to={{
+          pathname:`/question/${props.questionId}/answer/create`,
+          state:{
+            content:props.content
+          },
+        }}>
+          <button className={classes.btnAnswer}>
+            {props.text.toAnswer}
+          </button>
+        </Link>
+      )}
       <button className={classes.btnFocus}>
         + 关注问题
       </button>
       <button className={classes.btnOthers}>
         <MDBIcon className={classes.btnIcon} icon="thumbs-up" />{props.text.toInvite}
       </button>
-      <button className={classes.btnOthers}>
+      <button onClick={props.onAttention} className={props.attention ? classes.btnOthersActive : classes.btnOthers}>
         <MDBIcon className={classes.btnIcon} icon="heart" />{props.text.collection}
       </button>
       <button className={classes.btnOthers}>
@@ -61,7 +74,8 @@ const i18n = [
   {
     focusNum: '关注者',
     readingNum: '浏览次数',
-    toFocus: '我来回答',
+    toAnswer: '我来回答',
+    hasAnswer:'修改回答',
     toInvite: '邀请回答',
     share: '分享',
     collection: '收藏'
@@ -82,6 +96,9 @@ QuestionDes.propTypes = {
   content: PropTypes.object.isRequired,
   text: PropTypes.object.isRequired,
   questionId: PropTypes.string.isRequired,
+  attention: PropTypes.bool.isRequired,
+  onAttention: PropTypes.func.isRequired,
+  answerStatus: PropTypes.arrayOf('bool', 'number').isRequired,
   // editorState: PropTypes.object.isRequired,
   // React Redux
   bodyClientWidth: PropTypes.number.isRequired

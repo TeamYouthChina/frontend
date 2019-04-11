@@ -93,8 +93,8 @@ class ArticleCreate extends React.Component {
         if(this.props.match.params.aid !== undefined) {
           try {
             const result = await getAsync(`/answers/${this.props.match.params.aid}`);
-            if(result.status.code === 2000) {
-              htmlContent = result.content.body.braftEditorRaw;
+            if(result.status.code === 200) {
+              htmlContent = JSON.parse(result.content.body.braftEditorRaw).braftEditorRaw;
               // console.log(htmlContent)
               this.setState(()=>({
                 backend: '',
@@ -165,8 +165,7 @@ class ArticleCreate extends React.Component {
     this.setState({
       show:true
     });
-    const title = this.state.title;
-    if(title === null) {
+    if(JSON.parse(this.state.editorState.toRAW()).blocks[0].text === '') {
       alert('can not be null');
       this.setState({
         show:false
@@ -174,20 +173,19 @@ class ArticleCreate extends React.Component {
       return;
     }
     const data = {
-      title: title,
       body: {
-        braftEditorRaw: JSON.stringify(this.state.editorState.toRAW(true)),
+        braftEditorRaw: JSON.stringify({
+          braftEditorRaw:this.state.editorState.toRAW(true)
+        }),
         previewText: '',
         compiletype: 1
       },
-      is_anonymous: true,
-      rela_type: 0,
-      rela_id: 0
+      is_anonymous: false,
     };
-    if(this.props.match.params.qid === undefined) {
+    if(this.props.match.params.aid === undefined) {
       try {
         fetch(
-          `${urlPrefix}/questions`,
+          `${urlPrefix}/questions/${this.props.match.params.qid}/answers`,
           {
             method:'POST',
             headers:generateHeaders(),
@@ -199,8 +197,8 @@ class ArticleCreate extends React.Component {
           this.setState({
             show:false
           });
-          if(response.status.code === 2000) {
-            this.props.history.push(`/question/${response.content.id}`);
+          if(response.status.code === 200) {
+            this.props.history.push(`/question/${this.props.match.params.qid}`);
           }
         },()=>{
           alert('bad request');
@@ -211,7 +209,7 @@ class ArticleCreate extends React.Component {
     } else {
       try {
         fetch(
-          `${urlPrefix}/questions/${this.props.match.params.qid}`,
+          `${urlPrefix}/answers/${this.props.match.params.aid}`,
           {
             method:'PUT',
             headers:generateHeaders(),
@@ -224,7 +222,7 @@ class ArticleCreate extends React.Component {
             show:false
           });
           if(response.status.code === 2000) {
-            this.props.history.push(`/question/${response.content.id}`);
+            this.props.history.push(`/question/${this.props.match.params.qid}`);
           }
         },()=>{
           alert('bad request');

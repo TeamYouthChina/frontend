@@ -4,7 +4,7 @@ import {Redirect} from 'react-router-dom';
 
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
-import {isLogin, getAsync} from '../../tool/api-helper';
+import {isLogin, getAsync, urlPrefix, generateHeaders} from '../../tool/api-helper';
 import QuestionDes from './containers/question-des/';
 import Answers from './components/answers/';
 import SideBar from './components/side-bar/';
@@ -15,7 +15,8 @@ class QuestionReact extends React.Component {
     super(props);
     // state
     this.state = {
-      backend: null
+      backend: null,
+      ifHasAnswered:false
     };
     // i18n
     this.text = QuestionReact.i18n[languageHelper()];
@@ -27,8 +28,16 @@ class QuestionReact extends React.Component {
       try {
         const result = await getAsync(`/questions/${id}`);
         if (result.status.code === 2000) {
+          let ifHasAnswered = false;
+          for(let i = 0; i < result.content.answers.length;i++){
+            if(String(result.content.answers[i].creator.id) === window.localStorage.id){
+              ifHasAnswered = result.content.answers[i].id;
+              break;
+            }
+          }
           this.setState(() => ({
-            backend: result.content
+            backend: result.content,
+            ifHasAnswered
           }));
         } else {
           this.props.history.push('/page-not-found');
@@ -40,6 +49,47 @@ class QuestionReact extends React.Component {
       this.props.history.push('/login');
     }
   }
+  
+  onAttention = () => {
+    let attention = !this.state.backend.attention;
+    this.setState(()=>({
+      backend:{
+        ...this.state.backend,
+        attention:attention
+      }
+    }));
+    const data = {
+      id:Number(window.localStorage.id)
+    };
+    if(attention) {
+      try {
+        fetch(
+          `${urlPrefix}/questions/${this.props.match.params.qid}/attention`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+    } else {
+      try {
+        fetch(
+          `${urlPrefix}/questions/attentions/${this.props.match.params.qid}`,
+          {
+            method: 'DELETE',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+    }
+    
+  };
 
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
@@ -55,6 +105,9 @@ class QuestionReact extends React.Component {
             detail: backend.body.braftEditorRaw
           }}
           questionId={this.props.match.params.qid}
+          attention={backend.attention}
+          onAttention={this.onAttention}
+          answerStatus={this.state.ifHasAnswered}
         />
         <div
           className="cell-wall"

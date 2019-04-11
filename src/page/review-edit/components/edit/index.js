@@ -97,8 +97,7 @@ class ReviewCreate extends React.Component {
     this.setState({
       show:true
     });
-    const title = this.state.title;
-    if(title === null) {
+    if(JSON.parse(this.state.editorState.toRAW()).blocks[0].text === '') {
       alert('can not be null');
       this.setState({
         show:false
@@ -106,7 +105,6 @@ class ReviewCreate extends React.Component {
       return;
     }
     const data = {
-      title: title,
       body: {
         braftEditorRaw: JSON.stringify({
           braftEditorRaw:this.state.editorState.toRAW(true)
@@ -114,9 +112,6 @@ class ReviewCreate extends React.Component {
         previewText: '',
         compiletype: 1
       },
-      is_anonymous: true,
-      rela_type: 0,
-      rela_id: 0
     };
     if(this.props.match.params.id === undefined) {
       try {
@@ -127,13 +122,14 @@ class ReviewCreate extends React.Component {
             headers:generateHeaders(),
             body:JSON.stringify(data)
           },
-        ).then((response)=>(
+        ).then((response)=>
           response.json()
-        )).then((response)=>{
+        ).then((response)=>{
           this.setState({
             show:false
           });
-          if(response.status.code === 2000) {
+          if(response.status.code === 201) {
+            
             this.props.history.push(`/review/${response.content.id}`);
           }
         },()=>{
@@ -157,7 +153,7 @@ class ReviewCreate extends React.Component {
           this.setState({
             show:false
           });
-          if(response.status.code === 2000) {
+          if(response.status.code === 200) {
             this.props.history.push(`/review/${this.props.match.params.id}`);
           }
         },()=>{
