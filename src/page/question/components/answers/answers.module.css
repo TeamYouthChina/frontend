@@ -20,5 +20,7 @@
   font-size: 1.09vw;
   color:#8D9AAF;
   text-align: center;
-  
+}
+.wrapper {
+  min-width: 66.15vw;
 }

@@ -16,28 +16,15 @@ const Footer = (props) => (
       </MDBCol>
       <MDBCol size="9">
         <div className={classes.btnWrapper}>
-          <MDBBtn onClick={()=>props.clickActive('evaluateStatus')} className={props.evaluateStatus === 1 ? classes.btnStyleActive : classes.btnStyle} flat>
-            {props.evaluateStatus === 1 ? (
-              <span>
-                已点赞
-              </span>
-            ) : (
-              <span>
-                <MDBIcon className={classes.iconStyle} far icon="thumbs-up"/>{props.upvoteCount}个{props.text.thumb}
-              </span>
-            )}
+          <MDBBtn onClick={props.onVote} className={props.evaluateStatus === 1 ? classes.btnStyleActive : classes.btnStyle} flat>
+            <span>
+              <MDBIcon className={classes.iconStyle} far icon="thumbs-up"/>{props.upvoteCount}个{props.text.thumb}
+            </span>
           </MDBBtn>
-          <MDBBtn onClick={()=>props.clickActive('attention')} className={props.attention ? classes.btnStyleActive : classes.btnStyle} flat>
-            {props.attention ? (
-              <span>
-                已收藏  
-              </span>
-            ) : (
-              <span>
-                <MDBIcon className={classes.iconStyle} far icon="heart"/>{props.attentionCount}个{props.text.collection}
-              </span>
-            )}
-            
+          <MDBBtn onClick={props.onAttention} className={props.attention ? classes.btnStyleActive : classes.btnStyle} flat>
+            <span>
+              <MDBIcon className={classes.iconStyle} far icon="heart"/>{props.attentionCount}个{props.text.collection}
+            </span>
           </MDBBtn>
           <MDBBtn onClick={props.showComments} className={classes.btnStyle} flat>
             <MDBIcon className={classes.iconStyle} far icon="comment"/>{props.commentsText}
@@ -49,11 +36,12 @@ const Footer = (props) => (
           {/*<MDBIcon style={{marginRight: '5px'}} icon="ban"/>*/}
           {/*举报*/}
           {/*</MDBBtn>*/}
-          {props.isCollapsed ? null :
-            <MDBBtn className={classes.btnStyle} onClick={props.handleSpanClick} flat>
-              {props.text.ellipsis}
-              {/*<MDBIcon style={{marginRight: '5px'}} icon="arrow-up"/>*/}
-            </MDBBtn>}
+          {/*{props.isCollapsed ? null :*/}
+          {/*<MDBBtn className={classes.btnStyle} onClick={props.handleSpanClick} flat>*/}
+          {/*{props.text.ellipsis}*/}
+          {/*/!*<MDBIcon style={{marginRight: '5px'}} icon="arrow-up"/>*!/*/}
+          {/*</MDBBtn>*/}
+          {/*}*/}
         </div>
 
       </MDBCol>
@@ -68,11 +56,12 @@ Footer.propTypes = {
   commentsText: PropTypes.string.isRequired,
   isCollapsed: PropTypes.bool.isRequired,
   text: PropTypes.object.isRequired,
-  upvoteCount: PropTypes.number.isRequired,
+  upvoteCount: PropTypes.number,
   attentionCount: PropTypes.number.isRequired,
   attention: PropTypes.bool.isRequired,
   evaluateStatus: PropTypes.number.isRequired,
-  clickActive: PropTypes.func.isRequired,
+  onVote: PropTypes.func.isRequired,
+  onAttention: PropTypes.func.isRequired,
   // func
   showComments: PropTypes.func.isRequired,
   handleSpanClick: PropTypes.func.isRequired,

@@ -71,6 +71,7 @@
   font-size: 1.87vw;
   font-family: PingFang SC;
   line-height: normal;
+  margin-top: 3.125vw;
 }
 .questionDetail {
   color:#31394D;
@@ -117,7 +118,7 @@
   line-height: normal;
   color: #8D9AAF;
   margin-right:1.17vw;
-  
+  margin-top:1.56vw;
 }
 .footerIcon {
   margin-right: 0.78vw;
@@ -134,4 +135,23 @@
   margin-right: 8.43vw;
   justify-content: space-between;
   margin-top:2.26vw;
+}
+.avaWrapper {
+  display: flex;
+  margin-top: 1.17vw;
+}
+.avaWrapper2 {
+  display: inline-block;
+}
+.avaImg {
+  width: 4.21vw;
+  background: #F4F4F4;
+  margin-right: 0.859vw;
+}
+.upZan {
+  margin: auto 0;
+  margin-left: 3.12vw;
+}
+.listWrapper {
+  margin-left:1.56vw;
 }
