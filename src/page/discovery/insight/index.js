@@ -41,6 +41,7 @@ class InsightReact extends React.Component {
                     isLogin() ? (
                       <div>
                         {/* 已登陆：从后端获取 id 给卡片 */}
+                        <DiscoveryInsight/>
                       </div>
                     ) : (
                       <div>
