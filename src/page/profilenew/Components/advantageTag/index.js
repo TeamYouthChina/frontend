@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import {Tag} from './tag';
 import classes from './index.module.css';
 import addIcon from '../../assets/add.svg';
-import {getAsync} from '../../../../tool/api-helper';
+// import {getAsync} from '../../../../tool/api-helper';
 import {languageHelper} from '../../../../tool/language-helper';
 
 const translation = [
@@ -34,32 +34,32 @@ class AdvantageTag extends Component {
 
   // get work data set requestedData and cards in state
   async componentDidMount() {
-    let data = await getAsync(
-      `/applicants/${this.props.requestID}/experiences`,      // eslint-disable-line
-      true
-    );
-    console.log(data);      // eslint-disable-line
-    let temp =
-      data &&
-      data.content &&
-      data.content.experiences &&
-      data.status.code === 2000
-        ? data.content.experiences.map(e => {
-          return (
-            <Tag
-              key={e.id}
-              id={e.id}
-              content={e}
-            />
-          );
-        })
-        :
-        this.state.backend.map((items, i) => {
-          return (
-            <Tag key={i} content={items} />
-          );
-        });
-    this.setState({cards: temp});
+    // let data = await getAsync(
+    //   `/applicants/${this.props.requestID}/experiences`,      // eslint-disable-line
+    //   true
+    // );
+    // // console.log(data);      // eslint-disable-line
+    // let temp =
+    //   data &&
+    //   data.content &&
+    //   data.content.experiences &&
+    //   data.status.code === 2000
+    //     ? data.content.experiences.map(e => {
+    //       return (
+    //         <Tag
+    //           key={e.id}
+    //           id={e.id}
+    //           content={e}
+    //         />
+    //       );
+    //     })
+    //     :
+    //     this.state.backend.map((items, i) => {
+    //       return (
+    //         <Tag key={i} content={items} />
+    //       );
+    //     });
+    // this.setState({cards: temp});
   }
 
   async componentDidUpdate() {

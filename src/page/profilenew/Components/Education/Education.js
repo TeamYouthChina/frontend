@@ -1,10 +1,15 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import EducationCard from './EducationCard/EducationCard';
 import classes from './Education.module.css';
-import {getAsync, postAsync, putAsync, deleteAsync} from '../../../../tool/api-helper';
-import {languageHelper} from '../../../../tool/language-helper';
+import {
+  getAsync,
+  postAsync,
+  putAsync,
+  deleteAsync,
+} from '../../../../tool/api-helper';
+import { languageHelper } from '../../../../tool/language-helper';
 import addIcon from '../../assets/add.svg';
 
 const translation = [
@@ -26,74 +31,178 @@ class Education extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: [],
+      cardsRequest: null,
       adding: false,
       addingCard: null,
+      universityMap: null,
+      majorMap: null,
+      degreeMap: null,
+      universityNames: [],
+      majorNames: [],
+      degreeNames: [],
     };
   }
 
   cancelAdding = () => {
-    this.setState({...this.state, addingCard: null, adding: false});
-  }
+    this.setState({ ...this.state, addingCard: null, adding: false });
+  };
 
-  async postRequest(content){
-    await postAsync('/applicants/' + this.props.requestID + '/educations', content);
+  async postRequest(content) {
+    await postAsync(
+      '/applicants/' + this.props.requestID + '/educations',
+      content
+    );
     // console.log(`posting ${content} and response is ${response}`)
   }
 
-  async putRequest(id, content){
-    await putAsync('/applicants/' + this.props.requestID + '/educations/' + id, content);
+  async putRequest(id, content) {
+    await putAsync(
+      '/applicants/' + this.props.requestID + '/educations/' + id,
+      content
+    );
     // console.log(`putting ${content} with id ${id} and response is ${response}`)
   }
 
-  async deleteRequest(id){
-    await deleteAsync('/applicants/' + this.props.requestID + '/educations/' + id);
+  async deleteRequest(id) {
+    await deleteAsync(
+      '/applicants/' + this.props.requestID + '/educations/' + id
+    );
     // console.log(`deleting ${id} and response is ${response}`)
   }
 
   async getRequest() {
-    let data = await getAsync(
-      '/applicants/' + this.props.requestID + '/educations');
-
-    // console.log('getting'+data);
-    let temp =
-      data && data.content && data.content.data && data.status.code === 2000
-        ? data.content.data.map(e => {
-          return (
-            <EducationCard
-              key={e.id}
-              data={e}
-              deleteHandler={this.deleteHandler}
-              saveHandler={this.saveHandler}
-            />
-          );
-        })
-        : [];
-    this.setState({ ...this.state, cards: temp, adding: false, addingCard: null }, ()=>{
-    });
+    let cardsRequest = await getAsync(
+      '/applicants/' + this.props.requestID + '/educations'
+    );
+    // console.log(cardsRequest.content.data);
+    if (
+      cardsRequest &&
+      cardsRequest.content &&
+      cardsRequest.content.data &&
+      cardsRequest.status.code === 2000
+    ) {
+      this.setState({
+        ...this.state,
+        cardsRequest: cardsRequest,
+        adding: false,
+        addingCard: null,
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        adding: false,
+        addingCard: null,
+      });
+    }
   }
 
   /// get work data set requestedData and cards in state
   async componentDidMount() {
     // console.log('componentDidMout');
-    await this.getRequest();
+    let universityRequest = await getAsync(
+      '/static/dictionaries?type=university'
+    );
+    // console.log(universityRequest);
+    let majorRequest = await getAsync(
+      '/static/dictionaries?type=major&length=full'
+    );
+    let degreeRequest = await getAsync('/static/dictionaries?type=degree');
+    let universityMap = new Map();
+    let majorMap = new Map();
+    let degreeMap = new Map();
+    let universityNames = [];
+    let majorNames = [];
+    let degreeNames = [];
+
+    if (
+      universityRequest &&
+      universityRequest.content &&
+      universityRequest.status.code === 2000
+    ) {
+      universityRequest.content.forEach(e => {
+        universityMap.set(e.name, e.id);
+        universityNames.push(e.name);
+      });
+    }
+
+    if (
+      majorRequest &&
+      majorRequest.content &&
+      majorRequest.status.code === 2000
+    ) {
+      majorRequest.content.forEach(e => {
+        majorMap.set(e.name, e.id);
+        majorNames.push(e.name);
+      });
+    }
+
+    if (
+      degreeRequest &&
+      degreeRequest.content &&
+      degreeRequest.status.code === 2000
+    ) {
+      degreeRequest.content.forEach(e => {
+        degreeMap.set(e.name, e.id);
+        degreeNames.push(e);
+      });
+    }
+
+    let cardsRequest = await getAsync(
+      '/applicants/' + this.props.requestID + '/educations'
+    );
+    // console.log(cardsRequest.content.data);
+    if (
+      cardsRequest &&
+      cardsRequest.content &&
+      cardsRequest.content.data &&
+      cardsRequest.status.code === 2000
+    ) {
+      this.setState({
+        ...this.state,
+        cardsRequest: cardsRequest,
+        adding: false,
+        addingCard: null,
+        universityMap: universityMap,
+        majorMap: majorMap,
+        degreeMap: degreeMap,
+        universityNames: universityNames,
+        majorNames: majorNames,
+        degreeNames: degreeNames,
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        adding: false,
+        addingCard: null,
+        universityMap: universityMap,
+        majorMap: majorMap,
+        degreeMap: degreeMap,
+        universityNames: universityNames,
+        majorNames: majorNames,
+        degreeNames: degreeNames,
+      });
+    }
   }
 
   // delte data on server, delete data in state.cards
-  deleteHandler = async (id) => {
+  deleteHandler = async id => {
     await this.deleteRequest(id);
     await this.getRequest();
   };
 
   // save data locally and send back to server
   saveHandler = async (content, id, mode) => {
+    // console.log(content);
     if (mode === 'add') {
-      // console.log('adding');
+      content = this.encodeContent(content);
+      // console.log(content);
+
       await this.postRequest(content);
       await this.getRequest();
     } else if (mode === 'update') {
-      // console.log('updating');
-      await this.putRequest(id,content);
+      content = this.encodeContent(content);
+      // console.log(content);
+      await this.putRequest(id, content);
       await this.getRequest();
     }
   };
@@ -107,12 +216,24 @@ class Education extends Component {
     }
     // make a hard copy
     // let temp = this.state.cards.splice(0);
-    let temp = <EducationCard
-      id="addingCard"
-      deleteHandler={this.deleteHandler}
-      saveHandler={this.saveHandler}
-      cancel={this.cancelAdding}
-    />;
+    // console.log(this.state.universityNames);
+    // console.log(this.state.majorNames);
+    // console.log(this.state.degreeNames);
+
+    let temp = (
+      <EducationCard
+        id="addingCard"
+        deleteHandler={this.deleteHandler}
+        saveHandler={this.saveHandler}
+        cancel={this.cancelAdding}
+        universityNames={this.state.universityNames}
+        majorNames={this.state.majorNames}
+        degreeNames={this.state.degreeNames}
+        universityMap={this.state.universityMap}
+        majorMap={this.state.majorMap}
+        degreeMap={this.state.degreeMap}
+      />
+    );
     this.setState({
       ...this.state,
       addingCard: temp,
@@ -120,16 +241,54 @@ class Education extends Component {
     });
   };
 
+  encodeContent = content => {
+    return {
+      id: content.id ? content.id : null,
+      university_id: this.state.universityMap.get(content.university_id),
+      major: this.state.majorMap.get(content.major),
+      degree: this.state.degreeMap.get(content.degree),
+      duration: {
+        begin: content.duration.begin,
+        end: content.duration.end,
+      },
+      note: content.note,
+    };
+  };
+
   render() {
     let toShow;
-    if (this.state.cards.length === 0  && this.state.addingCard === null) {
+    let cards = [];
+    // console.log(this.state.universityNames)
+    // console.log(this.state.majorNames)
+    // console.log(this.state.degreeNames);
+
+    if (this.state.cardsRequest) {
+      cards = this.state.cardsRequest.content.data.map(e => {
+        return (
+          <EducationCard
+            key={e.id}
+            data={e}
+            deleteHandler={this.deleteHandler}
+            saveHandler={this.saveHandler}
+            universityNames={this.state.universityNames}
+            majorNames={this.state.majorNames}
+            degreeNames={this.state.degreeNames}
+            universityMap={this.state.universityMap}
+            majorMap={this.state.majorMap}
+            degreeMap={this.state.degreeMap}
+          />
+        );
+      });
+    }
+    if (cards.length === 0 && this.state.addingCard === null) {
       toShow = (
         <div className={classes.Education}>
           <div className={classes.row}>
             <p className={classes.SectionName}>{text.education}</p>
             <img
               className={classes.addIcon}
-              src={addIcon} alt="icon"
+              src={addIcon}
+              alt="icon"
               onClick={this.addHandler}
             />
           </div>
@@ -143,11 +302,12 @@ class Education extends Component {
             <p className={classes.SectionName}>{text.education}</p>
             <img
               className={classes.addIcon}
-              src={addIcon} alt="icon"
+              src={addIcon}
+              alt="icon"
               onClick={this.addHandler}
             />
           </div>
-          {this.state.cards}
+          {cards}
           {this.state.addingCard}
         </div>
       );
@@ -157,7 +317,7 @@ class Education extends Component {
 }
 
 Education.propTypes = {
-  requestID: PropTypes.string.isRequired
+  requestID: PropTypes.string.isRequired,
 };
 
 export default Education;

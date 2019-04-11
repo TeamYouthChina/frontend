@@ -60,7 +60,7 @@ class WorkExperience extends Component {
     let data = await getAsync(
       '/applicants/' + this.props.requestID + '/experiences');
 
-    // console.log('getting'+data);
+    // console.log('getting');
     let temp =
       data && data.content && data.content.data && data.status.code === 2000
         ? data.content.data.map(e => {
@@ -80,7 +80,7 @@ class WorkExperience extends Component {
 
   // get work data set requestedData and cards in state
   async componentDidMount() {
-    // console.log('componentDidMout');
+    // console.log('workexp componentDidMout');
     await this.getRequest();
   }
 

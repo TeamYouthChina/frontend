@@ -43,11 +43,11 @@
 }
 
 .SchoolInfo {
-    margin-left: 20px;
+    margin-left: 1.56vw;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    width: 64.38vw;
+    flex-grow: 1;
 }
 
 .SchoolInfo h1{
@@ -80,6 +80,10 @@
 
     color: #62686C;
     margin: 0%;
+}
+
+.RedBox {
+    border-bottom: red solid 2px;
 }
 
 
