@@ -22,8 +22,8 @@ class JobDescriReact extends React.Component {
           <div className={classes.name}>
             职位描述
           </div>
-          <div className={classes.note}>{this.props.backend.content.job_description}</div>
-          <div className={classes.note}>{this.props.backend.content.job_duty}</div>
+          <div className={classes.note}><pre>{this.props.backend.content.job_description}</pre></div>
+          <div className={classes.note}><pre>{this.props.backend.content.job_duty}</pre></div>
         </div>
         
       </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {getAsync} from '../../../../tool/api-helper';
 import { withRouter } from 'react-router-dom';
 
 import bag from './bag.svg';
@@ -10,55 +11,34 @@ import favorite from './favorite.svg';
 import jobIcon from './jobIcon.svg';
 import { languageHelper } from '../../../../tool/language-helper';
 import location from './location.svg';
-import { mockGetAsync } from '../../../../tool/api-helper';
-
-import { content } from './index.mock';
 
 class JobCardBarIdReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {
-      cardData: {
-        content: {
-          id: null,
-          name: null,
-          organization: {
-            id: null,
-            name: null,
-            avatarUrl: null,
-            location: null,
-            website: null,
-            note: null,
-            nation: null,
-          },
-          location: null,
-          type: null,
-          deadLine: null,
-          job_description: null,
-          job_duty: null,
-        },
-        status: {
-          code: null,
-          reason: null,
-        },
-      },
+      
     };
     // i18n
     this.text = JobCardBarIdReact.i18n[languageHelper()];
   }
 
   async componentDidMount() {
-    // const requestedData = await getAsync();
-    // this.setState({ ...this.state, cardData: requestedData, });
-    const requestedData = await mockGetAsync(content,6000);
-    this.setState({ ...this.state, cardData: requestedData });
+    if (this.props.id) {
+      this.setState({
+        backend: await getAsync(`/jobs/${this.props.id}`)
+      });
+    } else {
+      this.setState({
+        backend: await getAsync('/jobs/1')
+      });
+    }
   }
 
   clickOnCard = () => {};
 
   render() {
-    return (
+    return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ? (
       <div className={classes.Card}>
         <div className={classes.Clickable} onClick={this.clickOnCard} />
         <div className={classes.UnClickable}>
@@ -68,16 +48,16 @@ class JobCardBarIdReact extends React.Component {
           </div>
           <div className={classes.Info}>
             <div className={classes.Title}>
-              <p className={classes.P1}>{this.state.cardData.content.name}</p>
+              <p className={classes.P1}>{this.state.backend.content.name}</p>
             </div>
             <div className={classes.Des1}>
-              <p className={classes.P1}>{this.state.cardData.content.organization.name}</p>
+              <p className={classes.P1}>{this.state.backend.content.organization.name}</p>
             </div>
             <div className={classes.Des2}>
               <div className={classes.Row}>
                 <div className={classes.Column}>
                   <img src={location} alt="no img" />
-                  <p>{this.state.cardData.content.location}</p>
+                  <p>{this.state.backend.content.location}</p>
                 </div>
                 <div className={classes.Column}>
                   <img src={calender} alt="no img" />
@@ -96,7 +76,7 @@ class JobCardBarIdReact extends React.Component {
                 </div>
                 <div className={classes.Column}>
                   <img src={bag} alt="no img" />
-                  <p>{this.text.shenQingJieZhi} {this.state.cardData.content.deadLine}</p>
+                  <p>{this.text.shenQingJieZhi} {this.state.backend.content.deadLine}</p>
                 </div>
               </div>
             </div>
@@ -112,7 +92,7 @@ class JobCardBarIdReact extends React.Component {
           </div>
         </div>
       </div>
-    );
+    ):null;
   }
 }
 

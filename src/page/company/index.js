@@ -11,49 +11,40 @@ import {CompanyCard} from './company-card';
 import {CompanyDesci} from './company-descri';
 import {CompanyJob} from './company-job';
 import {CompanyPic} from './company-pic';
-import {content} from './index.mock';
 
-import {mockGetAsync} from '../../tool/api-helper';
+
+import {getAsync} from '../../tool/api-helper';
 
 class CompanyReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {
-      backend: {
-        content: {
-          id: null,
-          name: null,
-          avatarUrl: null,
-          location: null,
-          website: null,
-          note: null,
-          nation: null,
-        },
-        status: {
-          code: null,
-          reason: null,
-        },
-      },
+      
     };
     // i18n
     this.text = CompanyReact.i18n[languageHelper()];
   }
 
   async componentDidMount() {
-    // const requestedData = await getAsync();
-    // this.setState({ cardData: requestedData, ...this.state });
-
-    const requestedData = await mockGetAsync(content);
-    this.setState({...this.state, backend: requestedData});
+    if (this.props.id) {
+      this.setState({
+        backend: await getAsync(`/companies/${this.props.id}`)
+      });
+    } else {
+      this.setState({
+        backend: await getAsync('/companies/1')
+      });
+    }
   }
+
 
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
-    return (
+    return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ? (
       <div className={classes.background}>
         <div className={classes.bg}>
           <img src={bg} alt="bg" className={classes.img} />
@@ -79,7 +70,7 @@ class CompanyReact extends React.Component {
           </div>
         </div>
       </div>
-    );
+    ):null;
   }
 }
 
@@ -92,6 +83,7 @@ CompanyReact.propTypes = {
   // self
   backend: PropTypes.object.isRequired,
   // React Router
+  id:PropTypes.number.isRequired,
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired
