@@ -144,3 +144,6 @@
   background: #F4F4F4;
   margin-right: 0.859vw
 }
+.richText img {
+  max-width: 500px;
+}

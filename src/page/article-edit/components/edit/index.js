@@ -11,57 +11,73 @@ import classes from './edit.module.css';
 import BraftEditor from 'braft-editor';
 import 'braft-editor/dist/index.css';
 import {isLogin, urlPrefix, generateHeaders, getAsync} from '../../../../tool/api-helper';
+import Cookies from 'js-cookie';
 
-// const myUploadFn = async (param) => {
-//   // console.log(param)
-//   const serverURL = 'http://youthchinatest.oss-cn-shanghai.aliyuncs.com/2848699711584473088?Expires=1549472548&OSSAccessKeyId=LTAI0j1nGyLy6XMw&Signature=iKKT0zlXISw1eJXddMRsBSLV%2B2M%3D';
-//   // 数据传输协议，添加注释，类似json
-//   const xhr = new XMLHttpRequest();
-//   // 构建键值对，给内容加标记
-//   const fd = new FormData();
-//   // const result = await getAsync(serverURL);
-//   // console.log(result,'result')
-//   const successFn = (response) => {
-//     // 假设服务端直接返回文件上传后的地址
-//     // 上传成功后调用param.success并传入上传后的文件地址
-//     param.success({
-//       a: response,
-//       url: 'http://youthchinatest.oss-cn-shanghai.aliyuncs.com/2848699711584473088?Expires=1549472548&OSSAccessKeyId=LTAI0j1nGyLy6XMw&Signature=iKKT0zlXISw1eJXddMRsBSLV%2B2M%3D',
-//       meta: {
-//         id: '123',
-//         title: '123',
-//         alt: '123',
-//         loop: true, // 指定音视频是否循环播放
-//         autoPlay: true, // 指定音视频是否自动播放
-//         controls: true, // 指定音视频是否显示控制栏
-//         poster: 'https://margox.cn/wp-content/uploads/2018/09/IMG_9508.jpg', // 指定视频播放器的封面
-//       }
-//     });
-//   };
-//
-//   const progressFn = (event) => {
-//     // 上传进度发生变化时调用param.progress
-//     param.progress(event.loaded / event.total * 100);
-//   };
-//
-//   const errorFn = (response) => {
-//     // 上传发生错误时调用param.error
-//     param.error({
-//       msg: 'unable to upload.',
-//       response
-//     });
-//   };
-//
-//   xhr.upload.addEventListener('progress', progressFn, false);
-//   xhr.addEventListener('load', successFn, false);
-//   xhr.addEventListener('error', errorFn, false);
-//   xhr.addEventListener('abort', errorFn, false);
-//
-//   fd.append('file', param.file);
-//   xhr.open('POST', serverURL, true);
-//   xhr.send(fd);
-//
-// };
+const myUploadFn = (param) => {
+
+  const serverURL = 'http://test.zzc-tongji.com/api/v1/static';
+  const xhr = new XMLHttpRequest;
+  const fd = new FormData();
+
+  const successFn = (response) => {
+    if(xhr.readyState === 4 && response) {
+      const id = xhr.responseText.slice(11,30);
+      try {
+        fetch(
+          `${urlPrefix}/static/${id}`,
+          {
+            method:'GET',
+            headers:generateHeaders(),
+            body:null
+          },
+        ).then((response)=>
+          response.json()
+        ).then((response)=>{
+          param.success({
+            url: response.content,
+            meta: {
+              id: 'xxx',
+              title: 'xxx',
+              alt: 'xxx',
+              loop: true, // 指定音视频是否循环播放
+              autoPlay: true, // 指定音视频是否自动播放
+              controls: true, // 指定音视频是否显示控制栏
+              poster: 'http://xxx/xx.png', // 指定视频播放器的封面
+            }
+          });
+        },()=>{
+          alert('bad request');
+        });
+      } catch (e) {
+        alert(e);
+      }
+    }
+    // 假设服务端直接返回文件上传后的地址
+    // 上传成功后调用param.success并传入上传后的文件地址
+
+  };
+  const progressFn = (event) => {
+    // 上传进度发生变化时调用param.progress
+    param.progress(event.loaded / event.total * 100);
+  };
+
+  const errorFn = (response) => {
+    // 上传发生错误时调用param.error
+    param.error({
+      msg: 'unable to upload.',
+      a:response
+    });
+  };
+  xhr.upload.addEventListener('progress', progressFn, false);
+  xhr.addEventListener('load', successFn, false);
+  xhr.addEventListener('error', errorFn, false);
+  xhr.addEventListener('abort', errorFn, false);
+
+  fd.append('file', param.file);
+  xhr.open('POST', serverURL, true);
+  xhr.setRequestHeader('X-AUTHENTICATION',Cookies.get('token'));
+  xhr.send(fd);
+};
 
 class ArticleCreate extends React.Component {
   constructor(props) {
@@ -275,6 +291,7 @@ class ArticleCreate extends React.Component {
                     <div className="myAnswerText">
                       <div className="editor-wrapper" style={{height: '100%', minHeight: '400px'}}>
                         <BraftEditor
+                          media={{uploadFn:myUploadFn}}
                           value={editorState} contentStyle={{height: '100%'}}
                           onChange={(editorState) => this.handleEditorChange(editorState)}
                         />
