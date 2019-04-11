@@ -40,7 +40,7 @@ class ReviewCreate extends React.Component {
         try {
           const result = await getAsync(`/editorials/${this.props.match.params.id}`);
           if(result.status.code === 200) {
-            htmlContent = result.content.body.braftEditorRaw;
+            htmlContent = JSON.parse(result.content.body.braftEditorRaw).braftEditorRaw;
             // console.log(htmlContent)
             this.setState(()=>({
               backend: '',
@@ -158,7 +158,7 @@ class ReviewCreate extends React.Component {
             show:false
           });
           if(response.status.code === 2000) {
-            this.props.history.push(`/review/${response.content.id}`);
+            this.props.history.push(`/review/${this.props.match.params.id}`);
           }
         },()=>{
           alert('bad request');

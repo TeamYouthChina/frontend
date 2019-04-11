@@ -95,8 +95,7 @@ class ArticleCreate extends React.Component {
           const result = await getAsync(`/questions/${this.props.match.params.qid}`);
           if(result.status.code === 2000) {
             title = result.content.title;
-            htmlContent = result.content.body.braftEditorRaw;
-            // console.log(htmlContent)
+            htmlContent = JSON.parse(result.content.body.braftEditorRaw).braftEditorRaw;
             this.setState(()=>({
               backend: '',
               title,
@@ -222,7 +221,7 @@ class ArticleCreate extends React.Component {
             show:false
           });
           if(response.status.code === 2000) {
-            this.props.history.push(`/question/${response.content.id}`);
+            this.props.history.push(`/question/${this.props.match.params.qid}`);
           }
         },()=>{
           alert('bad request');
