@@ -7,13 +7,13 @@ import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 import bg from './bg.png';
 
 import classes from './index.module.css';
-import {content} from './index.mock';
+
 import {KnowCompany} from './know-company';
 import {JobCard} from './job-card';
 import {JobDesci} from './job-descri';
 import {SimilarJob} from './similar-job';
 
-import {mockGetAsync} from '../../tool/api-helper';
+import {getAsync,} from '../../tool/api-helper';
 
 
 class JobReact extends React.Component {
@@ -21,50 +21,28 @@ class JobReact extends React.Component {
     super(props);
     // state
     this.state = {
-      backend: {
-        content:{
-          id: null,
-          name: null,
-          organization:{
-            id:null,
-            name:null,
-            avatarUrl: null,
-            location: null,
-            note: null
-          },
-
-          location: null,
-          range:null,
-          salary:null,
-          worktime:null,
-          type:null,
-          job_description:
-            null,
-          job_duty:
-            null,
-        },
-        status: {
-          code: null,
-          reason: null,
-        },
-      },
+      
     };
     // i18n
     this.text = JobReact.i18n[languageHelper()];
   }
   async componentDidMount() {
-    // const requestedData = await getAsync();
-    // this.setState({ cardData: requestedData, ...this.state });
-
-    const requestedData = await mockGetAsync(content);
-    this.setState({ ...this.state, backend: requestedData});
+    if (this.props.id) {
+      this.setState({
+        backend: await getAsync(`/jobs/${this.props.id}`)
+      });
+    } else {
+      this.setState({
+        backend: await getAsync('/jobs/1')
+      });
+    }
   }
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
-    return (
+    return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ? (
       <div className={classes.background}>
         <div className={classes.bg}>
           <img src={bg} alt="bg" className={classes.img}/>
@@ -83,7 +61,7 @@ class JobReact extends React.Component {
           </div>
         </div>
       </div>
-    );
+    ):null;
   }
 }
 
@@ -95,6 +73,7 @@ JobReact.i18n = [
 JobReact.propTypes = {
   // self
   backend: PropTypes.object.isRequired,
+  id:PropTypes.number.isRequired,
 
   // React Router
   location: PropTypes.object.isRequired

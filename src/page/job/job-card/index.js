@@ -6,7 +6,8 @@ import { withRouter} from 'react-router-dom';
 import classes from './index.module.css';
 
 import logo from './logo.png';
-import {IfCollect} from '../if-collect';
+import {IfCollect} from '../../playground/general-component/if-collect';
+
 
 import {languageHelper} from '../../../tool/language-helper';
 
@@ -41,12 +42,11 @@ class JobCardReact extends React.Component {
           <div 
             className={classes.detail}
           >
-            {this.props.backend.content.location} | 
-            {this.props.backend.content.worktime} | 
-            {this.props.backend.content.salary} | 
-            {this.props.backend.content.range}
+            地点：{this.props.backend.content.location} -
+            截止日期：{this.props.backend.content.deadLine} -
+            工作类型：{this.props.backend.content.type} 
+            
           </div>
-          <div className="red-text h6">API没有</div>
         </div>
         <div className={`${classes.btn} align-self-end d-flex`}>
           <div className="align-self-center w-100" >立即申请</div>

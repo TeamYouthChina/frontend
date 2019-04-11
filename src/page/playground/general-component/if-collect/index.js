@@ -11,12 +11,7 @@ export class IfCollect extends React.Component {
     this.state={
       collect:false
     };
-    if(this.props.ifcollect){
-      this.setState({
-        collect:this.props.ifcollect
-      });
-    }
-    else{
+    if(this.props.ifcollect===true){
       this.setState({
         collect:true
       });

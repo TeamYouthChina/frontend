@@ -23,29 +23,15 @@ class CompanyDescriReact extends React.Component {
             概况
           </p>
           <br/>
-          <p className={classes.note}>
+          <pre className={classes.note}>
             {this.props.backend.content.note}
-          </p>
+          </pre>
           <br/>
           <p>
             <span className={classes.titlebolder}> 所属行业</span>
             <span className={classes.title}> 所属行业</span>
           </p>
-          <br/>
-          <p>
-            <span className={classes.titlebolder}> 公司规模</span>
-            <span className={classes.title}> 公司规模</span>
-          </p>
-          <br/>
-          <p>
-            <span className={classes.titlebolder}> 公司类型</span>
-            <span className={classes.title}> 公司类型</span>
-          </p>
-          <br/>
-          <p>
-            <span className={classes.titlebolder}> 创立时间</span>
-            <span className={classes.title}> 创立时间</span>
-          </p>
+          
         </div>
         <div>
           
