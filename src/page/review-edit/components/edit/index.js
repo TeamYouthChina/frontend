@@ -5,17 +5,11 @@ import PropTypes from 'prop-types';
 import {
   MDBBtn,
   MDBRow,
-  MDBCol,
+  MDBCol, MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBIcon,
 } from 'mdbreact';
-import ArticleEditInit from '../articleEditInit';
 import classes from './edit.module.css';
-
-const basicFont = {
-  fontFamily: 'IBM Plex Sans',
-  fontStyle: 'normal',
-  fontWeight: '600',
-  lineHeight: 'normal',
-};
+import {generateHeaders, getAsync, isLogin, urlPrefix} from '../../../../tool/api-helper';
+import BraftEditor from 'braft-editor';
 
 class ReviewCreate extends React.Component {
   constructor(props) {
@@ -26,92 +20,151 @@ class ReviewCreate extends React.Component {
       backend: null,
       allTags:['标签一'],
       showPic: false,
-      title:'空标题',
+      editorState: null,
       write:null,
       submit:null,
       hint:true,
       inputValue:null
     };
     this.text = ReviewCreate.i18n[languageHelper()];
-    this.handleInputClick = this.handleInputClick.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.getObjectURL = this.getObjectURL.bind(this);
-    this.deletePic = this.deletePic.bind(this);
-    this.handleSetInput = this.handleSetInput.bind(this);
-    this.deleteIcon = this.deleteIcon.bind(this);
     this.newTag = this.newTag.bind(this);
+    this.deleteIcon = this.deleteIcon.bind(this);
   }
 
-  componentWillMount() {
-    let mockData =
-      {
-        id: 0,
-        status: {
-          code: 2000
+  async componentDidMount() {
+    if (isLogin()) {
+      const write = this.props.match.params.id !== undefined ? '编辑短则' : '写短则';
+      const submit = this.props.match.params.id !== undefined ? '提交' : '发布';
+      let htmlContent = '';
+      if(this.props.match.params.id !== undefined) {
+        try {
+          const result = await getAsync(`/editorials/${this.props.match.params.id}`);
+          if(result.status.code === 200) {
+            htmlContent = JSON.parse(result.content.body.braftEditorRaw).braftEditorRaw;
+            // console.log(htmlContent)
+            this.setState(()=>({
+              backend: '',
+              write,
+              submit,
+              editorState: BraftEditor.createEditorState(htmlContent),
+            }));
+          } else {
+            this.props.history.push('/page-no-found');
+          }
+        } catch (e) {
+          alert(e);
         }
-      };
-    const write = this.props.match.params.id !== undefined ? '编辑短则' : '写短则';
-    const submit = this.props.match.params.id !== undefined ? '提交' : '发布';
-    const hint = this.props.match.params.id === undefined;
-    this.setState(() => {
-      return {
-        backend: mockData,
-        write,
-        submit,
-        hint
-      };
-    });
-  }
-  //todo,和服务器的链接
-  handleInputChange(e) {
-    // if(e.target.files.length > 1){
-    //   e.target.value = null
-    //   e.target.files.unshift()
-    // }
-    // 利用自带方法制造url
-    let imgSrcI = this.getObjectURL(e.target.files[0]);
-    this.setState({
-      showPic: true
-    });
-    this.imgUrl.src = imgSrcI;
-  }
-  // 富文本提交
-  handleInputClick() {
-    //todo,通过refs调用的方法
-    this.answerText.submitContent();
-    // this.refs.answerText.submitContent();
-  }
-  // 删除图片
-  deletePic(){
-    this.imgUrl.src = '';
-    // 避免重复照片不能上传
-    this.input.value = null;
-    this.setState({
-      showPic: false
-    });
-  }
-  // 转化上传文件到url
-  getObjectURL(file) {
-    let url = null;
-    if (window.createObjectURL !== undefined) { // basic
-      url = window.createObjectURL(file);
-    } else if (window.URL !== undefined) { // mozilla(firefox)
-      url = window.URL.createObjectURL(file);
-    } else if (window.webkitURL !== undefined) { // webkit or chrome
-      url = window.webkitURL.createObjectURL(file);
+      } else {
+        this.setState(()=>({
+          backend: '',
+          write,
+          submit,
+          editorState: BraftEditor.createEditorState(htmlContent),
+        }));
+      }
+    } else {
+      this.props.history.push('/login');
     }
-    return url;
   }
 
-  handleSetInput(e){
-    // console.log(this.input.current.value)
-    let value = e.target.value;
-    setTimeout(()=>(
-      this.setState({
-        title:value
-      })
-    ),100);
+  submitContent() {
+    let showNow = this.state.showNow + 1;
+    this.setState({
+      showNow
+    });
+    // 在编辑器获得焦点时按下ctrl+s会执行此方法
+    // 编辑器内容提交到服务端之前，可直接调用editorState.toHTML()来获取HTML格式的内容
+    // const htmlContent = this.state.editorState.toHTML()
+    // const result = await saveEditorContent(htmlContent)
   }
+
+  handleEditorChange(editorState) {
+    this.setState({editorState});
+    // let a = JSON.stringify(this.state.editorState.toRAW(true));
+    // console.log(Object.assign({blocks:this.state.editorState.toRAW(true)},{id:1}));
+  }
+
+  preview = () => {
+    // this.buildPreviewHtml()
+    let previewNow = !this.state.previewNow;
+    this.setState({
+      previewNow
+    });
+  };
+
+  handleClickUp = (e) => {
+    e.stopPropagation();
+    this.setState({
+      show:true
+    });
+    if(JSON.parse(this.state.editorState.toRAW()).blocks[0].text === '') {
+      alert('can not be null');
+      this.setState({
+        show:false
+      });
+      return;
+    }
+    const data = {
+      body: {
+        braftEditorRaw: JSON.stringify({
+          braftEditorRaw:this.state.editorState.toRAW(true)
+        }),
+        previewText: '',
+        compiletype: 1
+      },
+    };
+    if(this.props.match.params.id === undefined) {
+      try {
+        fetch(
+          `${urlPrefix}/editorials`,
+          {
+            method:'POST',
+            headers:generateHeaders(),
+            body:JSON.stringify(data)
+          },
+        ).then((response)=>
+          response.json()
+        ).then((response)=>{
+          this.setState({
+            show:false
+          });
+          if(response.status.code === 201) {
+            
+            this.props.history.push(`/review/${response.content.id}`);
+          }
+        },()=>{
+          alert('bad request');
+        });
+      } catch (e) {
+        alert(e);
+      }
+    } else {
+      try {
+        fetch(
+          `${urlPrefix}/editorials/${this.props.match.params.id}`,
+          {
+            method:'PUT',
+            headers:generateHeaders(),
+            body:JSON.stringify(data)
+          },
+        ).then((response)=>(
+          response.json()
+        )).then((response)=>{
+          this.setState({
+            show:false
+          });
+          if(response.status.code === 200) {
+            this.props.history.push(`/review/${this.props.match.params.id}`);
+          }
+        },()=>{
+          alert('bad request');
+        });
+      } catch (e) {
+        alert(e);
+      }
+    }
+
+  };
 
   deleteIcon(index){
     let array = this.state.allTags;
@@ -138,56 +191,83 @@ class ReviewCreate extends React.Component {
   }
   
   render() {
-    return (this.state.backend && this.state.backend.status && this.state.backend.status.code === 2000) ? (
+    const {editorState} = this.state;
+    return (this.state.backend !== null) ? (
       <div>
-        <MDBRow style={{margin: '3.67vw 0'}}>
+        <MDBRow className={classes.mdbRow}>
           <MDBCol size="1"></MDBCol>
-          <MDBCol size="10" style={{height: '100%'}}>
-            <MDBRow style={{margin: '1.71vw 0px'}}>
-              <MDBCol size="4" style={{paddingLeft:'0',fontSize: '1.87vw',color:'#8D9AAF',verticalAlign: 'middle', ...basicFont}}>
+          <MDBCol size="10" className={classes.mdbCol}>
+            <MDBRow style={{margin: '1.71vw 0'}}>
+              <MDBCol size="4" className={classes.writeStyle}>
                 {this.state.write}
               </MDBCol>
               <MDBCol size="4">
                 
               </MDBCol>
               <MDBCol size="4" style={{paddingRight: '0'}}>
-                <MDBBtn color="indigo" style={{
-                  fontSize: '1.25vw',
-                  padding: '0.78vw 2.65vw',
-                  margin: '-.39vw 0',
-                  float: 'right', ...basicFont
-                }}>{this.state.submit}
+                <MDBBtn onClick={this.handleClickUp} className={classes.btnStyle} color="indigo">
+                  {this.state.submit}
                 </MDBBtn>
               </MDBCol>
 
             </MDBRow>
-            <MDBRow style={{margin: '1.71vw 0px'}}>
+            <MDBRow className={classes.mdbRow2}>
               <div>
                 <img
-                  style={{width: '2.96vw', background: '#F4F4F4', marginRight: '0.859vw'}}
                   src={'https://s3.amazonaws.com/youthchina/WechatIMG29.jpeg'}
-                  alt="123"
-                  className="rounded-circle"
+                  alt="avatar"
+                  className={`rounded-circle ${classes.imgStyle}`}
                 />
                 <span className={classes.titleSpan}>weYouth负责人</span>
               </div>
             </MDBRow>
-            <MDBRow style={{marginTop:'20px'}}>
-            </MDBRow>
-            <ArticleEditInit 
-              inputData={this.state.title}
-              hint={this.state.hint}
-              ref={(answerText) => this.answerText = answerText}
-            />
-            <div className={classes.tagWrapper}>
-              {this.state.allTags.map((item,index)=>(
-                <span key={index} className={classes.reviewTag}>
-                  {item}
-                  <i onClick={() => this.deleteIcon(index)} className={`fa fa-times close ${classes.deleteIcon}`} />
-                </span>
-              ))}
-              <input className={classes.reviewTag} onKeyDown={(e) => this.newTag(e)} type="text" placeholder='输入新标签' />
+            <div className={classes.editWrapper}>
+              <div>
+                <div className={classes.articleWrapper}>
+                  <MDBRow className={classes.mdbRowWrapper}>
+                    <div className="myAnswerText">
+                      <div className="editor-wrapper" style={{height: '100%', minHeight: '31.2vw'}}>
+                        <BraftEditor
+                          value={editorState} contentStyle={{height: '100%'}}
+                          onChange={(editorState) => this.handleEditorChange(editorState)}
+                        />
+                      </div>
+                      <br />
+                      <MDBModal isOpen={this.state.previewNow}>
+                        <MDBModalHeader>123</MDBModalHeader>
+                        <MDBModalBody>
+                          {this.state.editorState !== null ? (
+                            <div
+                              dangerouslySetInnerHTML={{__html: this.state.editorState.toHTML()}}>
+                            </div>) : null}
+
+                        </MDBModalBody>
+                        <MDBModalFooter>
+                          <MDBBtn className={classes.submit1} flat onClick={this.preview} far="true">
+                            <MDBIcon className={classes.iconStyle} icon="thumbs-up" />提交
+                          </MDBBtn>
+                          <MDBBtn className={classes.submit2} flat onClick={this.preview} far="true">
+                            <MDBIcon className={classes.iconStyle} icon="thumbs-down" />返回
+                          </MDBBtn>
+                        </MDBModalFooter>
+                      </MDBModal>
+                      {/*{this.state.showNow === 0 ? null : (*/}
+
+                      {/*)}*/}
+                    </div>
+                  </MDBRow>
+                </div>
+              </div>
             </div>
+            {/*<div className={classes.tagWrapper}>*/}
+            {/*{this.state.allTags.map((item,index)=>(*/}
+            {/*<span key={index} className={classes.reviewTag}>*/}
+            {/*{item}*/}
+            {/*<i onClick={() => this.deleteIcon(index)} className={`fa fa-times close ${classes.deleteIcon}`} />*/}
+            {/*</span>*/}
+            {/*))}*/}
+            {/*<input className={classes.reviewTag} onKeyDown={(e) => this.newTag(e)} type="text" placeholder='输入新标签' />*/}
+            {/*</div>*/}
             
             {/*<div className={classes.FTDquestion} style={{margin:'0px'}}>*/}
             {/*<MDBInput style={{padding:'0px'}} label="匿名提问" type="checkbox" id="checkbox1" />*/}
@@ -204,6 +284,7 @@ class ReviewCreate extends React.Component {
 
 ReviewCreate.propTypes = {
   match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 ReviewCreate.i18n = [

@@ -5,7 +5,7 @@ import {Redirect, withRouter} from 'react-router-dom';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 import ArticleCreate from './components/edit';
-
+import classes from './index.module.css';
 
 class ArticleEditReact extends React.Component {
   constructor(props) {
@@ -27,10 +27,8 @@ class ArticleEditReact extends React.Component {
       return (<Redirect to={pathname} />);
     }
     return (
-      <div>
-        {/*{console.log(editor)}*/}
+      <div className={classes.wrapper}>
         <ArticleCreate />
-        {/*<EditorNew />*/}
       </div>
     );
   }

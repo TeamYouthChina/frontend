@@ -20,8 +20,6 @@ import {ReviewCardBarId}  from '../general-component/review-card-bar-id';
 class ZhenyiReact extends React.Component {
   constructor(props) {
     super(props);
-    // state
-    this.state = {};
     // i18n
     this.text = ZhenyiReact.i18n[languageHelper()];
   }

@@ -10,7 +10,7 @@ export const CommentContent = (props) => (
         {props.user}
       </span>
       <span className={classes.timeSpan}>
-        {props.time}个月前
+        {props.time}
       </span>
       <MDBIcon style={{float: 'right'}} icon="ellipsis-v" />
     </div>
@@ -24,6 +24,6 @@ CommentContent.propTypes = {
   basicFont: PropTypes.object,
 
   user: PropTypes.string.isRequired,
-  time: PropTypes.number.isRequired,
+  time: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
 };

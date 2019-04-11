@@ -6,8 +6,10 @@ import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 
 import ArticleDes from './containers/articleDes';
-import data from './data';
 import Comments from './components/comment-card-bar';
+import {getAsync, isLogin} from '../../tool/api-helper';
+import {timeHelper} from '../../tool/time-helper';
+import classes from './index.module.css';
 
 class ArticleReact extends React.Component {
   constructor(props) {
@@ -20,11 +22,25 @@ class ArticleReact extends React.Component {
     // i18n
     this.text = ArticleReact.i18n[languageHelper()];
   }
-  
-  componentDidMount() {
-    this.setState({
-      backend:data.content
-    });
+
+  async componentDidMount() {
+    if (isLogin()) {
+      const id = this.props.match.params.id;
+      try {
+        const result = await getAsync(`/articles/${id}`);
+        if (result.status.code === 200) {
+          this.setState(() => ({
+            backend: result.content
+          }));
+        } else {
+          this.props.history.push('/page-not-found');
+        }
+      } catch (e) {
+        alert(e);
+      }
+    } else {
+      this.props.history.push('/login');
+    }
   }
 
   getCurrentPage(){}
@@ -34,14 +50,16 @@ class ArticleReact extends React.Component {
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
+    const backend = this.state.backend;
     return (this.state.backend !== null) ? (
-      <div>
-        <ArticleDes 
-          tags={this.state.backend.tags} 
-          content={this.state.backend.content} 
-          user={this.state.backend.user} 
-          description={this.state.backend.description} 
-          commentsText={this.state.commentsText}
+      <div className={classes.wrapper}>
+        <ArticleDes
+          title={backend.title}
+          time={timeHelper(backend.modified_at)}
+          content={backend.body.braftEditorRaw} 
+          user={backend.author.username} 
+          description={backend.author.role} 
+          commentsText={'2'}
         />
         <div style={{marginTop:'70px'}}
           className="cell-wall"
