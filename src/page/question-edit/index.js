@@ -22,7 +22,7 @@ class QuestionEditReact extends React.Component {
       return (<Redirect to={pathname} />);
     }
     return (
-      <div style={{backgroundColor:'#FFFFFF'}}>
+      <div style={{backgroundColor:'#FFFFFF',height:'100%'}}>
         <ArticleCreate />
       </div>
     );

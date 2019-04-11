@@ -6,9 +6,11 @@ import { withRouter} from 'react-router-dom';
 import classes from './index.module.css';
 
 import logo from './logo.png';
-import {IfCollect} from '../if-collect';
+
 
 import {languageHelper} from '../../../tool/language-helper';
+
+import {IfCollect} from '../../playground/general-component/if-collect';
 
 
 

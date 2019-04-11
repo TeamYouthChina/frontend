@@ -59,7 +59,7 @@ class AnswersReact extends React.Component {
         <p className={classes.answerCount}>{this.props.answers.length}条回答</p>
         {this.props.match.params.aid !== undefined ? (
           <React.Fragment>
-            <ReviewCardBarFulltext fulltext={backend} />
+            <ReviewCardBarFulltext ansCommentId={this.props.match.params.aid} fulltext={backend} />
             <div style={{margin: '1.56vw 0vw'}}>
               <Link
                 onClick={() => this.handleMoreAnswer(this.props.match.params.aid)}
@@ -72,10 +72,10 @@ class AnswersReact extends React.Component {
         ) : (
           <div>
             <p className={classes.moreAnswer}>更多回答</p>
-            {backend.map((item, index) => (
-              index !== backend.aid &&
+            {backend.map((item) => (
+              item.id !== backend.aid &&
               (<div key={item.id} style={{marginBottom: '1.56vw'}}>
-                <ReviewCardBarFulltext fulltext={item} />
+                <ReviewCardBarFulltext ansCommentId={item.id} fulltext={item} />
               </div>)
             ))}
           </div>

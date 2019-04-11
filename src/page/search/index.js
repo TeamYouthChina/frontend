@@ -55,7 +55,7 @@ class SearchReact extends React.Component {
       console.log(result);
       if (result && result.status) {
         this.setState(() => {
-          return {backend: result.content};
+          return {backend: result};
         });
       } else {
         this.setState(() => {
@@ -110,7 +110,7 @@ class SearchReact extends React.Component {
   componentDidMount() {
     this.handleSearchType();
   }
-  
+
   render() {
     // eslint-disable-next-line
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
@@ -174,29 +174,54 @@ class SearchReact extends React.Component {
             <Switch>
               <Route
                 path={`${this.props.match.url}/job`}
-                render={(props) => <SearchJobResult {...props} keyword={this.state.keyword}
-                                                    handleSearchType={this.handleSearchType} />}
+                render={(props) =>
+                  <SearchJobResult
+                    {...props}
+                    keyword={this.state.keyword}
+                    backend={this.state.backend}
+                    handleSearchType={this.handleSearchType} />
+                }
                 // component={SearchJobResult}
               />
               <Route
                 path={`${this.props.match.url}/company`}
-                render={(props) => <SearchCompanyResult {...props} keyword={this.state.keyword}
-                                                        handleSearchType={this.handleSearchType} />}
+                render={(props) =>
+                  <SearchCompanyResult
+                    {...props}
+                    keyword={this.state.keyword}
+                    backend={this.state.backend}
+                    handleSearchType={this.handleSearchType} />
+                }
               />
               <Route
                 path={`${this.props.match.url}/video`}
-                render={(props) => <SearchVideoResult {...props} keyword={this.state.keyword}
-                                                      handleSearchType={this.handleSearchType} />}
+                render={(props) =>
+                  <SearchVideoResult
+                    {...props}
+                    keyword={this.state.keyword}
+                    backend={this.state.backend}
+                    handleSearchType={this.handleSearchType} />
+                }
               />
               <Route
                 path={`${this.props.match.url}/insight`}
-                render={(props) => <SearchInsightResult {...props} keyword={this.state.keyword}
-                                                        handleSearchType={this.handleSearchType} />}
+                render={(props) =>
+                  <SearchInsightResult
+                    {...props}
+                    keyword={this.state.keyword}
+                    backend={this.state.backend}
+                    handleSearchType={this.handleSearchType} />
+                }
               />
               <Route
                 path={`${this.props.match.url}/connection`}
-                render={(props) => <SearchConnectionResult {...props} keyword={this.state.keyword}
-                                                           handleSearchType={this.handleSearchType} />}
+                render={(props) =>
+                  <SearchConnectionResult
+                    {...props}
+                    keyword={this.state.keyword}
+                    backend={this.state.backend}
+                    handleSearchType={this.handleSearchType} />
+                }
               />
               <Redirect to={`${this.props.match.url}/job`} />
             </Switch>

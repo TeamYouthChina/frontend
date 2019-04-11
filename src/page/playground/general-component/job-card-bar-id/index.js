@@ -9,40 +9,18 @@ import detail from './detail.svg';
 // import jobIcon from './jobIcon.svg';
 import { languageHelper } from '../../../../tool/language-helper';
 import location from './location.svg';
-// import { mockGetAsync } from '../../../../tool/api-helper';
+
 import heart from './heart.svg';
 import emptyHeart from './emptyHeart.svg';
-// import { content } from './index.mock';
+import {getAsync} from '../../../../tool/api-helper';
+
 
 class JobCardBarIdReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {
-      cardData: {
-        content: {
-          id: null,
-          name: null,
-          organization: {
-            id: null,
-            name: null,
-            avatarUrl: null,
-            location: null,
-            website: null,
-            note: null,
-            nation: null,
-          },
-          location: null,
-          type: null,
-          deadLine: null,
-          job_description: null,
-          job_duty: null,
-        },
-        status: {
-          code: null,
-          reason: null,
-        },
-      },
+      
       isLiked: false,
     };
     // i18n
@@ -50,18 +28,15 @@ class JobCardBarIdReact extends React.Component {
   }
 
   async componentDidMount() {
-    // const requestedJobData = await getAsync(`/jobs/${this.props.id}`);
-    // const allLikedJobsData = await getAsync(`/users/${getID()}/attentions?type=job`);
-    // let testIsLiked = false;
-    // allLikedJobData.content.forEach(e=>{
-    //   if(e.id === this.state.cardData.content.id){
-    //     testIsLiked = true;
-    //     break;
-    //   }
-    // })
-    // console.log(requestedJobData)
-    // console.log(allLikedJobsData)
-    // this.setState({ ...this.state, cardData: requestedJobData, isLiked: testIsLiked});
+    if (this.props.id) {
+      this.setState({
+        backend: await getAsync(`/jobs/${this.props.id}`)
+      });
+    } else {
+      this.setState({
+        backend: await getAsync('/jobs/1')
+      });
+    }
   }
 
   clickOnCard = () => {};
@@ -98,27 +73,27 @@ class JobCardBarIdReact extends React.Component {
     );
     let likeOrUnlikeButton = this.state.isLiked ? unlikeButton : likeButton;
 
-    return (
+    return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ? (
       <div className={classes.Card}>
         <div className={classes.Clickable} onClick={this.clickOnCard} />
         <div className={classes.UnClickable}>
           <div className={classes.Img}>
-            <img src={this.state.cardData.content.organization.avatarUrl} alt="no img" />
+            <img src={this.state.backend.content.organization.avatarUrl} alt="no img" />
           </div>
           <div className={classes.Info}>
             <div className={classes.Title}>
-              <p className={classes.P1}>{this.state.cardData.content.name}</p>
+              <p className={classes.P1}>{this.state.backend.content.name}</p>
             </div>
             <div className={classes.Des1}>
               <p className={classes.P1}>
-                {this.state.cardData.content.organization.name}
+                {this.state.backend.content.organization.name}
               </p>
             </div>
             <div className={classes.Des2}>
               <div className={classes.Row}>
                 <div className={classes.Column}>
                   <img src={location} alt="no img" />
-                  <p>{this.state.cardData.content.location}</p>
+                  <p>{this.state.backend.content.location}</p>
                 </div>
                 <div className={classes.Column}>
                   <img src={calender} alt="no img" />
@@ -139,7 +114,7 @@ class JobCardBarIdReact extends React.Component {
                   <img src={bag} alt="no img" />
                   <p>
                     {this.text.shenQingJieZhi}{' '}
-                    {this.state.cardData.content.deadLine}
+                    {this.state.backend.content.deadLine}
                   </p>
                 </div>
               </div>
@@ -148,7 +123,7 @@ class JobCardBarIdReact extends React.Component {
           <div className={classes.Action}>{likeOrUnlikeButton}</div>
         </div>
       </div>
-    );
+    ):null;
   }
 }
 

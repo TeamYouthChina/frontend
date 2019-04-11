@@ -64,3 +64,6 @@
   font-family: PingFang SC;
   line-height: normal;
 }
+.richText img {
+  max-width: 500px;
+}

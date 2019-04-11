@@ -36,7 +36,7 @@ const ReviewDes = (props) => (
     <br />
     <div style={{width:'66.1vw'}}>
       <p className={classes.questionTitle}>{props.content.title}</p>
-      <p dangerouslySetInnerHTML={{__html:props.content.detail === '' ? braftEditor.createEditorState(props.content.detail).toHTML() : braftEditor.createEditorState(JSON.parse(props.content.detail).braftEditorRaw).toHTML()}} />
+      <p className={classes.richText} dangerouslySetInnerHTML={{__html:props.content.detail === '' ? braftEditor.createEditorState(props.content.detail).toHTML() : braftEditor.createEditorState(JSON.parse(props.content.detail).braftEditorRaw).toHTML()}} />
       <div className={classes.reviewFooter}>
         <span className={classes.footerFont}>2019-1-1</span>
         <div>

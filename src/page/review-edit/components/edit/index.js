@@ -10,6 +10,73 @@ import {
 import classes from './edit.module.css';
 import {generateHeaders, getAsync, isLogin, urlPrefix} from '../../../../tool/api-helper';
 import BraftEditor from 'braft-editor';
+import Cookies from 'js-cookie';
+
+const myUploadFn = (param) => {
+
+  const serverURL = 'http://test.zzc-tongji.com/api/v1/static';
+  const xhr = new XMLHttpRequest;
+  const fd = new FormData();
+
+  const successFn = (response) => {
+    if(xhr.readyState === 4 && response) {
+      const id = xhr.responseText.slice(11,30);
+      try {
+        fetch(
+          `${urlPrefix}/static/${id}`,
+          {
+            method:'GET',
+            headers:generateHeaders(),
+            body:null
+          },
+        ).then((response)=>
+          response.json()
+        ).then((response)=>{
+          param.success({
+            url: response.content,
+            meta: {
+              id: 'xxx',
+              title: 'xxx',
+              alt: 'xxx',
+              loop: true, // 指定音视频是否循环播放
+              autoPlay: true, // 指定音视频是否自动播放
+              controls: true, // 指定音视频是否显示控制栏
+              poster: 'http://xxx/xx.png', // 指定视频播放器的封面
+            }
+          });
+        },()=>{
+          alert('bad request');
+        });
+      } catch (e) {
+        alert(e);
+      }
+    }
+    // 假设服务端直接返回文件上传后的地址
+    // 上传成功后调用param.success并传入上传后的文件地址
+
+  };
+  const progressFn = (event) => {
+    // 上传进度发生变化时调用param.progress
+    param.progress(event.loaded / event.total * 100);
+  };
+
+  const errorFn = (response) => {
+    // 上传发生错误时调用param.error
+    param.error({
+      msg: 'unable to upload.',
+      a:response
+    });
+  };
+  xhr.upload.addEventListener('progress', progressFn, false);
+  xhr.addEventListener('load', successFn, false);
+  xhr.addEventListener('error', errorFn, false);
+  xhr.addEventListener('abort', errorFn, false);
+
+  fd.append('file', param.file);
+  xhr.open('POST', serverURL, true);
+  xhr.setRequestHeader('X-AUTHENTICATION',Cookies.get('token'));
+  xhr.send(fd);
+};
 
 class ReviewCreate extends React.Component {
   constructor(props) {
@@ -40,7 +107,7 @@ class ReviewCreate extends React.Component {
         try {
           const result = await getAsync(`/editorials/${this.props.match.params.id}`);
           if(result.status.code === 200) {
-            htmlContent = result.content.body.braftEditorRaw;
+            htmlContent = JSON.parse(result.content.body.braftEditorRaw).braftEditorRaw;
             // console.log(htmlContent)
             this.setState(()=>({
               backend: '',
@@ -97,8 +164,7 @@ class ReviewCreate extends React.Component {
     this.setState({
       show:true
     });
-    const title = this.state.title;
-    if(title === null) {
+    if(JSON.parse(this.state.editorState.toRAW()).blocks[0].text === '') {
       alert('can not be null');
       this.setState({
         show:false
@@ -106,7 +172,6 @@ class ReviewCreate extends React.Component {
       return;
     }
     const data = {
-      title: title,
       body: {
         braftEditorRaw: JSON.stringify({
           braftEditorRaw:this.state.editorState.toRAW(true)
@@ -114,9 +179,6 @@ class ReviewCreate extends React.Component {
         previewText: '',
         compiletype: 1
       },
-      is_anonymous: true,
-      rela_type: 0,
-      rela_id: 0
     };
     if(this.props.match.params.id === undefined) {
       try {
@@ -127,13 +189,14 @@ class ReviewCreate extends React.Component {
             headers:generateHeaders(),
             body:JSON.stringify(data)
           },
-        ).then((response)=>(
+        ).then((response)=>
           response.json()
-        )).then((response)=>{
+        ).then((response)=>{
           this.setState({
             show:false
           });
-          if(response.status.code === 2000) {
+          if(response.status.code === 201) {
+            
             this.props.history.push(`/review/${response.content.id}`);
           }
         },()=>{
@@ -157,8 +220,8 @@ class ReviewCreate extends React.Component {
           this.setState({
             show:false
           });
-          if(response.status.code === 2000) {
-            this.props.history.push(`/review/${response.content.id}`);
+          if(response.status.code === 200) {
+            this.props.history.push(`/review/${this.props.match.params.id}`);
           }
         },()=>{
           alert('bad request');
@@ -232,6 +295,7 @@ class ReviewCreate extends React.Component {
                     <div className="myAnswerText">
                       <div className="editor-wrapper" style={{height: '100%', minHeight: '31.2vw'}}>
                         <BraftEditor
+                          media={{uploadFn:myUploadFn}}
                           value={editorState} contentStyle={{height: '100%'}}
                           onChange={(editorState) => this.handleEditorChange(editorState)}
                         />

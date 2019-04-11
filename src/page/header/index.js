@@ -59,8 +59,12 @@ class HeaderReact extends React.Component {
                       className={`${classes.navItem} mr-3 nav-item`}
                     >
                       <a
-                        className="nav-link"  
-                        to="/discovery"
+                        className="nav-link"
+                        onClick={
+                          () => {
+                            this.props.history.push('/best-for-you');
+                          }
+                        }
                       >
                         智慧招聘
                       </a>
