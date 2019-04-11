@@ -29,7 +29,7 @@ const QuestionDes = React.memo((props) => (
     {/*</div>*/}
     <br />
     <p className={classes.questionTitle}>{props.content.title}</p>
-    <p dangerouslySetInnerHTML={{__html: props.content.detail === '' ? braftEditor.createEditorState(props.content.detail).toHTML() : braftEditor.createEditorState(JSON.parse(props.content.detail).braftEditorRaw).toHTML()}} />
+    <p className={classes.richText} dangerouslySetInnerHTML={{__html: props.content.detail === '' ? braftEditor.createEditorState(props.content.detail).toHTML() : braftEditor.createEditorState(JSON.parse(props.content.detail).braftEditorRaw).toHTML()}} />
     <div>
       {props.answerStatus !== false ? (
         <Link to={{

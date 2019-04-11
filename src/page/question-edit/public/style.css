@@ -3,7 +3,8 @@
 }
 .bf-container{
   border-radius: 3px;
-  height: 400px;
+  min-height: 400px;
+  height: 100%;
 }
 .inputWrapper {
   display: table;

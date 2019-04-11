@@ -40,7 +40,7 @@ export const UserInfor = (props) => (
         </ul>
       </div>
     ) : (
-      <p dangerouslySetInnerHTML={{__html:props.content === '' ? braftEditor.createEditorState(props.content).toHTML() : braftEditor.createEditorState(JSON.parse(props.content).braftEditorRaw).toHTML()}} />
+      <p dangerouslySetInnerHTML={{__html:typeof props.content === 'string' ? braftEditor.createEditorState(props.content).toHTML() : braftEditor.createEditorState(JSON.parse(props.content).braftEditorRaw).toHTML()}} />
     )}
   </div>
 );
