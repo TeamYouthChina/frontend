@@ -19,22 +19,23 @@
   box-sizing: border-box;
   border-radius: 0.31vw;
   font-size: 1.1vw;
-  font-family: PingFang SC;
+  font-family: "PingFang SC";
   margin: 0.4vw;
 }
 
 .disableButton {
+  background-color: #ffffff;
   border: 1px solid #DBE5F7;
   box-sizing: border-box;
   border-radius: 0.31vw;
   color: #8D9AAF;
-  font-family: PingFang SC;
+  font-family: "PingFang SC";
   font-size: 1.1vw;
   margin: 0.4vw;
 }
 
 .title {
-  font-family: PingFang SC;
+  font-family: "PingFang SC";
   font-size: 1.41vw;
   font-weight: normal;
   line-height: normal;
@@ -44,7 +45,7 @@
 }
 
 .incTitle {
-  font-family: PingFang SC;
+  font-family: "PingFang SC";
   font-size: 3.75vw;
   line-height: normal;
   color: #454F69;
@@ -54,7 +55,7 @@
   background-color: #F6F9FF;
   border: 0;
   color: #31394D;
-  font-family: PingFang SC;
+  font-family: "PingFang SC";
   font-size: 1.1vw;
   width: 25.16vw;
   height: 3.1vw;
@@ -72,7 +73,7 @@
 .submitButton {
   color: #FFFFFF;
   background-color: #4F65E1;
-  font-family: PingFang SC;
+  font-family: "PingFang SC";
   font-size: 1.1vw;
   width: 25.16vw;
   height: 3.1vw;
@@ -83,7 +84,7 @@
   color: #FFFFFF;
   border-radius: 1.56vw;
   background-color: #4F65E1;
-  font-family: PingFang SC;
+  font-family: "PingFang SC";
   font-size: 1.1vw;
   width: 11.25vw;
   height: 3.1vw;
@@ -124,4 +125,17 @@
 .outterLoginIcon {
   color: #31394D;
   margin: 1.1vw;
+}
+
+.selectGender {
+  display: inline-block !important;
+  background-color: #F6F9FF;
+  border: 0;
+  color: #31394D;
+  font-family: "PingFang SC";
+  font-size: 1.1vw;
+  width: 25.16vw;
+  height: 3.1vw;
+  margin: 0.4vw;
+  padding: 1vw;
 }

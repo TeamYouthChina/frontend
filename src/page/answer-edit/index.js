@@ -4,7 +4,8 @@ import {Redirect} from 'react-router-dom';
 
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
-import AnswerCreate from './components/edit';
+import ArticleCreate from './components/edit';
+import classes from './index.module.css';
 
 class AnswerEditReact extends React.Component {
   constructor(props) {
@@ -21,17 +22,8 @@ class AnswerEditReact extends React.Component {
       return (<Redirect to={pathname} />);
     }
     return (
-      <div>
-        <AnswerCreate />
-        <div
-          className="cell-wall"
-        >
-          <div
-            className="cell-membrane"
-          >
-
-          </div>
-        </div>
+      <div className={classes.wrapper}>
+        <ArticleCreate />
       </div>
     );
   }

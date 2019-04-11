@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {MDBIcon} from 'mdbreact';
 import {connect} from 'react-redux';
 import {languageHelper} from '../../../../tool/language-helper';
 
 import classes from './review-dex.module.css';
-
 import Comment from '../../public/comment.svg';
 import Share from '../../public/share.svg';
 import ThumbUp from '../../public/thumb-up.svg';
+import braftEditor from 'braft-editor';
 
 const ReviewDes = (props) => (
   <div className={classes.reviewDesWrapper}>
@@ -16,13 +15,11 @@ const ReviewDes = (props) => (
       <div style={{display:'flex',marginTop:'1.17vw'}}>
         <div style={{display:'inline-block'}}>
           <img
-            style={{width: '4.21vw', background: '#F4F4F4', marginRight: '0.859vw'}}
             src={'https://s3.amazonaws.com/youthchina/WechatIMG29.jpeg'}
-            alt="123"
-            className="rounded-circle"
+            alt="avatar"
+            className={`rounded-circle ${classes.imgStyle}`}
           />
         </div>
-        
         <div className={classes.spanWrapper}>
           <span className={classes.titleSpan}>{props.user}</span>
           <span className={classes.desSpan}>{props.description}</span>
@@ -31,19 +28,15 @@ const ReviewDes = (props) => (
           +关注TA
         </button>
       </div>
-      <span className={classes.viewSpanStyle}>
-        <MDBIcon className={classes.viewIcon} far icon="eye" />
-              被浏览  <strong className={classes.readingColor}>1872W</strong>
-      </span>
+      {/*<span className={classes.viewSpanStyle}>*/}
+      {/*<MDBIcon className={classes.viewIcon} far icon="eye" />*/}
+      {/*被浏览  <strong className={classes.readingColor}>1872W</strong>*/}
+      {/*</span>*/}
     </div>
     <br />
     <div style={{width:'66.1vw'}}>
       <p className={classes.questionTitle}>{props.content.title}</p>
-
-      <p className={classes.questionDetail}>
-        {/*dangerouslySetInnerHTML={{__html: props.editorState.toHTML(props.content.description)}}*/}
-        {props.content.detail}
-      </p>
+      <p dangerouslySetInnerHTML={{__html:props.content.detail === '' ? braftEditor.createEditorState(props.content.detail).toHTML() : braftEditor.createEditorState(JSON.parse(props.content.detail).braftEditorRaw).toHTML()}} />
       <div className={classes.reviewFooter}>
         <span className={classes.footerFont}>2019-1-1</span>
         <div>

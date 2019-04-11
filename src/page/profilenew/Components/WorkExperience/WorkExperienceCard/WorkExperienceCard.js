@@ -37,16 +37,16 @@ class WorkExperienceCard extends Component {
             position: this.props.data.position, // eslint-disable-line
           duration: {
               begin: this.props.data.duration.begin, // eslint-disable-line
-              end: this.props.data.duration.end // eslint-disable-line
+              end: this.props.data.duration.end, // eslint-disable-line
           },
           location: {
             nation_code: this.props.data.location.nation_code,
-            location_code: this.props.data.location.location_code
+            location_code: this.props.data.location.location_code,
           },
             note: this.props.data.note, // eslint-disable-line
         }
         : {
-          id:'',
+          id: '',
           employer: '',
           position: '',
           duration: {
@@ -55,7 +55,7 @@ class WorkExperienceCard extends Component {
           },
           location: {
             nation_code: '',
-            location_code: ''
+            location_code: '',
           },
           note: '',
         },
@@ -93,9 +93,9 @@ class WorkExperienceCard extends Component {
         this.state.workData,
         this.state.workData.id,
         'update'
-      ); // eslint-disable-line
+      );
     } else {
-      this.props.saveHandler(this.state.workData, null, "add"); // eslint-disable-line
+      this.props.saveHandler(this.state.workData, null, 'add');
     }
   };
 
@@ -197,13 +197,10 @@ class WorkExperienceCard extends Component {
               placeholder={text.employer}
               onChange={this.inputOnChange}
             />
-            <div className={classes.twoP}>
-              <DateRangePicker
-                onChange={this.dateRangePickerOnChange}
-                value={this.state.dateRange}
-              />
-            </div>
-
+            <DateRangePicker
+              onChange={this.dateRangePickerOnChange}
+              value={this.state.dateRange}
+            />
             <input
               style={{ margin: '3px 0px' }}
               type="text"
