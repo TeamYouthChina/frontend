@@ -96,3 +96,55 @@
   padding: 0;
 }
 
+.mdbRow {
+  margin: 3.67vw 0;
+}
+.mdbCol {
+  height: 100%;
+}
+.writeStyle {
+  padding-left:0;
+  font-size: 1.87vw;
+  color:#8D9AAF;
+  vertical-align:middle;
+  font-family: PingFang SC;
+  line-height: normal;
+}
+.btnStyle {
+  font-size: 1.25vw;
+  padding: 0.78vw 2.65vw;
+  font-family: PingFang SC;
+  line-height: normal;
+  margin: -.39vw 0;
+  float: right
+}
+.mdbRow2 {
+  margin: 1.71vw 0;
+}
+.imgStyle {
+  width: 2.96vw;
+  background: #F4F4F4;
+  margin-right: 0.859vw;
+}
+.submit1 {
+  padding: .39vw 0;
+  margin-left: 5.85vw
+}
+.submit2 {
+  padding: .39vw .78vw
+}
+.iconStyle {
+  margin-right: .39vw
+}
+.editWrapper {
+  margin-top: 7.65vw;
+}
+.articleWrapper {
+  height: 100%;
+  margin: 1.56vw 0 0 0;
+  box-shadow: 1px 1px 1.56vw rgba(0, 0, 0, 0.08);
+}
+.mdbRowWrapper {
+  height: 100%;
+  margin: 1.56vw 0 0 0;
+}

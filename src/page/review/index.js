@@ -4,11 +4,11 @@ import {Redirect} from 'react-router-dom';
 
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
-
+import classes from './index.module.css';
 import ReviewDes from './containers/reviewDes';
-
-import data from './data';
 import Comments from './components/comment-card-bar';
+import {getAsync, isLogin} from '../../tool/api-helper';
+import {timeHelper} from '../../tool/time-helper';
 
 class ReviewReact extends React.Component {
   constructor(props) {
@@ -16,33 +16,50 @@ class ReviewReact extends React.Component {
     // state
     this.state = {
       backend:null,
+      commentsText:'2'
     };
     // i18n
     this.text = ReviewReact.i18n[languageHelper()];
   }
-  
-  componentDidMount() {
-    this.setState({
-      backend:data.content,
-      commentsText:'1条评论'
-    });
-    
+
+  async componentDidMount() {
+    if (isLogin()) {
+      const id = this.props.match.params.id;
+      try {
+        const result = await getAsync(`/editorials/${id}`);
+        if (result.status.code === 200) {
+          this.setState(() => ({
+            backend: result.content
+          }));
+        } else {
+          this.props.history.push('/page-not-found');
+        }
+      } catch (e) {
+        alert(e);
+      }
+    } else {
+      this.props.history.push('/login');
+    }
   }
 
   getCurrentPage(){}
-  showCommentsFunc(){}
   
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
+    const backend = this.state.backend;
     return (this.state.backend !== null) ? (
-      <div>
+      <div className={classes.wrapper}>
         <ReviewDes
-          content={this.state.backend.content}
-          user={this.state.backend.user}
-          description={this.state.backend.description}
+          content={{
+            title:backend.title,
+            braftEditorRaw:backend.body.braftEditorRaw
+          }}
+          time={timeHelper(backend.modified_at)}
+          user={backend.author.username}
+          description={backend.author.role}
           commentsText={this.state.commentsText}
         />
         <div

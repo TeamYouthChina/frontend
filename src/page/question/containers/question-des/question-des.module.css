@@ -1,6 +1,8 @@
 .mdbCol {
   padding: 1.95vw 0 1.56vw 10.15vw;
   background-color: #FFFFFF;
+  display: inline-block;
+  width: 100%;
 }
 .titleWrapper{
   margin-left: 0; 

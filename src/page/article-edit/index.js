@@ -28,9 +28,7 @@ class ArticleEditReact extends React.Component {
     }
     return (
       <div>
-        {/*{console.log(editor)}*/}
         <ArticleCreate />
-        {/*<EditorNew />*/}
       </div>
     );
   }
