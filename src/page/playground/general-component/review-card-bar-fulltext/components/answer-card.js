@@ -140,7 +140,7 @@ export class AnswerCard extends React.Component {
       }));
     } else {
       evaluateStatus = 1;
-      upvoteCount++
+      upvoteCount++;
       this.setState(() => ({
         backend: {
           ...this.state.backend,
@@ -218,7 +218,7 @@ export class AnswerCard extends React.Component {
 
 AnswerCard.propTypes = {
   history: PropTypes.object.isRequired,
-}
+};
 
 AnswerCard.propTypes = {
   // id

@@ -68,7 +68,7 @@ export class CommentCard extends React.Component {
       }));
     } else {
       evaluateStatus = 1;
-      upvoteCount++
+      upvoteCount++;
       this.setState(() => ({
         backend: {
           ...this.state.backend,
@@ -80,7 +80,7 @@ export class CommentCard extends React.Component {
   };
   
   render(){
-    const {backend} = this.state
+    const {backend} = this.state;
     return (
       <div className={classes.wrapper}>
         <div>

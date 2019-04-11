@@ -48,7 +48,7 @@ class Comments extends React.Component {
     const data = {
       body: value,
       is_anonymous: false
-    }
+    };
     try {
       fetch(
         `${urlPrefix}/editorials/1/comments`,
