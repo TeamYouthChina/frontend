@@ -8,6 +8,7 @@ import Comments from '../comment-card-bar';
 import Footer from '../containers/footer/footer';
 import classes from './index.module.css';
 import {isLogin} from '../../../../../tool/api-helper';
+import {timeHelper} from '../../../../../tool/time-helper';
 
 export class AnswerCard extends React.Component {
   constructor(props) {
@@ -18,6 +19,7 @@ export class AnswerCard extends React.Component {
       isCollapsed: false,
       showComments: false,
       commentsText: null,
+      comments: null,
       pageConfig: {
         totalPage: 14 //总页码
       },
@@ -88,8 +90,15 @@ export class AnswerCard extends React.Component {
 
   // 展开评论
   showCommentsFunc() {
-    let commentsTextNow = this.state.commentsText === `${this.state.backend.comments.comments.length}条评论` ? '收起评论' : `${this.state.backend.comments.comments.length}条评论`;
-    let showComments = this.state.commentsText === `${this.state.backend.comments.comments.length}条评论`;
+    let commentsTextNow = '';
+    let showComments = false;
+    if(this.state.backend.comments !== undefined) {
+      commentsTextNow = this.state.commentsText === `${this.state.backend.comments.comments.length}条评论` ? '收起评论' : `${this.state.backend.comments.comments.length}条评论`;
+      showComments = this.state.commentsText === `${this.state.backend.comments.comments.length}条评论`;
+    } else {
+      commentsTextNow = this.state.commentsText === `${this.state.comments.data.length}条评论` ? '收起评论' : `${this.state.comments.data.length}条评论`;
+      showComments = this.state.commentsText === `${this.state.comments.data.length}条评论`;
+    }
     this.setState({
       commentsText: commentsTextNow,
       showComments
@@ -115,9 +124,13 @@ export class AnswerCard extends React.Component {
           alert(e);
         }
       } else {
+        const result = await getAsync(`/answers/${this.props.ansCommentId}/comments`);
         this.setState({
-          backend: this.props.fullText
+          backend: this.props.fullText,
+          comments: result.content,
+          commentsText: `${result.content.data.length}条评论`
         });
+
       }
     } else {
       this.props.history.push('/login');
@@ -176,7 +189,7 @@ export class AnswerCard extends React.Component {
           <UserInfor
             score={5}
             user={backend.author === undefined ? backend.creator.username : backend.author.username}
-            description={backend.author === undefined ?backend.creator.role[0] : backend.author.role[0]}
+            description={backend.author === undefined ? backend.creator.role[0] : backend.author.role[0]}
             isCollapsed={this.state.isCollapsed}
             short={backend.body.previewText}
             content={backend.body.braftEditorRaw}
@@ -184,7 +197,7 @@ export class AnswerCard extends React.Component {
           />
           {this.state.showBottom || !this.state.isCollapsed ? (
             <Footer
-              editTime={'1天前'}
+              editTime={timeHelper(new Date(backend.create_at))}
               commentsText={this.state.commentsText}
               isCollapsed={this.state.isCollapsed}
               showComments={this.showCommentsFunc}
@@ -195,16 +208,18 @@ export class AnswerCard extends React.Component {
               onVote={this.onVote}
               attention={backend.attention}
               attentionCount={backend.attentionCount}
-              upvoteCount={backend.upvoteCount} 
+              upvoteCount={backend.upvoteCount}
             />
           ) : null}
         </div>
         {this.state.showComments ? (
           <Comments
+            id={this.props.ansCommentId}
+            type={'answers'}
             showComments={this.showCommentsFunc}
             getCurrentPage={this.getCurrentPage}
             commentsText={this.state.commentsText}
-            commentsData={backend.comments.comments}
+            commentsData={backend.comments === undefined ? this.state.comments.data : backend.comments.comments}
           />
         ) : null}
       </React.Fragment>
@@ -218,6 +233,7 @@ export class AnswerCard extends React.Component {
 
 AnswerCard.propTypes = {
   history: PropTypes.object.isRequired,
+  ansCommentId: PropTypes.number,
 };
 
 AnswerCard.propTypes = {

@@ -94,7 +94,7 @@ class ArticleCreate extends React.Component {
           const result = await getAsync(`/articles/${this.props.match.params.id}`);
           if(result.status.code === 200) {
             title = result.content.title;
-            htmlContent = result.content.body.braftEditorRaw;
+            htmlContent = JSON.parse(result.content.body.braftEditorRaw).braftEditorRaw;
             this.setState(()=>({
               backend: '',
               title,
@@ -176,9 +176,7 @@ class ArticleCreate extends React.Component {
         previewText: '',
         compiletype: 1
       },
-      is_anonymous: true,
-      rela_type: 0,
-      rela_id: 0
+      company_id:null
     };
     if(this.props.match.params.id === undefined) {
       try {
@@ -195,8 +193,8 @@ class ArticleCreate extends React.Component {
           this.setState({
             show:false
           });
-          if(response.status.code === 2000) {
-            this.props.history.push(`/articles/${response.content.id}`);
+          if(response.status.code === 200) {
+            this.props.history.push(`/article/${response.content.id}`);
           }
         },()=>{
           alert('bad request');
@@ -219,8 +217,8 @@ class ArticleCreate extends React.Component {
           this.setState({
             show:false
           });
-          if(response.status.code === 2000) {
-            this.props.history.push(`/articles/${response.content.id}`);
+          if(response.status.code === 200) {
+            this.props.history.push(`/article/${this.props.match.params.id}`);
           }
         },()=>{
           alert('bad request');

@@ -4,7 +4,7 @@ export const timeHelper = (date, creatWeb=false) => {
 };
 
 const timeSince = date => {
-  const seconds = Math.floor((new Date() - date) / 1000);
+  const seconds = Math.floor((new Date() - date) / 1000 + 14400);
 
   let interval = Math.floor(seconds / 31536000);
 
