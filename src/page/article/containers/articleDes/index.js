@@ -47,7 +47,7 @@ const ArticleDes = React.memo((props) => (
     </div>
     <div className={classes.articleDetailWrapper}>
       <div>
-        <p dangerouslySetInnerHTML={{__html:props.content === '' ? braftEditor.createEditorState(props.content).toHTML() : braftEditor.createEditorState(JSON.parse(props.content).braftEditorRaw).toHTML()}} />
+        <p className={classes.richText} dangerouslySetInnerHTML={{__html:props.content === '' ? braftEditor.createEditorState(props.content).toHTML() : braftEditor.createEditorState(JSON.parse(props.content).braftEditorRaw).toHTML()}} />
         <span className={classes.footerFont}>{props.time}</span>
       </div>
       <div className={classes.listWrapper}>
