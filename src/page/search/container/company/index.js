@@ -44,7 +44,7 @@ class SearchCompanyResultReact extends React.Component {
   async componentDidMount() {
     try {
       const result = await getAsync(`/users/${localStorage.getItem('id')}/attentions?type=${this.state.collectionType}`);
-      if (result && result.status) {
+      if (result && result.status && result.status === 2000) {
         this.setState(() => {
           return {collectionNum: result.content.length};
         });
