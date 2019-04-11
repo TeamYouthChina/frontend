@@ -71,7 +71,7 @@ class ArticleCreate extends React.Component {
     this.state = {
       backend: null,
       showPic: false,
-      title: null,
+      title: '',
       write: null,
       submit: null,
       editorState: null,
@@ -170,7 +170,9 @@ class ArticleCreate extends React.Component {
     const data = {
       title: title,
       body: {
-        braftEditorRaw: JSON.stringify(this.state.editorState.toRAW(true)),
+        braftEditorRaw: JSON.stringify({
+          braftEditorRaw:this.state.editorState.toRAW(true)
+        }),
         previewText: '',
         compiletype: 1
       },

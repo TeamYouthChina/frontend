@@ -25,7 +25,7 @@ const ArticleDes = React.memo((props) => (
 
       <div className={classes.spanWrapper}>
         <span className={classes.titleSpan}>{props.user}</span>
-        <span className={classes.desSpan}>{props.description || 'null'}</span>
+        <span className={classes.desSpan}>{props.description && props.description[0]}</span>
       </div>
       <button className={classes.btnStyleFocus}>
         +关注TA
@@ -47,7 +47,7 @@ const ArticleDes = React.memo((props) => (
     </div>
     <div className={classes.articleDetailWrapper}>
       <div>
-        <p dangerouslySetInnerHTML={{__html: braftEditor.createEditorState(props.content.braftEditorRaw).toHTML()}} />
+        <p dangerouslySetInnerHTML={{__html:props.content === '' ? braftEditor.createEditorState(props.content).toHTML() : braftEditor.createEditorState(JSON.parse(props.content).braftEditorRaw).toHTML()}} />
         <span className={classes.footerFont}>{props.time}</span>
       </div>
       <div className={classes.listWrapper}>
@@ -78,7 +78,7 @@ const i18n = [
 
 ArticleDes.propTypes = {
   // self
-  content: PropTypes.object.isRequired,
+  content: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
   user: PropTypes.string.isRequired,
   description: PropTypes.string,

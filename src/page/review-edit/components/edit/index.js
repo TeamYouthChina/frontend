@@ -108,7 +108,9 @@ class ReviewCreate extends React.Component {
     const data = {
       title: title,
       body: {
-        braftEditorRaw: JSON.stringify(this.state.editorState.toRAW(true)),
+        braftEditorRaw: JSON.stringify({
+          braftEditorRaw:this.state.editorState.toRAW(true)
+        }),
         previewText: '',
         compiletype: 1
       },
@@ -116,7 +118,7 @@ class ReviewCreate extends React.Component {
       rela_type: 0,
       rela_id: 0
     };
-    if(this.props.match.params.id !== undefined) {
+    if(this.props.match.params.id === undefined) {
       try {
         fetch(
           `${urlPrefix}/editorials`,

@@ -8,7 +8,8 @@ import CommentCard from './components/comment-card/commentCard';
 import { PaginationUse } from './components/pagination';
 import classes from './index.module.css';
 import Expend from '../public/expand-more.svg';
-import { data } from './data';
+import {generateHeaders, isLogin, urlPrefix} from '../../../../../tool/api-helper';
+import {timeHelper} from '../../../../../tool/time-helper';
 
 class Comments extends React.Component {
 
@@ -21,6 +22,8 @@ class Comments extends React.Component {
       showCommentsText: '查看回复',
       replyText: '回复',
       allReplies: [],
+      start:0,
+      end:3,
     };
     this.text = Comments.i18n[languageHelper()];
     this.addComments = this.addComments.bind(this);
@@ -30,20 +33,45 @@ class Comments extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      commentLists:data.content[this.props.commentsType]
-    });
+    if(isLogin()){
+      this.setState(()=>({
+        commentLists:this.props.commentsData
+      }));
+    } else {
+      this.props.history.push('/login');
+    }
+    
   }
   // 添加评论
   addComments(value){
+    let localStorage = window.localStorage;
+    const data = {
+      body: value,
+      is_anonymous: false
+    }
+    try {
+      fetch(
+        `${urlPrefix}/editorials/1/comments`,
+        {
+          method:'POST',
+          headers:generateHeaders(),
+          body:JSON.stringify(data)
+        },
+      );
+    } catch (e) {
+      alert(e);
+    }
     this.setState({
       commentLists: [{
-        id: new Date(),
+        id: localStorage.id,
         creator:{
           username:'lalala'
         },
-        create_at: 123,
-        content: value,
+        modified_at: new Date().getTime(),
+        body: value,
+        upvoteCount:0,
+        downvoteCount:0,
+        evaluateStatus:3,
       }, ...this.state.commentLists]
     });
   }
@@ -66,7 +94,14 @@ class Comments extends React.Component {
     });
   }
 
-  getCurrentPage(){}
+  getCurrentPage(index){
+    const start = 3 * (index-1);
+    const end = 3 * index;
+    this.setState({
+      start,
+      end
+    });
+  }
   
   render() {
     return (this.state.commentLists !== null) ? (
@@ -77,12 +112,26 @@ class Comments extends React.Component {
         <AddComment 
           addComments={this.addComments}
         />
-        {this.state.commentLists.map((item) => (
-          <CommentCard 
-            key={item.id} 
-            user={item.creator.username} 
-            time={item.create_at} 
-            content={item.content}
+        {this.state.commentLists.length < 3 ? this.state.commentLists.map((item) => (
+          <CommentCard
+            key={item.id}
+            user={item.creator.username}
+            time={timeHelper(item.modified_at)}
+            content={item.body}
+            upvoteCount={item.upvoteCount}
+            downvoteCount={item.downvoteCount}
+            evaluateStatus={item.evaluateStatus}
+            addComments={this.addComments}
+          />
+        )) : this.state.commentLists.slice(this.state.start, this.state.end).map((item)=>(
+          <CommentCard
+            key={item.id}
+            user={item.creator.username}
+            time={timeHelper(item.modified_at)}
+            content={item.body}
+            upvoteCount={item.upvoteCount}
+            downvoteCount={item.downvoteCount}
+            evaluateStatus={item.evaluateStatus}
             addComments={this.addComments}
           />
         ))}
@@ -111,7 +160,8 @@ class Comments extends React.Component {
 Comments.propTypes = {
   // 评论text
   commentsText: PropTypes.string.isRequired,
-  commentsType: PropTypes.string.isRequired,
+  commentsData: PropTypes.array.isRequired,
+  history: PropTypes.object,
   // 收起评论
   showComments: PropTypes.func.isRequired,
   

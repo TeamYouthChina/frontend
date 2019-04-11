@@ -4,7 +4,11 @@ import {MDBRow, MDBIcon, MDBAvatar, MDBCol} from 'mdbreact';
 
 import {CommentContent} from '../../containers/comment-content/commentContent';
 import {CommentFooter} from '../../containers/comment-footer/commentFooter';
-import classes from './index.module.css';
+
+const basicFont = {
+  fontFamily: 'PingFang SC',
+  lineHeight: 'normal'
+};
 
 export class CommentCard extends React.Component {
   
@@ -41,17 +45,18 @@ export class CommentCard extends React.Component {
   
   render(){
     return (
-      <div className={classes.wrapper}>
+      <div style={{padding: '0', marginTop: '1.562vw'}}>
         <div>
-          <MDBRow className={classes.mdbRow}>
-            <MDBAvatar className={classes.avatar}>
+          <MDBRow style={{margin: '.64vw 0', display: 'flex'}}>
+            <MDBAvatar style={{height: '100%', margin: '.469vw .859vw .469vw 0'}}>
               <img
+                style={{width: '2.5vw', background: '#F4F4F4'}}
                 src={'https://s3.amazonaws.com/youthchina/WechatIMG29.jpeg'}
                 alt="123"
-                className={`rounded-circle ${classes.imgStyle}`}
+                className="rounded-circle"
               />
             </MDBAvatar>
-            <div className={classes.commentWrapper}>
+            <div style={{paddingTop: '.391vw', flexGrow: '1'}}>
               <CommentContent
                 user={this.props.user}
                 time={this.props.time}
@@ -60,14 +65,13 @@ export class CommentCard extends React.Component {
               <CommentFooter
                 giveReplies={this.showRepliesFunc}
                 replyText={this.state.replyText}
+                basicFont={basicFont}
                 showGive={this.state.showGive}
                 addComments={this.addComments}
               />
-
-              <span className={classes.showSpan} onClick={this.showRepliesFunc}>
-                {this.state.showCommentsText}<MDBIcon className={classes.iconStyle} far icon="arrow-down" />
-              </span>
-              {this.state.showReplies ? (
+              <span onClick={this.showRepliesFunc} style={{fontSize: '1.093vw', color: '#31394D', ...basicFont}}>
+                {this.showCommentsText}<MDBIcon style={{marginLeft: '.196vw'}} far icon="arrow-down" /></span>
+              {this.showReplies ? (
                 this.state.allReplies.map((item) => (
                   <MDBRow key={item}>
                     <MDBCol size="12">

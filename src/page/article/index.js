@@ -56,7 +56,7 @@ class ArticleReact extends React.Component {
         <ArticleDes
           title={backend.title}
           time={timeHelper(backend.modified_at)}
-          content={backend.body} 
+          content={backend.body.braftEditorRaw} 
           user={backend.author.username} 
           description={backend.author.role} 
           commentsText={'2'}

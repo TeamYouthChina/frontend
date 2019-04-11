@@ -72,7 +72,7 @@ class ArticleCreate extends React.Component {
     this.state = {
       backend: null,
       showPic: false,
-      title: null,
+      title: '',
       write: null,
       submit: null,
       editorState: null,
@@ -172,7 +172,9 @@ class ArticleCreate extends React.Component {
     const data = {
       title: title,
       body: {
-        braftEditorRaw: JSON.stringify(this.state.editorState.toRAW(true)),
+        braftEditorRaw: JSON.stringify({
+          braftEditorRaw:this.state.editorState.toRAW(true)
+        }),
         previewText: '',
         compiletype: 1
       },
@@ -180,7 +182,7 @@ class ArticleCreate extends React.Component {
       rela_type: 0,
       rela_id: 0
     };
-    if(this.props.match.params.qid !== undefined) {
+    if(this.props.match.params.qid === undefined) {
       try {
         fetch(
           `${urlPrefix}/questions`,

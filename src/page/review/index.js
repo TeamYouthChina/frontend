@@ -55,11 +55,11 @@ class ReviewReact extends React.Component {
         <ReviewDes
           content={{
             title:backend.title,
-            braftEditorRaw:backend.body.braftEditorRaw
+            detail:backend.body.braftEditorRaw
           }}
           time={timeHelper(backend.modified_at)}
           user={backend.author.username}
-          description={backend.author.role}
+          description={backend.author.role[0]}
           commentsText={this.state.commentsText}
         />
         <div

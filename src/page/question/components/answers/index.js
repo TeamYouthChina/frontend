@@ -55,7 +55,7 @@ class AnswersReact extends React.Component {
     }
     const backend = this.state.backend;
     return (this.state.backend !== null) ? (
-      <div>
+      <div className={classes.wrapper}>
         <p className={classes.answerCount}>{this.props.answers.length}条回答</p>
         {this.props.match.params.aid !== undefined ? (
           <React.Fragment>

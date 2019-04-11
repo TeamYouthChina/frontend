@@ -1,5 +1,5 @@
-export const timeHelper = date => {
-  const myDate = new Date(date).getTime();
+export const timeHelper = (date, creatWeb=false) => {
+  const myDate = creatWeb ? date : new Date(date).getTime();
   return timeSince(myDate);
 };
 

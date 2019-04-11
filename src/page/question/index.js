@@ -52,7 +52,7 @@ class QuestionReact extends React.Component {
         <QuestionDes
           content={{
             title: backend.title,
-            detail: backend.body
+            detail: backend.body.braftEditorRaw
           }}
           questionId={this.props.match.params.qid}
         />
