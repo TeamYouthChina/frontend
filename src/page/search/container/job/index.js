@@ -97,22 +97,22 @@ class SearchJobResultReact extends React.Component {
               </MDBRow>
               <MDBRow className={classes.jobCardBarRow}>
                 <MDBCol>
-                  <JobCardBarId id={'1'} />
+                  <JobCardBarId id={'2'} />
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.jobCardBarRow}>
                 <MDBCol>
-                  <JobCardBarId id={'1'} />
+                  <JobCardBarId id={'3'} />
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.jobCardBarRow}>
                 <MDBCol>
-                  <JobCardBarId id={'1'} />
+                  <JobCardBarId id={'4'} />
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.jobCardBarRow}>
                 <MDBCol>
-                  <JobCardBarId id={'1'} />
+                  <JobCardBarId id={'5'} />
                 </MDBCol>
               </MDBRow>
             </main>
