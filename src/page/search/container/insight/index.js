@@ -79,7 +79,7 @@ class SearchInsightResultReact extends React.Component {
           }
 
           <MDBRow style={{marginTop: '2vw'}}>
-            <MDBCol className="px-0" size="10">
+            <main className={classes.mainBody}>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
                   <ArticleCardBarId id={1} />
@@ -105,8 +105,9 @@ class SearchInsightResultReact extends React.Component {
                   <ArticleCardBarId id={1} />
                 </MDBCol>
               </MDBRow>
-            </MDBCol>
-            <MDBCol className={classes.sideBar} size="2">
+            </main>
+
+            <aside className={classes.sideBar}>
               <MDBListGroup style={{fontSize: '1.25vw', marginBottom: '1.56vw'}}>
                 <MDBListGroupItem
                   hover
@@ -174,7 +175,7 @@ class SearchInsightResultReact extends React.Component {
               {/*/>*/}
               {/*}*/}
               {/*</Switch>*/}
-            </MDBCol>
+            </aside>
           </MDBRow>
         </div>
       </div>
