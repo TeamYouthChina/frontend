@@ -104,22 +104,22 @@ class SearchCompanyResultReact extends React.Component {
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <CompanyCardBarId id={'1'} />
+                  <CompanyCardBarId id={'2'} />
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <CompanyCardBarId id={'1'} />
+                  <CompanyCardBarId id={'3'} />
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <CompanyCardBarId id={'1'} />
+                  <CompanyCardBarId id={'4'} />
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <CompanyCardBarId id={'1'} />
+                  <CompanyCardBarId id={'5'} />
                 </MDBCol>
               </MDBRow>
             </main>
