@@ -1,8 +1,9 @@
 import React from 'react';
 // import BraftEditor from 'braft-editor';
 import PropTypes from 'prop-types';
+import {withRouter} from 'react-router-dom';
 import {languageHelper} from '../../../../../tool/language-helper';
-import {getAsync} from '../../../../../tool/api-helper';
+import {generateHeaders, getAsync, urlPrefix} from '../../../../../tool/api-helper';
 import UserInfor from '../containers/user-infor/user-infor';
 import Comments from '../comment-card-bar';
 import Footer from '../containers/footer/footer';
@@ -148,9 +149,24 @@ export class AnswerCard extends React.Component {
   onVote = () => {
     let evaluateStatus = this.state.backend.evaluateStatus;
     let upvoteCount = this.state.backend.upvoteCount;
+    const data = {
+      id:Number(window.localStorage.id)
+    };
     if (evaluateStatus === 1) {
       evaluateStatus = 3;
       upvoteCount--;
+      try {
+        fetch(
+          `${urlPrefix}/articles/${this.props.articleId}/downvote`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
       this.setState(() => ({
         backend: {
           ...this.state.backend,
@@ -161,6 +177,18 @@ export class AnswerCard extends React.Component {
     } else {
       evaluateStatus = 1;
       upvoteCount++;
+      try {
+        fetch(
+          `${urlPrefix}/articles/${this.props.articleId}/upvote`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
       this.setState(() => ({
         backend: {
           ...this.state.backend,
@@ -172,17 +200,55 @@ export class AnswerCard extends React.Component {
   };
   // 收藏
   onAttention = () => {
-    const attention = !this.state.backend.attention;
-    let attentionCount = this.state.backend.attentionCount;
-    attention ? attentionCount++ : attentionCount--;
-    this.setState(() => ({
-      backend: {
+    let attention = !this.state.backend.attention;
+    this.setState(()=>({
+      backend:{
         ...this.state.backend,
-        attention,
-        attentionCount
+        attention:attention
       }
     }));
+    const data = {
+      id:Number(window.localStorage.id)
+    };
+    if(attention) {
+      try {
+        fetch(
+          `${urlPrefix}/articles/${this.props.articleId}/attention`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+    } else {
+      try {
+        fetch(
+          `${urlPrefix}/articles/attentions/${this.props.articleId}`,
+          {
+            method: 'DELETE',
+            headers: generateHeaders(),
+            body: null
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+    }
+
   };
+  
+  testRole = (author)=> {
+    if(author === null) {
+      return author;
+    } else if(author.role === null){
+      return null;
+    } else {
+      return author.role[0];
+    }
+  }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.orderScroll);
@@ -197,7 +263,7 @@ export class AnswerCard extends React.Component {
           <UserInfor
             score={5}
             user={backend.author === null ? backend.author : backend.author.username}
-            description={backend.author.role === null ? backend.author.role : backend.author.role[0]}
+            description={this.testRole(backend.author)}
             isCollapsed={this.state.isCollapsed}
             short={backend.body.previewText}
             content={backend.body.braftEditorRaw}
@@ -239,14 +305,14 @@ export class AnswerCard extends React.Component {
   }
 }
 
-AnswerCard.propTypes = {
-  history: PropTypes.object.isRequired,
-  ansCommentId: PropTypes.number,
-};
+
 
 AnswerCard.propTypes = {
   // id
   articleId: PropTypes.number,
+  history: PropTypes.object.isRequired,
+  ansCommentId: PropTypes.number,
+  match: PropTypes.number,
   // 全文
   fullText: PropTypes.object,
 };
@@ -260,4 +326,4 @@ AnswerCard.i18n = [
   },
 ];
 
-export default AnswerCard;
+export default withRouter(AnswerCard);
