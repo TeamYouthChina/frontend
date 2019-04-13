@@ -27,15 +27,11 @@ class JobReact extends React.Component {
     this.text = JobReact.i18n[languageHelper()];
   }
   async componentDidMount() {
-    if (this.props.id) {
-      this.setState({
-        backend: await getAsync(`/jobs/${this.props.id}`)
-      });
-    } else {
-      this.setState({
-        backend: await getAsync('/jobs/1')
-      });
-    }
+
+    this.setState({
+      backend: await getAsync(`/jobs/${this.props.match.params.id}`)
+    });
+
   }
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
@@ -76,6 +72,9 @@ JobReact.propTypes = {
   id:PropTypes.number.isRequired,
 
   // React Router
+  
+  match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired
 };
 

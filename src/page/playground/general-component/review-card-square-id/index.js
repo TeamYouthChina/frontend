@@ -79,7 +79,8 @@ class ReviewCardSquareReact extends React.Component {
             />
           </div>
           <div className={classes.people}>{this.state.backend.content.creator.username}</div>
-          <div className={classes.tag}><div className="px-2">{this.state.backend.content.creator.role}</div></div>
+          {/*<div className={classes.tag}><div className="px-2">{this.state.backend.content.creator.role}</div>
+          </div>*/}
         </div>
       </div>
 

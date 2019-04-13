@@ -26,6 +26,11 @@ class LightBoxReact extends React.Component {
         'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(133).jpg'
       ]
     };
+    if(this.props.backend.content.photoUrlList){
+      this.setState({
+        images:this.props.backend.content.photoUrlList
+      });
+    }
     // i18n
     this.text = LightBoxReact.i18n[languageHelper()];
     // style
@@ -95,6 +100,7 @@ LightBoxReact.propTypes = {
   backgroundColor: PropTypes.string.isRequired,
   intervalVw: PropTypes.number.isRequired,
   itemList: PropTypes.array.isRequired,
+  backend:PropTypes.object.isRequired,
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,

@@ -1,24 +1,9 @@
-/* 区块注释的内容应当删去 */
-
-/*
-   导入第三方模块：
-   - 将 `import React from 'react';` 放在首位。
-   - 将 `import * as ... from '...';` 放在最后。
-   - 将其他模块按照 `import` 后的首个单词的字母表顺序排列。所有大写字母开头的全部放到小写字母开头的前面。
-   - 一行 `import` 导入多个模块的，模块按照字母表顺序排列，规则同上。
-   - 这样做的目的是：保持部分代码有序，减少发生冲突的可能性。
-*/
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 
 
-/*
-   导入自定义模块：
-   - 排列规则同上。
-   - 自定义模块和第三方模块之间应当空一行。
-*/
 
 import classes from './index.module.css';
 import {IfCollect} from '../if-collect';
@@ -81,11 +66,11 @@ class ArticleCardSquareReact extends React.Component {
             />
           </div>
         </div>
-        <div className="d-flex">
+        {/*<div className="d-flex">
           <div className={` px-2 mr-2 ${classes.tag1}`}>人工智能</div>
           <div className={` px-2 mr-2 ${classes.tag1}`}>发展历史</div>
           <div className={` px-2 ${classes.tag1}`}>干货分享</div>
-        </div>
+        </div>*/}
         <div className="d-flex justify-content-between" style={{marginTop:'4.7vw'}}>
           <div className="d-flex align-items-center">
             <div className={classes.avatar}>
@@ -95,12 +80,9 @@ class ArticleCardSquareReact extends React.Component {
               />
             </div>
             <div className={classes.people}>{this.state.backend.content.author.username}</div>
-            <div className={classes.tag2}><div className="px-2">{this.state.backend.content.author.role}</div></div>
+            {/*<div className={classes.tag2}><div className="px-2">{this.state.backend.content.author.role}</div></div>*/}
           </div>
           <IfCollect/>
-
-
-
         </div>
       </div>
 

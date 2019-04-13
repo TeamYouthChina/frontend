@@ -19,9 +19,9 @@ class CompanyPicReact extends React.Component {
    
     return (
       <div className={classes.content}>
-        <p className={classes.name}>图片<span className="h2 red-text">Api没有！！</span></p>
+        <p className={classes.name}>图片</p>
         <div className="d-flex w-100 justify-content-center">
-          <LightBox/>
+          <LightBox backend={this.props.backend}/>
         </div>
         
 
@@ -41,6 +41,7 @@ CompanyPicReact.propTypes = {
   backgroundColor: PropTypes.string.isRequired,
   intervalVw: PropTypes.number.isRequired,
   itemList: PropTypes.array.isRequired,
+  backend:PropTypes.object.isRequired,
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,

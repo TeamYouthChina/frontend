@@ -27,7 +27,7 @@ class CompanyCardReact extends React.Component {
   
   render() {
     return (
-      <div className={classes.companycard}>
+      <div className={classes.card}>
         <div>
           <img
             src={logo}

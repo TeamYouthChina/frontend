@@ -79,13 +79,14 @@ class AnswerCardSquareReact extends React.Component {
           </div>
         </div>
         <div className="d-flex">
-          <div className={classes.people}>{this.state.backend.content.creator.username}</div>
-          <div className={classes.role}>
+          
+          {/* <div className={classes.role}>
             <div className="px-2">{this.state.backend.content.creator.role}</div>
-          </div>
+          </div>*/}
         </div>
-        <div className="d-flex justify-content-between align-items-center">
-          <div className={classes.answer}>共10条回答</div>
+        <div className="d-flex justify-content-between align-items-center mt-5">
+          {/*<div className={classes.answer}>共10条回答</div>*/}
+          <div className={classes.people}>{this.state.backend.content.creator.username}</div>
           <div className={classes.answer}><IfCollect/></div>
         </div>
       </div>
