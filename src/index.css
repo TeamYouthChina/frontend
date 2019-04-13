@@ -14,7 +14,9 @@ span {
   justify-content: center;
   width: 100%;
 }
-
+pre {
+  white-space: pre-wrap;
+}
 /*
   MOBILE
 

@@ -4,11 +4,11 @@ import {Redirect} from 'react-router-dom';
 
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
-
+import classes from './index.module.css';
 import ReviewDes from './containers/reviewDes';
-
-import data from './data';
 import Comments from './components/comment-card-bar';
+import {generateHeaders, getAsync, isLogin, urlPrefix} from '../../tool/api-helper';
+import {timeHelper} from '../../tool/time-helper';
 
 class ReviewReact extends React.Component {
   constructor(props) {
@@ -16,34 +16,153 @@ class ReviewReact extends React.Component {
     // state
     this.state = {
       backend:null,
+      commentsText:null
     };
     // i18n
     this.text = ReviewReact.i18n[languageHelper()];
   }
-  
-  componentDidMount() {
-    this.setState({
-      backend:data.content,
-      commentsText:'1条评论'
-    });
-    
+
+  async componentDidMount() {
+    if (isLogin()) {
+      const id = this.props.match.params.id;
+      try {
+        const result = await getAsync(`/editorials/${id}`);
+        if (result.status.code === 200) {
+          this.setState(() => ({
+            backend: result.content,
+            commentsText:result.content.comments.length
+          }));
+        } else {
+          this.props.history.push('/page-not-found');
+        }
+      } catch (e) {
+        alert(e);
+      }
+    } else {
+      this.props.history.push('/login');
+    }
   }
 
+  // 点赞
+  onVote = () => {
+    let evaluateStatus = this.state.backend.evaluateStatus;
+    let upvoteCount = this.state.backend.upvoteCount;
+    const data = {
+      id:Number(window.localStorage.id)
+    };
+    if (evaluateStatus === 1) {
+      evaluateStatus = 3;
+      upvoteCount--;
+      try {
+        fetch(
+          `${urlPrefix}/editorials/${this.props.match.params.id}/vote`,
+          {
+            method: 'DELETE',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+      this.setState(() => ({
+        backend: {
+          ...this.state.backend,
+          evaluateStatus,
+          upvoteCount
+        }
+      }));
+    } else {
+      evaluateStatus = 1;
+      upvoteCount++;
+      try {
+        fetch(
+          `${urlPrefix}/editorials/${this.props.match.params.id}/upvote`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+      this.setState(() => ({
+        backend: {
+          ...this.state.backend,
+          evaluateStatus,
+          upvoteCount
+        }
+      }));
+    }
+  };
+  // 收藏
+  onAttention = () => {
+    let attention = !this.state.backend.attention;
+    this.setState(()=>({
+      backend:{
+        ...this.state.backend,
+        attention:attention
+      }
+    }));
+    const data = {
+      id:Number(window.localStorage.id)
+    };
+    if(attention) {
+      try {
+        fetch(
+          `${urlPrefix}/editorials/${this.props.match.params.id}/attention`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+    } else {
+      try {
+        fetch(
+          `${urlPrefix}/editorials/attentions/${this.props.match.params.id}`,
+          {
+            method: 'DELETE',
+            headers: generateHeaders(),
+            body: null
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+    }
+
+  };
+
   getCurrentPage(){}
-  showCommentsFunc(){}
   
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
+    const backend = this.state.backend;
     return (this.state.backend !== null) ? (
-      <div>
+      <div className={classes.wrapper}>
         <ReviewDes
-          content={this.state.backend.content}
-          user={this.state.backend.user}
-          description={this.state.backend.description}
+          content={{
+            title:backend.title,
+            detail:backend.body.braftEditorRaw
+          }}
+          time={timeHelper(backend.modified_at)}
+          user={backend.author && backend.author.username}
+          description={backend.author && backend.author.role[0]}
           commentsText={this.state.commentsText}
+          evaluateStatus={backend.evaluateStatus}
+          onAttention={this.onAttention}
+          onVote={this.onVote}
+          attention={backend.attention}
+          attentionCount={backend.attentionCount}
+          upvoteCount={backend.upvoteCount}
         />
         <div
           className="cell-wall"
@@ -51,11 +170,16 @@ class ReviewReact extends React.Component {
           <div
             className="cell-membrane"
           >
-            <Comments
-              getCurrentPage={this.getCurrentPage}
-              commentsText={this.state.commentsText}
-              commentsType={'answer'}
-            />
+            <div style={{width:'80%'}}>
+              <Comments
+                id={this.props.match.params.id}
+                type={'editorials'}
+                showComments={this.showCommentsFunc}
+                getCurrentPage={this.getCurrentPage}
+                commentsText={this.state.commentsText}
+                commentsData={backend.comments}
+              />
+            </div>
           </div>
         </div>
       </div>

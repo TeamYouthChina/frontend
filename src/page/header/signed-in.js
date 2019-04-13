@@ -45,7 +45,7 @@ class SignedInReact extends React.Component {
                   好友
                 </div>
                 
-                <ul className="d-flex nav-item align-items-center">
+                <ul className="d-flex nav-item align-items-center ml-3">
 
                   <MDBIcon
                     icon="envelope"
@@ -95,7 +95,9 @@ class SignedInReact extends React.Component {
                 basic
                 left
                 style={{marginTop: '52px'}}>
-                <MDBDropdownItem href="/applicant">个人主页</MDBDropdownItem>
+                <MDBDropdownItem  onClick={() => {
+                  this.props.history.push('/my');
+                }}>个人主页</MDBDropdownItem>
                 <MDBDropdownItem href="/">我的消息</MDBDropdownItem>
                 <MDBDropdownItem href="/logout">退出</MDBDropdownItem>
               </MDBDropdownMenu>

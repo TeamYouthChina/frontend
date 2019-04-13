@@ -6,43 +6,19 @@ import bag from './bag.svg';
 import calender from './calender.svg';
 import classes from './index.module.css';
 import detail from './detail.svg';
-// import jobIcon from './jobIcon.svg';
+import {IfCollect} from '../if-collect';
 import { languageHelper } from '../../../../tool/language-helper';
-import location from './location.svg';
-// import { mockGetAsync } from '../../../../tool/api-helper';
-import heart from './heart.svg';
-import emptyHeart from './emptyHeart.svg';
-// import { content } from './index.mock';
+import location from '../company-card-bar-id/location.svg';
+
+import {getAsync} from '../../../../tool/api-helper';
+
 
 class JobCardBarIdReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {
-      cardData: {
-        content: {
-          id: null,
-          name: null,
-          organization: {
-            id: null,
-            name: null,
-            avatarUrl: null,
-            location: null,
-            website: null,
-            note: null,
-            nation: null,
-          },
-          location: null,
-          type: null,
-          deadLine: null,
-          job_description: null,
-          job_duty: null,
-        },
-        status: {
-          code: null,
-          reason: null,
-        },
-      },
+      
       isLiked: false,
     };
     // i18n
@@ -50,105 +26,79 @@ class JobCardBarIdReact extends React.Component {
   }
 
   async componentDidMount() {
-    // const requestedJobData = await getAsync(`/jobs/${this.props.id}`);
-    // const allLikedJobsData = await getAsync(`/users/${getID()}/attentions?type=job`);
-    // let testIsLiked = false;
-    // allLikedJobData.content.forEach(e=>{
-    //   if(e.id === this.state.cardData.content.id){
-    //     testIsLiked = true;
-    //     break;
-    //   }
-    // })
-    // console.log(requestedJobData)
-    // console.log(allLikedJobsData)
-    // this.setState({ ...this.state, cardData: requestedJobData, isLiked: testIsLiked});
+    if (this.props.id) {
+      this.setState({
+        backend: await getAsync(`/jobs/${this.props.id}`)
+      });
+    } else {
+      this.setState({
+        backend: await getAsync('/jobs/1')
+      });
+    }
   }
-
-  clickOnCard = () => {};
-
-  likeClicked = () => {
-    // putAsync(`/jobs/${this.state.cardData.content.id}/attention`)
-  };
-
-  unlikeClicked = () => {
-    // putAsync(`/jobs/attention/${this.state.cardData.content.id}`)
-  };
+  
+ 
 
   render() {
-    // 收藏
-    let likeButton = (
-      <div className={classes.Like} onClick={this.likeClicked}>
-        <button>
-          <img src={emptyHeart} alt="no img" />
-          <p>{this.text.like}</p>
-        </button>
-        {/* <span style={{ color: "red" }}>api没有这个</span> */}
-      </div>
-    );
 
-    // 取消收藏
-    let unlikeButton = (
-      <div className={classes.UnLike} onClick={this.unlikeClicked}>
-        <button>
-          <img src={heart} alt="no img" />
-          <p>{this.text.unLike}</p>
-        </button>
-        {/* <span style={{ color: "red" }}>api没有这个</span> */}
-      </div>
-    );
-    let likeOrUnlikeButton = this.state.isLiked ? unlikeButton : likeButton;
-
-    return (
+    return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ? (
       <div className={classes.Card}>
-        <div className={classes.Clickable} onClick={this.clickOnCard} />
+        <div className={classes.Clickable} />
         <div className={classes.UnClickable}>
           <div className={classes.Img}>
-            <img src={this.state.cardData.content.organization.avatarUrl} alt="no img" />
+            <img src={(this.state.backend.content.organization.avatarUrl)?(this.state.backend.content.organization.avatarUrl):('http://frontendpic.oss-us-east-1.aliyuncs.com/%E5%B7%A5%E4%BD%9C.png')} alt="no img" />
           </div>
           <div className={classes.Info}>
             <div className={classes.Title}>
-              <p className={classes.P1}>{this.state.cardData.content.name}</p>
+              <p className={classes.P1}>{this.state.backend.content.name}</p>
             </div>
             <div className={classes.Des1}>
-              <p className={classes.P1}>
-                {this.state.cardData.content.organization.name}
+              <p className={classes.P2}>
+                {this.state.backend.content.organization.name}
               </p>
             </div>
             <div className={classes.Des2}>
               <div className={classes.Row}>
                 <div className={classes.Column}>
                   <img src={location} alt="no img" />
-                  <p>{this.state.cardData.content.location}</p>
+                  <p>{this.state.backend.content.location}</p>
                 </div>
                 <div className={classes.Column}>
-                  <img src={calender} alt="no img" />
+                  <img src={detail} alt="no img" />
                   <p>
-                    3-5 {this.text.geYue}{' '}
-                    <span style={{ color: 'red' }}>api没有这个</span>
+                    {this.text.type}{' '}
+                    {this.state.backend.content.type}
+                   
                   </p>
                 </div>
               </div>
               <div className={classes.Row}>
                 <div className={classes.Column}>
-                  <img src={detail} alt="no img" />
+                  <img src={calender} alt="no img" />
                   <p>
-                    E-Commerce<span style={{ color: 'red' }}>api没有这个</span>
+                    {this.text.kaiFangShenQing}{' '}
+                    {this.state.backend.content.startTime}
                   </p>
                 </div>
                 <div className={classes.Column}>
                   <img src={bag} alt="no img" />
                   <p>
                     {this.text.shenQingJieZhi}{' '}
-                    {this.state.cardData.content.deadLine}
+                    {this.state.backend.content.deadLine}
                   </p>
                 </div>
+               
+                
               </div>
             </div>
           </div>
-          <div className={classes.Action}>{likeOrUnlikeButton}</div>
+          <div className={classes.Like}>
+            <IfCollect ifcollect={this.state.backend.content.collected} type={1} id={this.state.backend.content.id}/>
+            
+          </div>
         </div>
       </div>
-    );
+    ):null;
   }
 }
 
@@ -156,14 +106,17 @@ JobCardBarIdReact.i18n = [
   {
     geYue: '个月',
     shenQingJieZhi: '申请截止',
-    like: '收藏',
-    unLike: '取消收藏',
+    kaiFangShenQing:'开放申请',
+    type:'类型',
+
+
   },
   {
     geYue: 'months',
     shenQingJieZhi: 'Applicaiton Deadline',
-    like: 'Like',
-    unLike: 'Unlike',
+    kaiFangShenQing:'Application Start',
+    type:'Type',
+    
   },
 ];
 

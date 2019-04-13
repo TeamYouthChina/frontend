@@ -1,6 +1,8 @@
 .mdbCol {
   padding: 1.95vw 0 1.56vw 10.15vw;
   background-color: #FFFFFF;
+  display: inline-block;
+  width: 100%;
 }
 .titleWrapper{
   margin-left: 0; 
@@ -43,10 +45,6 @@
   font-family: PingFang SC;
   line-height: normal;
 }
-.questionDetail {
-  color:#8D9AAF;
-  font-size:1.25vw;
-}
 .btnAnswer {
   padding: .7vw 0.93vw;
   color:#FFFFFF;
@@ -82,4 +80,17 @@
 .btnIcon{
   margin-right:.78vw;
 }
-
+.btnOthersActive {
+  border:none;
+  font-family: PingFang SC;
+  line-height: normal;
+  color:red;
+  font-size:1.09vw;
+  padding:.78vw 1.56vw;
+}
+.richText p {
+  word-break: break-word;
+}
+.richText img {
+  max-width: 500px;
+}

@@ -73,9 +73,14 @@
 
 .sideBar {
   padding-left: 1.56vw;
+  width: 15.39vw;
 }
 
 .sidebarIcon {
   width: 1.09vw;
   margin-right: 0.75vw;
+}
+
+.mainBody {
+  width: 66.17vw;
 }

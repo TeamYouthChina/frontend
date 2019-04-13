@@ -22,18 +22,8 @@ class QuestionEditReact extends React.Component {
       return (<Redirect to={pathname} />);
     }
     return (
-      <div>
+      <div style={{backgroundColor:'#FFFFFF',height:'100%',display:'inline-block'}}>
         <ArticleCreate />
-        <div
-          className="cell-wall"
-        >
-
-          <div
-            className="cell-membrane"
-          >
-
-          </div>
-        </div>
       </div>
     );
   }

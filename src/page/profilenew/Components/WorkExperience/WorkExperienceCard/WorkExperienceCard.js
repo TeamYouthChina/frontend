@@ -36,10 +36,13 @@ class WorkExperienceCard extends Component {
             employer: this.props.data.employer, // eslint-disable-line
             position: this.props.data.position, // eslint-disable-line
           duration: {
-              begin: this.props.data.duration.begin.substring(0, 10), // eslint-disable-line
-              end: this.props.data.duration.end.substring(0, 10), // eslint-disable-line
+              begin: this.props.data.duration.begin, // eslint-disable-line
+              end: this.props.data.duration.end, // eslint-disable-line
           },
-          location: this.props.data.location,
+          location: {
+            nation_code: this.props.data.location.nation_code,
+            location_code: this.props.data.location.location_code,
+          },
             note: this.props.data.note, // eslint-disable-line
         }
         : {
@@ -47,10 +50,13 @@ class WorkExperienceCard extends Component {
           employer: '',
           position: '',
           duration: {
-            begin: null,
+            begin: '',
             end: '',
           },
-          location: '',
+          location: {
+            nation_code: '',
+            location_code: '',
+          },
           note: '',
         },
       dateRange: [new Date(), new Date()],
@@ -87,9 +93,9 @@ class WorkExperienceCard extends Component {
         this.state.workData,
         this.state.workData.id,
         'update'
-      ); // eslint-disable-line
+      );
     } else {
-      this.props.saveHandler(this.state.workData, null, "add"); // eslint-disable-line
+      this.props.saveHandler(this.state.workData, null, 'add');
     }
   };
 
@@ -101,8 +107,8 @@ class WorkExperienceCard extends Component {
         position: this.posRef.current.value,
         employer: this.employerRef.current.value,
         duration: {
-          begin: this.state.dateRange[0].toDateString(),
-          end: this.state.dateRange[1].toDateString(),
+          begin: `${this.state.dateRange[0].getTime()}`,
+          end: `${this.state.dateRange[1].getTime()}`,
         },
         note: this.noteRef.current.value,
       },
@@ -191,13 +197,10 @@ class WorkExperienceCard extends Component {
               placeholder={text.employer}
               onChange={this.inputOnChange}
             />
-            <div className={classes.twoP}>
-              <DateRangePicker
-                onChange={this.dateRangePickerOnChange}
-                value={this.state.dateRange}
-              />
-            </div>
-
+            <DateRangePicker
+              onChange={this.dateRangePickerOnChange}
+              value={this.state.dateRange}
+            />
             <input
               style={{ margin: '3px 0px' }}
               type="text"

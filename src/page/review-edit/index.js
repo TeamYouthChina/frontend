@@ -5,6 +5,7 @@ import {Redirect} from 'react-router-dom';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 import ReviewCreate from './components/edit';
+import classes from './index.module.css';
 
 class ReviewEditReact extends React.Component {
   constructor(props) {
@@ -21,17 +22,8 @@ class ReviewEditReact extends React.Component {
       return (<Redirect to={pathname} />);
     }
     return (
-      <div>
+      <div className={classes.wrapper}>
         <ReviewCreate />
-        <div
-          className="cell-wall"
-        >
-          <div
-            className="cell-membrane"
-          >
-
-          </div>
-        </div>
       </div>
     );
   }

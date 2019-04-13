@@ -1,15 +1,63 @@
+.wrapper {
+  background-color: #FFFFFF;
+}
+.mdbRow {
+  margin: 3.67vw 0;
+}
+.mdbCol {
+  height: 100%;
+}
+.mdbRow2 {
+  margin: 1.71vw 0;
+}
+.mdbCol4 {
+  padding-left:0;
+  font-size: 1.87vw;
+  color:#8D9AAF;
+  vertical-align: middle;
+  font-family: PingFang SC;
+  line-height: normal;
+}
+.mdbCol42 {
+  padding-right: 0;
+}
+.colBtn {
+  font-size: 1.25vw;
+  padding: 0.78vw 2.65vw;
+  margin: -.39vw 0;
+  float: right;
+}
+.mdbRow3 {
+  margin-top: 1.12vw;
+}
+.editWrapper {
+  margin-top: 7.65vw;
+}
 .inputStyle::placeholder {
   font-family: PingFang SC;
-  font-size: 36px;
+  font-size: 2.81vw;
   line-height: normal;
   color: #C1C4CA;
 }
 .inputStyle {
   font-family: PingFang SC;
-  font-size: 36px;
+  font-size: 2.81vw;
   line-height: normal;
   padding:0;
+  height:50px;
   margin:0;
   border-width: 0;
   width: 100%;
+}
+.articleWrapper {
+  height: 100%;
+  margin: 1.56vw 0 0 0;
+  box-shadow: 1px 1px 1.56vw rgba(0, 0, 0, 0.08);
+}
+.mdbRowWrapper {
+  height: 100%;
+  margin: 1.56vw 0 0 0;
+}
+.myAnswerText {
+  height: 100%;
 }

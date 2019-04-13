@@ -16,6 +16,7 @@ import {AnswerCardBarId} from '../../card/answer-card-bar-id';
 import {ArticleCardBarId} from '../../card/article-card-bar-id';
 import {ReviewCardBarId} from '../../card/review-card-bar-id';
 import {languageHelper} from '../../../../tool/language-helper';
+import {getAsync} from '../../../../tool/api-helper';
 
 const basicCHNFont = {
   fontFamily: 'PingFang SC',
@@ -33,9 +34,31 @@ class DiscoveryInsightReact extends React.Component {
   constructor(props) {
     super(props);
     // state
-    this.state = {};
+    this.state = {
+      backend: null
+    };
     // i18n
     this.text = DiscoveryInsightReact.i18n[languageHelper()];
+  }
+
+
+  async componentDidMount() {
+    try {
+      const result = await getAsync('/discovery');
+      if (result && result.status) {
+        this.setState(() => {
+          return {backend: result.content};
+        });
+      }
+      else {
+        this.setState(() => {
+          return {collectionNum: 0};
+        });
+      }
+    } catch (error) {
+      // eslint-disable-next-line
+      console.log(error);
+    }
   }
 
   render() {

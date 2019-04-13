@@ -61,3 +61,6 @@ li {
   font-family: PingFang SC;
   line-height: normal;
 }
+.richText p {
+  word-break: break-word;
+}

@@ -52,32 +52,42 @@ class PersonalInfoReact extends React.Component {
           </div>
           <form
             className="text-center"
-            // onSubmit={this.handleLoginSubmit}
+            onSubmit={this.props.handleSubmit}
           >
             <input
               placeholder="姓名"
               name="name"
               className={[classes.userInput, classes.mainLoginInput].join(' ')}
               type="text"
-              value="郭亦豪"
-              // onChange={this.handleChange}
+              value={this.props.name}
+              onChange={this.props.handleChange}
               required
             />
-            <input
-              placeholder="性别"
-              name="gender"
-              className={[classes.userInput, classes.mainLoginInput].join(' ')}
-              type="text"
-              // onChange={this.handleChange}
-              required
-            />
+            {/*<input*/}
+            {/*placeholder="性别"*/}
+            {/*name="gender"*/}
+            {/*className={[classes.userInput, classes.mainLoginInput].join(' ')}*/}
+            {/*type="text"*/}
+            {/*// onChange={this.handleChange}*/}
+            {/*value="男"*/}
+            {/*required*/}
+            {/*/>*/}
+            <select 
+              className={classes.selectGender} 
+              name="gender" 
+              value={this.props.gender}
+              onChange={this.props.handleChange}>
+              <option value={'男'}>男</option>
+              <option value={'女'}>女</option>
+              <option value={'不方便透露'}>不方便透露</option>
+            </select>
             <input
               placeholder="工作状态"
               name="status"
               className={[classes.userInput, classes.mainLoginInput].join(' ')}
               type="text"
               // onChange={this.handleChange}
-              required
+              // required
             />
             <input
               placeholder="从事领域"
@@ -85,25 +95,25 @@ class PersonalInfoReact extends React.Component {
               className={[classes.userInput, classes.mainLoginInput].join(' ')}
               type="text"
               // onChange={this.handleChange}
-              required
+              // required
             />
             <input
               placeholder="邮箱"
               name="email"
               className={[classes.userInput, classes.mainLoginInput].join(' ')}
               type="text"
-              // onChange={this.handleChange}
+              onChange={this.props.handleChange}
+              value={this.props.email}
               required
-              value="guoyihao@gmail.com"
             />
             <input
               placeholder="电话"
-              name='tel'
+              name='phone_number'
               className={[classes.userInput, classes.mainLoginInput].join(' ')}
               type="text"
-              // onChange={this.handleChange}
+              onChange={this.props.handleChange}
+              value={this.props.phone_number}
               required
-              value="139975570965"
             />
             <div className="text-center">
               <button
@@ -130,7 +140,13 @@ PersonalInfoReact.propTypes = {
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
+  location: PropTypes.object.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  email: PropTypes.string.isRequired,
+  phone_number: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  gender: PropTypes.string.isRequired
 };
 
 export const PersonalInfo = withRouter(PersonalInfoReact);

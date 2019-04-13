@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
+import braftEditor from 'braft-editor';
 import {MDBCol, MDBIcon} from 'mdbreact';
 import {connect} from 'react-redux';
 import {languageHelper} from '../../../../tool/language-helper';
+import {Link} from 'react-router-dom';
 
 import classes from './question-des.module.css';
 
-const QuestionDes = (props) => (
+const QuestionDes = React.memo((props) => (
   <MDBCol className={classes.mdbCol}>
     {/*<div className={classes.titleWrapper}>*/}
     {/*{props.tags.map((item) => {*/}
@@ -28,23 +29,38 @@ const QuestionDes = (props) => (
     {/*</div>*/}
     <br />
     <p className={classes.questionTitle}>{props.content.title}</p>
-
-    <p className={classes.questionDetail}>
-      {/*dangerouslySetInnerHTML={{__html: props.editorState.toHTML(props.content.description)}}*/}
-      {props.content.detail}
-    </p>
+    <p className={classes.richText} dangerouslySetInnerHTML={{__html: props.content.detail === '' ? braftEditor.createEditorState(props.content.detail).toHTML() : braftEditor.createEditorState(JSON.parse(props.content.detail).braftEditorRaw).toHTML()}} />
     <div>
-      <button className={classes.btnAnswer}>
-        {props.text.toFocus}
-      </button>
+      {props.answerStatus !== false ? (
+        <Link to={{
+          pathname: `/question/${props.questionId}/answer/${props.answerStatus}/edit`,
+          state: {
+            content: props.content
+          },
+        }}>
+          <button className={classes.btnAnswer}>
+            {props.text.hasAnswer}
+          </button>
+        </Link>
+      ) : (
+        <Link to={{
+          pathname: `/question/${props.questionId}/answer/create`,
+          state: {
+            content: props.content
+          },
+        }}>
+          <button className={classes.btnAnswer}>
+            {props.text.toAnswer}
+          </button>
+        </Link>
+      )}
       <button className={classes.btnFocus}>
-        +
-        <Link to={`/question/${props.questionId}/answer/create`}>关注问题</Link>
+        + 关注问题
       </button>
       <button className={classes.btnOthers}>
         <MDBIcon className={classes.btnIcon} icon="thumbs-up" />{props.text.toInvite}
       </button>
-      <button className={classes.btnOthers}>
+      <button onClick={props.onAttention} className={props.attention ? classes.btnOthersActive : classes.btnOthers}>
         <MDBIcon className={classes.btnIcon} icon="heart" />{props.text.collection}
       </button>
       <button className={classes.btnOthers}>
@@ -52,13 +68,14 @@ const QuestionDes = (props) => (
       </button>
     </div>
   </MDBCol>
-);
+));
 
 const i18n = [
   {
     focusNum: '关注者',
     readingNum: '浏览次数',
-    toFocus: '我来回答',
+    toAnswer: '我来回答',
+    hasAnswer: '修改回答',
     toInvite: '邀请回答',
     share: '分享',
     collection: '收藏'
@@ -78,12 +95,15 @@ QuestionDes.propTypes = {
   // tags: PropTypes.array.isRequired,
   content: PropTypes.object.isRequired,
   text: PropTypes.object.isRequired,
-  questionId: PropTypes.number.isRequired,
+  questionId: PropTypes.string.isRequired,
+  attention: PropTypes.bool.isRequired,
+  onAttention: PropTypes.func.isRequired,
+  answerStatus: PropTypes.oneOfType([PropTypes.bool,PropTypes.number]).isRequired,
   // editorState: PropTypes.object.isRequired,
-  basicFont: PropTypes.object.isRequired,
   // React Redux
   bodyClientWidth: PropTypes.number.isRequired
 };
+QuestionDes.displayName = 'QuestionDes';
 
 export default connect(
   (state) => {

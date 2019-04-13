@@ -60,7 +60,8 @@ class BasicInfoReact extends React.Component {
               name="name"
               className={[classes.userInput, classes.mainLoginInput].join(' ')}
               type="text"
-              // onChange={this.handleChange}
+              onChange={this.props.handleChange}
+              value={this.props.name}
               required
             />
             <input
@@ -68,7 +69,8 @@ class BasicInfoReact extends React.Component {
               name="email"
               className={[classes.userInput, classes.mainLoginInput].join(' ')}
               type="text"
-              // onChange={this.handleChange}
+              onChange={this.props.handleChange}
+              value={this.props.email}
               required
             />
             <div style={{position: 'relative'}}>
@@ -76,16 +78,18 @@ class BasicInfoReact extends React.Component {
                 placeholder="密码"
                 name="password"
                 className={[classes.userInput, classes.mainLoginInput].join(' ')}
-                type={this.state.type}
-                // onChange={this.handleChange}
+                type={this.state.passwordInputType}
+                onChange={this.props.handleChange}
+                value={this.props.password}
                 required
               />
               <input
                 placeholder="重复密码"
-                // name='password'
+                name='confirmPassword'
                 className={[classes.userInput, classes.mainLoginInput].join(' ')}
-                type={this.state.type}
-                // onChange={this.handleChange}
+                type={this.state.passwordInputType}
+                onChange={this.props.handleChange}
+                value={this.props.confirmPassword}
                 required
               />
               {/*显示/隐藏密码*/}
@@ -124,7 +128,12 @@ BasicInfoReact.propTypes = {
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
+  location: PropTypes.object.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  password: PropTypes.string.isRequired,
+  confirmPassword: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired
 };
 
 export const BasicInfo = withRouter(BasicInfoReact);

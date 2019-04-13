@@ -3,7 +3,6 @@
   flex-direction: row;
   width: 90%;
   box-sizing: border-box;
-  /*padding: 5px 0;*/
   align-items: start;
   padding: 1vw;
 }
@@ -23,16 +22,16 @@
 }
 
 .WorkExperienceCard input:disabled {
-  border: 0;
-}
+  border-top: hidden;
+  border-left: hidden;
+  border-right: hidden;
+  border-bottom: 1px solid white}
 
 .twoP {
   font-family: "PingFang SC";
   margin: 3px 0;
   padding: 1px;
-  border-top: hidden;
-  border-left: hidden;
-  border-right: hidden;
+  border: none;
 }
 
 .description {
@@ -43,11 +42,11 @@
 
 .WorkExperienceCard img {
   width: 65px;
+  height: 65px;
 }
 
 .WorkInfo {
   margin-left: 20px;
-  height: 90%;
   width: 64.38vw;
   display: flex;
   flex-direction: column;
@@ -62,9 +61,4 @@
   font-size: 14px;
   color: #62686c;
   margin: 0%;
-}
-
-.WorkInfo div {
-  /*display: flex;*/
-  /*flex-direction: row;*/
 }

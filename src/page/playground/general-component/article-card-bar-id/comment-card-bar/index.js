@@ -1,19 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { MDBRow, MDBBtn, MDBIcon} from 'mdbreact';
+import { MDBRow, MDBBtn} from 'mdbreact';
 import {languageHelper} from '../../../../../tool/language-helper';
 
-import { AddComment } from './components/add-comment';
-import CommentCard from './components/commentCard';
+import { AddComment } from './components/add-comment/add-comment';
+import CommentCard from './components/comment-card/commentCard';
 import { PaginationUse } from './components/pagination';
-
-import { data } from './data';
-
-
-const basicFont = {
-  fontFamily: 'PingFang SC',
-  lineHeight: 'normal'
-};
+import classes from './index.module.css';
+import Expend from '../public/expand-more.svg';
+import {generateHeaders, isLogin, urlPrefix} from '../../../../../tool/api-helper';
+import {timeHelper} from '../../../../../tool/time-helper';
 
 class Comments extends React.Component {
 
@@ -26,6 +22,8 @@ class Comments extends React.Component {
       showCommentsText: '查看回复',
       replyText: '回复',
       allReplies: [],
+      start:0,
+      end:3,
     };
     this.text = Comments.i18n[languageHelper()];
     this.addComments = this.addComments.bind(this);
@@ -35,20 +33,45 @@ class Comments extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      commentLists:data.content[this.props.commentsType]
-    });
+    if(isLogin()){
+      this.setState(()=>({
+        commentLists:this.props.commentsData
+      }));
+    } else {
+      this.props.history.push('/login');
+    }
+    
   }
   // 添加评论
   addComments(value){
+    let localStorage = window.localStorage;
+    const data = {
+      body: value,
+      is_anonymous: false
+    };
+    try {
+      fetch(
+        `${urlPrefix}/${this.props.type}/${this.props.id}/comments`,
+        {
+          method:'POST',
+          headers:generateHeaders(),
+          body:JSON.stringify(data)
+        },
+      );
+    } catch (e) {
+      alert(e);
+    }
     this.setState({
       commentLists: [{
-        id: new Date(),
+        id: localStorage.id,
         creator:{
           username:'lalala'
         },
-        create_at: 123,
-        content: value,
+        modified_at: new Date().getTime(),
+        body: value,
+        upvoteCount:0,
+        downvoteCount:0,
+        evaluateStatus:3,
       }, ...this.state.commentLists]
     });
   }
@@ -71,42 +94,58 @@ class Comments extends React.Component {
     });
   }
 
-  getCurrentPage(){}
+  getCurrentPage(index){
+    const start = 3 * (index-1);
+    const end = 3 * index;
+    this.setState({
+      start,
+      end
+    });
+  }
   
   render() {
     return (this.state.commentLists !== null) ? (
-      <div style={{marginTop: '15px', background: '#FFFFFF', padding: '19px 32px', borderRadius: '2px'}}>
-        <MDBRow style={{
-          margin: '0px 0px 11px 0px',
-          fontSize: '16px',
-          color: '#8D9AAF', ...basicFont
-        }}>
+      <div className={classes.wrapper}>
+        <MDBRow className={classes.mdbRow}>
           {this.state.commentLists.length}条评论
         </MDBRow>
         <AddComment 
-          addComments={this.addComments} 
-          basicFont={basicFont}
+          addComments={this.addComments}
         />
-        {this.state.commentLists.map((item) => (
-          <CommentCard 
-            key={item.id} 
-            user={item.creator.username} 
-            time={item.create_at} 
-            content={item.content}
+        {this.state.commentLists.length < 3 ? this.state.commentLists.map((item) => (
+          <CommentCard
+            key={item.modified_at}
+            user={item.creator.username}
+            time={timeHelper(item.modified_at)}
+            content={item.body}
+            upvoteCount={item.upvoteCount}
+            downvoteCount={item.downvoteCount}
+            evaluateStatus={item.evaluateStatus}
+            addComments={this.addComments}
+          />
+        )) : this.state.commentLists.slice(this.state.start, this.state.end).map((item)=>(
+          <CommentCard
+            key={item.id}
+            user={item.creator.username}
+            time={timeHelper(item.modified_at)}
+            content={item.body}
+            upvoteCount={item.upvoteCount}
+            downvoteCount={item.downvoteCount}
+            evaluateStatus={item.evaluateStatus}
             addComments={this.addComments}
           />
         ))}
         {this.state.commentLists.length !== 0 ? (
-          <MDBRow center style={{marginTop: '10px'}}>
+          <MDBRow center className={classes.pagination}>
             <PaginationUse
               pageConfig={{totalPage: Math.ceil(this.state.commentLists.length / 3)}}
               pageCallbackFn={this.getCurrentPage}
             />
           </MDBRow>
         ) : null}
-        <MDBRow center style={{marginTop: '9px'}}>
-          <MDBBtn onClick={this.props.showComments} flat style={{margin: '0px', padding: '5px 10px', fontSize: '14px', color: '#8D9AAF', ...basicFont}}>
-            收起评论<MDBIcon style={{marginLeft: '5px'}} icon="arrow-up" />
+        <MDBRow center className={classes.mdbRow2}>
+          <MDBBtn className={classes.btnStyle} onClick={this.props.showComments} flat>
+            收起评论<img src={Expend} className={classes.iconStyle} alt='up' />
           </MDBBtn>
         </MDBRow>
       </div>
@@ -121,7 +160,10 @@ class Comments extends React.Component {
 Comments.propTypes = {
   // 评论text
   commentsText: PropTypes.string.isRequired,
-  commentsType: PropTypes.string.isRequired,
+  commentsData: PropTypes.array.isRequired,
+  history: PropTypes.object,
+  id: PropTypes.number,
+  type: PropTypes.string,
   // 收起评论
   showComments: PropTypes.func.isRequired,
   
