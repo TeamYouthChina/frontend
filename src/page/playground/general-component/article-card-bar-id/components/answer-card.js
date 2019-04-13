@@ -197,7 +197,7 @@ export class AnswerCard extends React.Component {
           <UserInfor
             score={5}
             user={backend.author === null ? backend.author : backend.author.username}
-            description={backend.author === null ? backend.author : backend.author.role[0]}
+            description={backend.author.role === null ? backend.author.role : backend.author.role[0]}
             isCollapsed={this.state.isCollapsed}
             short={backend.body.previewText}
             content={backend.body.braftEditorRaw}
