@@ -1,7 +1,7 @@
 import React from 'react';
 import {MDBIcon} from 'mdbreact';
 import PropTypes from 'prop-types';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 
 import {SignedIn} from './signed-in';
 //import {SignedOut} from './signed-out';
@@ -38,7 +38,7 @@ class HeaderReact extends React.Component {
               <div className="cell-wall">
                 <div className={`cell-membrane ${classes['header-flex']} align-items-center`}>
                   
-                  <a className={`py-2 ${classes.yc} navbar-brand`} href="/choice">
+                  <a className={`py-2 ${classes.yc} navbar-brand`} href="/best-for-you">
                     <MDBIcon className="mr-sm-2" icon="cubes" />
                     职 道
                   </a>
@@ -47,13 +47,12 @@ class HeaderReact extends React.Component {
                     <li
                       className={`${classes.navItem} nav-item list-inline-item mr-3`}
                     >
-                      <a 
+                      <Link 
                         className="nav-link"
-                        to="/job-for-you2"
-                        
+                        to="/discovery"
                       >
                         职场社交
-                      </a>
+                      </Link>
                     </li>
                     <li
                       className={`${classes.navItem} mr-3 nav-item`}
@@ -62,7 +61,7 @@ class HeaderReact extends React.Component {
                         className="nav-link"
                         onClick={
                           () => {
-                            this.props.history.push('/best-for-you');
+                            this.props.history.push('/job-for-you');
                           }
                         }
                       >
@@ -74,8 +73,11 @@ class HeaderReact extends React.Component {
                     >
                       <a
                         className="nav-link"
-                        to="/job-for-you2"
-                      >
+                        onClick={
+                          () => {
+                            this.props.history.push('/connection');
+                          }
+                        }                      >
                         人 脉
                       </a>
                     </li>

@@ -6,7 +6,6 @@ import classes from './index.module.css';
 import comment from './comment.png';
 import company from './company.png';
 import job from './job.png';
-import video from './video.png';
 import {Redirect} from 'react-router-dom';
 import {CollectionCard} from './card';
 import {languageHelper} from '../../../tool/language-helper';
@@ -56,9 +55,6 @@ class CollectionReact extends React.Component {
             <div className="d-flex" style={{marginBottom:'8.03vw'}}>
               <div style={{marginRight:'1.875vw'}}>
                 <CollectionCard text={'回答'} logo={answer} tag={'12条回答'} url={'answer'}/>
-              </div>
-              <div>
-                <CollectionCard text={'视频'} logo={video} tag={'0条视频'} url={'video'}/>
               </div>
             </div>
             
