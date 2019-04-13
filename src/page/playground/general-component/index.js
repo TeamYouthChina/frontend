@@ -13,6 +13,7 @@ import {ArticleCardBarId} from './article-card-bar-id';
 import {Header2} from '../../header-2';
 import {CompanyCardBarId} from './company-card-bar-id/index';
 import {JobCardBarId} from './job-card-bar-id';
+import {Location} from './location';
 import {VideoCardBarId} from './video-card-bar-id';
 import {VideoCardBarFulltext} from './video-card-bar-fulltext';
 import {ReviewCardBarId} from './review-card-bar-id';
@@ -29,12 +30,19 @@ class GeneralComponentReact extends React.Component {
     this.text = GeneralComponentReact.i18n[languageHelper()];
     this.getCurrentPage = this.getCurrentPage.bind(this);
     this.showCommentsFunc = this.showCommentsFunc.bind(this);
+    this.getLocation = this.getLocation.bind(this);
   }
 
   getCurrentPage() {
   }
 
   showCommentsFunc() {
+  }
+
+  getLocation(location) {
+    /* eslint-disable no-console */
+    console.log(location);
+    /* eslint-enable no-console */
   }
 
   render() {
@@ -61,7 +69,7 @@ class GeneralComponentReact extends React.Component {
               name: '实习',
               subPath: '/sub-path-3'
             },
-            
+
           ]}
         />
         <div
@@ -70,6 +78,10 @@ class GeneralComponentReact extends React.Component {
           <div
             className="cell-membrane"
           >
+            <div className={classes.space}>
+              <p>location</p>
+              <Location code='340103' update={this.getLocation} />
+            </div>
             <div className={classes.space}>
               <p>answer-card-bar-id</p>
               <AnswerCardBarId id={1} />
@@ -248,11 +260,11 @@ class GeneralComponentReact extends React.Component {
             </div>
             <div className={classes.space}>
               <p>company-card-bar-id</p>
-              <CompanyCardBarId id={'5'}/>
+              <CompanyCardBarId id={'5'} />
             </div>
             <div className={classes.space}>
               <p>job-card-bar-id</p>
-              <JobCardBarId id={'5'}/>
+              <JobCardBarId id={'5'} />
             </div>
             <div className={classes.space}>
               <p>review-card-bar-id</p>
@@ -344,11 +356,11 @@ class GeneralComponentReact extends React.Component {
             </div>
             <div className={classes.space}>
               <p>user-card-bar-id</p>
-              <UserCardBarAuth/>
+              <UserCardBarAuth />
             </div>
             <div className={classes.space}>
               <p>user-card-square-id</p>
-              <UserCardSquareAuth/>
+              <UserCardSquareAuth />
             </div>
             <div className={classes.space}>
               <p>video-card-bar-id</p>
