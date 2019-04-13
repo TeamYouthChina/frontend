@@ -30,25 +30,17 @@ class BestForYouReact extends React.Component {
     
   }
   async componentDidMount() {
-    let jobcollection=[];
-    this.collect=await getAsync(`/users/1/attentions?type=${'job'}`);
-    //console.log(this.collect);
-    for (let i=0;i<this.collect.content.length;i++)
-    {
-      jobcollection.push(this.collect.content[i].id);
-      //console.log(this.collect.content[i].id);
-    }
-    //console.log(jobcollection);
+
     this.setState({
-      jobList:jobcollection
+      userFulltext: await getAsync('/discovery/users?limit={\'6\'}')
     });
-    //console.log(this.state.jobList);
-    //console.log(jobcollection);
   }
   
 
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
+    //console.log(this.state.userFulltext);
+    //const userdata = this.state.userFulltext.content.data;
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
@@ -87,14 +79,14 @@ class BestForYouReact extends React.Component {
             <div className="d-flex justify-content-between" style={{padding:'1.40vw 0'}}>
               <JobCardSquare id={7} jobList={this.state.jobList}/>
               <JobCardSquare id={3} jobList={this.state.jobList}/>
-              <JobCardSquare id={5} jobList={this.state.jobList}/>
+              <JobCardSquare id={9} jobList={this.state.jobList}/>
              
             </div>
             <div className={classes.seemore}>查看更多 →</div>
             <div className={classes.subtitle} style={{marginTop:'0.78vw'}}>根据您的浏览偏好推荐</div>
             <div className="d-flex justify-content-between" style={{padding:'1.40vw 0'}}>
               <JobCardSquare id={8} jobList={this.state.jobList}/>
-              <JobCardSquare id={4} jobList={this.state.jobList}/>
+              <JobCardSquare id={8} jobList={this.state.jobList}/>
               <JobCardSquare id={9} jobList={this.state.jobList}/>
             </div>
             <div className={classes.seemore}>查看更多 →</div>

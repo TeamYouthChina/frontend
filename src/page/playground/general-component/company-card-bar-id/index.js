@@ -69,7 +69,7 @@ class CompanyCardBarIdReact extends React.Component {
             <div className={classes.Des2}>
               <img src={employee} alt="no img" />
               <p>
-                <a>{this.state.backend.content.website}</a>
+                <a href={this.state.backend.content.website}>{this.state.backend.content.website}</a>
               </p>
             </div>
           </div>
@@ -84,7 +84,7 @@ class CompanyCardBarIdReact extends React.Component {
               </button>
             </div>
             <div className={classes.Like}>
-              <IfCollect ifcollect={this.state.backend.content.collected} type={2}/>
+              <IfCollect ifcollect={this.state.backend.content.collected} type={2} id={this.state.backend.content.id}/>
             </div>
           </div>
         </div>

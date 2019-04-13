@@ -17,8 +17,8 @@ import {JobCardBarId} from './job-card-bar-id';
 //import {VideoCardBarFulltext} from './video-card-bar-fulltext';
 //import {ReviewCardBarId} from './review-card-bar-id';
 //import {ReviewCardBarFulltext} from './review-card-bar-fulltext';
-import {UserCardSquareAuth} from './user-card-square-auth';
-import {UserCardBarAuth} from './user-card-bar-auth';
+//import {UserCardSquareAuth} from './user-card-square-auth';
+//import {UserCardBarAuth} from './user-card-bar-auth';
 
 class GeneralComponentReact extends React.Component {
   constructor(props) {
@@ -73,21 +73,22 @@ class GeneralComponentReact extends React.Component {
             
             <div className={classes.space}>
               <p>company-card-bar-id</p>
-              <CompanyCardBarId id={2}/>
+              <CompanyCardBarId id={1}/>
+              <CompanyCardBarId id={7}/>
+              <CompanyCardBarId id={3}/>
+              <CompanyCardBarId id={8}/>
             </div>
             <div className={classes.space}>
               <p>job-card-bar-id</p>
-              <JobCardBarId id={4}/>
+              <JobCardBarId id={7}/>
+              <JobCardBarId id={3}/>
+              <JobCardBarId id={9}/>
+              <JobCardBarId id={8}/>
+              <JobCardBarId id={22}/>
+              
             </div>
            
-            <div className={classes.space}>
-              <p>user-card-bar-id</p>
-              <UserCardBarAuth/>
-            </div>
-            <div className={classes.space}>
-              <p>user-card-square-id</p>
-              <UserCardSquareAuth/>
-            </div>
+           
            
           </div>
         </div>

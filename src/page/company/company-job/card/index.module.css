@@ -1,0 +1,11 @@
+card{
+  display: flex;
+  align-items: start;
+  margin-top:-5.1vw;
+  height:10.23vw;
+  width: 66.4vw;
+  padding:1.95vw 2.42vw;
+
+  background: #FFFFFF;
+
+}
