@@ -55,9 +55,9 @@ class ReviewReact extends React.Component {
       upvoteCount--;
       try {
         fetch(
-          `${urlPrefix}/editorials/${this.props.match.params.id}/downvote`,
+          `${urlPrefix}/editorials/${this.props.match.params.id}/vote`,
           {
-            method: 'PUT',
+            method: 'DELETE',
             headers: generateHeaders(),
             body: JSON.stringify(data)
           },

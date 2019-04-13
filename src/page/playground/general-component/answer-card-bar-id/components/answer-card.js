@@ -152,9 +152,9 @@ export class AnswerCard extends React.Component {
       upvoteCount--;
       try {
         fetch(
-          `${urlPrefix}/answers/${this.props.answerId}/downvote`,
+          `${urlPrefix}/answers/${this.props.answerId}/vote`,
           {
-            method: 'PUT',
+            method: 'DELETE',
             headers: generateHeaders(),
             body: JSON.stringify(data)
           },

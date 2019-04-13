@@ -140,14 +140,15 @@ export class AnswerCard extends React.Component {
       id:Number(window.localStorage.id)
     };
     let id = this.props.reviewId === undefined ? this.state.backend.id : this.props.reviewId;
+    let type = this.props.type === 'fromQuestion' ? 'answers' : 'editorials';
     if (evaluateStatus === 1) {
       evaluateStatus = 3;
       upvoteCount--;
       try {
         fetch(
-          `${urlPrefix}/editorials/${id}/downvote`,
+          `${urlPrefix}/${type}/${id}/vote`,
           {
-            method: 'PUT',
+            method: 'DELETE',
             headers: generateHeaders(),
             body: JSON.stringify(data)
           },
@@ -167,7 +168,7 @@ export class AnswerCard extends React.Component {
       upvoteCount++;
       try {
         fetch(
-          `${urlPrefix}/editorials/${id}/upvote`,
+          `${urlPrefix}/${type}/${id}/upvote`,
           {
             method: 'PUT',
             headers: generateHeaders(),
@@ -190,6 +191,7 @@ export class AnswerCard extends React.Component {
   onAttention = () => {
     let attention = !this.state.backend.attention;
     let id = this.props.reviewId === undefined ? this.state.backend.id : this.props.reviewId;
+    let type = this.props.type === 'fromQuestion' ? 'answers' : 'editorials';
     this.setState(()=>({
       backend:{
         ...this.state.backend,
@@ -202,7 +204,7 @@ export class AnswerCard extends React.Component {
     if(attention) {
       try {
         fetch(
-          `${urlPrefix}/editorials/${id}/attention`,
+          `${urlPrefix}/${type}/${id}/attention`,
           {
             method: 'PUT',
             headers: generateHeaders(),
@@ -215,7 +217,7 @@ export class AnswerCard extends React.Component {
     } else {
       try {
         fetch(
-          `${urlPrefix}/editorials/attentions/${id}`,
+          `${urlPrefix}/${type}/attentions/${id}`,
           {
             method: 'DELETE',
             headers: generateHeaders(),
@@ -288,6 +290,7 @@ AnswerCard.propTypes = {
   reviewId: PropTypes.number,
   history: PropTypes.object.isRequired,
   ansCommentId: PropTypes.number,
+  type: PropTypes.string,
   // 全文
   fullText: PropTypes.object,
 };
