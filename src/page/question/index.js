@@ -81,7 +81,7 @@ class QuestionReact extends React.Component {
           {
             method: 'DELETE',
             headers: generateHeaders(),
-            body: JSON.stringify(data)
+            body: null
           },
         );
       } catch (e) {

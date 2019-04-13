@@ -28,9 +28,12 @@ class ArticleReact extends React.Component {
       const id = this.props.match.params.id;
       try {
         const result = await getAsync(`/articles/${id}`);
+        const comments = await getAsync(`/articles/${id}/comments`);
         if (result.status.code === 200) {
           this.setState(() => ({
-            backend: result.content
+            backend: result.content,
+            comments:comments.content.data,
+            commentsText:`${comments.content.data.length}条评论`
           }));
         } else {
           this.props.history.push('/page-not-found');
@@ -57,8 +60,8 @@ class ArticleReact extends React.Component {
           title={backend.title}
           time={timeHelper(backend.modified_at)}
           content={backend.body.braftEditorRaw} 
-          user={backend.author.username} 
-          description={backend.author.role} 
+          user={backend.author === null ? backend.author : backend.author.username} 
+          description={backend.author === null ? backend.author : backend.author.role[0]} 
           commentsText={'2'}
         />
         <div style={{marginTop:'70px'}}
