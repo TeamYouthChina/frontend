@@ -1,15 +1,126 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import {
+  MDBSelect,
+  MDBSelectInput,
+  MDBSelectOptions,
+  MDBSelectOption,
+  MDBBtn,
+  MDBChip,
+} from 'mdbreact';
+
 import classes from './index.module.css';
 
-export const Tag = (props) => {
-  return (
-    <button className={classes.btn}>
-      {props.content}
-    </button>
-  );
-};
+class Tag extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      editing: this.props.data ? false : true,
+      tagData: this.props.data // eslint-disable-line
+        ? {
+            id: this.props.data.id,
+            label_code: this.props.data.label_code,
+            name: this.props.data.name,
+          }
+        : {
+            id: '',
+            label_code: '',
+            name: '',
+          },
+    };
+  }
+  // editHandler = () => {
+  //   this.setState({ editing: true });
+  // };
+
+  deleteHandler = () => {
+    if (this.state.tagData.id) {
+      this.props.deleteHandler(this.state.tagData.id); // eslint-disable-line
+    }
+    // else {
+    //   this.props.cancel();
+    // }
+  };
+
+  // packup new data for this card and send to parent
+  saveHandler = () => {
+    // if (this.state.tagData.id) {
+    //   // console.log(`id to delete is ${this.state.proData.id}`);
+    //   this.props.saveHandler(
+    //     this.state.tagData,
+    //     this.state.tagData.id,
+    //     'update'
+    //   );
+    // } else {
+    //   this.props.saveHandler(this.state.educationData, null, 'add');
+    // }
+    this.props.saveHandler(this.state.tagData, null, 'add');
+
+    this.setState({
+      ...this.state,
+      editing: false,
+    });
+  };
+
+  selectValueOnChange = value => {
+    this.setState({
+      ...this.state,
+      tagData: {
+        ...this.state.tagData,
+        name: value,
+      },
+    });
+  };
+
+  render() {
+    // console.log('tag\'s state')
+    // console.log(this.state)
+    // console.log('tag\'s props')
+    // console.log(this.props)
+    let toShow;
+    // console.log(this.props.tagNames);
+    if (!this.state.editing) {
+      toShow = (
+        <MDBChip className={classes.Chip} waves close handleClose={this.deleteHandler} size='md'>
+          {this.state.tagData.name}
+        </MDBChip>
+      );
+    } else {
+      toShow = (
+        <div className={classes.AddingCard}>
+          <MDBSelect getTextContent={this.selectValueOnChange}>
+            <MDBSelectInput selected='优势标签' />
+            <MDBSelectOptions search>
+              {this.props.tagNames.map(e => {
+                if (e.name === this.state.tagData.name) {
+                  return (
+                    <MDBSelectOption selected key={e.id} value={e.id}>
+                      {e.name}
+                    </MDBSelectOption>
+                  );
+                } else {
+                  return (
+                    <MDBSelectOption key={e.id} value={e.id}>
+                      {e.name}
+                    </MDBSelectOption>
+                  );
+                }
+              })}
+            </MDBSelectOptions>
+          </MDBSelect>
+          <MDBBtn color='primary' size='lg' onClick={this.saveHandler}>
+            保存
+          </MDBBtn>
+        </div>
+      );
+    }
+
+    return toShow;
+  }
+}
 
 Tag.propTypes = {
-  content: PropTypes.string.isRequired
+  content: PropTypes.string,
 };
+
+export default Tag;

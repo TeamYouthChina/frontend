@@ -8,7 +8,7 @@
     padding: 1vw;
 }
 
-.EducationCard input {
+/* .EducationCard input {
     font-family: "PingFang SC";
     font-style: normal;
     font-weight: normal;
@@ -21,14 +21,14 @@
     border-left: hidden;
     border-right: hidden;
     border-bottom: 1px solid #e7e7e7
-}
+} */
 
-.EducationCard input:disabled {
+/* .EducationCard input:disabled {
     border-top: hidden;
     border-left: hidden;
     border-right: hidden;
     border-bottom: 1px solid white
-}
+} */
 
 .twoP {
     font-family: "PingFang SC";
@@ -50,7 +50,7 @@
     flex-grow: 1;
 }
 
-.SchoolInfo h1{
+/* .SchoolInfo h1{
     font-family: "PingFang SC";
     font-style: normal;
     font-weight: 600;
@@ -58,9 +58,9 @@
     font-size: 16px;
     color: #62686C;
     margin: 0%;
-}
+} */
 
-.SchoolInfo p{
+/* .SchoolInfo p{
     font-family: "PingFang SC";
     font-style: normal;
     font-weight: normal;
@@ -80,7 +80,7 @@
 
     color: #62686C;
     margin: 0%;
-}
+} */
 
 .RedBox {
     border-bottom: red solid 2px;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
+import { MDBInput } from 'mdbreact';
 
 import classes from './WorkExperienceCard.module.css';
 import workIcon from '../../../assets/google.jpg';
@@ -32,33 +33,33 @@ class WorkExperienceCard extends Component {
       editing: this.props.data ? false : true, // eslint-disable-line
       workData: this.props.data // eslint-disable-line
         ? {
-          id: this.props.data.id,
+            id: this.props.data.id,
             employer: this.props.data.employer, // eslint-disable-line
             position: this.props.data.position, // eslint-disable-line
-          duration: {
-              begin: this.props.data.duration.begin, // eslint-disable-line
-              end: this.props.data.duration.end, // eslint-disable-line
-          },
-          location: {
-            nation_code: this.props.data.location.nation_code,
-            location_code: this.props.data.location.location_code,
-          },
-            note: this.props.data.note, // eslint-disable-line
-        }
+            duration: {
+              begin: new Date(this.props.data.duration.begin), // eslint-disable-line
+              end: new Date(this.props.data.duration.end), // eslint-disable-line
+            },
+            location: {
+              nation_code: this.props.data.location ?  this.props.data.location.nation_code : '',
+              location_code: this.props.data.location ? this.props.data.location.location_code : '000000',
+            },
+            note: this.props.data.note ? this.props.data.note : '无简介', // eslint-disable-line
+          }
         : {
-          id: '',
-          employer: '',
-          position: '',
-          duration: {
-            begin: '',
-            end: '',
+            id: '',
+            employer: '',
+            position: '',
+            duration: {
+              begin: new Date(),
+              end: new Date(),
+            },
+            location: {
+              nation_code: '',
+              location_code: '',
+            },
+            note: '',
           },
-          location: {
-            nation_code: '',
-            location_code: '',
-          },
-          note: '',
-        },
       dateRange: [new Date(), new Date()],
     };
 
@@ -99,75 +100,83 @@ class WorkExperienceCard extends Component {
     }
   };
 
-  inputOnChange = () => {
+  employerOnChange = value => {
     this.setState({
       ...this.state,
       workData: {
         ...this.state.workData,
-        position: this.posRef.current.value,
-        employer: this.employerRef.current.value,
-        duration: {
-          begin: `${this.state.dateRange[0].getTime()}`,
-          end: `${this.state.dateRange[1].getTime()}`,
-        },
-        note: this.noteRef.current.value,
+        employer: value,
+      },
+    });
+  };
+
+  positionOnChange = value => {
+    this.setState({
+      ...this.state,
+      workData: {
+        ...this.state.workData,
+        position: value,
+      },
+    });
+  };
+
+  noteOnChange = value => {
+    this.setState({
+      ...this.state,
+      workData: {
+        ...this.state.workData,
+        note: value,
       },
     });
   };
 
   dateRangePickerOnChange = newDateRange => {
-    this.setState({ ...this.state, dateRange: newDateRange }, () => {
-      this.inputOnChange();
+    this.setState({
+      ...this.state,
+      dateRange: newDateRange ? newDateRange : [new Date(), new Date()],
+      workData: {
+        ...this.state.workData,
+        duration: {
+          begin: newDateRange ? newDateRange[0] : new Date(),
+          end: newDateRange ? newDateRange[1] : new Date(),
+        },
+      },
     });
   };
 
   render() {
+    // console.log(this.state.workData)
     let toShow;
     if (!this.state.editing) {
       toShow = (
         <div className={classes.WorkExperienceCard}>
-          <img src={workIcon} alt="no img" />
+          <img src={workIcon} alt='no img' />
           <div className={classes.WorkInfo}>
-            <input
-              disabled
-              style={{ fontSize: '1.25vw', fontWeight: '500' }}
-              type="text"
-              value={
-                this.state.workData.position ? this.state.workData.position : ''
-              }
-              ref={this.posRef}
-              placeholder={text.position}
-              onChange={this.inputOnChange}
-            />
-            <input
-              disabled
-              style={{ fontSize: '1.25vw' }}
-              type="text"
-              value={
-                this.state.workData.employer
-                  ? this.state.workData.exmployer
-                  : ''
-              }
-              ref={this.employerRef}
-              placeholder={text.employer}
-              onChange={this.inputOnChange}
-            />
-            <div className={classes.twoP}>
-              <DateRangePicker
-                onChange={this.dateRangePickerOnChange}
-                value={this.state.dateRange}
-                disabled={true}
-              />
-            </div>
-
-            <textarea
-              disabled
-              className={classes.description}
-              value={this.state.workData.note ? this.state.workData.note : ''}
-              ref={this.noteRef}
-              placeholder={text.note}
-              onChange={this.inputOnChange}
-            />
+            <p>{this.state.workData.employer}</p>
+            <p>{this.state.workData.position}</p>
+            <p>
+              {`${this.state.workData.duration.begin.toLocaleDateString(
+                'zh-cn',
+                {
+                  year: 'numeric',
+                  month: 'numeric',
+                  day: 'numeric',
+                }
+              )}    ${this.state.workData.duration.end.toLocaleDateString(
+                'zh-cn',
+                {
+                  year: 'numeric',
+                  month: 'numeric',
+                  day: 'numeric',
+                }
+              )}`}
+            </p>
+            <p>
+              {`${this.state.workData.location.nation_code}    ${
+                this.state.workData.location.location_code
+              }`}
+            </p>
+            {/* <p>{this.state.workData.note}</p> */}
           </div>
           <Dropdown delete={this.deleteHandler} edit={this.editHandler} />
         </div>
@@ -175,40 +184,34 @@ class WorkExperienceCard extends Component {
     } else {
       toShow = (
         <div className={classes.WorkExperienceCard}>
-          <img src={workIcon} alt="no img" />
+          <img src={workIcon} alt='no img' />
           <div className={classes.WorkInfo}>
-            <input
-              style={{ margin: '3px 0px' }}
-              type="text"
-              value={
-                this.state.workData.position ? this.state.workData.position : ''
-              }
-              ref={this.posRef}
-              placeholder={text.position}
-              onChange={this.inputOnChange}
-            />
-            <input
-              style={{ margin: '3px 0px' }}
-              type="text"
+            <MDBInput
+              label='公司'
+              getValue={this.employerOnChange}
               value={
                 this.state.workData.employer ? this.state.workData.employer : ''
               }
-              ref={this.employerRef}
-              placeholder={text.employer}
-              onChange={this.inputOnChange}
             />
+            <MDBInput
+              label='职位'
+              getValue={this.positionOnChange}
+              value={
+                this.state.workData.position ? this.state.workData.position : ''
+              }
+            />
+            {/* put loction here */}
             <DateRangePicker
               onChange={this.dateRangePickerOnChange}
               value={this.state.dateRange}
             />
-            <input
-              style={{ margin: '3px 0px' }}
-              type="text"
-              value={this.state.workData.note ? this.state.workData.note : ''}
-              ref={this.noteRef}
-              placeholder={text.note}
-              onChange={this.inputOnChange}
-            />
+            {/* <MDBInput
+              label='简介'
+              getValue={this.noteOnChange}
+              value={
+                this.state.workData.note ? this.state.workData.note : ''
+              }
+            /> */}
           </div>
           <Dropdown
             delete={this.deleteHandler}

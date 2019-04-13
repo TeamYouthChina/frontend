@@ -1,10 +1,16 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import {Tag} from './tag';
+import Tag from './tag/index';
 import classes from './index.module.css';
+import {
+  getAsync,
+  postAsync,
+  putAsync,
+  deleteAsync,
+} from '../../../../tool/api-helper';
 import addIcon from '../../assets/add.svg';
-// import {getAsync} from '../../../../tool/api-helper';
-import {languageHelper} from '../../../../tool/language-helper';
+import { languageHelper } from '../../../../tool/language-helper';
 
 const translation = [
   {
@@ -25,138 +31,191 @@ class AdvantageTag extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      backend: ['编程大神', '这是一条很长很长的', '这是一条很长的标', '这是一条很长很长的', '编程大神'],
-      cards: Array(),
-      flipper: true,
+      cardsRequest: null,
+      adding: false,
+      addingCard: null,
+      tagNames: null,
+      tagMap: null,
     };
-    this.date = null;
+  }
+
+  cancelAdding = () => {
+    this.setState({ ...this.state, addingCard: null, adding: false });
+  };
+
+  async postRequest(content) {
+    await postAsync('/applicants/' + this.props.requestID + '/skills', content);
+    // console.log(`posting ${content} and response is ${response}`)
+  }
+
+  async putRequest(id, content) {
+    await putAsync(
+      '/applicants/' + this.props.requestID + '/skills/' + id,
+      content
+    );
+    // console.log(`putting ${content} with id ${id} and response is ${response}`)
+  }
+
+  async deleteRequest(id) {
+    await deleteAsync('/applicants/' + this.props.requestID + '/skills/' + id);
+    // console.log(`deleting ${id} and response is ${response}`)
+  }
+
+  async getRequest() {
+    let cardsRequest = await getAsync(
+      '/applicants/' + this.props.requestID + '/skills'
+    );
+
+    // console.log('getting');
+    if (
+      cardsRequest &&
+      cardsRequest.content &&
+      cardsRequest.content.data &&
+      cardsRequest.status.code === 2000
+    ) {
+      this.setState({
+        ...this.state,
+        cardsRequest: cardsRequest,
+        adding: false,
+        addingCard: null,
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        adding: false,
+        addingCard: null,
+      });
+    }
   }
 
   // get work data set requestedData and cards in state
   async componentDidMount() {
-    // let data = await getAsync(
-    //   `/applicants/${this.props.requestID}/experiences`,      // eslint-disable-line
-    //   true
-    // );
-    // // console.log(data);      // eslint-disable-line
-    // let temp =
-    //   data &&
-    //   data.content &&
-    //   data.content.experiences &&
-    //   data.status.code === 2000
-    //     ? data.content.experiences.map(e => {
-    //       return (
-    //         <Tag
-    //           key={e.id}
-    //           id={e.id}
-    //           content={e}
-    //         />
-    //       );
-    //     })
-    //     :
-    //     this.state.backend.map((items, i) => {
-    //       return (
-    //         <Tag key={i} content={items} />
-    //       );
-    //     });
-    // this.setState({cards: temp});
-  }
+    let tagRequest = await getAsync('/static/dictionaries?type=advantageSkill');
+    let tagMap = new Map();
+    let tagNames = [];
 
-  async componentDidUpdate() {
+    if (tagRequest && tagRequest.content && tagRequest.status.code === 2000) {
+      tagRequest.content.forEach(e => {
+        tagMap.set(e.name, e.id);
+        tagNames.push(e);
+      });
+    }
+
+    let cardsRequest = await getAsync(
+      '/applicants/' + this.props.requestID + '/skills'
+    );
+
+    // console.log('getting');
+    if (
+      cardsRequest &&
+      cardsRequest.content &&
+      cardsRequest.content.data &&
+      cardsRequest.status.code === 2000
+    ) {
+      this.setState({
+        ...this.state,
+        cardsRequest: cardsRequest,
+        adding: false,
+        addingCard: null,
+        tagMap: tagMap,
+        tagNames: tagNames,
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        adding: false,
+        addingCard: null,
+        tagMap: tagMap,
+        tagNames: tagNames,
+      });
+    }
   }
 
   // delte data on server, delete data in state.cards
-  deleteHandler = id => {
-    // TODO: delete data on server according to id
-    // make a hard copy
-    let temp = this.state.cards.splice(0);
-    temp.forEach((e, i) => {
-      if (e.key == id) {
-        temp.splice(i, 1);
-        return;
-      }
-    });
-    this.setState(
-      {
-        cards: temp,
-        flipper: !this.state.flipper,
-      },
-      () => {
-        // prepare the data to be sent back to server
-        let dataToSend = this.state.cards.map(e => {      // eslint-disable-line
-          return e.props.data;
-        });
-      }
-    );
+  deleteHandler = async id => {
+    await this.deleteRequest(id);
+    await this.getRequest();
   };
 
   // save data locally and send back to server
-  saveHandler = (newWork, id) => {
-    // TODO: update server with new saved cards
-    // PUT {...this.state.requestedData, newEducation}
-    // timestamp
-    this.date = new Date();
-    const time = this.date.getTime();
-    // make a hard copy
-    let temp = this.state.cards.splice(0);
-    temp.forEach((e, i) => {
-      if (e.key == id) {
-        temp.splice(
-          i,
-          1,
-          <Tag
-            key={time}
-            id={time}
-            content={'render'}
-          />
-        );
-        return;
-      }
-    });
-    this.setState(
-      {
-        cards: temp,
-        flipper: !this.state.flipper,
-      },
-      () => {
-        // prepare data to be sent back to server
-        let dataToSend = this.state.cards.map(e => {      // eslint-disable-line
-          return e.props.data;
-        });
-      }
-    );
+  saveHandler = async (content, id, mode) => {
+    // console.log(content);
+    if (mode === 'add') {
+      content = this.encodeContent(content);
+      // console.log(content);
+      await this.postRequest(content);
+      await this.getRequest();
+    } else if (mode === 'update') {
+      content = this.encodeContent(content);
+      // console.log(content);
+      await this.putRequest(id, content);
+      await this.getRequest();
+    }
   };
 
   addHandler = () => {
-    // timestamp
-    this.date = new Date();
-    const time = this.date.getTime();
-    // make a hard copy
-    let temp = this.state.cards.splice(0);
-    temp.push(
+    if (this.state.adding === true) {
+      alert('请先完成当前编辑');
+      return;
+    }
+    // console.log('tag section state.tagNames')
+    // console.log(this.state.tagNames)
+
+    let temp = (
       <Tag
-        key={time}
-        id={time}
-        content={'new add'}
+        id='addingCard'
+        deleteHandler={this.deleteHandler}
+        saveHandler={this.saveHandler}
+        cancel={this.cancelAdding}
+        tagMap={this.state.tagMap}
+        tagNames={this.state.tagNames}
       />
     );
-    this.setState(
-      {
-        cards: temp,
-        flipper: !this.state.flipper
-      });
+    this.setState({
+      ...this.state,
+      addingCard: temp,
+      adding: true,
+    });
+  };
+
+  cancelAdding = () => {
+    this.setState({ ...this.state, addingCard: null, adding: false });
+  };
+
+  encodeContent = content => {
+    return {
+      label_code: this.state.tagMap.get(content.name)
+    };
   };
 
   render() {
     let toShow;
-    if (this.state.cards.length === 0) {
+    let cards = [];
+    // console.log(this.state)
+    if (this.state.cardsRequest) {
+      cards = this.state.cardsRequest.content.data.map(e => {
+        return (
+          <Tag
+            key={e.id}
+            data={e}
+            deleteHandler={this.deleteHandler}
+            saveHandler={this.saveHandler}
+            tagMap={this.state.tagMap}
+            tagNames={this.state.tagNames}
+          />
+        );
+      });
+    }
+
+    if (cards.length === 0 && this.state.addingCard === null) {
       toShow = (
         <div className={classes.advantageTag}>
           <div className={classes.row}>
             <p className={classes.SectionName}>{text.advantageTag}</p>
             <img
               className={classes.addIcon}
-              src={addIcon} alt="icon"
+              src={addIcon}
+              alt='icon'
               onClick={this.addHandler}
             />
           </div>
@@ -170,12 +229,14 @@ class AdvantageTag extends Component {
             <p className={classes.SectionName}>{text.advantageTag}</p>
             <img
               className={classes.addIcon}
-              src={addIcon} alt="icon"
+              src={addIcon}
+              alt='icon'
               onClick={this.addHandler}
             />
           </div>
-          <div className={classes.tags}>
-            {this.state.cards}
+          <div className={classes.CardsSection}>
+            {cards}
+            {this.state.addingCard}
           </div>
         </div>
       );
@@ -184,5 +245,9 @@ class AdvantageTag extends Component {
     return toShow;
   }
 }
+
+AdvantageTag.propTypes = {
+  requestID: PropTypes.string.isRequired,
+};
 
 export default AdvantageTag;

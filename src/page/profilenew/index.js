@@ -89,7 +89,7 @@ class ProfileMainBodyReact extends Component {
             {/* <Skills requestID={this.state.requestID} />
             <Certifications requestID={this.state.requestID} />
             <SocialActivicies requestID={this.state.requestID} /> */}
-            {/* <AdvantageTag requestID={this.state.requestID}/> */}
+            <AdvantageTag requestID={this.state.requestID}/>
           </div>
         </div>
       </div>

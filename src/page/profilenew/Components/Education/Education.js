@@ -196,7 +196,6 @@ class Education extends Component {
     if (mode === 'add') {
       content = this.encodeContent(content);
       // console.log(content);
-
       await this.postRequest(content);
       await this.getRequest();
     } else if (mode === 'update') {

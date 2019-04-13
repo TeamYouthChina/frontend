@@ -37,29 +37,27 @@ class EducationCard extends Component {
       editing: this.props.data ? false : true, // eslint-disable-line
       educationData: this.props.data // eslint-disable-line
         ? {
-          id: this.props.data.id,
+            id: this.props.data.id,
             university_id: this.props.data.university, // eslint-disable-line
-          major: this.props.data.major,
-          degree: this.props.data.degree,
-          duration: {
-            begin: new Date(
-              this.props.data.duration.begin
-              ), // eslint-disable-line
+            major: this.props.data.major,
+            degree: this.props.data.degree,
+            duration: {
+              begin: new Date(this.props.data.duration.begin), // eslint-disable-line
               end: new Date(this.props.data.duration.end), // eslint-disable-line
-          },
+            },
             note: this.props.data.note, // eslint-disable-line
-        }
+          }
         : {
-          id: '',
-          university_id: '',
-          major: '',
-          degree: '',
-          duration: {
-            begin: new Date(),
-            end: new Date(),
+            id: '',
+            university_id: '',
+            major: '',
+            degree: '',
+            duration: {
+              begin: new Date(),
+              end: new Date(),
+            },
+            note: '',
           },
-          note: '',
-        },
       dateRange: [new Date(), new Date()],
       universityError: false,
       majorError: false,
@@ -89,10 +87,6 @@ class EducationCard extends Component {
       alert('input 错误');
       return;
     }
-    this.setState({
-      ...this.state,
-      editing: false,
-    });
     if (this.state.educationData.id) {
       // console.log(`id to delete is ${this.state.proData.id}`);
       this.props.saveHandler(
@@ -103,6 +97,10 @@ class EducationCard extends Component {
     } else {
       this.props.saveHandler(this.state.educationData, null, 'add');
     }
+    this.setState({
+      ...this.state,
+      editing: false,
+    });
   };
 
   // inputOnChange = () => {
@@ -216,23 +214,27 @@ class EducationCard extends Component {
     // console.log(this.state.educationData);
     let toShow = (
       <div className={classes.EducationCard}>
-        <img src={schoolIcon} alt="no img" />
+        <img src={schoolIcon} alt='no img' />
         <div className={classes.SchoolInfo}>
           <p>{this.state.educationData.university_id}</p>
           <p>{this.state.educationData.major}</p>
           <p>{this.state.educationData.degree}</p>
           <p>
-            {`${this.state.educationData.duration.begin.toLocaleDateString('zh-cn', {
-              year: 'numeric',
-              month: 'numeric',
-              day: 'numeric',
-            })}    ${
-              this.state.educationData.duration.end.toLocaleDateString('zh-cn', {
+            {`${this.state.educationData.duration.begin.toLocaleDateString(
+              'zh-cn',
+              {
                 year: 'numeric',
                 month: 'numeric',
                 day: 'numeric',
-              })
-            }`}
+              }
+            )}    ${this.state.educationData.duration.end.toLocaleDateString(
+              'zh-cn',
+              {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric',
+              }
+            )}`}
           </p>
           {/* <p>{this.state.educationData.note}</p> */}
         </div>
@@ -248,14 +250,14 @@ class EducationCard extends Component {
       // console.log(this.state.educationData);
       toShow = (
         <div className={classes.EducationCard}>
-          <img src={schoolIcon} alt="no img" />
+          <img src={schoolIcon} alt='no img' />
           <div className={classes.SchoolInfo}>
             <div ref={this.universityNameRef}>
               <MDBAutocomplete
                 data={this.props.universityNames}
-                label="选择你的学校"
+                label='选择你的学校'
                 clear
-                id="universityName"
+                id='universityName'
                 getValue={this.universityNameChange}
                 valueDefault={this.state.educationData.university_id}
               />
@@ -263,19 +265,19 @@ class EducationCard extends Component {
             <div ref={this.majorNameRef}>
               <MDBAutocomplete
                 data={this.props.majorNames}
-                label="选择你的专业"
+                label='选择你的专业'
                 clear
-                id="majorName"
+                id='majorName'
                 getValue={this.majorNameChange}
                 valueDefault={this.state.educationData.major}
               />
             </div>
 
             <MDBSelect getTextContent={this.degreeNameChange}>
-              <MDBSelectInput selected="选择你的学位" />
+              <MDBSelectInput selected='选择你的学位' />
               <MDBSelectOptions>
                 {/* {console.log(this.props.degreeNames)} */}
-                {this.props.degreeNames.map((e) => {
+                {this.props.degreeNames.map(e => {
                   if (e.name === this.state.educationData.degree) {
                     return (
                       <MDBSelectOption selected key={e.id} value={e.id}>
@@ -289,7 +291,6 @@ class EducationCard extends Component {
                       </MDBSelectOption>
                     );
                   }
-                  
                 })}
               </MDBSelectOptions>
             </MDBSelect>
