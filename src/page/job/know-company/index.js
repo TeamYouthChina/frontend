@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import amazon from '../amazon.svg';
 import classes from './index.module.css';
-import {IfCollect} from '../if-collect';
+import {IfCollect} from '../../playground/general-component/if-collect';
 import {languageHelper} from '../../../tool/language-helper';
 
 class KnowCompanyReact extends React.Component {
@@ -31,7 +31,7 @@ class KnowCompanyReact extends React.Component {
             <img src={amazon}/>
             <span className={classes.company}>{this.props.backend.content.organization.name}</span>
           </div>
-          <div className={classes.note}>{this.props.backend.content.organization.note}</div>
+          <div className={classes.note}><pre>{this.props.backend.content.organization.note}</pre></div>
         </div>
         
       </div>

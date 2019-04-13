@@ -67,8 +67,19 @@ class SearchInsightResultReact extends React.Component {
     return (
       <div className="cell-wall">
         <div className="cell-membrane">
+
+          {
+            this.props.backend ?
+              (this.props.backend.status && this.props.backend.status.code === 2000 ? (this.props.backend.content.data.map((item, index) => (
+                <MDBRow key={index} style={{margin: '1rem 0rem'}}>
+                  <p>{item.content.id}</p>
+                </MDBRow>))) : (this.props.backend.status.code === 4040 ? <p>没有搜索结果。</p> : <p>Here should be a loading card.</p>)
+              )
+              : null
+          }
+
           <MDBRow style={{marginTop: '2vw'}}>
-            <MDBCol className="px-0" size="10">
+            <main className={classes.mainBody}>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
                   <ArticleCardBarId id={1} />
@@ -94,8 +105,9 @@ class SearchInsightResultReact extends React.Component {
                   <ArticleCardBarId id={1} />
                 </MDBCol>
               </MDBRow>
-            </MDBCol>
-            <MDBCol className={classes.sideBar} size="2">
+            </main>
+
+            <aside className={classes.sideBar}>
               <MDBListGroup style={{fontSize: '1.25vw', marginBottom: '1.56vw'}}>
                 <MDBListGroupItem
                   hover
@@ -163,7 +175,7 @@ class SearchInsightResultReact extends React.Component {
               {/*/>*/}
               {/*}*/}
               {/*</Switch>*/}
-            </MDBCol>
+            </aside>
           </MDBRow>
         </div>
       </div>
@@ -183,7 +195,8 @@ SearchInsightResultReact.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  handleSearchType: PropTypes.func.isRequired
+  handleSearchType: PropTypes.func.isRequired,
+  backend: PropTypes.object.isRequired
 };
 
 export const SearchInsightResult = withRouter(SearchInsightResultReact);

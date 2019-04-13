@@ -114,6 +114,16 @@
   background-color: #FFFFFF;
   padding-top: 1.72vw;
   padding-bottom: 1.72vw;
-  margin-left: 1.56vw;
   margin-bottom: 1.56vw;
+}
+
+.sideBar {
+  margin-left: 1.56vw;
+  width: 15.39vw;
+  margin-top: 4vw;
+  padding-right: 1.6vw;
+}
+
+.mainBody {
+  width: 66.17vw;
 }

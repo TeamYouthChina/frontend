@@ -36,20 +36,19 @@ class SearchCompanyResultReact extends React.Component {
     // i18n
     this.text = SearchCompanyResultReact.i18n[languageHelper()];
   }
-  
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextState.collectionNum !== this.state.collectionNum;
-  }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return nextState.collectionNum !== this.state.collectionNum;
+  // }
 
   async componentDidMount() {
     try {
       const result = await getAsync(`/users/${localStorage.getItem('id')}/attentions?type=${this.state.collectionType}`);
-      if (result && result.status) {
+      if (result && result.status && result.status === 2000) {
         this.setState(() => {
           return {collectionNum: result.content.length};
         });
-      }
-      else {
+      } else {
         this.setState(() => {
           return {collectionNum: 0};
         });
@@ -65,8 +64,18 @@ class SearchCompanyResultReact extends React.Component {
     return (
       <div className="cell-wall">
         <div className="cell-membrane">
+          {this.props.backend ?
+            (this.props.backend.status && this.props.backend.status.code === 2000 ?
+              (this.props.backend.content.data.map((item, index) => (
+                <MDBRow key={index} style={{margin: '1rem 0rem'}}>
+                  <p>{item.content.id}</p>
+                </MDBRow>
+              )))
+              : <p>Here should be a loading card.</p>)
+            : null}
+
           <MDBRow style={{marginTop: '2vw'}}>
-            <MDBCol className="px-0" size="10">
+            <main className={classes.mainBody}>
               <MDBRow style={{marginBottom: '1.2vw'}}>
                 <MDBCol
                   size="2" className="px-0 d-flex justify-content-center align-items-center"
@@ -90,56 +99,56 @@ class SearchCompanyResultReact extends React.Component {
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <CompanyCardBarId id={'1'}/>
+                  <CompanyCardBarId id={'1'} />
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <CompanyCardBarId id={'1'}/>
+                  <CompanyCardBarId id={'2'} />
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <CompanyCardBarId id={'1'}/>
+                  <CompanyCardBarId id={'3'} />
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <CompanyCardBarId id={'1'}/>
+                  <CompanyCardBarId id={'4'} />
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <CompanyCardBarId id={'1'}/>
+                  <CompanyCardBarId id={'5'} />
                 </MDBCol>
               </MDBRow>
-            </MDBCol>
-            <MDBCol style={{marginTop: '4vw', marginLeft: 0, padding: 0}} size="2">
-              <div>
-                <CollectionSidebar number={this.state.collectionNum} collectionType="公司"/>
-                <MDBListGroup
-                  style={{fontSize: '1.1vw', marginLeft: '1.56vw'}}>
-                  <MDBListGroupItem
-                    className={classes.listGroupItemsTag}
-                  >
-                    <p style={navyFont}>标签</p>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem
-                    className={classes.listGroupItems}
-                  >
-                    <button className={classes.tagBtn}>求职技巧</button>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem
-                    className={classes.listGroupItems}
-                  >
-                    <button className={classes.tagBtnSelected}>面试经历</button>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem
-                    className={classes.listGroupItems}
-                    style={{height: '10vh'}} />
-                </MDBListGroup>
-              </div>
-            </MDBCol>
+            </main>
+
+            <aside className={classes.sideBar}>
+              <CollectionSidebar number={this.state.collectionNum} collectionType="公司" />
+              <MDBListGroup
+                style={{fontSize: '1.1vw', marginTop: '1.56vw'}}>
+                <MDBListGroupItem
+                  className={classes.listGroupItemsTag}
+                >
+                  <p style={navyFont}>标签</p>
+                </MDBListGroupItem>
+                <MDBListGroupItem
+                  className={classes.listGroupItems}
+                >
+                  <button className={classes.tagBtn}>求职技巧</button>
+                </MDBListGroupItem>
+                <MDBListGroupItem
+                  className={classes.listGroupItems}
+                >
+                  <button className={classes.tagBtnSelected}>面试经历</button>
+                </MDBListGroupItem>
+                <MDBListGroupItem
+                  className={classes.listGroupItems}
+                  style={{height: '10vh'}} />
+              </MDBListGroup>
+            </aside>
+
           </MDBRow>
         </div>
       </div>
@@ -159,7 +168,8 @@ SearchCompanyResultReact.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  handleSearchType: PropTypes.func.isRequired
+  handleSearchType: PropTypes.func.isRequired,
+  backend: PropTypes.object.isRequired
 };
 
 export const SearchCompanyResult = withRouter(SearchCompanyResultReact);

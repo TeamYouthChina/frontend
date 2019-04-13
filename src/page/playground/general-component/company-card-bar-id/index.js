@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import arrow from './arrow.svg';
 import classes from './index.module.css';
 // import { content } from './index.mock';
+import {getAsync} from '../../../../tool/api-helper';
 import bag from './bag.svg';
 import des1 from './des1.svg';
 import employee from './employee.svg';
@@ -21,21 +22,7 @@ class CompanyCardBarIdReact extends React.Component {
     super(props);
     // state
     this.state = {
-      cardData: {
-        content: {
-          id: null,
-          name: null,
-          avatarUrl: null,
-          location: null,
-          website: null,
-          note: null,
-          nation: null,
-        },
-        status: {
-          code: null,
-          reason: null,
-        },
-      },
+      
       isLiked : false,
     };
     // i18n
@@ -43,19 +30,17 @@ class CompanyCardBarIdReact extends React.Component {
   }
 
   async componentDidMount() {
-    // const requestedCompanyData = await getAsync(`/companies/${this.props.id}`);
-    // const allLikedCompaniesData = await getAsync(`/users/${getID()}/attentions?type=company`);
-    // let testIsLiked = false;
-    // allLikedCompaniesData.content.forEach(e=>{
-    //   if(e.id === this.state.cardData.content.id){
-    //     testIsLiked = true;
-    //     break;
-    //   }
-    // })
-    // console.log(requestedCompanyData)
-    // console.log(allLikedCompaniesData)
-    // this.setState({ ...this.state, cardData: requestedCompanyData, isLiked: testIsLiked});
+    if (this.props.id) {
+      this.setState({
+        backend: await getAsync(`/companies/${this.props.id}`)
+      });
+    } else {
+      this.setState({
+        backend: await getAsync('/companies/1')
+      });
+    }
   }
+
 
   clickOnCard = () => {};
 
@@ -95,16 +80,17 @@ class CompanyCardBarIdReact extends React.Component {
     );
 
     let likeOrUnlikeButton = (this.state.isLiked) ? unlikeButton : likeButton;
-    return (
+    return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ? (
+      
       <div className={classes.Card}>
         <div className={classes.Clickable} onClick={this.clickOnCard} />
         <div className={classes.UnClickable}>
           <div className={classes.Icon}>
-            <img src={this.state.cardData.content.avatarUrl} alt="no img" />
+            <img src={this.state.backend.content.avatarUrl} alt="no img" />
           </div>
           <div className={classes.Info}>
             <div className={classes.Name}>
-              <p>{this.state.cardData.content.name}</p>
+              <p>{this.state.backend.content.name}</p>
             </div>
             <div className={classes.Des1}>
               <img src={des1} alt="no img" />
@@ -135,7 +121,7 @@ class CompanyCardBarIdReact extends React.Component {
           </div>
         </div>
       </div>
-    );
+    ):null;
   }
 }
 
