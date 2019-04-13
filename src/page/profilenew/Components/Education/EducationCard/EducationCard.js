@@ -37,27 +37,27 @@ class EducationCard extends Component {
       editing: this.props.data ? false : true, // eslint-disable-line
       educationData: this.props.data // eslint-disable-line
         ? {
-            id: this.props.data.id,
+          id: this.props.data.id,
             university_id: this.props.data.university, // eslint-disable-line
-            major: this.props.data.major,
-            degree: this.props.data.degree,
-            duration: {
+          major: this.props.data.major,
+          degree: this.props.data.degree,
+          duration: {
               begin: new Date(this.props.data.duration.begin), // eslint-disable-line
               end: new Date(this.props.data.duration.end), // eslint-disable-line
-            },
-            note: this.props.data.note, // eslint-disable-line
-          }
-        : {
-            id: '',
-            university_id: '',
-            major: '',
-            degree: '',
-            duration: {
-              begin: new Date(),
-              end: new Date(),
-            },
-            note: '',
           },
+            note: this.props.data.note, // eslint-disable-line
+        }
+        : {
+          id: '',
+          university_id: '',
+          major: '',
+          degree: '',
+          duration: {
+            begin: new Date(),
+            end: new Date(),
+          },
+          note: '',
+        },
       dateRange: [new Date(), new Date()],
       universityError: false,
       majorError: false,

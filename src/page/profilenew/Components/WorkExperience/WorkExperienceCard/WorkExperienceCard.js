@@ -6,25 +6,25 @@ import { MDBInput } from 'mdbreact';
 import classes from './WorkExperienceCard.module.css';
 import workIcon from '../../../assets/google.jpg';
 import Dropdown from '../../Dropdown/Dropdown';
-import { languageHelper } from '../../../../../tool/language-helper';
+// import { languageHelper } from '../../../../../tool/language-helper';
 
-const translation = [
-  {
-    position: '职位',
-    employer: '雇主',
-    begin: '开始日期',
-    end: '结束日期',
-    note: '说明',
-  },
-  {
-    position: 'Position',
-    employer: 'Employer',
-    begin: 'Begin',
-    end: 'End',
-    note: 'Note',
-  },
-];
-const text = translation[languageHelper()];
+// const translation = [
+//   {
+//     position: '职位',
+//     employer: '雇主',
+//     begin: '开始日期',
+//     end: '结束日期',
+//     note: '说明',
+//   },
+//   {
+//     position: 'Position',
+//     employer: 'Employer',
+//     begin: 'Begin',
+//     end: 'End',
+//     note: 'Note',
+//   },
+// ];
+// const text = translation[languageHelper()];
 
 class WorkExperienceCard extends Component {
   constructor(props) {
@@ -33,33 +33,33 @@ class WorkExperienceCard extends Component {
       editing: this.props.data ? false : true, // eslint-disable-line
       workData: this.props.data // eslint-disable-line
         ? {
-            id: this.props.data.id,
+          id: this.props.data.id,
             employer: this.props.data.employer, // eslint-disable-line
             position: this.props.data.position, // eslint-disable-line
-            duration: {
+          duration: {
               begin: new Date(this.props.data.duration.begin), // eslint-disable-line
               end: new Date(this.props.data.duration.end), // eslint-disable-line
-            },
-            location: {
-              nation_code: this.props.data.location ?  this.props.data.location.nation_code : '',
-              location_code: this.props.data.location ? this.props.data.location.location_code : '000000',
-            },
-            note: this.props.data.note ? this.props.data.note : '无简介', // eslint-disable-line
-          }
-        : {
-            id: '',
-            employer: '',
-            position: '',
-            duration: {
-              begin: new Date(),
-              end: new Date(),
-            },
-            location: {
-              nation_code: '',
-              location_code: '',
-            },
-            note: '',
           },
+          location: {
+            nation_code: this.props.data.location ?  this.props.data.location.nation_code : '',
+            location_code: this.props.data.location ? this.props.data.location.location_code : '000000',
+          },
+            note: this.props.data.note ? this.props.data.note : '无简介', // eslint-disable-line
+        }
+        : {
+          id: '',
+          employer: '',
+          position: '',
+          duration: {
+            begin: new Date(),
+            end: new Date(),
+          },
+          location: {
+            nation_code: '',
+            location_code: '',
+          },
+          note: '',
+        },
       dateRange: [new Date(), new Date()],
     };
 

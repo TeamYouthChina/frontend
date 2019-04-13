@@ -1,27 +1,27 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import WorkExperienceCard from "./WorkExperienceCard/WorkExperienceCard";
-import classes from "./WorkExperience.module.css";
+import WorkExperienceCard from './WorkExperienceCard/WorkExperienceCard';
+import classes from './WorkExperience.module.css';
 import {
   getAsync,
   postAsync,
   putAsync,
   deleteAsync,
-} from "../../../../tool/api-helper";
-import { languageHelper } from "../../../../tool/language-helper";
-import addIcon from "../../assets/add.svg";
+} from '../../../../tool/api-helper';
+import { languageHelper } from '../../../../tool/language-helper';
+import addIcon from '../../assets/add.svg';
 
 const translation = [
   {
-    workExperience: "工作经历",
-    addWorkExperience: "+ 添加工作经历",
-    noWorkExperience: "无工作经历",
+    workExperience: '工作经历',
+    addWorkExperience: '+ 添加工作经历',
+    noWorkExperience: '无工作经历',
   },
   {
-    workExperience: "Work Experience",
-    addWorkExperience: "+ Add Work Experience",
-    noWorkExperience: "No Work Experience",
+    workExperience: 'Work Experience',
+    addWorkExperience: '+ Add Work Experience',
+    noWorkExperience: 'No Work Experience',
   },
 ];
 
@@ -43,7 +43,7 @@ class WorkExperience extends Component {
 
   async postRequest(content) {
     await postAsync(
-      "/applicants/" + this.props.requestID + "/experiences",
+      '/applicants/' + this.props.requestID + '/experiences',
       content
     );
     // console.log(`posting ${content} and response is ${response}`)
@@ -51,7 +51,7 @@ class WorkExperience extends Component {
 
   async putRequest(id, content) {
     await putAsync(
-      "/applicants/" + this.props.requestID + "/experiences/" + id,
+      '/applicants/' + this.props.requestID + '/experiences/' + id,
       content
     );
     // console.log(`putting ${content} with id ${id} and response is ${response}`)
@@ -59,14 +59,14 @@ class WorkExperience extends Component {
 
   async deleteRequest(id) {
     await deleteAsync(
-      "/applicants/" + this.props.requestID + "/experiences/" + id
+      '/applicants/' + this.props.requestID + '/experiences/' + id
     );
     // console.log(`deleting ${id} and response is ${response}`)
   }
 
   async getRequest() {
     let cardsRequest = await getAsync(
-      "/applicants/" + this.props.requestID + "/experiences"
+      '/applicants/' + this.props.requestID + '/experiences'
     );
 
     // console.log('getting');
@@ -109,15 +109,15 @@ class WorkExperience extends Component {
 
     // 暂时给content加的location codes
     content.location = {
-      nation_code: "CHN",
-      location_code: "000000"
-    }
+      nation_code: 'CHN',
+      location_code: '000000'
+    };
     //
-    if (mode === "add") {
+    if (mode === 'add') {
       // console.log('adding');
       await this.postRequest(content);
       await this.getRequest();
-    } else if (mode === "update") {
+    } else if (mode === 'update') {
       // console.log('updating');
       await this.putRequest(id, content);
       await this.getRequest();
@@ -128,7 +128,7 @@ class WorkExperience extends Component {
   // update the data in server and local happens in saveHandler
   addHandler = () => {
     if (this.state.adding === true) {
-      alert("请先完成当前编辑");
+      alert('请先完成当前编辑');
       return;
     }
     let temp = (

@@ -18,15 +18,15 @@ class Tag extends Component {
       editing: this.props.data ? false : true,
       tagData: this.props.data // eslint-disable-line
         ? {
-            id: this.props.data.id,
-            label_code: this.props.data.label_code,
-            name: this.props.data.name,
-          }
+          id: this.props.data.id,
+          label_code: this.props.data.label_code,
+          name: this.props.data.name,
+        }
         : {
-            id: '',
-            label_code: '',
-            name: '',
-          },
+          id: '',
+          label_code: '',
+          name: '',
+        },
     };
   }
   // editHandler = () => {
@@ -121,6 +121,9 @@ class Tag extends Component {
 
 Tag.propTypes = {
   content: PropTypes.string,
+  data: PropTypes.object,
+  saveHandler: PropTypes.func,
+  tagNames: PropTypes.array
 };
 
 export default Tag;
