@@ -46,7 +46,7 @@ class JobCardBarIdReact extends React.Component {
         <div className={classes.Clickable} />
         <div className={classes.UnClickable}>
           <div className={classes.Img}>
-            <img src={this.state.backend.content.organization.avatarUrl} alt="no img" />
+            <img src={(this.state.backend.content.organization.avatarUrl)?(this.state.backend.content.organization.avatarUrl):('http://frontendpic.oss-us-east-1.aliyuncs.com/%E5%B7%A5%E4%BD%9C.png')} alt="no img" />
           </div>
           <div className={classes.Info}>
             <div className={classes.Title}>
@@ -93,7 +93,7 @@ class JobCardBarIdReact extends React.Component {
             </div>
           </div>
           <div className={classes.Like}>
-            <IfCollect ifcollect={this.state.backend.content.collected}/>
+            <IfCollect ifcollect={this.state.backend.content.collected} type={1} id={this.state.backend.content.id}/>
             
           </div>
         </div>
