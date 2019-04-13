@@ -35,7 +35,7 @@ class ZhenyiReact extends React.Component {
           <ReviewCardBarId id={2}/>
         </div>
         <div style={{background:'#E5E5E5'}}>
-          <ArticleCardBarId id={12}/>
+          <ArticleCardBarId id={4}/>
         </div>
         <div style={{background:'#E5E5E5'}}>
           <AnswerCardBarId id={12} questionId={12} questionTitle={'123123123'}/>
