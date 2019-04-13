@@ -4,4 +4,5 @@ set -u
 SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 
 # The script is executed on the root directory of the repo.
-./eslint.sh .
+MODIFIED_FILE=`git status -s | awk '{print $2}' | tr '\n' ' '`
+./eslint.sh ${MODIFIED_FILE}
