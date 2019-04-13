@@ -5,7 +5,6 @@ import {Redirect} from 'react-router-dom';
 import classes from './index.module.css';
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
-
 //import {AnswerCardBarId} from './answer-card-bar-id';
 //import {AnswerCardBarFulltext} from './answer-card-bar-fulltext';
 //import {ArticleCardBarFulltext} from './article-card-bar-fulltext';
@@ -13,6 +12,7 @@ import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 import {Header2} from '../../header-2';
 import {CompanyCardBarId} from './company-card-bar-id/index';
 import {JobCardBarId} from './job-card-bar-id';
+import {Location} from './location';
 //import {VideoCardBarId} from './video-card-bar-id';
 //import {VideoCardBarFulltext} from './video-card-bar-fulltext';
 //import {ReviewCardBarId} from './review-card-bar-id';
@@ -35,6 +35,12 @@ class GeneralComponentReact extends React.Component {
   }
 
   showCommentsFunc() {
+  }
+
+  getLocation(location) {
+    /* eslint-disable no-console */
+    console.log(location);
+    /* eslint-enable no-console */
   }
 
   render() {
@@ -61,7 +67,6 @@ class GeneralComponentReact extends React.Component {
               name: '实习',
               subPath: '/sub-path-3'
             },
-            
           ]}
         />
         <div
@@ -70,25 +75,27 @@ class GeneralComponentReact extends React.Component {
           <div
             className="cell-membrane"
           >
-            
+            <div className={classes.space}>
+              <p>location</p>
+              <Location code='340103' update={this.getLocation} />
+            </div>
             <div className={classes.space}>
               <p>company-card-bar-id</p>
-              <CompanyCardBarId id={2}/>
+              <CompanyCardBarId id={2} />
             </div>
             <div className={classes.space}>
               <p>job-card-bar-id</p>
-              <JobCardBarId id={4}/>
+              <JobCardBarId id={4} />
             </div>
-           
+
             <div className={classes.space}>
               <p>user-card-bar-id</p>
-              <UserCardBarAuth/>
+              <UserCardBarAuth />
             </div>
             <div className={classes.space}>
               <p>user-card-square-id</p>
-              <UserCardSquareAuth/>
+              <UserCardSquareAuth />
             </div>
-           
           </div>
         </div>
       </div>
