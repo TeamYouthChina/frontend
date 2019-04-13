@@ -32,7 +32,7 @@ class ArticleReact extends React.Component {
         if (result.status.code === 200) {
           this.setState(() => ({
             backend: result.content,
-            comments:comments.content.data,
+            comments:comments.content,
             commentsText:`${comments.content.data.length}条评论`
           }));
         } else {
@@ -62,7 +62,7 @@ class ArticleReact extends React.Component {
           content={backend.body.braftEditorRaw} 
           user={backend.author === null ? backend.author : backend.author.username} 
           description={backend.author === null ? backend.author : backend.author.role[0]} 
-          commentsText={'2'}
+          commentsText={this.state.commentsText}
         />
         <div style={{marginTop:'70px'}}
           className="cell-wall"
@@ -70,11 +70,16 @@ class ArticleReact extends React.Component {
           <div
             className="cell-membrane"
           >
-            <Comments
-              getCurrentPage={this.getCurrentPage}
-              commentsText={this.state.commentsText}
-              commentsType={'answer'}
-            />
+            <div style={{width:'81%'}}>
+              <Comments
+                id={this.props.match.params.id}
+                type={'answers'}
+                showComments={this.showCommentsFunc}
+                getCurrentPage={this.getCurrentPage}
+                commentsText={this.state.commentsText}
+                commentsData={backend.comments === undefined ? this.state.comments.data : backend.comments.comments}
+              />
+            </div>
           </div>
         </div>
       </div>

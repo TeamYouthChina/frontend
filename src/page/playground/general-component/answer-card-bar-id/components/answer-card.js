@@ -60,7 +60,7 @@ export class AnswerCard extends React.Component {
 
   // 截断文章
   sliceText() {
-    
+
   }
 
   // 滚动处理
@@ -89,14 +89,9 @@ export class AnswerCard extends React.Component {
   showCommentsFunc() {
     let commentsTextNow = '';
     let showComments = false;
-    if(this.state.backend.comments !== undefined) {
-      if(this.state.backend.comments.length === 0) {
-        commentsTextNow = this.state.commentsText === `${this.state.backend.comments.length}条评论` ? '收起评论' : `${this.state.backend.comments.length}条评论`;
-        showComments = this.state.commentsText === `${this.state.backend.comments.length}条评论`;
-      } else {
-        commentsTextNow = this.state.commentsText === `${this.state.backend.comments.comments.length}条评论` ? '收起评论' : `${this.state.backend.comments.comments.length}条评论`;
-        showComments = this.state.commentsText === `${this.state.backend.comments.comments.length}条评论`;
-      }
+    if (this.state.backend.comments !== undefined) {
+      commentsTextNow = this.state.commentsText === `${this.state.backend.comments.length}条评论` ? '收起评论' : `${this.state.backend.comments.length}条评论`;
+      showComments = this.state.commentsText === `${this.state.backend.comments.length}条评论`;
     } else {
       commentsTextNow = this.state.commentsText === `${this.state.comments.data.length}条评论` ? '收起评论' : `${this.state.comments.data.length}条评论`;
       showComments = this.state.commentsText === `${this.state.comments.data.length}条评论`;
@@ -194,8 +189,8 @@ export class AnswerCard extends React.Component {
     return (this.state.backend !== null) ? (
       <React.Fragment>
         <div className={classes.cardWrapper} ref={(span) => this.scrollSpan = span}>
-          <Title 
-            title={this.props.questionTitle} 
+          <Title
+            title={this.props.questionTitle}
             questionId={this.props.questionId}
             answerId={this.props.answerId}
           />

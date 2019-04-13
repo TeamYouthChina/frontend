@@ -83,13 +83,8 @@ export class AnswerCard extends React.Component {
     let commentsTextNow = '';
     let showComments = false;
     if(this.state.backend.comments !== undefined) {
-      if(this.state.backend.comments.length === 0) {
-        commentsTextNow = this.state.commentsText === `${this.state.backend.comments.length}条评论` ? '收起评论' : `${this.state.backend.comments.length}条评论`;
-        showComments = this.state.commentsText === `${this.state.backend.comments.length}条评论`;
-      } else {
-        commentsTextNow = this.state.commentsText === `${this.state.backend.comments.comments.length}条评论` ? '收起评论' : `${this.state.backend.comments.comments.length}条评论`;
-        showComments = this.state.commentsText === `${this.state.backend.comments.comments.length}条评论`;
-      }
+      commentsTextNow = this.state.commentsText === `${this.state.backend.comments.comments.length}条评论` ? '收起评论' : `${this.state.backend.comments.comments.length}条评论`;
+      showComments = this.state.commentsText === `${this.state.backend.comments.comments.length}条评论`;
     } else {
       commentsTextNow = this.state.commentsText === `${this.state.comments.data.length}条评论` ? '收起评论' : `${this.state.comments.data.length}条评论`;
       showComments = this.state.commentsText === `${this.state.comments.data.length}条评论`;
@@ -110,7 +105,7 @@ export class AnswerCard extends React.Component {
           if (results.status.code === 200) {
             this.setState(() => ({
               backend: results.content,
-              commentsText: results.content.comments === [] ? `${results.content.comments.length}条评论` : `${results.content.comments.comments.length}条评论`
+              commentsText: `${results.content.comments.length}条评论`
             }));
           } else {
             this.props.history.push('/page-no-found');
@@ -221,7 +216,7 @@ export class AnswerCard extends React.Component {
             showComments={this.showCommentsFunc}
             getCurrentPage={this.getCurrentPage}
             commentsText={this.state.commentsText}
-            commentsData={backend.comments === undefined ? this.state.comments.data : backend.comments.comments}
+            commentsData={backend.comments === undefined ? this.state.comments.data : backend.comments}
           />
         ) : null}
       </React.Fragment>

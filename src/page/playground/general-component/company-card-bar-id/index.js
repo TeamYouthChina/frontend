@@ -54,7 +54,7 @@ class CompanyCardBarIdReact extends React.Component {
         <div className={classes.Clickable} onClick={this.clickOnCard} />
         <div className={classes.UnClickable}>
           <div className={classes.Icon}>
-            <img src={this.state.backend.content.avatarUrl} alt="no img" />
+            <img src={(this.state.backend.content.avatarUrl)?(this.state.backend.content.avatarUrl):('https://frontendpic.oss-us-east-1.aliyuncs.com/%E5%85%AC%E5%8F%B8.png')} alt="no img" />
           </div>
           <div className={classes.Info}>
             <div className={classes.Name}>
@@ -84,7 +84,7 @@ class CompanyCardBarIdReact extends React.Component {
               </button>
             </div>
             <div className={classes.Like}>
-              <IfCollect ifcollect={this.state.backend.content.collected}/>
+              <IfCollect ifcollect={this.state.backend.content.collected} type={2}/>
             </div>
           </div>
         </div>

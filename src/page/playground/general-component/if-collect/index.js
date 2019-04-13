@@ -2,22 +2,34 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import none from './false.png';
 import collected from './true.png';
+//import {getAsync, put} from '../../../../tool/api-helper';
 
 
 
 export class IfCollect extends React.Component {
   constructor(props) {
     super(props);
-    this.state={
-      collect:false
+    this.state = {
+      collect: false
     };
-    
-    if(this.props.ifcollect===true){
+
+    if (this.props.ifcollect === true) {
       this.setState({
-        collect:true
+        collect: true
       });
     }
   }
+  /*async componentDidMount() {
+    if (this.props.type === 1&& this.state.collect===true) {
+      put(`/jobs/${this.props.id}/attention`, '').then();
+    }
+    if (this.props.type === 1&& this.state.collect===false) {
+      put(`/jobs/${this.props.id}/attention`, '').then();
+    }
+    if (this.props.type === 2) {
+
+    }
+  }*/
 
   isCollect = ()=>{
     this.setState({
@@ -54,4 +66,6 @@ export class IfCollect extends React.Component {
 IfCollect.propTypes = {
   //self
   ifcollect:PropTypes.bool.isRequired,
+  type:PropTypes.bool.isRequired,
+  id:PropTypes.bool.isRequired,
 };
