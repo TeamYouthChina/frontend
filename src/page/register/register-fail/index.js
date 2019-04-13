@@ -7,7 +7,7 @@ export const RegisterFailPrompt = (props) => (
   <MDBContainer>
     <MDBModal isOpen={props.isOpen} toggle={props.toggle} centered>
       <MDBModalBody>
-        <p className={classes.prompt}>用户已存在，请重新输入。</p>
+        <p className={classes.prompt}>{props.prompt}</p>
       </MDBModalBody>
       <MDBModalFooter>
         <button
@@ -21,5 +21,6 @@ export const RegisterFailPrompt = (props) => (
 
 RegisterFailPrompt.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  toggle: PropTypes.func.isRequired
+  toggle: PropTypes.func.isRequired,
+  prompt: PropTypes.string.isRequired
 };

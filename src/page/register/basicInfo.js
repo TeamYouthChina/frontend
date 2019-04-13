@@ -78,18 +78,18 @@ class BasicInfoReact extends React.Component {
                 placeholder="密码"
                 name="password"
                 className={[classes.userInput, classes.mainLoginInput].join(' ')}
-                type={this.state.type}
+                type={this.state.passwordInputType}
                 onChange={this.props.handleChange}
                 value={this.props.password}
                 required
               />
               <input
                 placeholder="重复密码"
-                // name='password'
+                name='confirmPassword'
                 className={[classes.userInput, classes.mainLoginInput].join(' ')}
-                type={this.state.type}
+                type={this.state.passwordInputType}
                 onChange={this.props.handleChange}
-                value={this.props.password}
+                value={this.props.confirmPassword}
                 required
               />
               {/*显示/隐藏密码*/}
@@ -131,6 +131,7 @@ BasicInfoReact.propTypes = {
   location: PropTypes.object.isRequired,
   handleChange: PropTypes.func.isRequired,
   password: PropTypes.string.isRequired,
+  confirmPassword: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired
 };
