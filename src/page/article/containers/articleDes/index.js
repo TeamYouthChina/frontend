@@ -27,13 +27,13 @@ const ArticleDes = React.memo((props) => (
         <span className={classes.titleSpan}>{props.user}</span>
         <span className={classes.desSpan}>{props.description && props.description[0]}</span>
       </div>
-      <button className={classes.btnStyleFocus}>
-        +关注TA
+      <button onClick={props.onAttention} className={props.attention ? classes.btnStyleFocusActive : classes.btnStyleFocus}>
+        {props.attention ? '已关注' : '+关注他'}
       </button>
       <div className={classes.upZan}>
-        <span className={classes.footerFont}>
+        <span onClick={props.onVote} className={props.evaluateStatus !== 3 ? classes.footerFontActive : classes.footerFont}>
           <img className={classes.footerIcon} src={ThumbUp} alt="" />
-          198k点赞
+          {props.upvoteCount}个点赞
         </span>
         <span className={classes.footerFont}>
           <img className={classes.footerIcon} src={Comment} alt="" />
@@ -82,8 +82,13 @@ ArticleDes.propTypes = {
   time: PropTypes.string.isRequired,
   user: PropTypes.string.isRequired,
   description: PropTypes.string,
+  evaluateStatus: PropTypes.number,
   title: PropTypes.string.isRequired,
+  upvoteCount: PropTypes.number.isRequired,
   commentsText: PropTypes.string.isRequired,
+  attention: PropTypes.bool.isRequired,
+  onVote: PropTypes.func.isRequired,
+  onAttention: PropTypes.func.isRequired,
   // editorState: PropTypes.object.isRequired,
   // React Redux
   bodyClientWidth: PropTypes.number.isRequired
