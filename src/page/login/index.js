@@ -78,6 +78,7 @@ class LoginReact extends React.Component {
     // Cookies.remove('token');
     if (backend && backend.status && backend.status.code === 2000) {
       localStorage.setItem('id', backend.content.id);
+      localStorage.setItem('username', backend.content.username);
       localStorage.setItem('avatar', backend.content.avatarUrl ? backend.content.avatarUrl : 'https://s2.ax1x.com/2019/01/27/kuUMYq.jpg', {expires: 1});
       const to = queryString.parse(this.props.location.search).to;
       this.props.history.push(to ? to : '/my');
