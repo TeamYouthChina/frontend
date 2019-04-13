@@ -188,7 +188,7 @@ class ReviewCreate extends React.Component {
       });
       return;
     }
-    const previewText = this.makePreviewText(this.state.editorState.toRAW(true))
+    const previewText = this.makePreviewText(this.state.editorState.toRAW(true));
     const data = {
       body: {
         braftEditorRaw: JSON.stringify({
