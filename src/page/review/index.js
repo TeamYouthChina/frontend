@@ -7,7 +7,7 @@ import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 import classes from './index.module.css';
 import ReviewDes from './containers/reviewDes';
 import Comments from './components/comment-card-bar';
-import {getAsync, isLogin} from '../../tool/api-helper';
+import {generateHeaders, getAsync, isLogin, urlPrefix} from '../../tool/api-helper';
 import {timeHelper} from '../../tool/time-helper';
 
 class ReviewReact extends React.Component {
@@ -16,7 +16,7 @@ class ReviewReact extends React.Component {
     // state
     this.state = {
       backend:null,
-      commentsText:'2'
+      commentsText:null
     };
     // i18n
     this.text = ReviewReact.i18n[languageHelper()];
@@ -29,7 +29,8 @@ class ReviewReact extends React.Component {
         const result = await getAsync(`/editorials/${id}`);
         if (result.status.code === 200) {
           this.setState(() => ({
-            backend: result.content
+            backend: result.content,
+            commentsText:result.content.comments.length
           }));
         } else {
           this.props.history.push('/page-not-found');
@@ -41,6 +42,101 @@ class ReviewReact extends React.Component {
       this.props.history.push('/login');
     }
   }
+
+  // 点赞
+  onVote = () => {
+    let evaluateStatus = this.state.backend.evaluateStatus;
+    let upvoteCount = this.state.backend.upvoteCount;
+    const data = {
+      id:Number(window.localStorage.id)
+    };
+    if (evaluateStatus === 1) {
+      evaluateStatus = 3;
+      upvoteCount--;
+      try {
+        fetch(
+          `${urlPrefix}/editorials/${this.props.match.params.id}/downvote`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+      this.setState(() => ({
+        backend: {
+          ...this.state.backend,
+          evaluateStatus,
+          upvoteCount
+        }
+      }));
+    } else {
+      evaluateStatus = 1;
+      upvoteCount++;
+      try {
+        fetch(
+          `${urlPrefix}/editorials/${this.props.match.params.id}/upvote`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+      this.setState(() => ({
+        backend: {
+          ...this.state.backend,
+          evaluateStatus,
+          upvoteCount
+        }
+      }));
+    }
+  };
+  // 收藏
+  onAttention = () => {
+    let attention = !this.state.backend.attention;
+    this.setState(()=>({
+      backend:{
+        ...this.state.backend,
+        attention:attention
+      }
+    }));
+    const data = {
+      id:Number(window.localStorage.id)
+    };
+    if(attention) {
+      try {
+        fetch(
+          `${urlPrefix}/editorials/${this.props.match.params.id}/attention`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+    } else {
+      try {
+        fetch(
+          `${urlPrefix}/editorials/attentions/${this.props.match.params.id}`,
+          {
+            method: 'DELETE',
+            headers: generateHeaders(),
+            body: null
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+    }
+
+  };
 
   getCurrentPage(){}
   
@@ -58,9 +154,15 @@ class ReviewReact extends React.Component {
             detail:backend.body.braftEditorRaw
           }}
           time={timeHelper(backend.modified_at)}
-          user={backend.author.username}
-          description={backend.author.role[0]}
+          user={backend.author && backend.author.username}
+          description={backend.author && backend.author.role[0]}
           commentsText={this.state.commentsText}
+          evaluateStatus={backend.evaluateStatus}
+          onAttention={this.onAttention}
+          onVote={this.onVote}
+          attention={backend.attention}
+          attentionCount={backend.attentionCount}
+          upvoteCount={backend.upvoteCount}
         />
         <div
           className="cell-wall"
@@ -69,9 +171,12 @@ class ReviewReact extends React.Component {
             className="cell-membrane"
           >
             <Comments
+              id={this.props.match.params.id}
+              type={'editorials'}
+              showComments={this.showCommentsFunc}
               getCurrentPage={this.getCurrentPage}
               commentsText={this.state.commentsText}
-              commentsType={'answer'}
+              commentsData={backend.comments}
             />
           </div>
         </div>

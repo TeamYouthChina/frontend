@@ -65,7 +65,7 @@ class Comments extends React.Component {
       commentLists: [{
         id: localStorage.id,
         creator:{
-          username:'lalala'
+          username:localStorage.username === undefined ? 'lalala' : localStorage.username
         },
         modified_at: new Date().getTime(),
         body: value,
