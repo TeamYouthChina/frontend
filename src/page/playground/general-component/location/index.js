@@ -366,7 +366,6 @@ class LocationReact extends React.Component {
       case 1:
         return this.props.update ? (
           <div>
-            <span>{this.state.display}</span>
             {/* edit */}
             <MDBSelect
               getValue={this.handleCountryChange}
