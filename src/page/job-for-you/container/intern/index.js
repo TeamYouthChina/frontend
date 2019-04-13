@@ -4,7 +4,7 @@ import {Redirect} from 'react-router-dom';
 
 import {JobForYouWrapper} from '../../wrapper';
 import {CollectionCard} from '../../component/collectionCard';
-import {TagSidebar} from '../../component/tag';
+// import {TagSidebar} from '../../component/tag';
 import {FilterRow} from '../../component/filter';
 import {languageHelper} from '../../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../../tool/remove-url-slash-suffix';
@@ -41,7 +41,7 @@ class InternReact extends React.Component {
               </MDBCol>
               <MDBCol className={classes.sidebar} size="2">
                 <CollectionCard number={21} />
-                <TagSidebar tags={['面试经历', '删库经历', '跑路经历']} />
+                {/*<TagSidebar tags={['面试经历', '删库经历', '跑路经历']} />*/}
               </MDBCol>
             </MDBRow>
           </div>

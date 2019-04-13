@@ -23,7 +23,8 @@ export class PaginationUse extends Component {
 
   createPage() {
     //const {totalPage} = this.props.pageConfig;
-    const {currentPage, groupCount, startPage,totalPage} = this.state;
+    const { currentPage, groupCount, startPage } = this.state;
+    const { totalPage } = this.props.pageConfig;
     let pages = [];
     //上一页
     pages.push(<li className={currentPage === 1 ? classes.Pagenomore : classes.changePage} onClick={this.prePageHandeler.bind(this)}
@@ -111,7 +112,8 @@ export class PaginationUse extends Component {
 
   //下一页事件
   nextPageHandeler() {
-    let {currentPage,totalPage} = this.state;
+    let {currentPage} = this.state;
+    let {totalPage} = this.props.pageConfig;
     // const {totalPage} = this.props.pageConfig;
     if (++currentPage > totalPage) {
       return false;
