@@ -170,14 +170,16 @@ class ReviewReact extends React.Component {
           <div
             className="cell-membrane"
           >
-            <Comments
-              id={this.props.match.params.id}
-              type={'editorials'}
-              showComments={this.showCommentsFunc}
-              getCurrentPage={this.getCurrentPage}
-              commentsText={this.state.commentsText}
-              commentsData={backend.comments}
-            />
+            <div style={{width:'80%'}}>
+              <Comments
+                id={this.props.match.params.id}
+                type={'editorials'}
+                showComments={this.showCommentsFunc}
+                getCurrentPage={this.getCurrentPage}
+                commentsText={this.state.commentsText}
+                commentsData={backend.comments}
+              />
+            </div>
           </div>
         </div>
       </div>
