@@ -29,6 +29,7 @@ class GeneralComponentReact extends React.Component {
     this.text = GeneralComponentReact.i18n[languageHelper()];
     this.getCurrentPage = this.getCurrentPage.bind(this);
     this.showCommentsFunc = this.showCommentsFunc.bind(this);
+    this.getLocation = this.getLocation.bind(this);
   }
 
   getCurrentPage() {
