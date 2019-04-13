@@ -1,12 +1,14 @@
 import React from 'react';
 // import BraftEditor from 'braft-editor';
 import PropTypes from 'prop-types';
+import {withRouter} from 'react-router-dom';
 import {languageHelper} from '../../../../../tool/language-helper';
 import {getAsync} from '../../../../../tool/api-helper';
 import UserInfor from '../containers/user-infor/user-infor';
 import Comments from '../comment-card-bar';
 import Footer from '../containers/footer/footer';
 import classes from './index.module.css';
+import {urlPrefix, generateHeaders} from '../../../../../tool/api-helper';
 import {isLogin} from '../../../../../tool/api-helper';
 import {timeHelper} from '../../../../../tool/time-helper';
 
@@ -162,16 +164,44 @@ export class AnswerCard extends React.Component {
   };
   // 收藏
   onAttention = () => {
-    const attention = !this.state.backend.attention;
-    let attentionCount = this.state.backend.attentionCount;
-    attention ? attentionCount++ : attentionCount--;
-    this.setState(() => ({
-      backend: {
+    let attention = !this.state.backend.attention;
+    this.setState(()=>({
+      backend:{
         ...this.state.backend,
-        attention,
-        attentionCount
+        attention:attention
       }
     }));
+    const data = {
+      id:Number(window.localStorage.id)
+    };
+    if(attention) {
+      try {
+        fetch(
+          `${urlPrefix}/articles/${this.props.match.params.id}/attention`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+    } else {
+      try {
+        fetch(
+          `${urlPrefix}/articles/attentions/${this.props.match.params.id}`,
+          {
+            method: 'DELETE',
+            headers: generateHeaders(),
+            body: null
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+    }
+
   };
 
   componentWillUnmount() {
@@ -228,14 +258,13 @@ export class AnswerCard extends React.Component {
   }
 }
 
-AnswerCard.propTypes = {
-  history: PropTypes.object.isRequired,
-  ansCommentId: PropTypes.number,
-  type: PropTypes.string,
-};
 
 AnswerCard.propTypes = {
   // id
+  history: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
+  ansCommentId: PropTypes.number,
+  type: PropTypes.string,
   reviewId: PropTypes.number,
   // 全文
   fullText: PropTypes.object,
@@ -250,4 +279,4 @@ AnswerCard.i18n = [
   },
 ];
 
-export default AnswerCard;
+export default withRouter(AnswerCard);
