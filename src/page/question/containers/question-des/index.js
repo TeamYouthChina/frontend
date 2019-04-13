@@ -33,9 +33,9 @@ const QuestionDes = React.memo((props) => (
     <div>
       {props.answerStatus !== false ? (
         <Link to={{
-          pathname:`/question/${props.questionId}/answer/${props.answerStatus}/edit`,
-          state:{
-            content:props.content
+          pathname: `/question/${props.questionId}/answer/${props.answerStatus}/edit`,
+          state: {
+            content: props.content
           },
         }}>
           <button className={classes.btnAnswer}>
@@ -44,9 +44,9 @@ const QuestionDes = React.memo((props) => (
         </Link>
       ) : (
         <Link to={{
-          pathname:`/question/${props.questionId}/answer/create`,
-          state:{
-            content:props.content
+          pathname: `/question/${props.questionId}/answer/create`,
+          state: {
+            content: props.content
           },
         }}>
           <button className={classes.btnAnswer}>
@@ -75,7 +75,7 @@ const i18n = [
     focusNum: '关注者',
     readingNum: '浏览次数',
     toAnswer: '我来回答',
-    hasAnswer:'修改回答',
+    hasAnswer: '修改回答',
     toInvite: '邀请回答',
     share: '分享',
     collection: '收藏'

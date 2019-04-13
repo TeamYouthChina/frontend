@@ -16,7 +16,7 @@ class AnswerCardBarIdReact extends React.Component {
 
   render() {
     return (
-      <AnswerCard answerId={this.props.id} />
+      <AnswerCard questionId={this.props.questionId} answerId={this.props.id} questionTitle={this.props.questionTitle}/>
     );
   }
 }
@@ -29,10 +29,12 @@ AnswerCardBarIdReact.i18n = [
 AnswerCardBarIdReact.propTypes = {
   // self
   id: PropTypes.number.isRequired,
+  questionTitle: PropTypes.string.isRequired,
+  questionId: PropTypes.number.isRequired,
   // React Router
-  match: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
+  match: PropTypes.object,
+  history: PropTypes.object,
+  location: PropTypes.object
 };
 
 export const AnswerCardBarId = withRouter(AnswerCardBarIdReact);
