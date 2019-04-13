@@ -144,6 +144,9 @@
   background: #F4F4F4;
   margin-right: 0.859vw
 }
+.richText p {
+  word-break: break-word;
+}
 .richText img {
   max-width: 500px;
 }

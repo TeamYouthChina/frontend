@@ -125,7 +125,7 @@ class Comments extends React.Component {
           />
         )) : this.state.commentLists.slice(this.state.start, this.state.end).map((item)=>(
           <CommentCard
-            key={item.id}
+            key={item.modified_at}
             user={item.creator.username}
             time={timeHelper(item.modified_at)}
             content={item.body}
