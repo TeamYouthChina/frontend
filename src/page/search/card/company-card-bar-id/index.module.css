@@ -74,6 +74,7 @@
   height: auto;
   right: 2.88vw;
   bottom: 1.17vw;
+  z-index: 200;
 }
 
 .UnLike {

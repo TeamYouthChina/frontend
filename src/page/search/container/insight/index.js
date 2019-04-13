@@ -82,27 +82,27 @@ class SearchInsightResultReact extends React.Component {
             <main className={classes.mainBody}>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <ArticleCardBarId id={1} />
+                  <ArticleCardBarId id={12} />
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <ReviewCardBarId id={1} />
+                  <ReviewCardBarId id={2} />
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <AnswerCardBarId id={1} />
+                  <AnswerCardBarId id={12} questionId={12}/>
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <ReviewCardBarId id={1} />
+                  {/*<ReviewCardBarId id={1} />*/}
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.cardBarRow}>
                 <MDBCol>
-                  <ArticleCardBarId id={1} />
+                  <ArticleCardBarId id={12} />
                 </MDBCol>
               </MDBRow>
             </main>
