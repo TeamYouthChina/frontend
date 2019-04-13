@@ -144,3 +144,30 @@
   background: #F4F4F4;
   margin-right: 0.859vw
 }
+.richText p {
+  word-break: break-word;
+}
+.richText img {
+  max-width: 500px;
+}
+.btnStyleFocusActive {
+  color:red;
+  font-family: PingFang SC;
+  font-size: 1.25vw;
+  line-height: normal;
+  text-align: center;
+  background-color: #4F65E1;
+  border-radius: 2px;
+  width:7.96vw;
+  height:3.12vw;
+  align-self: center;
+  margin-left: 3.12vw;
+}
+.footerFontActive {
+  font-family: PingFang SC;
+  font-size: 1.09vw;
+  line-height: normal;
+  color: blue;
+  margin-right:1.17vw;
+  margin-top:1.56vw;
+}

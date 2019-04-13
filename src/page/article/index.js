@@ -4,7 +4,7 @@ import {Redirect} from 'react-router-dom';
 
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
-
+import {generateHeaders, urlPrefix} from '../../tool/api-helper';
 import ArticleDes from './containers/articleDes';
 import Comments from './components/comment-card-bar';
 import {getAsync, isLogin} from '../../tool/api-helper';
@@ -28,9 +28,12 @@ class ArticleReact extends React.Component {
       const id = this.props.match.params.id;
       try {
         const result = await getAsync(`/articles/${id}`);
+        const comments = await getAsync(`/articles/${id}/comments`);
         if (result.status.code === 200) {
           this.setState(() => ({
-            backend: result.content
+            backend: result.content,
+            comments:comments.content,
+            commentsText:`${comments.content.data.length}条评论`
           }));
         } else {
           this.props.history.push('/page-not-found');
@@ -43,6 +46,101 @@ class ArticleReact extends React.Component {
     }
   }
 
+  // 点赞
+  onVote = () => {
+    let evaluateStatus = this.state.backend.evaluateStatus;
+    let upvoteCount = this.state.backend.upvoteCount;
+    const data = {
+      id:Number(window.localStorage.id)
+    };
+    if (evaluateStatus === 1) {
+      evaluateStatus = 3;
+      upvoteCount--;
+      try {
+        fetch(
+          `${urlPrefix}/articles/${this.props.match.params.id}/vote`,
+          {
+            method: 'DELETE',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+      this.setState(() => ({
+        backend: {
+          ...this.state.backend,
+          evaluateStatus,
+          upvoteCount
+        }
+      }));
+    } else {
+      evaluateStatus = 1;
+      upvoteCount++;
+      try {
+        fetch(
+          `${urlPrefix}/articles/${this.props.match.params.id}/upvote`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+      this.setState(() => ({
+        backend: {
+          ...this.state.backend,
+          evaluateStatus,
+          upvoteCount
+        }
+      }));
+    }
+  };
+  // 收藏
+  onAttention = () => {
+    let attention = !this.state.backend.attention;
+    this.setState(()=>({
+      backend:{
+        ...this.state.backend,
+        attention:attention
+      }
+    }));
+    const data = {
+      id:Number(window.localStorage.id)
+    };
+    if(attention) {
+      try {
+        fetch(
+          `${urlPrefix}/articles/${this.props.match.params.id}/attention`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+    } else {
+      try {
+        fetch(
+          `${urlPrefix}/articles/attentions/${this.props.match.params.id}`,
+          {
+            method: 'DELETE',
+            headers: generateHeaders(),
+            body: null
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+    }
+
+  };
+  
   getCurrentPage(){}
 
   render() {
@@ -57,9 +155,15 @@ class ArticleReact extends React.Component {
           title={backend.title}
           time={timeHelper(backend.modified_at)}
           content={backend.body.braftEditorRaw} 
-          user={backend.author.username} 
-          description={backend.author.role} 
-          commentsText={'2'}
+          user={backend.author === null ? backend.author : backend.author.username} 
+          description={backend.author === null ? backend.author : backend.author.role[0]} 
+          commentsText={this.state.commentsText}
+          evaluateStatus={backend.evaluateStatus}
+          onAttention={this.onAttention}
+          onVote={this.onVote}
+          attention={backend.attention}
+          attentionCount={backend.attentionCount}
+          upvoteCount={backend.upvoteCount}
         />
         <div style={{marginTop:'70px'}}
           className="cell-wall"
@@ -67,11 +171,16 @@ class ArticleReact extends React.Component {
           <div
             className="cell-membrane"
           >
-            <Comments
-              getCurrentPage={this.getCurrentPage}
-              commentsText={this.state.commentsText}
-              commentsType={'answer'}
-            />
+            <div style={{width:'81%'}}>
+              <Comments
+                id={this.props.match.params.id}
+                type={'articles'}
+                showComments={this.showCommentsFunc}
+                getCurrentPage={this.getCurrentPage}
+                commentsText={this.state.commentsText}
+                commentsData={backend.comments === undefined ? this.state.comments.data : backend.comments.comments}
+              />
+            </div>
           </div>
         </div>
       </div>

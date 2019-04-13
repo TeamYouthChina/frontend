@@ -1,12 +1,14 @@
 import React from 'react';
 // import BraftEditor from 'braft-editor';
 import PropTypes from 'prop-types';
+import {withRouter} from 'react-router-dom';
 import {languageHelper} from '../../../../../tool/language-helper';
 import {getAsync} from '../../../../../tool/api-helper';
 import UserInfor from '../containers/user-infor/user-infor';
 import Comments from '../comment-card-bar';
 import Footer from '../containers/footer/footer';
 import classes from './index.module.css';
+import {urlPrefix, generateHeaders} from '../../../../../tool/api-helper';
 import {isLogin} from '../../../../../tool/api-helper';
 import {timeHelper} from '../../../../../tool/time-helper';
 
@@ -16,7 +18,7 @@ export class AnswerCard extends React.Component {
     this.state = {
       editorState: null,
       showBottom: false,
-      isCollapsed: false,
+      isCollapsed: true,
       showComments: false,
       commentsText: null,
       comments: null,
@@ -26,7 +28,6 @@ export class AnswerCard extends React.Component {
       stickyRow: {background: '#FFFFFF'},
       backend: null
     };
-    this.sliceText = this.sliceText.bind(this);
     this.orderScroll = this.orderScroll.bind(this);
     this.handleSpanClick = this.handleSpanClick.bind(this);
     this.showCommentsFunc = this.showCommentsFunc.bind(this);
@@ -56,16 +57,7 @@ export class AnswerCard extends React.Component {
       });
     }
   }
-
-  // 截断文章
-  sliceText(body) {
-    if (body.braftEditorRaw === '') {
-      return '<在软件行业，操作系统平台就是那个八，其他的应用软件就是那个二。微软已经踩到了一次狗屎运，得到了软件行业80%的利润，现在，他所需要做的，就是保持住这个地位。但技术不是静止不动的，不断有新的技术生长出来，在成千上万种技术中，有一种会长成参天大树，利润无比丰厚，取代原来的技术平台，成为新的主流趋势。到了今天，微软在互联网时代江河日下，谷歌和facebook大肆收购，花上百亿美元去买下新兴的技术，为的是什么？就是在押宝呀。<br>技术在不断向前升级，哪一个方向才是未来的主流趋势呢？没有人知道。对于腾讯来说，也是一样的。小马哥每天都在为这件事情而焦虑。<br>截至目前，在国内，押中两次宝的就只有腾讯和阿里。阿里押中了淘宝和支付宝，腾讯押中了QQ和微信。<br>在移动互联网时代，腾讯可以稍稍松一口气了，但是在下一个主流技术趋势到来的时候，还有这个好运气么？>';
-    } else {
-      return body.braftEditorRaw.slice(1, 300);
-    }
-  }
-
+  
   // 滚动处理
   orderScroll() {
     let discount = 0;
@@ -83,9 +75,8 @@ export class AnswerCard extends React.Component {
             showBottom: false,
           });
         }
-
       }
-    }, 100);
+    }, 500);
   }
 
   // 展开评论
@@ -115,7 +106,7 @@ export class AnswerCard extends React.Component {
           if (results.status.code === 200) {
             this.setState(() => ({
               backend: results.content,
-              commentsText: `${results.content.comments.comments.length}条评论`
+              commentsText: `${results.content.comments.length}条评论`
             }));
           } else {
             this.props.history.push('/page-no-found');
@@ -124,13 +115,20 @@ export class AnswerCard extends React.Component {
           alert(e);
         }
       } else {
-        const result = await getAsync(`/answers/${this.props.ansCommentId}/comments`);
-        this.setState({
-          backend: this.props.fullText,
-          comments: result.content,
-          commentsText: `${result.content.data.length}条评论`
-        });
-
+        if(this.props.type === 'fromQuestion'){
+          // 这里是因为question那边用的是这个卡片....
+          const result = await getAsync(`/answers/${this.props.ansCommentId}/comments`);
+          this.setState({
+            backend: this.props.fullText,
+            comments: result.content,
+            commentsText: `${result.content.data.length}条评论`
+          });
+        } else {
+          this.setState(() => ({
+            backend: this.props.fullText,
+            commentsText: this.props.fullText.comments === [] ? `${this.props.fullText.comments.length}条评论` : `${this.props.fullText.comments.comments.length}条评论`
+          }));
+        }
       }
     } else {
       this.props.history.push('/login');
@@ -141,9 +139,26 @@ export class AnswerCard extends React.Component {
   onVote = () => {
     let evaluateStatus = this.state.backend.evaluateStatus;
     let upvoteCount = this.state.backend.upvoteCount;
+    const data = {
+      id:Number(window.localStorage.id)
+    };
+    let id = this.props.reviewId === undefined ? this.state.backend.id : this.props.reviewId;
+    let type = this.props.type === 'fromQuestion' ? 'answers' : 'editorials';
     if (evaluateStatus === 1) {
       evaluateStatus = 3;
       upvoteCount--;
+      try {
+        fetch(
+          `${urlPrefix}/${type}/${id}/vote`,
+          {
+            method: 'DELETE',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
       this.setState(() => ({
         backend: {
           ...this.state.backend,
@@ -154,6 +169,18 @@ export class AnswerCard extends React.Component {
     } else {
       evaluateStatus = 1;
       upvoteCount++;
+      try {
+        fetch(
+          `${urlPrefix}/${type}/${id}/upvote`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
       this.setState(() => ({
         backend: {
           ...this.state.backend,
@@ -165,16 +192,46 @@ export class AnswerCard extends React.Component {
   };
   // 收藏
   onAttention = () => {
-    const attention = !this.state.backend.attention;
-    let attentionCount = this.state.backend.attentionCount;
-    attention ? attentionCount++ : attentionCount--;
-    this.setState(() => ({
-      backend: {
+    let attention = !this.state.backend.attention;
+    let id = this.props.reviewId === undefined ? this.state.backend.id : this.props.reviewId;
+    let type = this.props.type === 'fromQuestion' ? 'answers' : 'editorials';
+    this.setState(()=>({
+      backend:{
         ...this.state.backend,
-        attention,
-        attentionCount
+        attention:attention
       }
     }));
+    const data = {
+      id:Number(window.localStorage.id)
+    };
+    if(attention) {
+      try {
+        fetch(
+          `${urlPrefix}/${type}/${id}/attention`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+    } else {
+      try {
+        fetch(
+          `${urlPrefix}/${type}/attentions/${id}`,
+          {
+            method: 'DELETE',
+            headers: generateHeaders(),
+            body: null
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+    }
+
   };
 
   componentWillUnmount() {
@@ -195,9 +252,9 @@ export class AnswerCard extends React.Component {
             content={backend.body.braftEditorRaw}
             handleSpanClick={this.handleSpanClick}
           />
-          {this.state.showBottom || !this.state.isCollapsed ? (
+          {this.state.showBottom || this.state.isCollapsed ? (
             <Footer
-              editTime={timeHelper(new Date(backend.create_at))}
+              editTime={timeHelper(new Date(backend.modified_at))}
               commentsText={this.state.commentsText}
               isCollapsed={this.state.isCollapsed}
               showComments={this.showCommentsFunc}
@@ -219,7 +276,7 @@ export class AnswerCard extends React.Component {
             showComments={this.showCommentsFunc}
             getCurrentPage={this.getCurrentPage}
             commentsText={this.state.commentsText}
-            commentsData={backend.comments === undefined ? this.state.comments.data : backend.comments.comments}
+            commentsData={backend.comments === undefined ? this.state.comments.data : backend.comments}
           />
         ) : null}
       </React.Fragment>
@@ -231,13 +288,13 @@ export class AnswerCard extends React.Component {
   }
 }
 
-AnswerCard.propTypes = {
-  history: PropTypes.object.isRequired,
-  ansCommentId: PropTypes.number,
-};
 
 AnswerCard.propTypes = {
   // id
+  history: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
+  ansCommentId: PropTypes.number,
+  type: PropTypes.string,
   reviewId: PropTypes.number,
   // 全文
   fullText: PropTypes.object,
@@ -252,4 +309,4 @@ AnswerCard.i18n = [
   },
 ];
 
-export default AnswerCard;
+export default withRouter(AnswerCard);

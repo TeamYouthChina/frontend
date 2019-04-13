@@ -18,7 +18,6 @@ class JobCardBarIdReact extends React.Component {
     super(props);
     // state
     this.state = {
-      
       isLiked: false,
     };
     // i18n
@@ -30,6 +29,7 @@ class JobCardBarIdReact extends React.Component {
       this.setState({
         backend: await getAsync(`/jobs/${this.props.id}`)
       });
+
     } else {
       this.setState({
         backend: await getAsync('/jobs/1')

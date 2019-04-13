@@ -1,0 +1,30 @@
+.wrapper {
+  margin-top: 1.17vw;
+  background: #FFFFFF;
+  padding: 1.48vw 2.5vw;
+  border-radius: 2px;
+}
+.mdbRow {
+  margin: 0 0 0.86vw 0;
+  font-size: 1.25vw;
+  color: #8D9AAF;
+  font-family: PingFang SC;
+  line-height: normal;
+}
+.pagination {
+  margin-top: 0.56vw;
+}
+.mdbRow2 {
+  margin-top: .7vw;
+}
+.btnStyle {
+  margin: 0;
+  padding: .39vw .78vw;
+  font-size: 1.09vw;
+  color: #8D9AAF;
+  font-family: PingFang SC;
+  line-height: normal;
+}
+.iconStyle {
+  margin-left: .39vw;
+}

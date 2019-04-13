@@ -22,13 +22,15 @@ class RegisterReact extends React.Component {
       //用户信息
       name: '',
       password: '',
+      confirmPassword: '',
       phone_number: '',
       email: '',
       nation: '',
       gender: '男',
       age: '',
       //以上为用户信息
-      modalDisplay: false
+      modalDisplay: false,
+      modalPrompt: '' //提示信息
       // ifRedirect: false // 是否重定向
     };
     // i18n
@@ -55,14 +57,15 @@ class RegisterReact extends React.Component {
       gender: this.state.gender,
       age: this.state.age
     });
-
+    
     if (backend && backend.status && backend.status.code === 2000) {
       this.props.history.push('/login');
       //if register success, set ifRedirect value to be true and re-render the page.
       // this.setState({ifRedirect: true});
     } else {
       this.setState({
-        modalDisplay: true
+        modalDisplay: true,
+        modalPrompt: '用户已存在，请重新输入。'
       });
     }
   };
@@ -72,14 +75,23 @@ class RegisterReact extends React.Component {
       modalDisplay: !this.state.modalDisplay,
       //重置所有以前输入的信息
       showDetail: false,
-      name: '',
-      phone_number: '',
-      email: ''
+      // name: '',
+      // phone_number: '',
+      // email: ''
     });
   };
 
   handleShowDetail = () => {
-    this.setState({showDetail: true});
+    const {password, confirmPassword} = this.state;
+    // perform all neccassary validations
+    if (password !== confirmPassword) {
+      this.setState({
+        modalDisplay: true,
+        modalPrompt: '密码输入不一致，请重新输入。'
+      });
+    } else {
+      this.setState({showDetail: true});
+    }
   };
 
   handleChange = (event) => {
@@ -106,7 +118,7 @@ class RegisterReact extends React.Component {
             {/*}*/}
             <div className={classes.leftCol}>
               <img className="img-fluid" src={img} alt="view" />
-              <RegisterFailPrompt isOpen={this.state.modalDisplay} toggle={this.toggleModal} />
+              <RegisterFailPrompt isOpen={this.state.modalDisplay} toggle={this.toggleModal} prompt={this.state.modalPrompt}/>
             </div>
 
             <div className={classes.rightCol}>
@@ -114,9 +126,11 @@ class RegisterReact extends React.Component {
                 <PersonalInfo
                   name={this.state.name}
                   password={this.state.password}
+                  confirmPassword={this.state.confirmPassword}
                   email={this.state.email}
                   handleSubmit={this.handleRegisterSubmit}
-                  handleChange={this.handleChange} /> :
+                  handleChange={this.handleChange}
+                /> :
                 <BasicInfo
                   name={this.state.name}
                   email={this.state.email}

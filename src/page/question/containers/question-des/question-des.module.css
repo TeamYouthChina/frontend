@@ -88,3 +88,9 @@
   font-size:1.09vw;
   padding:.78vw 1.56vw;
 }
+.richText p {
+  word-break: break-word;
+}
+.richText img {
+  max-width: 500px;
+}

@@ -29,13 +29,13 @@ const QuestionDes = React.memo((props) => (
     {/*</div>*/}
     <br />
     <p className={classes.questionTitle}>{props.content.title}</p>
-    <p dangerouslySetInnerHTML={{__html: props.content.detail === '' ? braftEditor.createEditorState(props.content.detail).toHTML() : braftEditor.createEditorState(JSON.parse(props.content.detail).braftEditorRaw).toHTML()}} />
+    <p className={classes.richText} dangerouslySetInnerHTML={{__html: props.content.detail === '' ? braftEditor.createEditorState(props.content.detail).toHTML() : braftEditor.createEditorState(JSON.parse(props.content.detail).braftEditorRaw).toHTML()}} />
     <div>
       {props.answerStatus !== false ? (
         <Link to={{
-          pathname:`/question/${props.questionId}/answer/${props.answerStatus}/edit`,
-          state:{
-            content:props.content
+          pathname: `/question/${props.questionId}/answer/${props.answerStatus}/edit`,
+          state: {
+            content: props.content
           },
         }}>
           <button className={classes.btnAnswer}>
@@ -44,9 +44,9 @@ const QuestionDes = React.memo((props) => (
         </Link>
       ) : (
         <Link to={{
-          pathname:`/question/${props.questionId}/answer/create`,
-          state:{
-            content:props.content
+          pathname: `/question/${props.questionId}/answer/create`,
+          state: {
+            content: props.content
           },
         }}>
           <button className={classes.btnAnswer}>
@@ -75,7 +75,7 @@ const i18n = [
     focusNum: '关注者',
     readingNum: '浏览次数',
     toAnswer: '我来回答',
-    hasAnswer:'修改回答',
+    hasAnswer: '修改回答',
     toInvite: '邀请回答',
     share: '分享',
     collection: '收藏'
@@ -98,7 +98,7 @@ QuestionDes.propTypes = {
   questionId: PropTypes.string.isRequired,
   attention: PropTypes.bool.isRequired,
   onAttention: PropTypes.func.isRequired,
-  answerStatus: PropTypes.arrayOf('bool', 'number').isRequired,
+  answerStatus: PropTypes.oneOfType([PropTypes.bool,PropTypes.number]).isRequired,
   // editorState: PropTypes.object.isRequired,
   // React Redux
   bodyClientWidth: PropTypes.number.isRequired

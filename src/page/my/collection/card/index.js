@@ -41,7 +41,6 @@ class CollectionCardReact extends React.Component {
           <div className={classes.tag}>
             {this.props.tag}
           </div>
-          <span className="red-text h6">API没有</span>
         </div>
         
         <div>

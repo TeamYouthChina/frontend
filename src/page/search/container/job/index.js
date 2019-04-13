@@ -47,12 +47,11 @@ class SearchJobResultReact extends React.Component {
   async componentDidMount() {
     try {
       const result = await getAsync(`/users/${localStorage.getItem('id')}/attentions?type=${this.state.collectionType}`);
-      if (result && result.status) {
+      if (result && result.status && result.status.code === 2000) {
         this.setState(() => {
           return {collectionNum: result.content.length};
         });
-      }
-      else {
+      } else {
         this.setState(() => {
           return {collectionNum: 0};
         });
@@ -63,13 +62,13 @@ class SearchJobResultReact extends React.Component {
     }
     this.props.handleSearchType();
   }
-  
+
   render() {
     return (
       <div className="cell-wall">
         <div className="cell-membrane">
           <MDBRow style={{marginTop: '2vw'}}>
-            <MDBCol className="px-0" size="10">
+            <main className={classes.mainBody}>
               <MDBRow style={{marginBottom: '1.2vw'}}>
                 <MDBCol
                   size="2" className="px-0 d-flex justify-content-center align-items-center"
@@ -93,35 +92,36 @@ class SearchJobResultReact extends React.Component {
               </MDBRow>
               <MDBRow className={classes.jobCardBarRow}>
                 <MDBCol>
-                  <JobCardBarId id={'1'}/>
+                  <JobCardBarId id={'1'} />
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.jobCardBarRow}>
                 <MDBCol>
-                  <JobCardBarId id={'1'}/>
+                  <JobCardBarId id={'2'} />
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.jobCardBarRow}>
                 <MDBCol>
-                  <JobCardBarId id={'1'}/>
+                  <JobCardBarId id={'3'} />
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.jobCardBarRow}>
                 <MDBCol>
-                  <JobCardBarId id={'1'}/>
+                  <JobCardBarId id={'4'} />
                 </MDBCol>
               </MDBRow>
               <MDBRow className={classes.jobCardBarRow}>
                 <MDBCol>
-                  <JobCardBarId id={'1'}/>
+                  <JobCardBarId id={'5'} />
                 </MDBCol>
               </MDBRow>
-            </MDBCol>
-            <MDBCol style={{marginTop: '4vw', marginLeft: 0, padding: 0}} size="2">
+            </main>
+
+            <aside className={classes.sideBar}>
               <div>
-                <CollectionSidebar number={this.state.collectionNum} collectionType="职位"/>
+                <CollectionSidebar number={this.state.collectionNum} collectionType="职位" />
                 <MDBListGroup
-                  style={{fontSize: '1.1vw', marginLeft: '1.56vw'}}>
+                  style={{fontSize: '1.1vw', marginTop: '1.56vw'}}>
                   <MDBListGroupItem
                     className={classes.listGroupItemsTag}
                   >
@@ -142,7 +142,7 @@ class SearchJobResultReact extends React.Component {
                     style={{height: '10vh'}} />
                 </MDBListGroup>
               </div>
-            </MDBCol>
+            </aside>
           </MDBRow>
         </div>
       </div>

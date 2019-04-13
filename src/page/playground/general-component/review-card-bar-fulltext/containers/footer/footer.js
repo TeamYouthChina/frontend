@@ -16,7 +16,7 @@ const Footer = (props) => (
       </MDBCol>
       <MDBCol size="9">
         <div className={classes.btnWrapper}>
-          <MDBBtn onClick={props.onVote} className={props.evaluateStatus === 1 ? classes.btnStyleActive : classes.btnStyle} flat>
+          <MDBBtn onClick={props.onVote} className={props.evaluateStatus !== 3 ? classes.btnStyleActive : classes.btnStyle} flat>
             <span>
               <MDBIcon className={classes.iconStyle} far icon="thumbs-up"/>{props.upvoteCount}个{props.text.thumb}
             </span>
