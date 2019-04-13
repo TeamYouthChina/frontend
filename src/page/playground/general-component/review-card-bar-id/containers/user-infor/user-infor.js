@@ -41,7 +41,7 @@ export const UserInfor = (props) => (
       </div>
     ) : (
       <React.Fragment>
-        <p dangerouslySetInnerHTML={{__html:props.content === '' ? braftEditor.createEditorState(props.content).toHTML() : braftEditor.createEditorState(JSON.parse(props.content).braftEditorRaw).toHTML()}} />
+        <p className={classes.richText} dangerouslySetInnerHTML={{__html:props.content === '' ? braftEditor.createEditorState(props.content).toHTML() : braftEditor.createEditorState(JSON.parse(props.content).braftEditorRaw).toHTML()}} />
         <ul>
           <li className={classes.showMore} onClick={props.handleSpanClick}>
             收起<MDBIcon style={{marginLeft: '0.391vw'}} icon="arrow-up" />

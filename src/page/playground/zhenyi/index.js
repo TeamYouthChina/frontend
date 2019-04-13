@@ -32,7 +32,7 @@ class ZhenyiReact extends React.Component {
     return (
       <React.Fragment>
         <div style={{background: '#E5E5E5'}}>
-          <ReviewCardBarId id={41} />
+          <ReviewCardBarId id={41}/>
         </div>
         <div style={{background:'#E5E5E5'}}>
           <ArticleCardBarId id={12}/>

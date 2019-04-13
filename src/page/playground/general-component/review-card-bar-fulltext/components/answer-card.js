@@ -26,7 +26,6 @@ export class AnswerCard extends React.Component {
       stickyRow: {background: '#FFFFFF'},
       backend: null
     };
-    this.sliceText = this.sliceText.bind(this);
     this.orderScroll = this.orderScroll.bind(this);
     this.handleSpanClick = this.handleSpanClick.bind(this);
     this.showCommentsFunc = this.showCommentsFunc.bind(this);
@@ -120,13 +119,20 @@ export class AnswerCard extends React.Component {
           alert(e);
         }
       } else {
-        const result = await getAsync(`/answers/${this.props.ansCommentId}/comments`);
-        this.setState({
-          backend: this.props.fullText,
-          comments: result.content,
-          commentsText: `${result.content.data.length}条评论`
-        });
-
+        if(this.props.type === 'fromQuestion'){
+          // 这里是因为question那边用的是这个卡片....
+          const result = await getAsync(`/answers/${this.props.ansCommentId}/comments`);
+          this.setState({
+            backend: this.props.fullText,
+            comments: result.content,
+            commentsText: `${result.content.data.length}条评论`
+          });
+        } else {
+          this.setState(() => ({
+            backend: this.props.fullText,
+            commentsText: this.props.fullText.comments === [] ? `${this.props.fullText.comments.length}条评论` : `${this.props.fullText.comments.comments.length}条评论`
+          }));
+        }
       }
     } else {
       this.props.history.push('/login');
@@ -191,7 +197,7 @@ export class AnswerCard extends React.Component {
             content={backend.body.braftEditorRaw}
             handleSpanClick={this.handleSpanClick}
           />
-          {this.state.showBottom || !this.state.isCollapsed ? (
+          {this.state.showBottom || this.state.isCollapsed ? (
             <Footer
               editTime={timeHelper(new Date(backend.modified_at))}
               commentsText={this.state.commentsText}
@@ -230,6 +236,7 @@ export class AnswerCard extends React.Component {
 AnswerCard.propTypes = {
   history: PropTypes.object.isRequired,
   ansCommentId: PropTypes.number,
+  type: PropTypes.string,
 };
 
 AnswerCard.propTypes = {

@@ -118,7 +118,12 @@ export class AnswerCard extends React.Component {
           alert(e);
         }
       } else {
-        const result = await getAsync(`/answers/${this.props.ansCommentId}/comments`);
+        let result = '';
+        try{
+          result = await getAsync(`/answers/${this.props.ansCommentId}/comments`);
+        } catch (e) {
+          alert(e);
+        }
         this.setState({
           backend: this.props.fullText,
           comments: result.content,
@@ -213,7 +218,7 @@ export class AnswerCard extends React.Component {
             showComments={this.showCommentsFunc}
             getCurrentPage={this.getCurrentPage}
             commentsText={this.state.commentsText}
-            commentsData={backend.comments === undefined ? this.state.comments.data : backend.comments.comments}
+            commentsData={backend.comments.length === 0 ? backend.comments : backend.comments.comments}
           />
         ) : null}
       </React.Fragment>
