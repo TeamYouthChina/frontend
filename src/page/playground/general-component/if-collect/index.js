@@ -11,6 +11,7 @@ export class IfCollect extends React.Component {
     this.state={
       collect:false
     };
+    
     if(this.props.ifcollect===true){
       this.setState({
         collect:true
@@ -36,11 +37,7 @@ export class IfCollect extends React.Component {
             color: '#8D9AAF',
           }}
           className="ml-3"
-          /*onClick={()=>{
-            this.setState({
-              collect: !this.state.collect
-            });
-          }}*/
+         
           onClick={this.isCollect}
         >
           {this.state.collect? (<div className="d-flex align-items-center"><div><img src={collected} className="p-0 mr-2"/></div> <div>取消</div></div>):
