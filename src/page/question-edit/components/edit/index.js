@@ -201,7 +201,7 @@ class ArticleCreate extends React.Component {
       });
       return;
     }
-    let previewText = this.makePreviewText(JSON.parse(this.state.editorState.toRAW(true)));
+    let previewText = this.makePreviewText(JSON.parse(this.state.editorState.toRAW()));
     const data = {
       title: title,
       body: {
