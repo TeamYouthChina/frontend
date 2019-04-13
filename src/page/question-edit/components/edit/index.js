@@ -171,8 +171,21 @@ class ArticleCreate extends React.Component {
     });
   };
 
-  makePreviewText = (text) => {
-    return text;
+  makePreviewText = (richText) => {
+    let textLength = 0;
+    let blockCount = 0;
+    let previewText = '';
+    while (textLength < 101) {
+      if(richText.blocks[blockCount].text !== ''){
+        let end = richText.blocks[blockCount].text.length < (101 - textLength) ? richText.blocks[blockCount].text.length : 101 - textLength;
+        previewText += richText.blocks[blockCount].text.slice(0, end);
+        textLength += end;
+      }
+      if(richText.blocks[++blockCount] === undefined){
+        break;
+      }
+    }
+    return previewText;
   };
     
   handleClickUp = (e) => {
@@ -188,7 +201,7 @@ class ArticleCreate extends React.Component {
       });
       return;
     }
-    let previewText = this.makePreviewText(JSON.parse(this.state.editorState.toRAW()).blocks[0].text);
+    let previewText = this.makePreviewText(JSON.parse(this.state.editorState.toRAW(true)));
     const data = {
       title: title,
       body: {

@@ -170,6 +170,23 @@ class ArticleCreate extends React.Component {
     });
   };
 
+  makePreviewText = (richText) => {
+    let textLength = 0;
+    let blockCount = 0;
+    let previewText = '';
+    while (textLength < 101) {
+      if(richText.blocks[blockCount].text !== ''){
+        let end = richText.blocks[blockCount].text.length < (101 - textLength) ? richText.blocks[blockCount].text.length : 101 - textLength;
+        previewText += richText.blocks[blockCount].text.slice(0, end);
+        textLength += end;
+      }
+      if(richText.blocks[++blockCount] === undefined){
+        break;
+      }
+    }
+    return previewText;
+  };
+
   handleClickUp = (e) => {
     e.stopPropagation();
     this.setState({
@@ -183,13 +200,14 @@ class ArticleCreate extends React.Component {
       });
       return;
     }
+    const previewText = this.makePreviewText(this.state.editorState.toRAW(true));
     const data = {
       title: title,
       body: {
         braftEditorRaw: JSON.stringify({
           braftEditorRaw:this.state.editorState.toRAW(true)
         }),
-        previewText: '',
+        previewText: previewText,
         compiletype: 1
       },
       company_id:null

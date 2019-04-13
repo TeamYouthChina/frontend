@@ -35,12 +35,19 @@ export const UserInfor = (props) => (
             {props.short}
           </li>
           <li className={classes.showMore} onClick={props.handleSpanClick}>
-            {/*展开更多<MDBIcon style={{marginLeft: '0.391vw'}} icon="arrow-down" />*/}
+            展开更多<MDBIcon style={{marginLeft: '0.391vw'}} icon="arrow-down" />
           </li>
         </ul>
       </div>
     ) : (
-      <p dangerouslySetInnerHTML={{__html:props.content === '' ? braftEditor.createEditorState(props.content).toHTML() : braftEditor.createEditorState(JSON.parse(props.content).braftEditorRaw).toHTML()}} />
+      <React.Fragment>
+        <p dangerouslySetInnerHTML={{__html:props.content === '' ? braftEditor.createEditorState(props.content).toHTML() : braftEditor.createEditorState(JSON.parse(props.content).braftEditorRaw).toHTML()}} />
+        <ul>
+          <li className={classes.showMore} onClick={props.handleSpanClick}>
+            收起<MDBIcon style={{marginLeft: '0.391vw'}} icon="arrow-up" />
+          </li>
+        </ul>
+      </React.Fragment>
     )}
   </div>
 );

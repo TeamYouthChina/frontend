@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { MDBIcon, MDBRow} from 'mdbreact';
+import { MDBRow} from 'mdbreact';
 import classes from './index.module.css';
 import braftEditor from 'braft-editor';
 
@@ -20,9 +20,6 @@ export const UserInfor = (props) => (
           {props.description}
         </span>
       </div>
-      <div className={classes.ellipsis}>
-        <MDBIcon icon="ellipsis-h" />
-      </div>
     </MDBRow>
     {props.isCollapsed ? (
       <div>
@@ -35,7 +32,7 @@ export const UserInfor = (props) => (
             {props.short}
           </li>
           <li className={classes.showMore} onClick={props.handleSpanClick}>
-            展开更多<MDBIcon style={{marginLeft: '0.391vw'}} icon="arrow-down" />
+            {/*展开更多<MDBIcon style={{marginLeft: '0.391vw'}} icon="arrow-down" />*/}
           </li>
         </ul>
       </div>
