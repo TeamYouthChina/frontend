@@ -75,9 +75,8 @@ export class AnswerCard extends React.Component {
             showBottom: false,
           });
         }
-
       }
-    }, 100);
+    }, 500);
   }
 
   // 展开评论
@@ -140,9 +139,26 @@ export class AnswerCard extends React.Component {
   onVote = () => {
     let evaluateStatus = this.state.backend.evaluateStatus;
     let upvoteCount = this.state.backend.upvoteCount;
+    const data = {
+      id:Number(window.localStorage.id)
+    };
+    let id = this.props.reviewId === undefined ? this.state.backend.id : this.props.reviewId;
+    let type = this.props.type === 'fromQuestion' ? 'answers' : 'editorials';
     if (evaluateStatus === 1) {
       evaluateStatus = 3;
       upvoteCount--;
+      try {
+        fetch(
+          `${urlPrefix}/${type}/${id}/vote`,
+          {
+            method: 'DELETE',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
       this.setState(() => ({
         backend: {
           ...this.state.backend,
@@ -153,6 +169,18 @@ export class AnswerCard extends React.Component {
     } else {
       evaluateStatus = 1;
       upvoteCount++;
+      try {
+        fetch(
+          `${urlPrefix}/${type}/${id}/upvote`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
       this.setState(() => ({
         backend: {
           ...this.state.backend,
@@ -165,6 +193,8 @@ export class AnswerCard extends React.Component {
   // 收藏
   onAttention = () => {
     let attention = !this.state.backend.attention;
+    let id = this.props.reviewId === undefined ? this.state.backend.id : this.props.reviewId;
+    let type = this.props.type === 'fromQuestion' ? 'answers' : 'editorials';
     this.setState(()=>({
       backend:{
         ...this.state.backend,
@@ -177,7 +207,7 @@ export class AnswerCard extends React.Component {
     if(attention) {
       try {
         fetch(
-          `${urlPrefix}/articles/${this.props.match.params.id}/attention`,
+          `${urlPrefix}/${type}/${id}/attention`,
           {
             method: 'PUT',
             headers: generateHeaders(),
@@ -190,7 +220,7 @@ export class AnswerCard extends React.Component {
     } else {
       try {
         fetch(
-          `${urlPrefix}/articles/attentions/${this.props.match.params.id}`,
+          `${urlPrefix}/${type}/attentions/${id}`,
           {
             method: 'DELETE',
             headers: generateHeaders(),
