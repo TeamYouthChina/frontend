@@ -205,7 +205,7 @@ class ArticleCreate extends React.Component {
       });
       return;
     }
-    const previewText = this.makePreviewText(this.state.editorState.toRAW(true));
+    const previewText = this.makePreviewText(JSON.parse(this.state.editorState.toRAW()));
     const data = {
       body: {
         braftEditorRaw: JSON.stringify({

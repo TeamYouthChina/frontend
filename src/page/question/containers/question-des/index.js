@@ -98,7 +98,7 @@ QuestionDes.propTypes = {
   questionId: PropTypes.string.isRequired,
   attention: PropTypes.bool.isRequired,
   onAttention: PropTypes.func.isRequired,
-  answerStatus: PropTypes.arrayOf('bool', 'number').isRequired,
+  answerStatus: PropTypes.oneOfType([PropTypes.bool,PropTypes.number]).isRequired,
   // editorState: PropTypes.object.isRequired,
   // React Redux
   bodyClientWidth: PropTypes.number.isRequired

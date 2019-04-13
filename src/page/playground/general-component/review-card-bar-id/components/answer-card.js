@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import {languageHelper} from '../../../../../tool/language-helper';
-import {getAsync} from '../../../../../tool/api-helper';
+import {generateHeaders, getAsync, urlPrefix} from '../../../../../tool/api-helper';
 import UserInfor from '../containers/user-infor/user-infor';
 import Comments from '../comment-card-bar';
 import Footer from '../containers/footer/footer';
@@ -136,9 +136,25 @@ export class AnswerCard extends React.Component {
   onVote = () => {
     let evaluateStatus = this.state.backend.evaluateStatus;
     let upvoteCount = this.state.backend.upvoteCount;
+    const data = {
+      id:Number(window.localStorage.id)
+    };
+    let id = this.props.reviewId === undefined ? this.state.backend.id : this.props.reviewId;
     if (evaluateStatus === 1) {
       evaluateStatus = 3;
       upvoteCount--;
+      try {
+        fetch(
+          `${urlPrefix}/editorials/${id}/downvote`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
       this.setState(() => ({
         backend: {
           ...this.state.backend,
@@ -149,6 +165,18 @@ export class AnswerCard extends React.Component {
     } else {
       evaluateStatus = 1;
       upvoteCount++;
+      try {
+        fetch(
+          `${urlPrefix}/editorials/${id}/upvote`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
       this.setState(() => ({
         backend: {
           ...this.state.backend,
@@ -160,16 +188,45 @@ export class AnswerCard extends React.Component {
   };
   // 收藏
   onAttention = () => {
-    const attention = !this.state.backend.attention;
-    let attentionCount = this.state.backend.attentionCount;
-    attention ? attentionCount++ : attentionCount--;
-    this.setState(() => ({
-      backend: {
+    let attention = !this.state.backend.attention;
+    let id = this.props.reviewId === undefined ? this.state.backend.id : this.props.reviewId;
+    this.setState(()=>({
+      backend:{
         ...this.state.backend,
-        attention,
-        attentionCount
+        attention:attention
       }
     }));
+    const data = {
+      id:Number(window.localStorage.id)
+    };
+    if(attention) {
+      try {
+        fetch(
+          `${urlPrefix}/editorials/${id}/attention`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+    } else {
+      try {
+        fetch(
+          `${urlPrefix}/editorials/attentions/${id}`,
+          {
+            method: 'DELETE',
+            headers: generateHeaders(),
+            body: null
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+    }
+
   };
 
   componentWillUnmount() {
