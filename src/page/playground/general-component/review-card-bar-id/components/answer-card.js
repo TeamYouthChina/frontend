@@ -1,6 +1,7 @@
 import React from 'react';
 // import BraftEditor from 'braft-editor';
 import PropTypes from 'prop-types';
+import {withRouter} from 'react-router-dom';
 import {languageHelper} from '../../../../../tool/language-helper';
 import {getAsync} from '../../../../../tool/api-helper';
 import UserInfor from '../containers/user-infor/user-infor';
@@ -226,13 +227,10 @@ export class AnswerCard extends React.Component {
 }
 
 AnswerCard.propTypes = {
-  history: PropTypes.object.isRequired,
-  ansCommentId: PropTypes.number,
-};
-
-AnswerCard.propTypes = {
   // id
   reviewId: PropTypes.number,
+  history: PropTypes.object.isRequired,
+  ansCommentId: PropTypes.number,
   // 全文
   fullText: PropTypes.object,
 };
@@ -246,4 +244,4 @@ AnswerCard.i18n = [
   },
 ];
 
-export default AnswerCard;
+export default withRouter(AnswerCard);
