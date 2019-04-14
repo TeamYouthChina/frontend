@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import classes from './index.module.css';
-import more from './more.png';
 import shape from './Shape.png';
 import {languageHelper} from '../../../../tool/language-helper';
 import {withRouter} from 'react-router-dom';
@@ -30,7 +29,7 @@ class FileCardReact extends React.Component {
 
           <img
             src={shape}
-            style={{verticalAlign:'center',padding:'1.17vw 0'}}
+            style={{verticalAlign:'center',padding:'1.17vw 0',marginTop:'-1vw'}}
           />
 
         </div>
@@ -42,22 +41,15 @@ class FileCardReact extends React.Component {
             {this.props.tag}
           </div>
 
-          <div className={classes.modify}>
+          { /*<div className={classes.modify}>
             {this.props.date}
-          </div>
+          </div>*/}
 
 
 
-          <span className="red-text h6">API没有</span>
+         
         </div>
-        <div>
-          <div>
-            <img src={more} style={{marginTop:'-1.1vw'}}/>
-          </div>
-          <div className={classes.delete}>
-            删除
-          </div>
-        </div>
+       
         
 
       </div>

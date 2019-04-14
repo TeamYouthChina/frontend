@@ -5,6 +5,7 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 import {Application} from './application';
 import {CollectionSwitch} from './collection/index.switch';
 import {content} from './index.mock';
+import {ComingSoon} from '../coming-soon';
 import {File} from './file';
 import {Message} from './message';
 import {Notification} from './notification';
@@ -133,6 +134,10 @@ class MyReact extends React.Component {
           <Route
             path={`${this.props.match.url}/collection`}
             component={routeProps => <CollectionSwitch {...routeProps} />}
+          />
+          <Route
+            path={`${this.props.match.url}/comingsoon`}
+            component={routeProps => <ComingSoon {...routeProps} />}
           />
           <Route
             path={`${this.props.match.url}/file`}

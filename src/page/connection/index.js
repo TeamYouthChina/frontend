@@ -11,75 +11,88 @@ import {InvitationSideBar} from './component/invitation';
 import {TagesSideBar} from './component/tag';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
+import {getAsync} from '../../tool/api-helper';
+
 
 class ConnectionReact extends React.Component {
   constructor(props) {
     super(props);
     // state
-    this.state = {};
+    this.state = {
+      render:0
+    };
     // i18n
     this.text = ConnectionReact.i18n[languageHelper()];
   }
-
+  async componentDidMount() {
+    this.setState({
+      render: 1,
+      userFulltext: await getAsync('/discovery/users?limit=10&page=1'),
+    });
+  }
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
-    return (
-      <div>
-        <div className="d-flex align-items-center justify-items-center">
+    switch (this.state.render) {
+      case 0:
+        return null;
+      case 1:
+        return (
           <div>
-            <img className={classes.topViewImg} src={imgTopViewRight} alt="img" />
-          </div>
-          <div style={{width: '60vw'}}>
-            <p className={classes.topViewTitle1}>拓宽你的人脉</p>
-            <p className={classes.topViewTitle2}>接触来自不同领域的大牛们能很大程度上帮助你做决策</p>
-          </div>
-          <div>
-            <img className={classes.topViewImg} src={imgTopViewLeft} alt="img" />
-          </div>
-        </div>
-        <div
-          className="cell-wall"
-          style={{backgroundColor: '#F3F5F7'}}
-        >
-          <div
-            className="cell-membrane"
-          >
-            <div className="d-flex justify-content-center">
-              <div style={{display: 'flex', margin: '0', padding: '0'}}>
-                <div className={classes.userCardRow}>
-                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol}><UserCardSquareAuth /></div>
-                  <div className={classes.userCardCol}><UserCardSquareAuth /></div> 
-                </div> 
+            <div className="d-flex align-items-center justify-items-center">
+              <div>
+                <img className={classes.topViewImg} src={imgTopViewRight} alt="img" />
               </div>
-              <div className={classes.sideBar}>
-                <FriendSideBar number={[21, 8]}/>
-                
-                <InvitationSideBar content={'目前没有未回复的邀请'}/>
-                
-                <TagesSideBar tags={['求职经历', '面试经历']}/>
+              <div style={{width: '60vw'}}>
+                <p className={classes.topViewTitle1}>拓宽你的人脉</p>
+                <p className={classes.topViewTitle2}>接触来自不同领域的大牛们能很大程度上帮助你做决策</p>
+              </div>
+              <div>
+                <img className={classes.topViewImg} src={imgTopViewLeft} alt="img" />
+              </div>
+            </div>
+            <div
+              className="cell-wall"
+              style={{backgroundColor: '#F3F5F7'}}
+            >
+              <div
+                className="cell-membrane"
+              >
+                <div className="d-flex justify-content-center" >
+                  <div className="d-flex flex-wrap justify-content-space" style={{marginTop:'2.34vw',width: '70vw'}}>
+
+                    {this.state.userFulltext.content.data.map((item, index) => {
+                      return (
+                        <div style={{marginBottom:'1vw',marginRight:'2vw'}}  key={index}>
+                          <UserCardSquareAuth
+                            avatar={item.content.avatar_url}
+                            name={item.content.username}
+                            role={item.content.role[0]}
+                            sex={item.content.gender}
+                            nation={item.content.nation}
+                          />
+                        </div>
+                      );
+                    })}
+
+                  </div>
+                  <div className={classes.sideBar}>
+                    <FriendSideBar number={[21, 8]}/>
+
+                    <InvitationSideBar content={'目前没有未回复的邀请'}/>
+
+                    <TagesSideBar tags={['求职经历', '面试经历']}/>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    );
+        );
+      default:
+        return null;
+    }
   }
 }
 

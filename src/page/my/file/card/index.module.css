@@ -1,11 +1,11 @@
 .content{
   display: flex;
-  
+  height: 9.375vw;
   width: 40.625vw;
   padding: 1.17vw 1.5625vw;
   background: #FFFFFF;
   border-radius: 4px;
-  align-items: start;
+  align-items: center;
   justify-content: space-between;
  
 }

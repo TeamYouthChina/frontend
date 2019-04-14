@@ -1,5 +1,6 @@
 .content{
   width: 26.4vw;
+  height: 14.3vw;
   padding:1.72vw 2.34vw;
   background: #FFFFFF;
   border: 1px solid #F0F3FA;
@@ -22,6 +23,7 @@
 
 }
 .avatar{
+  margin-top: 1.38vw;
   width:1.5625vw;
   height:1.5625vw;
 }

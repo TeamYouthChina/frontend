@@ -52,7 +52,7 @@ class ArticleCardSquareReact extends React.Component {
           <div className="d-flex align-items-center">
             <div className={classes.avatar}>
               <img
-                src={(this.props.avatar==='---')?('http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'):(this.props.avatar)}
+                src={(this.props.avatar)?(this.props.avatar):('http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png')}
                 className="rounded-circle img-fluid p-0 float-right"
               />
             </div>
