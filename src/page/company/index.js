@@ -27,15 +27,11 @@ class CompanyReact extends React.Component {
   }
 
   async componentDidMount() {
-    if (this.props.id) {
-      this.setState({
-        backend: await getAsync(`/companies/${this.props.id}`)
-      });
-    } else {
-      this.setState({
-        backend: await getAsync('/companies/1')
-      });
-    }
+
+    this.setState({
+      backend: await getAsync(`/companies/${this.props.match.params.id}`)
+    });
+    
   }
 
 
@@ -56,16 +52,17 @@ class CompanyReact extends React.Component {
                 <CompanyCard backend={this.state.backend} />
                 <CompanyDesci backend={this.state.backend} />
                 <CompanyJob />
-                <CompanyPic />
+                <CompanyPic backend={this.state.backend}/>
+                
               </div>
-              <div className={classes.menu}>
+              {/*<div className={classes.menu}>
                 <div className={classes.font} style={{color: '#4F65E1'}}>概况</div>
                 <div className={classes.font}>在招职位</div>
                 <div className={classes.font}>评价</div>
                 <div className={classes.font}>问答</div>
                 <div className={classes.font}>图片</div>
                 <div className={classes.font}>视频</div>
-              </div>
+              </div>*/}
             </div>
           </div>
         </div>
