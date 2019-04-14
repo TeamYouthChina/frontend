@@ -78,7 +78,7 @@ class GeneralComponentReact extends React.Component {
           >
             <div className={classes.space}>
               <p>location</p>
-              <Location code='340103' update={this.getLocation} />
+              <Location code='000000' locate={this.getLocation} edit={true} />
             </div>
             <div className={classes.space}>
               <p>company-card-bar-id</p>

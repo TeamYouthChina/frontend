@@ -4,7 +4,7 @@ import {withRouter} from 'react-router-dom';
 
 import {MDBSelect, MDBSelectInput, MDBSelectOption, MDBSelectOptions} from 'mdbreact';
 import {languageHelper} from '../../../../tool/language-helper';
-import {get} from '../../../../tool/api-helper';
+import {get, getAsync} from '../../../../tool/api-helper';
 
 class LocationReact extends React.Component {
   constructor(props) {
@@ -51,7 +51,7 @@ class LocationReact extends React.Component {
     this.handleProvinceChange = this.handleProvinceChange.bind(this);
     this.handleCityChange = this.handleCityChange.bind(this);
     this.handleDistrictChange = this.handleDistrictChange.bind(this);
-    this.getLocation = this.getLocation.bind(this);
+    this.locate = this.locate.bind(this);
     this.localChinaCodeToDisplay = this.localChinaCodeToDisplay.bind(this);
     this.ready = this.ready.bind(this);
   }
@@ -90,17 +90,16 @@ class LocationReact extends React.Component {
       .replace(new RegExp(` ${this.text.unselected}`, 'g'), '');
   }
 
-  getLocation() {
+  locate() {
     return {
+      countryCode: this.state.country.countryList[this.state.country.countrySelectedIndex].id,
       code: this.state.code,
       display: this.state.display
     };
   }
 
   ready() {
-    if (typeof (this.props.update) === 'function') {
-      this.props.update(this.getLocation());
-    }
+    this.props.locate(this.locate());
   }
 
   handleCountryChange(data) {
@@ -299,11 +298,12 @@ class LocationReact extends React.Component {
     }, this.ready);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     let country = this.state.country;
     if (this.state.code === '999999') {
       // OTH
       country.countrySelectedIndex = LocationReact.setSelected('OTH', country.countryList);
+      // READY
       this.setState({
         render: 1,
         display: this.text.other,
@@ -313,6 +313,7 @@ class LocationReact extends React.Component {
     } else if (this.state.code === '900000') {
       // USA
       country.countrySelectedIndex = LocationReact.setSelected('USA', country.countryList);
+      // READY
       this.setState({
         render: 1,
         display: this.text.usa,
@@ -326,36 +327,60 @@ class LocationReact extends React.Component {
       let provinceId = `${this.state.code.substring(0, 2)}0000`;
       let cityId = `${this.state.code.substring(0, 4)}00`;
       let districtId = this.state.code;
-      Promise.all([
-        get('/static/location?target=1&id=000000'),
-        get(`/static/location?target=2&id=${provinceId}`),
-        get(`/static/location?target=3&id=${cityId}`)
-      ]).then((values) => {
-        for (let i = 0; i < values.length; i++) {
-          if (!values[i].status.code.toString().startsWith('2')) {
-            throw values[i];
-          }
+      // province
+      //
+      // #1
+      if (provinceId === this.unknownId) {
+        provinceId = this.defaultProvinceId;
+      }
+      // #2
+      let temp = await getAsync('/static/location?target=1&id=000000');
+      if (!temp.status.code.toString().startsWith('2')) {
+        throw temp;
+      }
+      Array.prototype.push.apply(china.provinceList, temp.content);
+      // #3
+      china.provinceSelectedIndex = LocationReact.setSelected(provinceId, china.provinceList);
+      // city
+      //
+      // #1
+      if (cityId.endsWith('0000')) {
+        cityId = this.unknownId;
+      }
+      // #2
+      this.addUnknownItem(china.cityList);
+      temp = await getAsync(`/static/location?target=2&id=${provinceId}`);
+      if (!temp.status.code.toString().startsWith('2')) {
+        throw temp;
+      }
+      Array.prototype.push.apply(china.cityList, temp.content);
+      // #3
+      china.citySelectedIndex = LocationReact.setSelected(cityId, china.cityList);
+      // district
+      //
+      // #1
+      if (cityId.endsWith('00')) {
+        districtId = this.unknownId;
+      }
+      // #2
+      this.addUnknownItem(china.districtList);
+      if (!districtId.endsWith('0000')) {
+        temp = await getAsync(`/static/location?target=3&id=${cityId}`);
+        if (!temp.status.code.toString().startsWith('2')) {
+          throw temp;
         }
-        // province
-        Array.prototype.push.apply(china.provinceList, values[0].content);
-        china.provinceSelectedIndex = LocationReact.setSelected(provinceId, china.provinceList);
-        // city
-        this.addUnknownItem(china.cityList);
-        Array.prototype.push.apply(china.cityList, values[1].content);
-        china.citySelectedIndex = LocationReact.setSelected(cityId, china.cityList);
-        // district
-        this.addUnknownItem(china.districtList);
-        Array.prototype.push.apply(china.districtList, values[2].content);
-        china.districtSelectedIndex = LocationReact.setSelected(districtId, china.districtList);
-        //
-        this.setState({
-          render: 1,
-          display: `${country.countryList[country.countrySelectedIndex].name} ${china.provinceList[china.provinceSelectedIndex].name} ${china.cityList[china.citySelectedIndex].name} ${china.districtList[china.districtSelectedIndex].name}`
-            .replace(new RegExp(` ${this.text.unselected}`, 'g'), ''),
-          country: country,
-          china: china
-        }, this.ready);
-      });
+        Array.prototype.push.apply(china.districtList, temp.content);
+      }
+      // #3
+      china.districtSelectedIndex = LocationReact.setSelected(districtId, china.districtList);
+      // READY
+      this.setState({
+        render: 1,
+        display: `${country.countryList[country.countrySelectedIndex].name} ${china.provinceList[china.provinceSelectedIndex].name} ${china.cityList[china.citySelectedIndex].name} ${china.districtList[china.districtSelectedIndex].name}`
+          .replace(new RegExp(` ${this.text.unselected}`, 'g'), ''),
+        country: country,
+        china: china
+      }, this.ready);
     }
   }
 
@@ -364,7 +389,7 @@ class LocationReact extends React.Component {
       case 0:
         return null;
       case 1:
-        return this.props.update ? (
+        return this.props.edit ? (
           <div>
             {/* edit */}
             <MDBSelect
@@ -492,7 +517,8 @@ LocationReact.i18n = [
 LocationReact.propTypes = {
   // self
   code: PropTypes.string.isRequired,
-  update: PropTypes.func,
+  locate: PropTypes.func.isRequired,
+  edit: PropTypes.bool.isRequired,
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
