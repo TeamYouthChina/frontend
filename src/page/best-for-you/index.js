@@ -21,26 +21,26 @@ class BestForYouReact extends React.Component {
     super(props);
     // state
     this.state = {
-      jobList:[],
-      render:0
+      jobList: [],
+      render: 0
     };
     // i18n
     this.text = BestForYouReact.i18n[languageHelper()];
-    this.collect=null;
-    
-    
-  }
-  async componentDidMount() {
+    this.collect = null;
 
-    this.setState({
-      userFulltext: await getAsync('/discovery/users?limit=3& page=1'),
-      questionFulltext:await getAsync('/discovery/questions?limit=6 & page=1'),
-      reviewFulltext:await getAsync('/discovery/editorials?limit=6 & page=1'),
-      articleFulltext:await getAsync('/discovery/articles?limit=4 & page=1')
-    });
-    
+
   }
-  
+
+  async componentDidMount() {
+    this.setState({
+      render: 1,
+      userFulltext: await getAsync('/discovery/users?limit=3&page=1'),
+      questionFulltext: await getAsync('/discovery/questions?limit=4&page=1'),
+      reviewFulltext: await getAsync('/discovery/editorials?limit=6&offset=0'),
+      articleFulltext: await getAsync('/discovery/articles?limit=4&page=1')
+    });
+  }
+
 
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
@@ -49,142 +49,148 @@ class BestForYouReact extends React.Component {
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
-    
-    return (this.render===1) ? (
-      <div>
-        <div
-          className="cell-wall" style={{height:'15.23vw',background:'#4F65E1'}}
-        >
-          
-          <div
-            className="cell-membrane d-flex align-items-center"
-          >
-            <div className={classes.logo}>
-              <img
-                src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg"
-                className="rounded-circle img-fluid p-0 float-right w-100"
-              />
-            </div>
-            <div className="ml-4">
-              <p className={classes.name}>郭益豪，欢迎来到职道！</p>
-              
-              <p className={classes.review}>查看个人档案 →</p>
-            </div>
-           
-          </div>
-        </div>
+    switch (this.state.render) {
+      case 0:
+        return null;
+      case 1:
+        return (
+          (
+            <div>
+              <div
+                className="cell-wall" style={{height: '15.23vw', background: '#4F65E1'}}
+              >
 
-        <div
-          className="cell-wall" style={{padding:'2.82vw 0',background:'#FFFFFF'}}
-        >
-          <div
-            className="cell-membrane"
-          >
-            <div className={classes.title}>职位推荐</div>
-            <div className={classes.subtitle} style={{marginTop:'0.78vw'}}>根据您的求职档案推荐</div>
-            <div className="d-flex justify-content-between" style={{padding:'1.40vw 0'}}>
-              <JobCardSquare id={7} jobList={this.state.jobList}/>
-              <JobCardSquare id={3} jobList={this.state.jobList}/>
-              <JobCardSquare id={9} jobList={this.state.jobList}/>
-             
-            </div>
-            <div className={classes.seemore}>查看更多 →</div>
-            <div className={classes.subtitle} style={{marginTop:'0.78vw'}}>根据您的浏览偏好推荐</div>
-            <div className="d-flex justify-content-between" style={{padding:'1.40vw 0'}}>
-              <JobCardSquare id={8} jobList={this.state.jobList}/>
-              <JobCardSquare id={8} jobList={this.state.jobList}/>
-              <JobCardSquare id={9} jobList={this.state.jobList}/>
-            </div>
-            <div className={classes.seemore}>查看更多 →</div>
-          </div>
-          
-        </div>
+                <div
+                  className="cell-membrane d-flex align-items-center"
+                >
+                  <div className={classes.logo}>
+                    <img
+                      src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg"
+                      className="rounded-circle img-fluid p-0 float-right w-100"
+                    />
+                  </div>
+                  <div className="ml-4">
+                    <p className={classes.name}>郭益豪，欢迎来到职道！</p>
 
-        <div
-          className="cell-wall" style={{padding:'2.82vw 0',background:'#FAFAFF'}}
-        >
-          <div
-            className="cell-membrane"
-          >
-            <div className={classes.title}>公司推荐</div>
-            <div className="d-flex justify-content-between" style={{padding:'1.40vw 0'}}>
-              <CompanyCardSquare/>
-              <CompanyCardSquare/>
-              <CompanyCardSquare/>
-            </div>
-            <div className={classes.seemore}>查看更多 →</div>
-          </div>
-        </div>
-        <div
-          className="cell-wall" style={{padding:'2.82vw 0',background:'#FFFFFF'}}
-        >
-          <div
-            className="cell-membrane"
-          >
-            <div className={classes.title}>精选问答</div>
-            <div className="d-flex flex-wrap justify-content-between" style={{padding:'1.40vw 0'}}>
-              {this.state.questionFulltext.content.data.map((item, index) => {
-                return (
-                  <AnswerCardSquare
-                    key={index}
-                    title={item.title}
-                    avatar={item.creator.avatar_url}
-                    username={item.creator.username}
-                  />
-                );
-              })}
-            </div>
-            <div className={classes.seemore}>查看更多 →</div>
-          </div>
-        </div>
-        <div
-          className="cell-wall" style={{padding:'2.82vw 0',background:'#FAFAFF'}}
-        >
-          <div
-            className="cell-membrane"
-          >
-            <div className={classes.title}>精选短则</div>
-            <div className="d-flex flex-wrap justify-content-between" style={{padding:'1.40vw 0'}}>
-              {this.state.reviewFulltext.content.data.map((item, index) => {
-                return (
-                  <ReviewCardSquare
-                    key={index}
-                    body={item.body.previewText}
-                    title={item.title}
-                    avatar={item.author.avatar_url}
-                    username={item.author.username}
-                  />
-                );
-              })}
-            </div>
-           
-            <div className={classes.seemore}>查看更多 →</div>
-          </div>
-        </div>
-        <div
-          className="cell-wall" style={{padding:'2.82vw 0',background:'#FFFFFF'}}
-        >
-          <div
-            className="cell-membrane"
-          >
-            <div className={classes.title}>精选文章</div>
-            <div className="d-flex flex-wrap justify-content-between" style={{padding:'1.40vw 0'}}>
-              {this.state.articleFulltext.content.data.map((item, index) => {
-                return (
-                  <ArticleCardSquare
-                    key={index}
-                    title={item.title}
-                    avatar={item.author.avatar_url}
-                    username={item.author.username}
-                  />
-                );
-              })}
-            </div>
-            
-            <div className={classes.seemore}>查看更多 →</div>
-          </div>
-        </div>
-        {/*
+                    <p className={classes.review}>查看个人档案 →</p>
+                  </div>
+
+                </div>
+              </div>
+
+              <div
+                className="cell-wall" style={{padding: '2.82vw 0', background: '#FFFFFF'}}
+              >
+                <div
+                  className="cell-membrane"
+                >
+                  <div className={classes.title}>职位推荐</div>
+                  <div className={classes.subtitle} style={{marginTop: '0.78vw'}}>根据您的求职档案推荐</div>
+                  <div className="d-flex justify-content-between" style={{padding: '1.40vw 0'}}>
+                    <JobCardSquare id={7} jobList={this.state.jobList} />
+                    <JobCardSquare id={3} jobList={this.state.jobList} />
+                    <JobCardSquare id={9} jobList={this.state.jobList} />
+
+                  </div>
+                  <div className={classes.seemore}>查看更多 →</div>
+                  <div className={classes.subtitle} style={{marginTop: '0.78vw'}}>根据您的浏览偏好推荐</div>
+                  <div className="d-flex justify-content-between" style={{padding: '1.40vw 0'}}>
+                    <JobCardSquare id={8} jobList={this.state.jobList} />
+                    <JobCardSquare id={8} jobList={this.state.jobList} />
+                    <JobCardSquare id={9} jobList={this.state.jobList} />
+                  </div>
+                  <div className={classes.seemore}>查看更多 →</div>
+                </div>
+
+              </div>
+
+              <div
+                className="cell-wall" style={{padding: '2.82vw 0', background: '#FAFAFF'}}
+              >
+                <div
+                  className="cell-membrane"
+                >
+                  <div className={classes.title}>公司推荐</div>
+                  <div className="d-flex justify-content-between" style={{padding: '1.40vw 0'}}>
+                    <CompanyCardSquare />
+                    <CompanyCardSquare />
+                    <CompanyCardSquare />
+                  </div>
+                  <div className={classes.seemore}>查看更多 →</div>
+                </div>
+              </div>
+              <div
+                className="cell-wall" style={{padding: '2.82vw 0', background: '#FFFFFF'}}
+              >
+                <div
+                  className="cell-membrane"
+                >
+                  <div className={classes.title}>精选问答</div>
+                  <div className="d-flex flex-wrap justify-content-between" style={{padding: '1.40vw 0'}}>
+                    {this.state.questionFulltext.content.data.map((item, index) => {
+                      return (
+                        <div style={{marginBottom:'1vw'}} key={index}>
+                          <AnswerCardSquare
+                            title={item.content.title}
+                            avatar={item.content.creator.avatar_url}
+                            username={item.content.creator.username}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className={classes.seemore}>查看更多 →</div>
+                </div>
+              </div>
+              <div
+                className="cell-wall" style={{padding: '2.82vw 0', background: '#FAFAFF'}}
+              >
+                <div
+                  className="cell-membrane"
+                >
+                  <div className={classes.title}>精选短则</div>
+                  <div className="d-flex flex-wrap justify-content-between" style={{padding: '1.40vw 0'}}>
+                    {this.state.reviewFulltext.content.data.map((item, index) => {
+                      return (
+                        <ReviewCardSquare
+                          key={index}
+                          body={item.content.body.previewText}
+                          title={item.title}
+                          avatar={item.content.author.avatar_url}
+                          username={item.content.author.username}
+                        />
+                      );
+                    })}
+                  </div>
+
+                  <div className={classes.seemore}>查看更多 →</div>
+                </div>
+              </div>
+              <div
+                className="cell-wall" style={{padding: '2.82vw 0', background: '#FFFFFF'}}
+              >
+                <div
+                  className="cell-membrane"
+                >
+                  <div className={classes.title}>精选文章</div>
+                  <div className="d-flex flex-wrap justify-content-between" style={{padding: '1.40vw 0'}}>
+                    {this.state.articleFulltext.content.data.map((item, index) => {
+                      return (
+                        <div style={{marginBottom:'1vw'}} key={index}>
+                          <ArticleCardSquare
+                            title={item.content.title}
+                            avatar={item.author}
+                            username={item.author}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  <div className={classes.seemore}>查看更多 →</div>
+                </div>
+              </div>
+              {/*
           <div
             className="cell-wall" style={{padding:'2.82vw 0',background:'#FAFAFF'}}
           >
@@ -195,39 +201,42 @@ class BestForYouReact extends React.Component {
             </div>
           </div>
         */}
-        
-        
-        <div
-          className="cell-wall" style={{padding:'2.82vw 0',background:'#FAFAFF'}}
-        >
-          <div
-            className="cell-membrane"
-          >
-            <div className={classes.title}>精选人脉</div>
-            <div className="d-flex justify-content-between" style={{padding:'1.40vw 0'}}>
 
-              {this.state.userFulltext.content.data.map((item, index) => {
-                return (
-                  <UserCardBarFull 
-                    key={index} 
-                    avatar={item.content.avatar_url}
-                    name={item.content.username} 
-                    sex={item.content.gender} 
-                    nation={item.content.nation}
-                    
-                  />
-                );
-              })}
-             
+
+              <div
+                className="cell-wall" style={{padding: '2.82vw 0', background: '#FAFAFF'}}
+              >
+                <div
+                  className="cell-membrane"
+                >
+                  <div className={classes.title}>精选人脉</div>
+                  <div className="d-flex justify-content-between" style={{padding: '1.40vw 0'}}>
+
+                    {this.state.userFulltext.content.data.map((item, index) => {
+                      return (
+                        <UserCardBarFull
+                          key={index}
+                          avatar={item.content.avatar_url}
+                          name={item.content.username}
+                          sex={item.content.gender}
+                          nation={item.content.nation}
+                        />
+                      );
+                    })}
+
+                  </div>
+
+
+                  <div className={classes.seemore}>查看更多 →</div>
+                </div>
+              </div>
+
             </div>
-           
-            
-            <div className={classes.seemore}>查看更多 →</div>
-          </div>
-        </div>
-        
-      </div>
-    ):null;
+          )
+        );
+      default:
+        return null;
+    }
   }
 }
 

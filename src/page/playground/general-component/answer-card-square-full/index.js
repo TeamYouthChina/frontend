@@ -49,7 +49,7 @@ class AnswerCardSquareReact extends React.Component {
         </div>
         <div className="d-flex justify-content-between align-items-center mt-5">
           {/*<div className={classes.answer}>共10条回答</div>*/}
-          <div className="d-flex">
+          <div className="d-flex align-self-end">
             <div className={`mr-2 ${classes.avatar}`}>
               <img
                 src={(this.props.avatar==='---')?('http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'):(this.props.avatar)}
