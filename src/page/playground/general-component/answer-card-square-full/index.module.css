@@ -21,6 +21,10 @@
 
 
 }
+.avatar{
+  width:1.5625vw;
+  height:1.5625vw;
+}
 .people{
   font-family: PingFang SC;
   margin-top: 1.38vw;
