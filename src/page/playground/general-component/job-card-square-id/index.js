@@ -32,13 +32,13 @@ class JobCardSquareReact extends React.Component {
     if (this.props.id) {
       //console.log(this.props.id);
       //console.log(this.props.jobList)
-      if((this.props.jobList.indexOf(this.props.id))>-1){
+      /*if((this.props.jobList.indexOf(this.props.id))>-1){
        
         this.setState({
           isCollect:true
         });
         
-      }
+      }*/
       this.setState({
         backend: await getAsync(`/jobs/${this.props.id}`)
       });

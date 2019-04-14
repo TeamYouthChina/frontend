@@ -10,8 +10,7 @@ import {IfCollect} from '../if-collect';
 
 import {languageHelper} from '../../../../tool/language-helper';
 
-import {mockGetAsync} from '../../../../tool/api-helper';
-import {content} from './index.mock.js';
+
 import more from './more.png';
 
 
@@ -22,34 +21,12 @@ class ArticleCardSquareReact extends React.Component {
     super(props);
     // state
     this.state = {
-      backend: {
-        content: {
-          id: null,
-          author: {
-            id: null,
-            username: null,
-            role: null
-          },
-          title: null,
-          
-
-        },
-        status: {
-          code: null,
-          reason: null,
-        },
-      },
+      
     };
     // i18n
     this.text = ArticleCardSquareReact.i18n[languageHelper()];
   }
-  async componentDidMount() {
-    // const requestedData = await getAsync();
-    // this.setState({ cardData: requestedData, ...this.state });
-
-    const requestedData = await mockGetAsync(content);
-    this.setState({ ...this.state, backend: requestedData});
-  }
+  
   render() {
 
 
@@ -58,7 +35,7 @@ class ArticleCardSquareReact extends React.Component {
       <div className={classes.content}>
         <div className="d-flex justify-content-between">
           <div className={classes.title}>
-            {this.state.backend.content.title}
+            {this.props.title}
           </div>
           <div>
             <img
@@ -75,11 +52,11 @@ class ArticleCardSquareReact extends React.Component {
           <div className="d-flex align-items-center">
             <div className={classes.avatar}>
               <img
-                src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg"
+                src={(this.props.avatar==='---')?('http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'):(this.props.avatar)}
                 className="rounded-circle img-fluid p-0 float-right"
               />
             </div>
-            <div className={classes.people}>{this.state.backend.content.author.username}</div>
+            <div className={classes.people}>{this.props.username}</div>
             {/*<div className={classes.tag2}><div className="px-2">{this.state.backend.content.author.role}</div></div>*/}
           </div>
           <IfCollect/>
@@ -99,7 +76,9 @@ ArticleCardSquareReact.propTypes = {
   // self
 
   /* 在这里添加自定义的组件属性。重要！务必添加，否则 ESlint 会报错，并导致无法 commit。 */
-
+  title:PropTypes.string.isRequired,
+  avatar:PropTypes.string.isRequired,
+  username:PropTypes.string.isRequired,
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
