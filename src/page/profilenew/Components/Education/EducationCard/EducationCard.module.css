@@ -1,89 +1,46 @@
-.EducationCard{
-    display: flex;
-    flex-direction: row;
-    width: 90%;
-    box-sizing: border-box;
-    padding: 5px 0;
-    align-items: start;
-    padding: 1vw;
-}
-
-/* .EducationCard input {
-    font-family: "PingFang SC";
-    font-style: normal;
-    font-weight: normal;
-    line-height: normal;
-    font-size: 14px;
-    color: #62686C;
-    margin: 3px 0;
-    width: 100%;
-    border-top: hidden;
-    border-left: hidden;
-    border-right: hidden;
-    border-bottom: 1px solid #e7e7e7
-} */
-
-/* .EducationCard input:disabled {
-    border-top: hidden;
-    border-left: hidden;
-    border-right: hidden;
-    border-bottom: 1px solid white
-} */
-
-.twoP {
-    font-family: "PingFang SC";
-    margin: 3px 0;
-    padding: 1px;
-    border: none;
+.EducationCard {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  box-sizing: border-box;
+  align-items: start;
+  padding: 30px;
 }
 
 .EducationCard img {
-    height: 65px;
-    width: 65px;
+  height: 65px;
+  width: 65px;
 }
 
 .SchoolInfo {
-    margin-left: 1.56vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    flex-grow: 1;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-grow: 1;
 }
-
-/* .SchoolInfo h1{
-    font-family: "PingFang SC";
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    font-size: 16px;
-    color: #62686C;
-    margin: 0%;
-} */
-
-/* .SchoolInfo p{
-    font-family: "PingFang SC";
-    font-style: normal;
-    font-weight: normal;
-    line-height: normal;
-    font-size: 14px;
-
-    color: #62686C;
-    margin: 0%;
-}
-
-.SchoolInfo div p{
-    font-family: "PingFang SC";
-    font-style: normal;
-    font-weight: normal;
-    line-height: normal;
-    font-size: 14px;
-
-    color: #62686C;
-    margin: 0%;
-} */
 
 .RedBox {
-    border-bottom: red solid 2px;
+  border-bottom: red solid 2px;
 }
 
+.SchoolName {
+  font-family: PingFang SC;
+  font-size: 16px;
+  line-height: normal;
+  color: #454f69;
+}
 
+.DegreeMajor {
+  font-family: PingFang SC;
+  font-size: 16px;
+  line-height: normal;
+  color: #454f69;
+}
+
+.TimeLocation {
+  font-family: PingFang SC;
+  font-size: 14px;
+  line-height: normal;
+  color: #8d9aaf;
+}
