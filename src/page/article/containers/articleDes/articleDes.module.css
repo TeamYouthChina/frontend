@@ -21,12 +21,12 @@
   line-height: 1.95vw;
 }
 .btnStyleFocus {
+  color:blue;
   font-family: PingFang SC;
   font-size: 1.25vw;
   line-height: normal;
   text-align: center;
-  color:#FFFFFF;
-  background-color: #4F65E1;
+  background-color: #FFFFFF;
   border-radius: 2px;
   width:7.96vw;
   height:3.12vw;
@@ -170,12 +170,12 @@
   max-width: 500px;
 }
 .btnStyleFocusActive {
-  color:red;
+  color:white;
   font-family: PingFang SC;
   font-size: 1.25vw;
   line-height: normal;
   text-align: center;
-  background-color: #4F65E1;
+  background-color: blue;
   border-radius: 2px;
   width:7.96vw;
   height:3.12vw;

@@ -28,7 +28,7 @@ const ArticleDes = React.memo((props) => (
         <span className={classes.desSpan}>{props.description && props.description[0]}</span>
       </div>
       <button onClick={props.onAttention} className={props.attention ? classes.btnStyleFocusActive : classes.btnStyleFocus}>
-        {props.attention ? '已关注' : '+关注他'}
+        {props.attention ? '已关注' : '+关注文章'}
       </button>
       <div className={classes.upZan}>
         <span onClick={props.onVote} className={props.evaluateStatus !== 3 ? classes.footerFontActive : classes.footerFont}>

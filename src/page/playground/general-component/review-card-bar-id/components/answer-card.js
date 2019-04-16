@@ -62,27 +62,24 @@ export class AnswerCard extends React.Component {
     if (this.scrollSpan) {
       discount = document.documentElement.clientHeight - this.scrollSpan.getBoundingClientRect().top;
     }
-    setTimeout(() => {
-      if (!this.state.isCollapsed) {
-        if (discount > 250) {
-          this.setState({
-            showBottom: true,
-          });
-        } else if (discount < 240) {
-          this.setState({
-            showBottom: false,
-          });
-        }
-
+    if (!this.state.isCollapsed) {
+      if (discount > 250) {
+        this.setState({
+          showBottom: true,
+        });
+      } else if (discount < 240) {
+        this.setState({
+          showBottom: false,
+        });
       }
-    }, 100);
+    }
   }
 
   // 展开评论
   showCommentsFunc() {
     let commentsTextNow = '';
     let showComments = false;
-    if(this.state.backend.comments !== undefined) {
+    if (this.state.backend.comments !== undefined) {
       commentsTextNow = this.state.commentsText === `${this.state.backend.comments.length}条评论` ? '收起评论' : `${this.state.backend.comments.length}条评论`;
       showComments = this.state.commentsText === `${this.state.backend.comments.length}条评论`;
     } else {
@@ -115,7 +112,7 @@ export class AnswerCard extends React.Component {
         }
       } else {
         let result = '';
-        try{
+        try {
           result = await getAsync(`/answers/${this.props.ansCommentId}/comments`);
         } catch (e) {
           alert(e);
@@ -137,7 +134,7 @@ export class AnswerCard extends React.Component {
     let evaluateStatus = this.state.backend.evaluateStatus;
     let upvoteCount = this.state.backend.upvoteCount;
     const data = {
-      id:Number(window.localStorage.id)
+      id: Number(window.localStorage.id)
     };
     let id = this.props.reviewId === undefined ? this.state.backend.id : this.props.reviewId;
     let type = this.props.type === 'fromQuestion' ? 'answers' : 'editorials';
@@ -192,16 +189,16 @@ export class AnswerCard extends React.Component {
     let attention = !this.state.backend.attention;
     let id = this.props.reviewId === undefined ? this.state.backend.id : this.props.reviewId;
     let type = this.props.type === 'fromQuestion' ? 'answers' : 'editorials';
-    this.setState(()=>({
-      backend:{
+    this.setState(() => ({
+      backend: {
         ...this.state.backend,
-        attention:attention
+        attention: attention
       }
     }));
     const data = {
-      id:Number(window.localStorage.id)
+      id: Number(window.localStorage.id)
     };
-    if(attention) {
+    if (attention) {
       try {
         fetch(
           `${urlPrefix}/${type}/${id}/attention`,
