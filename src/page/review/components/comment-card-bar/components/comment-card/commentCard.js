@@ -111,6 +111,12 @@ export class CommentCard extends React.Component {
       }));
     }
   };
+  onShowReply = () => {
+    let showGive = !this.state.showGive;
+    this.setState(()=>({
+      showGive
+    }));
+  };
   
   render(){
     const {backend} = this.state;
@@ -132,7 +138,7 @@ export class CommentCard extends React.Component {
                 content={this.props.content}
               />
               <CommentFooter
-                giveReplies={this.showRepliesFunc}
+                onShowReply={this.onShowReply}
                 replyText={this.state.replyText}
                 showGive={this.state.showGive}
                 addComments={this.addComments}
@@ -140,13 +146,10 @@ export class CommentCard extends React.Component {
                 upvoteCount={backend.upvoteCount}
                 evaluateStatus={backend.evaluateStatus}
               />
-
               <span className={classes.showSpan} onClick={this.showRepliesFunc}>
                 {this.state.showCommentsText}<img style={{marginLeft:'0.39vw'}} src={expandMore} alt="" />
               </span>
-              {this.state.showReplies ? (
-                <Reply commentId={this.props.id} />
-              ) : null}
+              <Reply showReplies={this.state.showReplies} showGive={this.state.showGive} commentId={this.props.id} />
             </div>
           </MDBRow>
         </div>
