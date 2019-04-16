@@ -30,15 +30,7 @@ class JobCardSquareReact extends React.Component {
   }
   async componentDidMount() {
     if (this.props.id) {
-      //console.log(this.props.id);
-      //console.log(this.props.jobList)
-      /*if((this.props.jobList.indexOf(this.props.id))>-1){
-       
-        this.setState({
-          isCollect:true
-        });
-        
-      }*/
+      
       this.setState({
         backend: await getAsync(`/jobs/${this.props.id}`)
       });
@@ -75,7 +67,13 @@ class JobCardSquareReact extends React.Component {
         <div className="d-flex justify-content-between">
           <div className={classes.ddl}>{this.state.backend.content.deadLine}</div>
           
-          <div className={classes.ddl}> <IfCollect ifcollect={this.state.backend.content.collected}/></div>
+          <div className={classes.ddl}> 
+            <IfCollect 
+              id={this.state.backend.content.id}
+              type={1}
+              ifcollect={this.state.backend.content.collected}
+            />
+          </div>
           
         </div>
        

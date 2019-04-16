@@ -88,7 +88,7 @@ class JobReact extends React.Component {
                             fontSize: '1.09375vw'
                           }}
                         >
-                          {this.state.backend.content.data.length}份职位
+                          API没有份职位
                         </span>
                       </div>
                     );
@@ -134,7 +134,7 @@ class JobReact extends React.Component {
                   return (
                     <div>
                       {
-                        this.state.backend.content.data.map((item, index) => {
+                        this.state.backend.content.job.data.map((item, index) => {
                           return (
                             <div
                               key={index}

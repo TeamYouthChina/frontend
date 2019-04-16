@@ -12,8 +12,9 @@
   height: auto;
 }
 .title{
+  height: 3.55vw;
   font-family: PingFang SC;
-  font-size: 16px;
+  font-size: 1.25vw;
   font-weight: bolder;
   line-height: normal;
 
@@ -23,7 +24,7 @@
 }
 .company{
   font-family: PingFang SC;
-  font-size: 14px;
+  font-size: 1.09vw;
   line-height: normal;
   margin-top: 0.78vw;
 
@@ -31,7 +32,7 @@
 }
 .location{
   font-family: PingFang SC;
-  font-size: 14px;
+  font-size: 1.09vw;
   line-height: normal;
   margin-top: 0.39vw;
 
@@ -39,7 +40,7 @@
 }
 .ddl{
   font-family: PingFang SC;
-  font-size: 14px;
+  font-size: 1.09vw;
   line-height: normal;
   margin-top: 1.41vw;
 

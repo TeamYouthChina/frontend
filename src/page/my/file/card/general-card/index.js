@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 
 import classes from './index.module.css';
 import shape from './Shape.png';
-import {languageHelper} from '../../../../tool/language-helper';
+import {languageHelper} from '../../../../../tool/language-helper';
 import {withRouter} from 'react-router-dom';
 
 
-class FileCardReact extends React.Component {
+class FileGeneralCardReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {};
     // i18n
-    this.text = FileCardReact.i18n[languageHelper()];
+    this.text = FileGeneralCardReact.i18n[languageHelper()];
   }
 
   render() {
@@ -22,7 +22,7 @@ class FileCardReact extends React.Component {
       <div 
         className={classes.content}
         onClick={()=>{
-          //this.props.history.push(`/my/collection/${this.props.url}`);
+          this.props.history.push(`/my/file/${this.props.url}`);
         }}
       >
         <div className={classes.bg} >
@@ -57,13 +57,13 @@ class FileCardReact extends React.Component {
   }
 }
 
-FileCardReact.i18n = [
+FileGeneralCardReact.i18n = [
   {},
   {}
   
 ];
 
-FileCardReact.propTypes = {
+FileGeneralCardReact.propTypes = {
   // self
   text: PropTypes.string.isRequired,
   logo: PropTypes.string.isRequired,
@@ -76,5 +76,5 @@ FileCardReact.propTypes = {
   location: PropTypes.object.isRequired,
 };
 
-export const FileCard = withRouter(FileCardReact);
+export const FileGeneralCard = withRouter(FileGeneralCardReact);
 

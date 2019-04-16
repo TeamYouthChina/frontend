@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import none from './false.png';
 import collected from './true.png';
-import {put} from '../../../../tool/api-helper';
+import {put,deleteHttp} from '../../../../tool/api-helper';
 
 
 
@@ -12,8 +12,6 @@ export class IfCollect extends React.Component {
     this.state = {
       collect: null
     };
-
-    
   }
   async componentDidMount() {
     if (this.props.ifcollect) {
@@ -22,25 +20,7 @@ export class IfCollect extends React.Component {
       });
     }
   }
-
-  isCollect = ()=>{
-    this.setState({
-      collect: !this.state.collect
-    });
-    if (this.props.type === 1 && this.state.collect===true) {
-      put(`/jobs/${this.props.id}/attention`, '').then();
-    }
-    if (this.props.type === 1 && this.state.collect===false) {
-      //deleteHttp(`/jobs/${this.props.id}`).then(()=>{},()=>{});
-    }
-    if (this.props.type === 2 && this.state.collect===true) {
-      put(`/companies/${this.props.id}/attention`, '').then();
-    }
-    if (this.props.type === 1&& this.state.collect===false) {
-      //put(`/jobs/${this.props.id}/attention`, '').then();
-    }
-  }
-
+  
   render() {
     
     return  (
@@ -54,7 +34,86 @@ export class IfCollect extends React.Component {
           }}
           className="ml-3"
          
-          onClick={this.isCollect}
+          onClick={()=>{
+            /*
+            * type:
+            * 1: Job
+            * 2: Company
+            * 3: Question
+            * 4: Review
+            * 5: Article
+            */
+            if (this.props.type === 1 && this.props.ifcollect===false){
+              put(`/jobs/${this.props.id}/attention`).then(()=>{
+                this.setState({
+                  collect:!this.state.collect
+                });
+              });
+            }
+            if (this.props.type === 1 && this.props.ifcollect===true){
+              deleteHttp(`/jobs/attentions/${this.props.id}`).then(()=>{
+                this.setState({
+                  collect:!this.state.collect
+                });
+              });
+            }
+            if (this.props.type === 2 && this.props.ifcollect===false){
+              put(`/companies/${this.props.id}/attention`).then(()=>{
+                this.setState({
+                  collect:!this.state.collect
+                });
+              });
+            }
+            if (this.props.type === 2 && this.props.ifcollect===true){
+              deleteHttp(`/companies/attentions/${this.props.id}`).then(()=>{
+                this.setState({
+                  collect:!this.state.collect
+                });
+              });
+            }
+            if (this.props.type === 3 && this.props.ifcollect===false){
+              put(`/questions/${this.props.id}/attention`).then(()=>{
+                this.setState({
+                  collect:!this.state.collect
+                });
+              });
+            }
+            if (this.props.type === 3 && this.props.ifcollect===true){
+              deleteHttp(`/questions/attentions/${this.props.id}`).then(()=>{
+                this.setState({
+                  collect:!this.state.collect
+                });
+              });
+            }
+            if (this.props.type === 4 && this.props.ifcollect===false){
+              put(`/editorials/${this.props.id}/attention`).then(()=>{
+                this.setState({
+                  collect:!this.state.collect
+                });
+              });
+            }
+            if (this.props.type === 4 && this.props.ifcollect===true){
+              deleteHttp(`/editorials/attentions/${this.props.id}`).then(()=>{
+                this.setState({
+                  collect:!this.state.collect
+                });
+              });
+            }
+            if (this.props.type === 5 && this.props.ifcollect===false){
+              put(`/articles/${this.props.id}/attention`).then(()=>{
+                this.setState({
+                  collect:!this.state.collect
+                });
+              });
+            }
+            if (this.props.type === 5 && this.props.ifcollect===true){
+              deleteHttp(`/articles/attentions/${this.props.id}`).then(()=>{
+                this.setState({
+                  collect:!this.state.collect
+                });
+              });
+            }
+          }}
         >
 
           {this.state.collect?

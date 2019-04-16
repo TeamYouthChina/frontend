@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classes from './index.module.css';
 import {Redirect} from 'react-router-dom';
-import {FileCard} from './card';
+import {FileGeneralCard} from './card/general-card';
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 
@@ -33,10 +33,10 @@ class FileReact extends React.Component {
             </div>
             <div className="d-flex" style={{marginBottom:'2.03vw'}}>
               <div style={{marginRight:'1.875vw'}}>
-                <FileCard text={'PDF简历'} tag={'0份文件'} date={'上次修改时间：2019年3月21'} />
+                <FileGeneralCard text={'PDF简历'} tag={'0份文件'} date={'上次修改时间：2019年3月21'} url={'pdf-resume'}/>
               </div>
               <div>
-                <FileCard text={'电子简历'} tag={'0份文件'} date={'上次修改时间：2019年3月21'}/>
+                <FileGeneralCard text={'电子简历'} tag={'0份文件'} date={'上次修改时间：2019年3月21'} url={'e-resume'}/>
               </div>
             </div>
             
