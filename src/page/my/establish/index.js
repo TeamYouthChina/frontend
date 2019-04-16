@@ -5,13 +5,13 @@ import {Redirect} from 'react-router-dom';
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 
-class NotificationReact extends React.Component {
+class EstablishReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {};
     // i18n
-    this.text = NotificationReact.i18n[languageHelper()];
+    this.text = EstablishReact.i18n[languageHelper()];
   }
 
   render() {
@@ -25,8 +25,12 @@ class NotificationReact extends React.Component {
           className="cell-wall"
         >
           <div
-            className="cell-membrane"
+            className="cell-membrane d-flex justify-content-center"
           >
+            <img
+              src="http://frontendpic.oss-us-east-1.aliyuncs.com/comingsoon%20%281%29.png?Expires=1555217413&OSSAccessKeyId=TMP.AQHqeGKy_Brn5N1OqJMhbHWer74zkhWB93qh6WDUQVF3oZNo2PXIkQYlPsUiADAtAhQvX0QcX6FAS-w40awKlriAj7tizgIVAIB8lT0Gajd2CyGmZjwgLb-He_8M&Signature=pNBAr5FfTL%2Bv%2FPPi1Fe8CgqjP9s%3D"
+              className="img-fluid"
+            />
 
           </div>
         </div>
@@ -35,12 +39,12 @@ class NotificationReact extends React.Component {
   }
 }
 
-NotificationReact.i18n = [
+EstablishReact.i18n = [
   {},
   {}
 ];
 
-NotificationReact.propTypes = {
+EstablishReact.propTypes = {
   // self
 
   // React Router
@@ -49,4 +53,4 @@ NotificationReact.propTypes = {
   location: PropTypes.object.isRequired
 };
 
-export const Notification = NotificationReact;
+export const Establish = EstablishReact;

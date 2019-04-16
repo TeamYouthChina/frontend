@@ -93,8 +93,11 @@ class JobCardBarIdReact extends React.Component {
             </div>
           </div>
           <div className={classes.Like}>
-            <IfCollect ifcollect={this.state.backend.content.collected} type={1} id={this.state.backend.content.id}/>
-            
+            <IfCollect 
+              ifcollect={this.state.backend.content.collected} 
+              type={1} 
+              id={this.state.backend.content.id}
+            />
           </div>
         </div>
       </div>
