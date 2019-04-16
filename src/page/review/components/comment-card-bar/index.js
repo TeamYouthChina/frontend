@@ -56,8 +56,21 @@ class Comments extends React.Component {
         },
       ).then((res)=>(
         res.json()
-      )).then(()=>{
-        this.fetchAgain();
+      )).then(async ()=>{
+        try {
+          const result = await getAsync(`/${this.props.type}/${this.props.id}/comments`);
+          if(result.status.code === 2000){
+            this.setState(()=>({
+              commentLists:result.content.data
+            }),()=>{
+              this.props.onTellParent(this.state.commentLists.length);
+            });
+          } else {
+            this.props.history.push('/page-no-found');
+          }
+        } catch (e) {
+          alert(e);
+        }
       });
     } catch (e) {
       alert(e);
@@ -67,7 +80,7 @@ class Comments extends React.Component {
   fetchAgain = async () => {
     if(isLogin()){
       try {
-        const result = await getAsync(`/editorials/${this.props.id}/comments`);
+        const result = await getAsync(`/${this.props.type}/${this.props.id}/comments`);
         if(result.status.code === 2000){
           this.setState(()=>({
             commentLists:result.content.data
@@ -124,7 +137,7 @@ class Comments extends React.Component {
           <CommentCard
             key={item.id}
             id={item.id}
-            user={item.creator.username}
+            user={item.creator && item.creator.username}
             time={timeHelper(item.modified_at)}
             content={item.body}
             upvoteCount={item.upvoteCount}
@@ -136,7 +149,7 @@ class Comments extends React.Component {
           <CommentCard
             key={item.id}
             id={item.id}
-            user={item.creator.username}
+            user={item.creator && item.creator.username}
             time={timeHelper(item.modified_at)}
             content={item.body}
             upvoteCount={item.upvoteCount}
@@ -170,7 +183,7 @@ class Comments extends React.Component {
 Comments.propTypes = {
   // 评论text
   commentsText: PropTypes.string.isRequired,
-  commentsData: PropTypes.array.isRequired,
+  onTellParent: PropTypes.func.isRequired,
   history: PropTypes.object,
   id: PropTypes.number,
   type: PropTypes.string,

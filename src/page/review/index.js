@@ -30,7 +30,7 @@ class ReviewReact extends React.Component {
         if (result.status.code === 200) {
           this.setState(() => ({
             backend: result.content,
-            commentsText:result.content.comments.length
+            commentsText:`${result.content.comments.length}条评论`
           }));
         } else {
           this.props.history.push('/page-not-found');
@@ -135,7 +135,12 @@ class ReviewReact extends React.Component {
         alert(e);
       }
     }
+  };
 
+  onTellParent = (length) => {
+    this.setState(()=>({
+      commentsText:`${length}条评论`
+    }));
   };
 
   getCurrentPage(){}
@@ -177,7 +182,7 @@ class ReviewReact extends React.Component {
                 showComments={this.showCommentsFunc}
                 getCurrentPage={this.getCurrentPage}
                 commentsText={this.state.commentsText}
-                commentsData={backend.comments}
+                onTellParent={this.onTellParent}
               />
             </div>
           </div>

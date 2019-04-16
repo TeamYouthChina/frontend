@@ -5,8 +5,8 @@ import classes from './index.module.css';
 import {MDBAvatar, MDBRow} from 'mdbreact';
 import ReplyContent from './content';
 import ReplyFooter from './footer';
-import {urlPrefix, generateHeaders} from '../../../../../../../tool/api-helper';
-import {timeHelper} from '../../../../../../../tool/time-helper';
+import {urlPrefix, generateHeaders} from '../../../../../../../../tool/api-helper';
+import {timeHelper} from '../../../../../../../../tool/time-helper';
 
 class ReplyCard extends React.Component{
   constructor(props){

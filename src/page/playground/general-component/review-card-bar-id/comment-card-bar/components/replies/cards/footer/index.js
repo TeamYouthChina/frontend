@@ -2,7 +2,7 @@ import React from 'react';
 import {MDBBtn, MDBRow} from 'mdbreact';
 import PropTypes from 'prop-types';
 
-import ThumbUp from '../../../../../../public/thumb-up.svg';
+import ThumbUp from '../../../../../public/thumb-up.svg';
 import classes from './index.module.css';
 
 const ReplyFooter = React.memo((props) => (

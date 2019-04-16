@@ -17,7 +17,7 @@ class ArticleReact extends React.Component {
     // state
     this.state = {
       backend:null,
-      commentsText:'1条评论'
+      commentsText:'1条评论',
     };
     // i18n
     this.text = ArticleReact.i18n[languageHelper()];
@@ -140,6 +140,21 @@ class ArticleReact extends React.Component {
     }
 
   };
+  testRole = (author)=> {
+    if(author === null) {
+      return author;
+    } else if(author.role === null){
+      return null;
+    } else {
+      return author.role[0];
+    }
+  }
+  
+  onTellParent = (length) => {
+    this.setState(()=>({
+      commentsText:`${length}条评论`
+    }));
+  };
   
   getCurrentPage(){}
 
@@ -156,7 +171,7 @@ class ArticleReact extends React.Component {
           time={timeHelper(backend.modified_at)}
           content={backend.body.braftEditorRaw} 
           user={backend.author === null ? backend.author : backend.author.username} 
-          description={backend.author === null ? backend.author : backend.author.role[0]} 
+          description={this.testRole(backend.author)} 
           commentsText={this.state.commentsText}
           evaluateStatus={backend.evaluateStatus}
           onAttention={this.onAttention}
@@ -178,7 +193,7 @@ class ArticleReact extends React.Component {
                 showComments={this.showCommentsFunc}
                 getCurrentPage={this.getCurrentPage}
                 commentsText={this.state.commentsText}
-                commentsData={backend.comments === undefined ? this.state.comments.data : backend.comments.comments}
+                onTellParent={this.onTellParent}
               />
             </div>
           </div>

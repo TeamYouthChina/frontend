@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { MDBRow, MDBBtn} from 'mdbreact';
 import {languageHelper} from '../../../../../tool/language-helper';
-
+import {withRouter} from 'react-router-dom';
 import { AddComment } from './components/add-comment/add-comment';
 import CommentCard from './components/comment-card/commentCard';
 import { PaginationUse } from './components/pagination';
 import classes from './index.module.css';
 import Expend from '../public/expand-more.svg';
-import {generateHeaders, isLogin, urlPrefix} from '../../../../../tool/api-helper';
+import {generateHeaders, isLogin, urlPrefix, getAsync} from '../../../../../tool/api-helper';
 import {timeHelper} from '../../../../../tool/time-helper';
 
 class Comments extends React.Component {
@@ -34,9 +34,7 @@ class Comments extends React.Component {
 
   componentDidMount() {
     if(isLogin()){
-      this.setState(()=>({
-        commentLists:this.props.commentsData
-      }));
+      this.fetchAgain();
     } else {
       this.props.history.push('/login');
     }
@@ -44,7 +42,6 @@ class Comments extends React.Component {
   }
   // 添加评论
   addComments(value){
-    let localStorage = window.localStorage;
     const data = {
       body: value,
       is_anonymous: false
@@ -57,24 +54,47 @@ class Comments extends React.Component {
           headers:generateHeaders(),
           body:JSON.stringify(data)
         },
-      );
+      ).then((res)=>(
+        res.json()
+      )).then(async ()=>{
+        try {
+          const result = await getAsync(`/${this.props.type}/${this.props.id}/comments`);
+          if(result.status.code === 2000){
+            this.setState(()=>({
+              commentLists:result.content.data
+            }), ()=>{
+              this.props.onTellParent(this.state.commentLists.length);
+            });
+          } else {
+            this.props.history.push('/page-no-found');
+          }
+        } catch (e) {
+          alert(e);
+        }
+      });
     } catch (e) {
       alert(e);
     }
-    this.setState({
-      commentLists: [{
-        id: localStorage.id,
-        creator:{
-          username:'lalala'
-        },
-        modified_at: new Date().getTime(),
-        body: value,
-        upvoteCount:0,
-        downvoteCount:0,
-        evaluateStatus:3,
-      }, ...this.state.commentLists]
-    });
   }
+  // 再次获取数据
+  fetchAgain = async () => {
+    if(isLogin()){
+      try {
+        const result = await getAsync(`/${this.props.type}/${this.props.id}/comments`);
+        if(result.status.code === 2000){
+          this.setState(()=>({
+            commentLists:result.content.data
+          }));
+        } else {
+          this.props.history.push('/page-no-found');
+        }
+      } catch (e) {
+        alert(e);
+      }
+    } else {
+      this.props.history.push('/login');
+    }
+  };
   // 查看回复
   showReplies(){
     let reply = !this.state.showReplies;
@@ -94,6 +114,7 @@ class Comments extends React.Component {
     });
   }
 
+  // 分页
   getCurrentPage(index){
     const start = 3 * (index-1);
     const end = 3 * index;
@@ -114,7 +135,8 @@ class Comments extends React.Component {
         />
         {this.state.commentLists.length < 3 ? this.state.commentLists.map((item) => (
           <CommentCard
-            key={item.modified_at}
+            key={item.id}
+            id={item.id}
             user={item.creator.username}
             time={timeHelper(item.modified_at)}
             content={item.body}
@@ -125,7 +147,8 @@ class Comments extends React.Component {
           />
         )) : this.state.commentLists.slice(this.state.start, this.state.end).map((item)=>(
           <CommentCard
-            key={item.modified_at}
+            key={item.id}
+            id={item.id}
             user={item.creator.username}
             time={timeHelper(item.modified_at)}
             content={item.body}
@@ -160,8 +183,8 @@ class Comments extends React.Component {
 Comments.propTypes = {
   // 评论text
   commentsText: PropTypes.string.isRequired,
-  commentsData: PropTypes.array.isRequired,
   history: PropTypes.object,
+  onTellParent: PropTypes.func,
   id: PropTypes.number,
   type: PropTypes.string,
   // 收起评论
@@ -178,4 +201,4 @@ Comments.i18n = [
   },
 ];
 
-export default Comments;
+export default withRouter(Comments);
