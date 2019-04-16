@@ -3,41 +3,8 @@
   flex-direction: row;
   width: 90%;
   box-sizing: border-box;
-  padding: 1vw;
-}
-
-/* .WorkExperienceCard input {
-  font-family: 'PingFang SC';
-  font-style: normal;
-  font-weight: normal;
-  line-height: normal;
-  font-size: 1.1vw;
-  color: #62686c;
-  margin: 3px 0;
-  border-top: hidden;
-  border-left: hidden;
-  border-right: hidden;
-  border-bottom: 1px solid #e7e7e7;
-}
-
-.WorkExperienceCard input:disabled {
-  border-top: hidden;
-  border-left: hidden;
-  border-right: hidden;
-  border-bottom: 1px solid white;
-} */
-
-.twoP {
-  font-family: 'PingFang SC';
-  margin: 3px 0;
-  padding: 1px;
-  border: none;
-}
-
-.description {
-  border: 0;
-  font-size: 1.1vw;
-  resize: none;
+  align-items: start;
+  padding: 30px;
 }
 
 .WorkExperienceCard img {
@@ -47,19 +14,29 @@
 
 .WorkInfo {
   margin-left: 20px;
-  width: 64.38vw;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   flex-grow: 1;
 }
 
-/* .WorkInfo p {
-  font-family: "PingFang SC";
-  font-style: normal;
-  font-weight: normal;
+.Position {
+  font-family: PingFang SC;
+  font-size: 16px;
   line-height: normal;
+  color: #454f69;
+}
+
+.Employer {
+  font-family: PingFang SC;
+  font-size: 16px;
+  line-height: normal;
+  color: #454f69;
+}
+
+.TimeLocation {
+  font-family: PingFang SC;
   font-size: 14px;
-  color: #62686c;
-  margin: 0%;
-} */
+  line-height: normal;
+  color: #8d9aaf;
+}

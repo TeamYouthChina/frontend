@@ -10,7 +10,6 @@ import {
 } from 'mdbreact';
 
 import classes from './EducationCard.module.css';
-import schoolIcon from '../../../assets/schoolIcon.jpg';
 import Dropdown from '../../Dropdown/Dropdown';
 // import { languageHelper } from '../../../../../tool/language-helper';
 
@@ -84,7 +83,14 @@ class EducationCard extends Component {
   // packup new data for this card and send to parent
   saveHandler = () => {
     if (this.state.universityError || this.state.majorError) {
-      alert('input 错误');
+      alert('至少有一个输出错误，请根据提示修改');
+      return;
+    } else if (
+      !this.state.educationData.university_id ||
+      !this.state.educationData.major ||
+      !this.state.educationData.degree
+    ) {
+      alert('请补全信息！');
       return;
     }
     if (this.state.educationData.id) {
@@ -102,21 +108,6 @@ class EducationCard extends Component {
       editing: false,
     });
   };
-
-  // inputOnChange = () => {
-  //   this.setState({
-  //     ...this.state,
-  //     educationData: {
-  //       ...this.state.educationData,
-  //       university_id: this.uniRef.current.value,
-  //       degree: this.degreeRef.current.value,
-  //       duration: {
-  //         begin: `${this.state.dateRange[0].getTime()}`,
-  //         end: `${this.state.dateRange[1].getTime()}`,
-  //       },
-  //     },
-  //   });
-  // };
 
   dateRangePickerOnChange = newDateRange => {
     this.setState({
@@ -206,20 +197,21 @@ class EducationCard extends Component {
   };
 
   render() {
-    // console.log(this.props.e)
-    // console.log(this.state.educationData.university_id);
-    // console.log(this.state.educationData.major);
-    // console.log(this.state.educationData.degree);
-    // console.log(this.state.educationData.duration.begin);
-    // console.log(this.state.educationData);
+    // console.log('a render')
     let toShow = (
       <div className={classes.EducationCard}>
-        <img src={schoolIcon} alt='no img' />
+        <img
+          src='http://frontendpic.oss-us-east-1.aliyuncs.com/%E6%95%99%E8%82%B2.png'
+          alt='no img'
+        />
         <div className={classes.SchoolInfo}>
-          <p>{this.state.educationData.university_id}</p>
-          <p>{this.state.educationData.major}</p>
-          <p>{this.state.educationData.degree}</p>
-          <p>
+          <p className={classes.SchoolName}>
+            {this.state.educationData.university_id}
+          </p>
+          <p className={classes.DegreeMajor}>
+            {this.state.educationData.degree} | {this.state.educationData.major}
+          </p>
+          <p className={classes.TimeLocation}>
             {`${this.state.educationData.duration.begin.toLocaleDateString(
               'zh-cn',
               {
@@ -250,7 +242,10 @@ class EducationCard extends Component {
       // console.log(this.state.educationData);
       toShow = (
         <div className={classes.EducationCard}>
-          <img src={schoolIcon} alt='no img' />
+          <img
+            src='http://frontendpic.oss-us-east-1.aliyuncs.com/%E6%95%99%E8%82%B2.png'
+            alt='no img'
+          />
           <div className={classes.SchoolInfo}>
             <div ref={this.universityNameRef}>
               <MDBAutocomplete

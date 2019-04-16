@@ -4,8 +4,8 @@ import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import { MDBInput } from 'mdbreact';
 
 import classes from './WorkExperienceCard.module.css';
-import workIcon from '../../../assets/google.jpg';
 import Dropdown from '../../Dropdown/Dropdown';
+import { Location } from './location/index';
 // import { languageHelper } from '../../../../../tool/language-helper';
 
 // const translation = [
@@ -41,8 +41,10 @@ class WorkExperienceCard extends Component {
               end: new Date(this.props.data.duration.end), // eslint-disable-line
           },
           location: {
-            nation_code: this.props.data.location ?  this.props.data.location.nation_code : '',
-            location_code: this.props.data.location ? this.props.data.location.location_code : '000000',
+            nation_code: '',
+            location_code: this.props.data.location
+              ? this.props.data.location
+              : '000000',
           },
             note: this.props.data.note ? this.props.data.note : '无简介', // eslint-disable-line
         }
@@ -62,10 +64,6 @@ class WorkExperienceCard extends Component {
         },
       dateRange: [new Date(), new Date()],
     };
-
-    this.posRef = React.createRef();
-    this.employerRef = React.createRef();
-    this.noteRef = React.createRef();
   }
 
   // this method only toggle 'editing'
@@ -84,10 +82,10 @@ class WorkExperienceCard extends Component {
 
   // packup new data for this card and send to parent
   saveHandler = () => {
-    this.setState({
-      ...this.state,
-      editing: false,
-    });
+    if (!this.state.workData.employer || !this.state.workData.position) {
+      alert('请补全信息！');
+      return;
+    }
     if (this.state.workData.id) {
       // console.log(`id to delete is ${this.state.proData.id}`);
       this.props.saveHandler(
@@ -98,6 +96,10 @@ class WorkExperienceCard extends Component {
     } else {
       this.props.saveHandler(this.state.workData, null, 'add');
     }
+    this.setState({
+      ...this.state,
+      editing: false,
+    });
   };
 
   employerOnChange = value => {
@@ -144,17 +146,33 @@ class WorkExperienceCard extends Component {
     });
   };
 
+  onLocationChange = location => {
+    this.setState({
+      ...this.state,
+      workData: {
+        ...this.state.workData,
+        location: {
+          nation_code: location.countryCode,
+          location_code: location.code,
+        },
+      },
+    });
+  };
+
   render() {
-    // console.log(this.state.workData)
+    // console.log('card render');
     let toShow;
     if (!this.state.editing) {
       toShow = (
         <div className={classes.WorkExperienceCard}>
-          <img src={workIcon} alt='no img' />
+          <img
+            src='http://frontendpic.oss-us-east-1.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E7%BB%8F%E5%8E%86.png'
+            alt='no img'
+          />
           <div className={classes.WorkInfo}>
-            <p>{this.state.workData.employer}</p>
-            <p>{this.state.workData.position}</p>
-            <p>
+            <p className={classes.Position}>{this.state.workData.position}</p>
+            <p className={classes.Employer}>{this.state.workData.employer}</p>
+            <p className={classes.TimeLocation}>
               {`${this.state.workData.duration.begin.toLocaleDateString(
                 'zh-cn',
                 {
@@ -162,7 +180,7 @@ class WorkExperienceCard extends Component {
                   month: 'numeric',
                   day: 'numeric',
                 }
-              )}    ${this.state.workData.duration.end.toLocaleDateString(
+              )}\t${this.state.workData.duration.end.toLocaleDateString(
                 'zh-cn',
                 {
                   year: 'numeric',
@@ -171,11 +189,15 @@ class WorkExperienceCard extends Component {
                 }
               )}`}
             </p>
-            <p>
-              {`${this.state.workData.location.nation_code}    ${
+            <Location
+              code={
                 this.state.workData.location.location_code
-              }`}
-            </p>
+                  ? this.state.workData.location.location_code
+                  : '000000'
+              }
+              locate={this.onLocationChange}
+              edit={false}
+            />
             {/* <p>{this.state.workData.note}</p> */}
           </div>
           <Dropdown delete={this.deleteHandler} edit={this.editHandler} />
@@ -184,7 +206,10 @@ class WorkExperienceCard extends Component {
     } else {
       toShow = (
         <div className={classes.WorkExperienceCard}>
-          <img src={workIcon} alt='no img' />
+          <img
+            src='http://frontendpic.oss-us-east-1.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E7%BB%8F%E5%8E%86.png'
+            alt='no img'
+          />
           <div className={classes.WorkInfo}>
             <MDBInput
               label='公司'
@@ -204,6 +229,15 @@ class WorkExperienceCard extends Component {
             <DateRangePicker
               onChange={this.dateRangePickerOnChange}
               value={this.state.dateRange}
+            />
+            <Location
+              code={
+                this.state.workData.location.location_code
+                  ? this.state.workData.location.location_code
+                  : '000000'
+              }
+              locate={this.onLocationChange}
+              edit={true}
             />
             {/* <MDBInput
               label='简介'
