@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {urlPrefix, generateHeaders, isLogin} from '../../../../../../tool/api-helper';
+import {urlPrefix, generateHeaders, isLogin} from '../../../../../../../tool/api-helper';
 import {withRouter} from 'react-router-dom';
 import ReplyCard from './cards';
 import {AddReply} from './cards/addReply';

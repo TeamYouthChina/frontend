@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {MDBRow, MDBAvatar, MDBCol} from 'mdbreact';
+import {MDBRow, MDBAvatar} from 'mdbreact';
 
 import {CommentContent} from '../../containers/comment-content/commentContent';
 import {CommentFooter} from '../../containers/comment-footer/commentFooter';
 import classes from './index.module.css';
 import expandMore from '../../../public/expand-more.svg';
+import {urlPrefix, generateHeaders} from '../../../../../../../tool/api-helper';
+import Reply from '../replies';
+
 
 export class CommentCard extends React.Component {
   
@@ -17,20 +20,22 @@ export class CommentCard extends React.Component {
       showCommentsText: '查看回复',
       replyText: '回复',
       commentLists: [],
-      allReplies: [],
       evaluateStatus:null,
       downvoteCount:null,
       upvoteCount:null,
+      backend:null,
     };
     this.showRepliesFunc = this.showRepliesFunc.bind(this);
   }
+  
 
-  componentWillMount() {
+  componentDidMount() {
+    const {evaluateStatus, downvoteCount, upvoteCount} = this.props;
     this.setState(()=>({
       backend:{
-        evaluateStatus:this.props.evaluateStatus,
-        downvoteCount:this.props.downvoteCount,
-        upvoteCount:this.props.upvoteCount,
+        evaluateStatus,
+        downvoteCount,
+        upvoteCount,
       }
     }));
   }
@@ -53,12 +58,28 @@ export class CommentCard extends React.Component {
     });
   }
 
+  // 点赞
   onVote = () => {
     let evaluateStatus = this.state.backend.evaluateStatus;
     let upvoteCount = this.state.backend.upvoteCount;
+    const data = {
+      id:Number(window.localStorage.id)
+    };
     if (evaluateStatus === 1) {
       evaluateStatus = 3;
       upvoteCount--;
+      try {
+        fetch(
+          `${urlPrefix}/comments/${this.props.id}/vote`,
+          {
+            method: 'DELETE',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
       this.setState(() => ({
         backend: {
           ...this.state.backend,
@@ -69,6 +90,18 @@ export class CommentCard extends React.Component {
     } else {
       evaluateStatus = 1;
       upvoteCount++;
+      try {
+        fetch(
+          `${urlPrefix}/comments/${this.props.id}/upvote`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
       this.setState(() => ({
         backend: {
           ...this.state.backend,
@@ -78,10 +111,16 @@ export class CommentCard extends React.Component {
       }));
     }
   };
+  onShowReply = () => {
+    let showGive = !this.state.showGive;
+    this.setState(()=>({
+      showGive
+    }));
+  };
   
   render(){
     const {backend} = this.state;
-    return (
+    return (backend !== null) ? (
       <div className={classes.wrapper}>
         <div>
           <MDBRow className={classes.mdbRow}>
@@ -99,7 +138,7 @@ export class CommentCard extends React.Component {
                 content={this.props.content}
               />
               <CommentFooter
-                giveReplies={this.showRepliesFunc}
+                onShowReply={this.onShowReply}
                 replyText={this.state.replyText}
                 showGive={this.state.showGive}
                 addComments={this.addComments}
@@ -107,22 +146,17 @@ export class CommentCard extends React.Component {
                 upvoteCount={backend.upvoteCount}
                 evaluateStatus={backend.evaluateStatus}
               />
-
               <span className={classes.showSpan} onClick={this.showRepliesFunc}>
                 {this.state.showCommentsText}<img style={{marginLeft:'0.39vw'}} src={expandMore} alt="" />
               </span>
-              {this.state.showReplies ? (
-                this.state.allReplies.map((item) => (
-                  <MDBRow key={item}>
-                    <MDBCol size="12">
-                      {/*<ReplyCard addComments={this.addComments} item={item}></ReplyCard>*/}
-                    </MDBCol>
-                  </MDBRow>)
-                )
-              ) : null}
+              <Reply showReplies={this.state.showReplies} showGive={this.state.showGive} commentId={this.props.id} />
             </div>
           </MDBRow>
         </div>
+      </div>
+    ) : (
+      <div>
+        loading
       </div>
     );
   }
@@ -130,12 +164,14 @@ export class CommentCard extends React.Component {
 
 CommentCard.propTypes = {
   user: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   time: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   onVote: PropTypes.func,
   upvoteCount: PropTypes.number,
   downvoteCount: PropTypes.number,
   evaluateStatus: PropTypes.number,
+  match: PropTypes.object,
 };
 
 export default CommentCard;
