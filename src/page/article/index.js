@@ -58,9 +58,9 @@ class ArticleReact extends React.Component {
       upvoteCount--;
       try {
         fetch(
-          `${urlPrefix}/articles/${this.props.match.params.id}/downvote`,
+          `${urlPrefix}/articles/${this.props.match.params.id}/vote`,
           {
-            method: 'PUT',
+            method: 'DELETE',
             headers: generateHeaders(),
             body: JSON.stringify(data)
           },

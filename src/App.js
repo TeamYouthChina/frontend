@@ -7,6 +7,7 @@ import {Article} from './page/article';
 import {ArticleEdit} from './page/article-edit';
 import {BestForYou} from './page/best-for-you';
 import {Company} from './page/company';
+import {ComingSoon} from './page/coming-soon';
 import {Connection} from './page/connection';
 import {CreateResume} from './page/create-resume';
 import {Discovery} from './page/discovery';
@@ -82,6 +83,10 @@ export class App extends React.Component {
               <Route
                 path="/company/:id"
                 component={routeProps => <Company {...routeProps} />}
+              />
+              <Route
+                path="/comingsoon"
+                component={routeProps => <ComingSoon {...routeProps} />}
               />
               <Route
                 path="/connection"

@@ -1,13 +1,4 @@
-/* 区块注释的内容应当删去 */
 
-/*
-   导入第三方模块：
-   - 将 `import React from 'react';` 放在首位。
-   - 将 `import * as ... from '...';` 放在最后。
-   - 将其他模块按照 `import` 后的首个单词的字母表顺序排列。所有大写字母开头的全部放到小写字母开头的前面。
-   - 一行 `import` 导入多个模块的，模块按照字母表顺序排列，规则同上。
-   - 这样做的目的是：保持部分代码有序，减少发生冲突的可能性。
-*/
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -15,75 +6,61 @@ import {withRouter} from 'react-router-dom';
 
 import classes from './index.module.css';
 import {IfCollect} from '../if-collect';
-/*
-   导入自定义模块：
-   - 排列规则同上。
-   - 自定义模块和第三方模块之间应当空一行。
-*/
 
 import {languageHelper} from '../../../../tool/language-helper';
-import {mockGetAsync} from '../../../../tool/api-helper';
-import {content} from './index.mock';
+import {getAsync} from '../../../../tool/api-helper';
 
-/* 模块命名：在你的命名后面追加 React */
+
+
 
 class CompanyCardSquareReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {
-      backend: {
-        content: {
-          id: null,
-          name: null,
-          avatarUrl: null,
-          location: null,
-          website: null,
-          employee:null,
-          
-          note: null,
-          nation: null,
-        },
-        status: {
-          code: null,
-          reason: null,
-        },
-      },
+      
     };
     // i18n
     this.text = CompanyCardSquareReact.i18n[languageHelper()];
   }
   async componentDidMount() {
-    // const requestedData = await getAsync();
-    // this.setState({ cardData: requestedData, ...this.state });
-
-    const requestedData = await mockGetAsync(content);
-    this.setState({ ...this.state, backend: requestedData});
+    if (this.props.id) {
+      this.setState({
+        backend: await getAsync(`/companies/${this.props.id}`)
+      });
+    } else {
+      this.setState({
+        backend: await getAsync('/companies/1')
+      });
+    }
   }
+
   render() {
 
 
-    return (
+    return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ? (
       <div className={classes.content}>
         <div className={classes.logo}>
           <img
-            src={this.state.backend.content.avatarUrl}
+            src={(this.state.backend.content.avatarUrl)?(this.state.backend.content.avatarUrl):('https://frontendpic.oss-us-east-1.aliyuncs.com/%E5%85%AC%E5%8F%B8.png')}
+            alt="no img"
             className="img-fluid p-0 float-right"
           />
+
         </div>
         <div className={classes.title}>
           {this.state.backend.content.name}
         </div>
         <div className="d-flex justify-content-between align-items-center">
           <div className={classes.note}>
-            {this.state.backend.content.employee}
+            {this.state.backend.content.location}
           </div>
           <div className={classes.note}>
-            <IfCollect/>
+            <IfCollect ifcollect={this.state.backend.content.collected}/>
           </div>
         </div>
       </div>
-    );
+    ):null;
   }
 }
 
@@ -96,7 +73,7 @@ CompanyCardSquareReact.propTypes = {
   // self
 
   /* 在这里添加自定义的组件属性。重要！务必添加，否则 ESlint 会报错，并导致无法 commit。 */
-
+  id: PropTypes.number.isRequired,
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,

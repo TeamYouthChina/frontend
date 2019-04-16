@@ -1,119 +1,104 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import bag from './bag.svg';
 import calender from './calender.svg';
 import classes from './index.module.css';
 import detail from './detail.svg';
-import favorite from './favorite.svg';
-import jobIcon from './jobIcon.svg';
+import {IfCollect} from '../../../playground/general-component/if-collect';
+import { languageHelper } from '../../../../tool/language-helper';
 import location from './location.svg';
-import {languageHelper} from '../../../../tool/language-helper';
-import {mockGetAsync} from '../../../../tool/api-helper';
 
-import {content} from './index.mock';
+import {getAsync} from '../../../../tool/api-helper';
+
 
 class JobCardBarIdReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {
-      cardData: {
-        content: {
-          id: null,
-          name: null,
-          organization: {
-            id: null,
-            name: null,
-            avatarUrl: null,
-            location: null,
-            website: null,
-            note: null,
-            nation: null,
-          },
-          location: null,
-          type: null,
-          deadLine: null,
-          job_description: null,
-          job_duty: null,
-        },
-        status: {
-          code: null,
-          reason: null,
-        },
-      },
+      
+      isLiked: false,
     };
     // i18n
     this.text = JobCardBarIdReact.i18n[languageHelper()];
   }
 
   async componentDidMount() {
-    // const requestedData = await getAsync();
-    // this.setState({ ...this.state, cardData: requestedData, });
-    const requestedData = await mockGetAsync(content, 6000);
-    this.setState({...this.state, cardData: requestedData});
+    if (this.props.id) {
+      this.setState({
+        backend: await getAsync(`/jobs/${this.props.id}`)
+      });
+    } else {
+      this.setState({
+        backend: await getAsync('/jobs/1')
+      });
+    }
   }
-
-  clickOnCard = () => {
-  };
+  
+ 
 
   render() {
-    return (
+
+    return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ? (
       <div className={classes.Card}>
-        <div className={classes.Clickable} onClick={this.clickOnCard} />
+        <div className={classes.Clickable} />
         <div className={classes.UnClickable}>
           <div className={classes.Img}>
-            {/* <img src={this.state.cardData.content.organization.avatarUrl} alt="no img" /> */}
-            <img src={jobIcon} alt="no img" />
+            <img src={(this.state.backend.content.organization.avatarUrl)?(this.state.backend.content.organization.avatarUrl):('http://frontendpic.oss-us-east-1.aliyuncs.com/%E5%B7%A5%E4%BD%9C.png')} alt="no img" />
           </div>
           <div className={classes.Info}>
             <div className={classes.Title}>
-              <p className={classes.P1}>{this.state.cardData.content.name}</p>
+              <p className={classes.P1}>{this.state.backend.content.name}</p>
             </div>
             <div className={classes.Des1}>
-              <p className={classes.P1}>{this.state.cardData.content.organization.name}</p>
+              <p className={classes.P2}>
+                {this.state.backend.content.organization.name}
+              </p>
             </div>
             <div className={classes.Des2}>
               <div className={classes.Row}>
                 <div className={classes.Column}>
                   <img src={location} alt="no img" />
-                  <p>{this.state.cardData.content.location}</p>
+                  <p>{this.state.backend.content.location}</p>
                 </div>
                 <div className={classes.Column}>
-                  <img src={calender} alt="no img" />
+                  <img src={detail} alt="no img" />
                   <p>
-                    3-5 {this.text.geYue}{' '}
-                    <span style={{color: 'red'}}>api没有这个</span>
+                    {this.text.type}{' '}
+                    {this.state.backend.content.type}
+                   
                   </p>
                 </div>
               </div>
               <div className={classes.Row}>
                 <div className={classes.Column}>
-                  <img src={detail} alt="no img" />
+                  <img src={calender} alt="no img" />
                   <p>
-                    E-Commerce<span style={{color: 'red'}}>api没有这个</span>
+                    {this.text.kaiFangShenQing}{' '}
+                    {this.state.backend.content.startTime}
                   </p>
                 </div>
                 <div className={classes.Column}>
                   <img src={bag} alt="no img" />
-                  <p>{this.text.shenQingJieZhi} {this.state.cardData.content.deadLine}</p>
+                  <p>
+                    {this.text.shenQingJieZhi}{' '}
+                    {this.state.backend.content.deadLine}
+                  </p>
                 </div>
+               
+                
               </div>
             </div>
           </div>
-          <div className={classes.Action}>
-            <div className={classes.Like}>
-              <button>
-                <img src={favorite} alt="no img" />
-                {this.text.shouCang}
-              </button>
-              <span style={{color: 'red'}}>api没有这个</span>
-            </div>
+          <div className={classes.Like}>
+            <IfCollect ifcollect={this.state.backend.content.collected} type={1} id={this.state.backend.content.id}/>
+            
           </div>
         </div>
       </div>
-    );
+    ):null;
   }
 }
 
@@ -121,12 +106,17 @@ JobCardBarIdReact.i18n = [
   {
     geYue: '个月',
     shenQingJieZhi: '申请截止',
-    shouCang: '收藏',
+    kaiFangShenQing:'开放申请',
+    type:'类型',
+
+
   },
   {
     geYue: 'months',
     shenQingJieZhi: 'Applicaiton Deadline',
-    shouCang: 'Like',
+    kaiFangShenQing:'Application Start',
+    type:'Type',
+    
   },
 ];
 

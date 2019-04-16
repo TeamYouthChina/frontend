@@ -3,26 +3,38 @@ import PropTypes from 'prop-types';
 import {Link, Redirect} from 'react-router-dom';
 
 import {CompanyCardBarId} from './company-card-bar-id';
-import {content} from './index.mock';
 import {languageHelper} from '../../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../../tool/remove-url-slash-suffix';
-import {mockGetAsync} from '../../../../tool/api-helper';
+import {getAsync} from '../../../../tool/api-helper';
 
 class CompanyReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {
-      backend: null
+      backend: null,
+      collectionType: 'company'
     };
     // i18n
     this.text = CompanyReact.i18n[languageHelper()];
   }
 
   async componentDidMount() {
-    this.setState({
-      backend: await mockGetAsync(content)
-    });
+    try {
+      const result = await getAsync(`/users/${localStorage.getItem('id')}/attentions?type=${this.state.collectionType}`);
+      if (result && result.status && result.status.code === 2000) {
+        this.setState(() => {
+          return {backend: result};
+        });
+      } else {
+        this.setState(() => {
+          return {collectionNum: 0};
+        });
+      }
+    } catch (error) {
+      // eslint-disable-next-line
+      console.log(error);
+    }
   }
 
   render() {
@@ -74,7 +86,7 @@ class CompanyReact extends React.Component {
                             fontSize: '1.09375vw'
                           }}
                         >
-                          {this.state.backend.content.companies.length}家公司
+                          {this.state.backend.content.data.length}家公司
                         </span>
                       </div>
                     );
@@ -120,13 +132,13 @@ class CompanyReact extends React.Component {
                   return (
                     <div>
                       {
-                        this.state.backend.content.companies.map((item, index) => {
+                        this.state.backend.content.data.map((item, index) => {
                           return (
                             <div
                               key={index}
                               style={{marginBottom: '1.5vw'}}
                             >
-                              <CompanyCardBarId id={item.company.id} />
+                              <CompanyCardBarId id={item.id} />
                             </div>
                           );
                         })

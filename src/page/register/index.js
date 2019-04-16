@@ -57,7 +57,7 @@ class RegisterReact extends React.Component {
       gender: this.state.gender,
       age: this.state.age
     });
-
+    
     if (backend && backend.status && backend.status.code === 2000) {
       this.props.history.push('/login');
       //if register success, set ifRedirect value to be true and re-render the page.

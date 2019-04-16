@@ -32,13 +32,13 @@ class JobCardSquareReact extends React.Component {
     if (this.props.id) {
       //console.log(this.props.id);
       //console.log(this.props.jobList)
-      if((this.props.jobList.indexOf(this.props.id))>-1){
+      /*if((this.props.jobList.indexOf(this.props.id))>-1){
        
         this.setState({
           isCollect:true
         });
         
-      }
+      }*/
       this.setState({
         backend: await getAsync(`/jobs/${this.props.id}`)
       });
@@ -56,10 +56,12 @@ class JobCardSquareReact extends React.Component {
       <div className={classes.content}>
         <div className="d-flex justify-content-between">
           <div className={classes.logo}>
-            <img
-              src={this.state.backend.content.organization.avatarUrl}
+            <img 
+              src={(this.state.backend.content.organization.avatarUrl)?(this.state.backend.content.organization.avatarUrl):('http://frontendpic.oss-us-east-1.aliyuncs.com/%E5%B7%A5%E4%BD%9C.png')} 
+              alt="no img"
               className="img-fluid p-0 float-right"
             />
+            
           </div>
           <div>
             <img
@@ -73,7 +75,7 @@ class JobCardSquareReact extends React.Component {
         <div className="d-flex justify-content-between">
           <div className={classes.ddl}>{this.state.backend.content.deadLine}</div>
           
-          <div className={classes.ddl}> <IfCollect ifcollect={this.state.isCollect}/></div>
+          <div className={classes.ddl}> <IfCollect ifcollect={this.state.backend.content.collected}/></div>
           
         </div>
        

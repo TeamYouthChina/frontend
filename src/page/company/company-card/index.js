@@ -63,7 +63,7 @@ class CompanyCardReact extends React.Component {
                 color: '#8D9AAF',
                 marginBottom:'0.39vw'
               }}
-            > {this.props.backend.content.location} | 2000人 | 计算机/网络
+            > {this.props.backend.content.location} 
             </p>
             <p
               style={{

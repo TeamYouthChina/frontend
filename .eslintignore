@@ -1,4 +1,4 @@
-build/
-git-hooks/
 node_module/
 public/
+build/
+git-hooks/

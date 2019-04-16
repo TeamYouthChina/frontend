@@ -1,6 +1,7 @@
 .content{
   width: 26.4vw;
   padding:1.72vw 2.34vw;
+  margin-top: 1.4vw;
   background: #FFFFFF;
   border: 1px solid #F0F3FA;
   box-sizing: border-box;
@@ -8,6 +9,7 @@
   border-radius: 2px;
   
 }
+
 .logo{
   font-family: PingFang SC;
   font-size: 1.875vw;

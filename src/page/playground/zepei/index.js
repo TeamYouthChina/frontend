@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
+import { MDBAutocomplete } from 'mdbreact';
 
 import { languageHelper } from '../../../tool/language-helper';
 import { removeUrlSlashSuffix } from '../../../tool/remove-url-slash-suffix';
@@ -17,6 +18,10 @@ class ZepeiReact extends React.Component {
     // state
     this.state = {
       date: [new Date(), new Date()],
+      options: [
+        // {id: 1, label: "Alabama"},{id: 2, label: "Alaska"}
+        'Alabama', 'Alaska'        
+      ]
     };
     // i18n
     this.text = ZepeiReact.i18n[languageHelper()];
@@ -29,6 +34,10 @@ class ZepeiReact extends React.Component {
   handleSelectChange = () => {
     
     // console.log(selected);
+  };
+
+  logValue = () => {
+    // console.log(value);
   };
 
   render() {
@@ -88,6 +97,13 @@ class ZepeiReact extends React.Component {
                   value: '3',
                 },
               ]}
+            />
+            <MDBAutocomplete
+              data={this.state.options}
+              label="Choose your favorite state"
+              clear
+              id="input"
+              getValue={this.logValue}
             />
           </div>
         </div>
