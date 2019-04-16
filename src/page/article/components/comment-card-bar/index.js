@@ -115,7 +115,7 @@ class Comments extends React.Component {
         {this.state.commentLists.length < 3 ? this.state.commentLists.map((item) => (
           <CommentCard
             key={item.modified_at}
-            user={item.creator.username}
+            user={item.creator === null ? item.creator : item.creator.username}
             time={timeHelper(item.modified_at)}
             content={item.body}
             upvoteCount={item.upvoteCount}
@@ -126,7 +126,7 @@ class Comments extends React.Component {
         )) : this.state.commentLists.slice(this.state.start, this.state.end).map((item)=>(
           <CommentCard
             key={item.id}
-            user={item.creator.username}
+            user={item.creator === null ? item.creator : item.creator.username}
             time={timeHelper(item.modified_at)}
             content={item.body}
             upvoteCount={item.upvoteCount}
