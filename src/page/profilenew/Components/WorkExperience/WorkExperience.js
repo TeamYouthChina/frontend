@@ -41,7 +41,7 @@ class WorkExperience extends Component {
     this.setState({ ...this.state, addingCard: null, adding: false });
   };
 
-  async postRequest(content) {
+  postRequest = async (content) => {
     await postAsync(
       '/applicants/' + this.props.requestID + '/experiences',
       content
@@ -49,7 +49,7 @@ class WorkExperience extends Component {
     // console.log(`posting ${content} and response is ${response}`)
   }
 
-  async putRequest(id, content) {
+  putRequest = async (id, content) => {
     await putAsync(
       '/applicants/' + this.props.requestID + '/experiences/' + id,
       content
@@ -57,14 +57,14 @@ class WorkExperience extends Component {
     // console.log(`putting ${content} with id ${id} and response is ${response}`)
   }
 
-  async deleteRequest(id) {
+  deleteRequest = async (id) => {
     await deleteAsync(
       '/applicants/' + this.props.requestID + '/experiences/' + id
     );
     // console.log(`deleting ${id} and response is ${response}`)
   }
 
-  async getRequest() {
+  getRequest = async () => {
     let cardsRequest = await getAsync(
       '/applicants/' + this.props.requestID + '/experiences'
     );
@@ -108,11 +108,11 @@ class WorkExperience extends Component {
   saveHandler = async (content, id, mode) => {
 
     // 暂时给content加的location codes
-    content.location = {
-      nation_code: 'CHN',
-      location_code: '000000'
-    };
-    //
+    // content.location = {
+    //   nation_code: 'CHN',
+    //   location_code: '000000'
+    // };
+
     if (mode === 'add') {
       // console.log('adding');
       await this.postRequest(content);
@@ -147,10 +147,12 @@ class WorkExperience extends Component {
   };
 
   render() {
+    // console.log('section render')
     let toShow;
     let cards = [];
     if (this.state.cardsRequest) {
       cards = this.state.cardsRequest.content.data.map(e => {
+        // console.log(e);
         return (
           <WorkExperienceCard
             key={e.id}
@@ -164,25 +166,25 @@ class WorkExperience extends Component {
     if (cards.length === 0 && this.state.addingCard === null) {
       toShow = (
         <div className={classes.WorkExperience}>
-          <div className={classes.row}>
+          <div className={classes.Row}>
             <p className={classes.SectionName}>{text.workExperience}</p>
             <img
-              className={classes.addIcon}
+              className={classes.AddIcon}
               src={addIcon}
               alt="icon"
               onClick={this.addHandler}
             />
           </div>
-          <p>{text.noWorkExperience}</p>
+          <p className={classes.NoWorkExperience}>{text.noWorkExperience}</p>
         </div>
       );
     } else {
       toShow = (
         <div className={classes.WorkExperience}>
-          <div className={classes.row}>
+          <div className={classes.Row}>
             <p className={classes.SectionName}>{text.workExperience}</p>
             <img
-              className={classes.addIcon}
+              className={classes.AddIcon}
               src={addIcon}
               alt="icon"
               onClick={this.addHandler}

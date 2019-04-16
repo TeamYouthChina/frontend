@@ -56,7 +56,11 @@ class CompanyCardSquareReact extends React.Component {
             {this.state.backend.content.location}
           </div>
           <div className={classes.note}>
-            <IfCollect ifcollect={this.state.backend.content.collected}/>
+            <IfCollect
+              id={this.state.backend.content.id}
+              type={2}
+              ifcollect={this.state.backend.content.collected}
+            />
           </div>
         </div>
       </div>
@@ -79,11 +83,4 @@ CompanyCardSquareReact.propTypes = {
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired
 };
-
-/* 模块命名：你的命名被用在这里 */
-
 export const CompanyCardSquare = withRouter(CompanyCardSquareReact);
-
-/* 编辑完成后，请务必使用 `eslint.sh --fix .` 进行代码检查。若 ESlint 报错，则无法 commit。 */
-
-/* 区块注释的内容应当删去 */

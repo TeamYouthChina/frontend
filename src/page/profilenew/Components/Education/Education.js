@@ -282,25 +282,25 @@ class Education extends Component {
     if (cards.length === 0 && this.state.addingCard === null) {
       toShow = (
         <div className={classes.Education}>
-          <div className={classes.row}>
+          <div className={classes.Row}>
             <p className={classes.SectionName}>{text.education}</p>
             <img
-              className={classes.addIcon}
+              className={classes.AddIcon}
               src={addIcon}
               alt="icon"
               onClick={this.addHandler}
             />
           </div>
-          <p>{text.noEducation}</p>
+          <p className={classes.NoEducation}>{text.noEducation}</p>
         </div>
       );
     } else {
       toShow = (
         <div className={classes.Education}>
-          <div className={classes.row}>
+          <div className={classes.Row}>
             <p className={classes.SectionName}>{text.education}</p>
             <img
-              className={classes.addIcon}
+              className={classes.AddIcon}
               src={addIcon}
               alt="icon"
               onClick={this.addHandler}

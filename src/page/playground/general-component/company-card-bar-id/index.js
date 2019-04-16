@@ -84,7 +84,11 @@ class CompanyCardBarIdReact extends React.Component {
               </button>
             </div>
             <div className={classes.Like}>
-              <IfCollect ifcollect={this.state.backend.content.collected} type={2} id={this.state.backend.content.id}/>
+              <IfCollect
+                ifcollect={this.state.backend.content.collected}
+                type={2}
+                id={this.state.backend.content.id}
+              />
             </div>
           </div>
         </div>

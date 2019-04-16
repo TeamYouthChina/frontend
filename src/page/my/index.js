@@ -4,11 +4,11 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 
 import {Application} from './application';
 import {CollectionSwitch} from './collection/index.switch';
+import {FileSwitch} from './file/index.switch';
 import {content} from './index.mock';
 import {ComingSoon} from '../coming-soon';
-import {File} from './file';
 import {Message} from './message';
-import {Notification} from './notification';
+import {Establish} from './establish';
 import {ProfileMainBody} from '../profilenew';
 import {Setting} from './setting';
 import classes from './index.module.css';
@@ -115,7 +115,7 @@ class MyReact extends React.Component {
                 },
                 {
                   name: '我的发布',
-                  subPath: '/sub-path-4'
+                  subPath: '/establish'
                 },
                 {
                   name: '我的收藏',
@@ -141,15 +141,15 @@ class MyReact extends React.Component {
           />
           <Route
             path={`${this.props.match.url}/file`}
-            component={routeProps => <File {...routeProps} />}
+            component={routeProps => <FileSwitch {...routeProps} />}
           />
           <Route
             path={`${this.props.match.url}/message`}
             component={routeProps => <Message {...routeProps} />}
           />
           <Route
-            path={`${this.props.match.url}/notification`}
-            component={routeProps => <Notification {...routeProps} />}
+            path={`${this.props.match.url}/establish`}
+            component={routeProps => <Establish {...routeProps} />}
           />
           <Route
             path={`${this.props.match.url}/profile`}

@@ -17,7 +17,7 @@ import {Location} from './location';
 //import {VideoCardBarFulltext} from './video-card-bar-fulltext';
 //import {ReviewCardBarId} from './review-card-bar-id';
 //import {ReviewCardBarFulltext} from './review-card-bar-fulltext';
-import {UserCardSquareAuth} from './user-card-square-auth';
+import {UserCardSquareAuth} from './user-card-square-fulltext';
 import {UserCardBarAuth} from './user-card-bar-auth';
 
 class GeneralComponentReact extends React.Component {

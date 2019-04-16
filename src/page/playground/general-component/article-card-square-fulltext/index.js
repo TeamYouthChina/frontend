@@ -1,28 +1,30 @@
 
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 
 
 
-
 import classes from './index.module.css';
-import more from './more.png';
 import {IfCollect} from '../if-collect';
 
 import {languageHelper} from '../../../../tool/language-helper';
 
 
-class AnswerCardSquareReact extends React.Component {
+import more from './more.png';
+
+
+
+
+class ArticleCardSquareReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {
-     
+      
     };
     // i18n
-    this.text = AnswerCardSquareReact.i18n[languageHelper()];
+    this.text = ArticleCardSquareReact.i18n[languageHelper()];
   }
   
   render() {
@@ -41,26 +43,27 @@ class AnswerCardSquareReact extends React.Component {
             />
           </div>
         </div>
-        <div className="d-flex">
-          
-          {/* <div className={classes.role}>
-            <div className="px-2">{this.state.backend.content.creator.role}</div>
-          </div>*/}
-        </div>
-        <div className="d-flex justify-content-between align-items-center mt-5">
-          {/*<div className={classes.answer}>共10条回答</div>*/}
-          <div className="d-flex align-self-end">
-            <div className={`mr-2 ${classes.avatar}`}>
+        {/*<div className="d-flex">
+          <div className={` px-2 mr-2 ${classes.tag1}`}>人工智能</div>
+          <div className={` px-2 mr-2 ${classes.tag1}`}>发展历史</div>
+          <div className={` px-2 ${classes.tag1}`}>干货分享</div>
+        </div>*/}
+        <div className="d-flex justify-content-between" style={{marginTop:'4.7vw'}}>
+          <div className="d-flex align-items-center">
+            <div className={classes.avatar}>
               <img
-                src={(this.props.avatar==='---')?('http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'):(this.props.avatar)}
+                src={(this.props.avatar)?(this.props.avatar):('http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png')}
                 className="rounded-circle img-fluid p-0 float-right"
-                alt="Sample avatar"
               />
             </div>
             <div className={classes.people}>{this.props.username}</div>
+            {/*<div className={classes.tag2}><div className="px-2">{this.state.backend.content.author.role}</div></div>*/}
           </div>
-          
-          <div className={classes.answer}><IfCollect/></div>
+          <IfCollect
+            id={this.props.id}
+            type={5}
+            ifcollect={this.props.ifcollect}
+          />
         </div>
       </div>
 
@@ -68,18 +71,20 @@ class AnswerCardSquareReact extends React.Component {
   }
 }
 
-AnswerCardSquareReact.i18n = [
+ArticleCardSquareReact.i18n = [
   {},
   {}
 ];
 
-AnswerCardSquareReact.propTypes = {
+ArticleCardSquareReact.propTypes = {
   // self
 
   /* 在这里添加自定义的组件属性。重要！务必添加，否则 ESlint 会报错，并导致无法 commit。 */
-  avatar: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  id:PropTypes.number.isRequired,
+  ifcollect:PropTypes.bool.isRequired,
+  title:PropTypes.string.isRequired,
+  avatar:PropTypes.string.isRequired,
+  username:PropTypes.string.isRequired,
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
@@ -88,7 +93,7 @@ AnswerCardSquareReact.propTypes = {
 
 /* 模块命名：你的命名被用在这里 */
 
-export const AnswerCardSquare = withRouter(AnswerCardSquareReact);
+export const ArticleCardSquare = withRouter(ArticleCardSquareReact);
 
 /* 编辑完成后，请务必使用 `eslint.sh --fix .` 进行代码检查。若 ESlint 报错，则无法 commit。 */
 
