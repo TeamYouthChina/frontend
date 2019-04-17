@@ -102,6 +102,7 @@ class SearccInsightNavItemReact extends React.Component {
                         <MDBIcon style={navlinkIcon} icon="user-circle" /> 职位
                       </MDBNavLink>
                     </MDBDropdownItem>
+                    
                     <MDBDropdownItem
                       className={`p-0 ${classes.dropdownItems}${pathname.includes('/search-company-result') ? ' active' : ''}`}
                       onClick={() => this.handleTabsContent('公司')}>
@@ -113,6 +114,7 @@ class SearccInsightNavItemReact extends React.Component {
                         <MDBIcon style={navlinkIcon} icon="building" /> 公司
                       </MDBNavLink>
                     </MDBDropdownItem>
+                    
                     <MDBDropdownItem
                       className={`p-0 ${classes.dropdownItems}${pathname.includes('/search-community-result') ? ' active' : ''}`}
                       onClick={() => this.handleTabsContent('社区')}>
@@ -123,16 +125,7 @@ class SearccInsightNavItemReact extends React.Component {
                         <MDBIcon style={navlinkIcon} icon="bullhorn" /> 洞见
                       </MDBNavLink>
                     </MDBDropdownItem>
-                    <MDBDropdownItem
-                      className={`p-0 ${classes.dropdownItems}${pathname.includes('/search-video-result') ? ' active' : ''}`}
-                      onClick={() => this.handleTabsContent('视频')}>
-                      <MDBNavLink
-                        className="p-2 d-flex justify-content-center align-items-center"
-                        style={navyFont}
-                        to={'/search/video'}>
-                        <MDBIcon style={navlinkIcon} icon="play-circle" /> 视频
-                      </MDBNavLink>
-                    </MDBDropdownItem>
+                    
                     <MDBDropdownItem
                       className={`p-0 ${classes.dropdownItems}${pathname.includes('/search-connect-result') ? ' active' : ''}`}
                       onClick={() => this.handleTabsContent('人脉')}>

@@ -3,7 +3,7 @@ import {MDBCol, MDBListGroup, MDBListGroupItem, MDBRow} from 'mdbreact';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import classes from './index.module.css';
-import wrtiteArticle from '../../assets/writeArticle.svg';
+import writeArticle from '../../assets/writeArticle.svg';
 import writeQuestion from '../../assets/writeQuestion.svg';
 import writeReview from '../../assets/writeReview.svg';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -33,10 +33,15 @@ class DiscoveryInsightReact extends React.Component {
     // state
     this.state = {
       backend: null,
-      searchType: ['articles', 'questions', 'editorials'],
-      page: 0,
-      code: null,
+      //搜索类型，三种文章类型混合搜索
+      searchType: ['articles', 'questions', 'editorials'], 
+      //分页
+      page: 0, 
+      //后端状态码
+      code: null, 
+      // infiniteScroll是否可以继续滚动
       hasMore: true,
+      //存储文章条目
       list: []
     };
     // i18n
@@ -125,7 +130,7 @@ class DiscoveryInsightReact extends React.Component {
                   href="/article/create"
                   className={classes.listGroupItemsInsight}
                 >
-                  <img src={wrtiteArticle} className={classes.sidebarIcon} alt="icon" /> 写文章
+                  <img src={writeArticle} className={classes.sidebarIcon} alt="icon" /> 写文章
                 </MDBListGroupItem>
                 <MDBListGroupItem
                   hover
@@ -163,29 +168,6 @@ class DiscoveryInsightReact extends React.Component {
                   style={{height: '10vh'}} />
               </MDBListGroup>
 
-              {/*<Switch>*/}
-              {/*{*/}
-              {/*this.isUserLogin() &&*/}
-              {/*<Route*/}
-              {/*path="/article/create"*/}
-              {/*component={routeProps => <ArticleCreate {...routeProps} />}*/}
-              {/*/>*/}
-              {/*}*/}
-              {/*{*/}
-              {/*this.isUserLogin() &&*/}
-              {/*<Route*/}
-              {/*path="/question/create"*/}
-              {/*component={routeProps => <QuestionCreate {...routeProps} />}*/}
-              {/*/>*/}
-              {/*}*/}
-              {/*{*/}
-              {/*this.isUserLogin() &&*/}
-              {/*<Route*/}
-              {/*path="/review/create"*/}
-              {/*component={routeProps => <ReviewCreate {...routeProps} />}*/}
-              {/*/>*/}
-              {/*}*/}
-              {/*</Switch>*/}
             </aside>
           </MDBRow>
         </div>

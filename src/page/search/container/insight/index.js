@@ -38,23 +38,7 @@ class SearchInsightResultReact extends React.Component {
   }
 
   async componentDidMount() {
-    // try {
-    //   const result = await getAsync(`/search?type=${this.state.searchType}&title=%E4%B8%BA%E4%BB%80%E4%B9%88`);
-    //   // console.log(result)
-    //   if (result && result.status) {
-    //     this.setState(() => {
-    //       return {backend: result.content};
-    //     }, () => {console.log(this.state.backend,this.props.keyword);});
-    //   }
-    //   else {
-    //     this.setState(() => {
-    //       return {collectionNum: 0};
-    //     });
-    //   }
-    // } catch (error) {
-    //   // eslint-disable-next-line
-    //   console.log(error);
-    // }
+    //搜索页面切换时，重新set搜索类型
     this.props.handleSearchType();
   }
 
@@ -125,30 +109,7 @@ class SearchInsightResultReact extends React.Component {
                   className={classes.listGroupItems}
                   style={{height: '10vh'}} />
               </MDBListGroup>
-
-              {/*<Switch>*/}
-              {/*{*/}
-              {/*this.isUserLogin() &&*/}
-              {/*<Route*/}
-              {/*path="/article/create"*/}
-              {/*component={routeProps => <ArticleCreate {...routeProps} />}*/}
-              {/*/>*/}
-              {/*}*/}
-              {/*{*/}
-              {/*this.isUserLogin() &&*/}
-              {/*<Route*/}
-              {/*path="/question/create"*/}
-              {/*component={routeProps => <QuestionCreate {...routeProps} />}*/}
-              {/*/>*/}
-              {/*}*/}
-              {/*{*/}
-              {/*this.isUserLogin() &&*/}
-              {/*<Route*/}
-              {/*path="/review/create"*/}
-              {/*component={routeProps => <ReviewCreate {...routeProps} />}*/}
-              {/*/>*/}
-              {/*}*/}
-              {/*</Switch>*/}
+              
             </aside>
           </MDBRow>
         </div>
