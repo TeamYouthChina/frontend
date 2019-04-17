@@ -156,15 +156,17 @@ export class AnswerCard extends React.Component {
   onVote = () => {
     let evaluateStatus = this.state.backend.evaluateStatus;
     let upvoteCount = this.state.backend.upvoteCount;
+    let downvoteCount = this.state.backend.downvoteCount;
     const data = {
       id:Number(window.localStorage.id)
     };
+    // 取消点赞
     if (evaluateStatus === 1) {
       evaluateStatus = 3;
       upvoteCount--;
       try {
         fetch(
-          `${urlPrefix}/articles/${this.props.articleId}/vote`,
+          `${urlPrefix}/articles/${this.props.match.params.id}/vote`,
           {
             method: 'DELETE',
             headers: generateHeaders(),
@@ -181,12 +183,14 @@ export class AnswerCard extends React.Component {
           upvoteCount
         }
       }));
-    } else {
+    } else if(evaluateStatus === 2) {
+      // 取消反对
       evaluateStatus = 1;
       upvoteCount++;
+      downvoteCount--;
       try {
         fetch(
-          `${urlPrefix}/articles/${this.props.articleId}/upvote`,
+          `${urlPrefix}/articles/${this.props.match.params.id}/upvote`,
           {
             method: 'PUT',
             headers: generateHeaders(),
@@ -200,6 +204,107 @@ export class AnswerCard extends React.Component {
         backend: {
           ...this.state.backend,
           evaluateStatus,
+          upvoteCount,
+          downvoteCount
+        }
+      }));
+    } else {
+      evaluateStatus = 1;
+      upvoteCount++;
+      try {
+        fetch(
+          `${urlPrefix}/articles/${this.props.match.params.id}/upvote`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+      this.setState(() => ({
+        backend: {
+          ...this.state.backend,
+          evaluateStatus,
+          upvoteCount
+        }
+      }));
+    }
+  };
+  // 反对
+  onDownVote = () => {
+    let evaluateStatus = this.state.backend.evaluateStatus;
+    let upvoteCount = this.state.backend.upvoteCount;
+    let downvoteCount = this.state.backend.downvoteCount;
+    const data = {
+      id:Number(window.localStorage.id)
+    };
+    if (evaluateStatus === 2) {
+      evaluateStatus = 3;
+      downvoteCount--;
+      try {
+        fetch(
+          `${urlPrefix}/articles/${this.props.match.params.id}/vote`,
+          {
+            method: 'DELETE',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+      this.setState(() => ({
+        backend: {
+          ...this.state.backend,
+          evaluateStatus,
+          downvoteCount
+        }
+      }));
+    } else if(evaluateStatus === 3) {
+      evaluateStatus = 2;
+      downvoteCount++;
+      try {
+        fetch(
+          `${urlPrefix}/articles/${this.props.match.params.id}/downvote`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+      this.setState(() => ({
+        backend: {
+          ...this.state.backend,
+          evaluateStatus,
+          downvoteCount
+        }
+      }));
+    } else {
+      evaluateStatus = 2;
+      downvoteCount++;
+      upvoteCount--;
+      try {
+        fetch(
+          `${urlPrefix}/articles/${this.props.match.params.id}/downvote`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+      this.setState(() => ({
+        backend: {
+          ...this.state.backend,
+          evaluateStatus,
+          downvoteCount,
           upvoteCount
         }
       }));
@@ -296,9 +401,11 @@ export class AnswerCard extends React.Component {
               evaluateStatus={backend.evaluateStatus}
               onAttention={this.onAttention}
               onVote={this.onVote}
+              onDownVote={this.onDownVote}
               attention={backend.attention}
               attentionCount={backend.attentionCount}
               upvoteCount={backend.upvoteCount}
+              downvoteCount={backend.downvoteCount}
             />
           ) : null}
         </div>
