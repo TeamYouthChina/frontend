@@ -39,7 +39,7 @@ class SearchReact extends React.Component {
       //后端状态码
       code: null,
       //分页
-      page: 1,
+      page: 0,
       //搜索类型
       searchType: null
     };
@@ -111,7 +111,7 @@ class SearchReact extends React.Component {
         break;
       case path.includes('/connection'):
         this.setState(() => {
-          return {searchType: ['connection']};
+          return {searchType: ['user']};
         });
     }
   };
