@@ -31,7 +31,7 @@ class SearchCompanyResultReact extends React.Component {
     // state
     this.state = {
       collectionType: 'company',
-      collectionNum: null
+      collectionNum: 0
     };
     // i18n
     this.text = SearchCompanyResultReact.i18n[languageHelper()];
