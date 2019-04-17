@@ -41,7 +41,7 @@ class ConnectionReact extends React.Component {
       case 1:
         return (
           <div>
-            <div className="d-flex align-items-center justify-items-center">
+            <div className="d-flex align-items-center justify-items-center" style={{background:'#ffffff'}}>
               <div>
                 <img className={classes.topViewImg} src={imgTopViewRight} alt="img" />
               </div>

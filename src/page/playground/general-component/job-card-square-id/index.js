@@ -41,11 +41,14 @@ class JobCardSquareReact extends React.Component {
     }
   }
   render() {
-
-
-
     return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ? (
-      <div className={classes.content}>
+      <div 
+        className={classes.content}
+        onClick={()=>{
+          this.props.history.push(`/job/${this.state.backend.content.id}`);
+        }}
+        style={{cursor:'pointer'}}
+      >
         <div className="d-flex justify-content-between">
           <div className={classes.logo}>
             <img 
@@ -72,6 +75,7 @@ class JobCardSquareReact extends React.Component {
               id={this.state.backend.content.id}
               type={1}
               ifcollect={this.state.backend.content.collected}
+              style={{zIndex:'500'}}
             />
           </div>
           

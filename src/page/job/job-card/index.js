@@ -4,8 +4,7 @@ import { withRouter} from 'react-router-dom';
 
 
 import classes from './index.module.css';
-
-import logo from './logo.png';
+import {Location} from '../../playground/general-component/location';
 import {IfCollect} from '../../playground/general-component/if-collect';
 
 
@@ -25,37 +24,60 @@ class JobCardReact extends React.Component {
   }
   
   render() {
+   
     return (
       <div className={classes.jobcard}>
-        <div style={{width:'47.875vw'}}>
-          <div>
-            <img
-              src={logo}
-              style={{
-                width:'5.62vw',
-                height:'auto',
-              }}
+        <div >
+          <div className="d-flex align-items-center justify-content-start w-100">
+            <div>
+              <img
+                src={(this.props.backend.content.organization.avatarUrl)?(this.props.backend.content.organization.avatarUrl):('http://frontendpic.oss-us-east-1.aliyuncs.com/%E5%B7%A5%E4%BD%9C.png')}
+                alt="no img"
+                className="img-fluid p-0 float-right"
+                style={{
+                  width:'5.62vw',
+                  height:'auto',
+                  marginRight:'2vw'
+                }}
+              />
+            </div>
+            <div className={classes.title}>{this.props.backend.content.name}</div>
+           
+          </div>
+         
+          
+        
+          <div 
+            className={`${classes.detail}`}
+          >
+
+            <Location
+              code={this.props.backend.content.location[0]}
+              edit={false}
+              locate={()=>{}}
+              className={classes.detail}
+            />
+            {'开始日期：'}{this.props.backend.content.start_time}  {' / '}
+            {'截止日期：'}{this.props.backend.content.dead_line}  {' / '}
+            {'工作类型：'}{this.props.backend.content.type}
+
+          </div>
+        </div>
+        <div className="align-items-between justify-content-end">
+          <div style={{marginBottom:'6.5vw'}} >
+            <IfCollect
+              id={this.props.backend.content.id}
+              type={1}
+              ifcollect={this.props.backend.content.collected}
+              style={{marginLeft:'5vw'}}
             />
           </div>
-          <div className={classes.title}>({this.props.backend.content.location}){this.props.backend.content.name}</div>
-          <div className={classes.date}>{this.props.backend.content.date}</div>
-          <div 
-            className={classes.detail}
-          >
-            地点：{this.props.backend.content.location} -
-            截止日期：{this.props.backend.content.deadLine} -
-            工作类型：{this.props.backend.content.type} 
-            
+          <div className={`${classes.btn} d-flex`}>
+            <div className="align-self-center w-100" >立即申请</div>
+
           </div>
         </div>
-        <div className={`${classes.btn} align-self-end d-flex`}>
-          <div className="align-self-center w-100" >立即申请</div>
-          
-        </div>
-        <div className="align-self-end">
-          <div className="red-text h6">API没有</div>
-          <IfCollect/>
-        </div>
+      
 
       </div>
     );

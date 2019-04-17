@@ -50,7 +50,13 @@ class CompanyCardBarIdReact extends React.Component {
     
     return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ? (
       
-      <div className={classes.Card}>
+      <div 
+        className={classes.Card}
+        onClick={()=>{
+          this.props.history.push(`/company/${this.state.backend.content.id}`);
+        }}
+        style={{cursor:'pointer'}}
+      >
         <div className={classes.Clickable} onClick={this.clickOnCard} />
         <div className={classes.UnClickable}>
           <div className={classes.Icon}>

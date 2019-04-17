@@ -8,3 +8,8 @@
   line-height: normal;
   color: #454f69;
 }
+
+.SelectOptions {
+  height: 200px;
+  overflow: auto;
+}

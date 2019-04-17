@@ -195,7 +195,6 @@ class Education extends Component {
     // console.log(content);
     if (mode === 'add') {
       content = this.encodeContent(content);
-      // console.log(content);
       await this.postRequest(content);
       await this.getRequest();
     } else if (mode === 'update') {
@@ -247,8 +246,8 @@ class Education extends Component {
       major: this.state.majorMap.get(content.major),
       degree: this.state.degreeMap.get(content.degree),
       duration: {
-        begin: content.duration.begin,
-        end: content.duration.end,
+        begin: content.duration.begin.getTime(),
+        end: content.duration.end.getTime(),
       },
       note: content.note,
     };

@@ -1,9 +1,11 @@
 .header-flex {
   display: flex;
   font-size: 1.25vw;
+  font-weight: bolder;
 }
 .fontsize {
   font-size: 1.25vw;
+  font-weight: bolder;
 }
 .mouse1{
   color:#C1C4CA;
@@ -21,6 +23,7 @@
  
   font-family:PingFang SC;
   font-size:1.25vw;
+  font-weight: bolder;
   cursor: pointer;
   transition: color 0.5s;
   -webkit-transition: color 0.5s;
@@ -41,7 +44,7 @@
 
   font-family: Raleway;
   font-style: normal;
-  font-weight: bold;
+  font-weight: bolder;
   line-height: normal;
   font-size: 1.25vw;
 

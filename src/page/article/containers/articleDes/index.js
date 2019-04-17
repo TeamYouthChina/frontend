@@ -6,10 +6,10 @@ import {languageHelper} from '../../../../tool/language-helper';
 
 import GroupList from '../group-list';
 import classes from './articleDes.module.css';
-import ThumbUp from '../../../review/public/thumb-up.svg';
 import Comment from '../../../review/public/comment.svg';
 import Share from '../../../review/public/share.svg';
 import braftEditor from 'braft-editor';
+import {MDBIcon} from 'mdbreact';
 
 const ArticleDes = React.memo((props) => (
   <div className={classes.mdbCol}>
@@ -31,10 +31,28 @@ const ArticleDes = React.memo((props) => (
         {props.attention ? '已关注' : '+关注文章'}
       </button>
       <div className={classes.upZan}>
-        <span onClick={props.onVote} className={props.evaluateStatus !== 3 ? classes.footerFontActive : classes.footerFont}>
-          <img className={classes.footerIcon} src={ThumbUp} alt="" />
-          {props.upvoteCount}个点赞
-        </span>
+        {props.evaluateStatus === 1 ? (
+          <span onClick={props.onVote} className={classes.footerFont}>
+            <MDBIcon className={classes.footerIcon} icon="thumbs-up"/>
+            {props.upvoteCount}个点赞
+          </span>
+        ) : (
+          <span onClick={props.onVote} className={classes.footerFont}>
+            <MDBIcon className={classes.footerIcon} far icon="thumbs-up"/>
+            {props.upvoteCount}个点赞
+          </span>
+        )}
+        {props.evaluateStatus === 2 ? (
+          <span onClick={props.onDownVote} className={classes.footerFont}>
+            <MDBIcon className={classes.footerIcon} icon="thumbs-down"/>
+            {props.downvoteCount}个反对
+          </span>
+        ) : (
+          <span onClick={props.onDownVote} className={classes.footerFont}>
+            <MDBIcon className={classes.footerIcon} far icon="thumbs-down"/>
+            {props.downvoteCount}个反对
+          </span>
+        )}
         <span className={classes.footerFont}>
           <img className={classes.footerIcon} src={Comment} alt="" />
           {props.commentsText}
@@ -85,9 +103,11 @@ ArticleDes.propTypes = {
   evaluateStatus: PropTypes.number,
   title: PropTypes.string.isRequired,
   upvoteCount: PropTypes.number.isRequired,
+  downvoteCount: PropTypes.number.isRequired,
   commentsText: PropTypes.string.isRequired,
   attention: PropTypes.bool.isRequired,
   onVote: PropTypes.func.isRequired,
+  onDownVote: PropTypes.func.isRequired,
   onAttention: PropTypes.func.isRequired,
   // editorState: PropTypes.object.isRequired,
   // React Redux
