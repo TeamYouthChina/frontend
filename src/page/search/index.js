@@ -6,11 +6,9 @@ import PropTypes from 'prop-types';
 import {SearchJobsNavItem} from './secondary-navagations/job';
 import {SearchCompaniesNavItem} from './secondary-navagations/company';
 import {SearchInsightNavItem} from './secondary-navagations/insight';
-import {SearchVideoNavItem} from './secondary-navagations/video';
 import {SearchConnectionNavItem} from './secondary-navagations/coonection';
 import {SearchJobResult} from './container/job';
 import {SearchCompanyResult} from './container/company';
-import {SearchVideoResult} from './container/video';
 import {SearchInsightResult} from './container/insight';
 import {SearchConnectionResult} from './container/connection';
 import {SearchInput} from './component/search-input';
@@ -34,10 +32,15 @@ class SearchReact extends React.Component {
       // activeItemClassicTabs1: "1",
       collapseID: '',
       tabsContent: '职位',
-      keyword: null, //搜索关键词
-      backend: null, //搜索到的数据
+      //搜索关键词
+      keyword: null,
+      //搜索到的数据
+      backend: null,
+      //后端状态码
       code: null,
+      //分页
       page: 1,
+      //搜索类型
       searchType: null
     };
   }
@@ -103,7 +106,6 @@ class SearchReact extends React.Component {
         break;
       case path.includes('/insight'):
         this.setState(() => {
-          //todo, 洞见搜索应该整合问题，回答和短则的结果。
           return {searchType: ['article', 'question']};
         });
         break;
@@ -163,10 +165,6 @@ class SearchReact extends React.Component {
                 render={(props) => <SearchInsightNavItem {...props} />}
               />
               <Route
-                path={`${this.props.match.url}/video`}
-                component={routeProps => <SearchVideoNavItem basicCHNFont={basicCHNFont} />}
-              />
-              <Route
                 path={`${this.props.match.url}/connection`}
                 component={routeProps => <SearchConnectionNavItem basicCHNFont={basicCHNFont} />}
               />
@@ -194,16 +192,6 @@ class SearchReact extends React.Component {
                 path={`${this.props.match.url}/company`}
                 render={(props) =>
                   <SearchCompanyResult
-                    {...props}
-                    keyword={this.state.keyword}
-                    backend={this.state.backend}
-                    handleSearchType={this.handleSearchType} />
-                }
-              />
-              <Route
-                path={`${this.props.match.url}/video`}
-                render={(props) =>
-                  <SearchVideoResult
                     {...props}
                     keyword={this.state.keyword}
                     backend={this.state.backend}
