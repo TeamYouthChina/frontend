@@ -21,6 +21,8 @@ export class AnswerCard extends React.Component {
       isCollapsed: true,
       showComments: false,
       commentsText: null,
+      getFromChild:null,
+      getFromChildLength:null,
       comments: null,
       pageConfig: {
         totalPage: 14 //总页码
@@ -83,12 +85,17 @@ export class AnswerCard extends React.Component {
   showCommentsFunc() {
     let commentsTextNow = '';
     let showComments = false;
-    if(this.state.backend.comments !== undefined) {
-      commentsTextNow = this.state.commentsText === `${this.state.backend.comments.comments.length}条评论` ? '收起评论' : `${this.state.backend.comments.comments.length}条评论`;
-      showComments = this.state.commentsText === `${this.state.backend.comments.comments.length}条评论`;
+    if(this.state.getFromChild !== null){
+      commentsTextNow = this.state.commentsText === `${this.state.getFromChildLength}条评论` ? '收起评论' : `${this.state.getFromChildLength}条评论`;
+      showComments = this.state.commentsText === `${this.state.getFromChildLength}条评论`;
     } else {
-      commentsTextNow = this.state.commentsText === `${this.state.comments.data.length}条评论` ? '收起评论' : `${this.state.comments.data.length}条评论`;
-      showComments = this.state.commentsText === `${this.state.comments.data.length}条评论`;
+      if(this.state.backend.comments !== undefined) {
+        commentsTextNow = this.state.commentsText === `${this.state.backend.comments.comments.length}条评论` ? '收起评论' : `${this.state.backend.comments.comments.length}条评论`;
+        showComments = this.state.commentsText === `${this.state.backend.comments.comments.length}条评论`;
+      } else {
+        commentsTextNow = this.state.commentsText === `${this.state.comments.data.length}条评论` ? '收起评论' : `${this.state.comments.data.length}条评论`;
+        showComments = this.state.commentsText === `${this.state.comments.data.length}条评论`;
+      }
     }
     this.setState({
       commentsText: commentsTextNow,
@@ -234,6 +241,25 @@ export class AnswerCard extends React.Component {
 
   };
 
+  onTellParent = (length) => {
+    let getFromChild = true;
+    let getFromChildLength = length;
+    this.setState(()=>({
+      getFromChild,
+      getFromChildLength
+    }));
+  };
+  
+  testUser = () =>{
+    const backend = this.state.backend;
+    if(backend.author !== undefined){
+      return backend.author === null ? backend.author : backend.author.username;
+    } else {
+      return backend.creator === null ? backend.creator : backend.creator.username;
+    }
+  }
+  ;
+
   componentWillUnmount() {
     window.removeEventListener('scroll', this.orderScroll);
   }
@@ -245,7 +271,7 @@ export class AnswerCard extends React.Component {
         <div className={classes.cardWrapper} ref={(span) => this.scrollSpan = span}>
           <UserInfor
             score={5}
-            user={backend.author === undefined ? backend.creator.username : backend.author.username}
+            user={this.testUser}
             description={backend.author === undefined ? backend.creator.role[0] : backend.author.role[0]}
             isCollapsed={this.state.isCollapsed}
             short={backend.body.previewText}
@@ -272,11 +298,11 @@ export class AnswerCard extends React.Component {
         {this.state.showComments ? (
           <Comments
             id={this.props.ansCommentId}
-            type={'answers'}
+            type={this.props.type === 'fromQuestion' ? 'answers' : 'editorials'}
             showComments={this.showCommentsFunc}
             getCurrentPage={this.getCurrentPage}
+            onTellParent={this.onTellParent}
             commentsText={this.state.commentsText}
-            commentsData={backend.comments === undefined ? this.state.comments.data : backend.comments}
           />
         ) : null}
       </React.Fragment>

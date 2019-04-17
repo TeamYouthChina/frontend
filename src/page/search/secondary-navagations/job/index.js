@@ -102,6 +102,7 @@ class SearchJobsNavItemReact extends React.Component {
                         <MDBIcon style={navlinkIcon} icon="user-circle" /> 职位
                       </MDBNavLink>
                     </MDBDropdownItem>
+
                     <MDBDropdownItem
                       className={`p-0 ${classes.dropdownItems}${pathname.includes('/search-company-result') ? ' active' : ''}`}
                       onClick={() => this.handleTabsContent('公司')}>
@@ -113,6 +114,7 @@ class SearchJobsNavItemReact extends React.Component {
                         <MDBIcon style={navlinkIcon} icon="building" /> 公司
                       </MDBNavLink>
                     </MDBDropdownItem>
+
                     <MDBDropdownItem
                       className={`p-0 ${classes.dropdownItems}${pathname.includes('/search-community-result') ? ' active' : ''}`}
                       onClick={() => this.handleTabsContent('社区')}>
@@ -123,16 +125,18 @@ class SearchJobsNavItemReact extends React.Component {
                         <MDBIcon style={navlinkIcon} icon="bullhorn" /> 洞见
                       </MDBNavLink>
                     </MDBDropdownItem>
-                    <MDBDropdownItem
-                      className={`p-0 ${classes.dropdownItems}${pathname.includes('/search-video-result') ? ' active' : ''}`}
-                      onClick={() => this.handleTabsContent('视频')}>
-                      <MDBNavLink
-                        className="p-2 d-flex justify-content-center align-items-center"
-                        style={navyFont}
-                        to={'/search/video'}>
-                        <MDBIcon style={navlinkIcon} icon="play-circle" /> 视频
-                      </MDBNavLink>
-                    </MDBDropdownItem>
+
+                    {/*<MDBDropdownItem*/}
+                    {/*className={`p-0 ${classes.dropdownItems}${pathname.includes('/search-video-result') ? ' active' : ''}`}*/}
+                    {/*onClick={() => this.handleTabsContent('视频')}>*/}
+                    {/*<MDBNavLink*/}
+                    {/*className="p-2 d-flex justify-content-center align-items-center"*/}
+                    {/*style={navyFont}*/}
+                    {/*to={'/search/video'}>*/}
+                    {/*<MDBIcon style={navlinkIcon} icon="play-circle" /> 视频*/}
+                    {/*</MDBNavLink>*/}
+                    {/*</MDBDropdownItem>*/}
+
                     <MDBDropdownItem
                       className={`p-0 ${classes.dropdownItems}${pathname.includes('/search-connect-result') ? ' active' : ''}`}
                       onClick={() => this.handleTabsContent('人脉')}>
@@ -155,11 +159,14 @@ class SearchJobsNavItemReact extends React.Component {
                     </div>
                   </MDBDropdownToggle>
                   <MDBDropdownMenu>
-                    <MDBDropdownItem className={classes.dropdownItems}
+                    <MDBDropdownItem
+                      className={classes.dropdownItems}
                       style={navyFont} href="#!">最近发布</MDBDropdownItem>
-                    <MDBDropdownItem className={classes.dropdownItems}
+                    <MDBDropdownItem
+                      className={classes.dropdownItems}
                       style={navyFont} href="#!">最近一周</MDBDropdownItem>
-                    <MDBDropdownItem className={classes.dropdownItems}
+                    <MDBDropdownItem
+                      className={classes.dropdownItems}
                       style={navyFont} href="#!">最近一个月</MDBDropdownItem>
                   </MDBDropdownMenu>
                 </MDBDropdown>
@@ -173,13 +180,17 @@ class SearchJobsNavItemReact extends React.Component {
                     </div>
                   </MDBDropdownToggle>
                   <MDBDropdownMenu>
-                    <MDBDropdownItem className={classes.dropdownItems}
+                    <MDBDropdownItem
+                      className={classes.dropdownItems}
                       style={navyFont} href="#!">立即入职</MDBDropdownItem>
-                    <MDBDropdownItem className={classes.dropdownItems}
+                    <MDBDropdownItem
+                      className={classes.dropdownItems}
                       style={navyFont} href="#!">一个月以内</MDBDropdownItem>
-                    <MDBDropdownItem className={classes.dropdownItems}
+                    <MDBDropdownItem
+                      className={classes.dropdownItems}
                       style={navyFont} href="#!">一个月-三个月</MDBDropdownItem>
-                    <MDBDropdownItem className={classes.dropdownItems}
+                    <MDBDropdownItem
+                      className={classes.dropdownItems}
                       style={navyFont} href="#!">三个月以上</MDBDropdownItem>
                   </MDBDropdownMenu>
                 </MDBDropdown>
@@ -193,13 +204,17 @@ class SearchJobsNavItemReact extends React.Component {
                     </div>
                   </MDBDropdownToggle>
                   <MDBDropdownMenu>
-                    <MDBDropdownItem className={classes.dropdownItems}
+                    <MDBDropdownItem
+                      className={classes.dropdownItems}
                       style={navyFont} href="#!">5000以下</MDBDropdownItem>
-                    <MDBDropdownItem className={classes.dropdownItems}
+                    <MDBDropdownItem
+                      className={classes.dropdownItems}
                       style={navyFont} href="#!">5001-10000</MDBDropdownItem>
-                    <MDBDropdownItem className={classes.dropdownItems}
+                    <MDBDropdownItem
+                      className={classes.dropdownItems}
                       style={navyFont} href="#!">10001-20000</MDBDropdownItem>
-                    <MDBDropdownItem className={classes.dropdownItems}
+                    <MDBDropdownItem
+                      className={classes.dropdownItems}
                       style={navyFont} href="#!">20000以上</MDBDropdownItem>
                   </MDBDropdownMenu>
                 </MDBDropdown>
@@ -213,13 +228,17 @@ class SearchJobsNavItemReact extends React.Component {
                     </div>
                   </MDBDropdownToggle>
                   <MDBDropdownMenu>
-                    <MDBDropdownItem className={classes.dropdownItems}
+                    <MDBDropdownItem
+                      className={classes.dropdownItems}
                       style={navyFont} href="#!">大专</MDBDropdownItem>
-                    <MDBDropdownItem className={classes.dropdownItems}
+                    <MDBDropdownItem
+                      className={classes.dropdownItems}
                       style={navyFont} href="#!">本科</MDBDropdownItem>
-                    <MDBDropdownItem className={classes.dropdownItems}
+                    <MDBDropdownItem
+                      className={classes.dropdownItems}
                       style={navyFont} href="#!">硕士研究生</MDBDropdownItem>
-                    <MDBDropdownItem className={classes.dropdownItems}
+                    <MDBDropdownItem
+                      className={classes.dropdownItems}
                       style={navyFont} href="#!">博士研究生</MDBDropdownItem>
                   </MDBDropdownMenu>
                 </MDBDropdown>
@@ -233,19 +252,26 @@ class SearchJobsNavItemReact extends React.Component {
                     </div>
                   </MDBDropdownToggle>
                   <MDBDropdownMenu>
-                    <MDBDropdownItem className={classes.dropdownItems}
+                    <MDBDropdownItem
+                      className={classes.dropdownItems}
                       style={navyFont} href="#!">互联网/智能科技</MDBDropdownItem>
-                    <MDBDropdownItem className={classes.dropdownItems}
+                    <MDBDropdownItem
+                      className={classes.dropdownItems}
                       style={navyFont} href="#!">金融/咨询</MDBDropdownItem>
-                    <MDBDropdownItem className={classes.dropdownItems}
+                    <MDBDropdownItem
+                      className={classes.dropdownItems}
                       style={navyFont} href="#!">汽车/机械/制造</MDBDropdownItem>
-                    <MDBDropdownItem className={classes.dropdownItems}
+                    <MDBDropdownItem
+                      className={classes.dropdownItems}
                       style={navyFont} href="#!">地产/建筑</MDBDropdownItem>
-                    <MDBDropdownItem className={classes.dropdownItems}
+                    <MDBDropdownItem
+                      className={classes.dropdownItems}
                       style={navyFont} href="#!">消费品</MDBDropdownItem>
-                    <MDBDropdownItem className={classes.dropdownItems}
+                    <MDBDropdownItem
+                      className={classes.dropdownItems}
                       style={navyFont} href="#!">生物/医疗</MDBDropdownItem>
-                    <MDBDropdownItem className={classes.dropdownItems}
+                    <MDBDropdownItem
+                      className={classes.dropdownItems}
                       style={navyFont} href="#!">能源</MDBDropdownItem>
                   </MDBDropdownMenu>
                 </MDBDropdown>

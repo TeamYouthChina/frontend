@@ -44,23 +44,20 @@ class Tag extends Component {
 
   // packup new data for this card and send to parent
   saveHandler = () => {
-    // if (this.state.tagData.id) {
-    //   // console.log(`id to delete is ${this.state.proData.id}`);
-    //   this.props.saveHandler(
-    //     this.state.tagData,
-    //     this.state.tagData.id,
-    //     'update'
-    //   );
-    // } else {
-    //   this.props.saveHandler(this.state.educationData, null, 'add');
-    // }
     this.props.saveHandler(this.state.tagData, null, 'add');
-
     this.setState({
       ...this.state,
       editing: false,
     });
   };
+
+  cancelHandler = () => {
+    this.props.cancel();
+    this.setState({
+      ...this.state,
+      editing: false,
+    });
+  }
 
   selectValueOnChange = value => {
     this.setState({
@@ -90,7 +87,7 @@ class Tag extends Component {
         <div className={classes.AddingCard}>
           <MDBSelect getTextContent={this.selectValueOnChange}>
             <MDBSelectInput selected='优势标签' />
-            <MDBSelectOptions search>
+            <MDBSelectOptions search className={classes.SelectOptions}>
               {this.props.tagNames.map(e => {
                 if (e.name === this.state.tagData.name) {
                   return (
@@ -108,8 +105,11 @@ class Tag extends Component {
               })}
             </MDBSelectOptions>
           </MDBSelect>
-          <MDBBtn color='primary' size='lg' onClick={this.saveHandler}>
+          <MDBBtn color='primary' size='md' onClick={this.saveHandler}>
             保存
+          </MDBBtn>
+          <MDBBtn color='primary' size='md' onClick={this.cancelHandler}>
+            取消
           </MDBBtn>
         </div>
       );
@@ -123,7 +123,8 @@ Tag.propTypes = {
   content: PropTypes.string,
   data: PropTypes.object,
   saveHandler: PropTypes.func,
-  tagNames: PropTypes.array
+  tagNames: PropTypes.array,
+  cancel: PropTypes.func
 };
 
 export default Tag;

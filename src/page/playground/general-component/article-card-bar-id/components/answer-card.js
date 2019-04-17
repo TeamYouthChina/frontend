@@ -19,6 +19,8 @@ export class AnswerCard extends React.Component {
       editorState: null,
       showBottom: false,
       isCollapsed: false,
+      getFromChildLength:null,
+      getFromChild:null,
       showComments: false,
       commentsText: null,
       comments: null,
@@ -94,12 +96,17 @@ export class AnswerCard extends React.Component {
   showCommentsFunc() {
     let commentsTextNow = '';
     let showComments = false;
-    if (this.state.backend.comments !== undefined) {
-      commentsTextNow = this.state.commentsText === `${this.state.backend.comments.length}条评论` ? '收起评论' : `${this.state.backend.comments.length}条评论`;
-      showComments = this.state.commentsText === `${this.state.backend.comments.length}条评论`;
+    if(this.state.getFromChild !== null){
+      commentsTextNow = this.state.commentsText === `${this.state.getFromChildLength}条评论` ? '收起评论' : `${this.state.getFromChildLength}条评论`;
+      showComments = this.state.commentsText === `${this.state.getFromChildLength}条评论`;
     } else {
-      commentsTextNow = this.state.commentsText === `${this.state.comments.data.length}条评论` ? '收起评论' : `${this.state.comments.data.length}条评论`;
-      showComments = this.state.commentsText === `${this.state.comments.data.length}条评论`;
+      if(this.state.backend.comments !== undefined) {
+        commentsTextNow = this.state.commentsText === `${this.state.backend.comments.comments.length}条评论` ? '收起评论' : `${this.state.backend.comments.comments.length}条评论`;
+        showComments = this.state.commentsText === `${this.state.backend.comments.comments.length}条评论`;
+      } else {
+        commentsTextNow = this.state.commentsText === `${this.state.comments.data.length}条评论` ? '收起评论' : `${this.state.comments.data.length}条评论`;
+        showComments = this.state.commentsText === `${this.state.comments.data.length}条评论`;
+      }
     }
     this.setState({
       commentsText: commentsTextNow,
@@ -239,6 +246,15 @@ export class AnswerCard extends React.Component {
     }
 
   };
+
+  onTellParent = (length) => {
+    let getFromChild = true;
+    let getFromChildLength = length;
+    this.setState(()=>({
+      getFromChild,
+      getFromChildLength
+    }));
+  };
   
   testRole = (author)=> {
     if(author === null) {
@@ -289,11 +305,11 @@ export class AnswerCard extends React.Component {
         {this.state.showComments ? (
           <Comments
             id={this.props.ansCommentId}
-            type={'answers'}
+            type={'articles'}
             showComments={this.showCommentsFunc}
             getCurrentPage={this.getCurrentPage}
             commentsText={this.state.commentsText}
-            commentsData={this.state.comments.data}
+            onTellParent={this.onTellParent}
           />
         ) : null}
       </React.Fragment>

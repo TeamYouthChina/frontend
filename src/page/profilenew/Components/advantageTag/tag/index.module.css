@@ -1,15 +1,3 @@
-.btn {
-  background: #f0f3fa;
-  border-radius: 1.56vw;
-  border: 0;
-  color: #454f69;
-  font-family: 'PingFang SC';
-  font-size: 0.94vw;
-  line-height: normal;
-  text-align: center;
-  margin: 0.4vw;
-}
-
 .AddingCard {
   width: 30%;
 }
@@ -19,4 +7,9 @@
   font-size: 1.09vw;
   line-height: normal;
   color: #454f69;
+}
+
+.SelectOptions {
+  height: 200px;
+  overflow: auto;
 }

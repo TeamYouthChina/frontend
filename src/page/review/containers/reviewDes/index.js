@@ -25,7 +25,7 @@ const ReviewDes = (props) => (
           <span className={classes.desSpan}>{props.description}</span>
         </div>
         <button onClick={props.onAttention} className={props.attention ? classes.btnStyleFocusActive : classes.btnStyleFocus}>
-          {props.attention ? '已关注' : '+关注他'}
+          {props.attention ? '已关注' : '+关注短则'}
         </button>
       </div>
       {/*<span className={classes.viewSpanStyle}>*/}

@@ -10,8 +10,8 @@ import {
 } from 'mdbreact';
 
 import classes from './EducationCard.module.css';
-import schoolIcon from '../../../assets/schoolIcon.jpg';
 import Dropdown from '../../Dropdown/Dropdown';
+// import { Location } from './location/index';
 // import { languageHelper } from '../../../../../tool/language-helper';
 
 // const translation = [
@@ -33,6 +33,7 @@ import Dropdown from '../../Dropdown/Dropdown';
 class EducationCard extends Component {
   constructor(props) {
     super(props);
+    // console.log(props.data)
     this.state = {
       editing: this.props.data ? false : true, // eslint-disable-line
       educationData: this.props.data // eslint-disable-line
@@ -58,13 +59,17 @@ class EducationCard extends Component {
           },
           note: '',
         },
-      dateRange: [new Date(), new Date()],
+      dateRange: this.props.data ? [new Date(this.props.data.duration.begin), new Date(this.props.data.duration.begin)] : [new Date(), new Date()],
       universityError: false,
       majorError: false,
     };
 
     this.universityNameRef = React.createRef();
     this.majorNameRef = React.createRef();
+  }
+
+  componentDidMount() {
+    // console.log("card mount")
   }
 
   // this method only toggle 'editing'
@@ -84,39 +89,31 @@ class EducationCard extends Component {
   // packup new data for this card and send to parent
   saveHandler = () => {
     if (this.state.universityError || this.state.majorError) {
-      alert('input 错误');
+      alert('至少有一个输出错误，请根据提示修改');
+      return;
+    } else if (
+      !this.state.educationData.university_id ||
+      !this.state.educationData.major ||
+      !this.state.educationData.degree
+    ) {
+      alert('请补全信息！');
       return;
     }
     if (this.state.educationData.id) {
       // console.log(`id to delete is ${this.state.proData.id}`);
       this.props.saveHandler(
-        this.state.educationData,
+        {...this.state.educationData},
         this.state.educationData.id,
         'update'
       );
     } else {
-      this.props.saveHandler(this.state.educationData, null, 'add');
+      this.props.saveHandler({...this.state.educationData}, null, 'add');
     }
     this.setState({
       ...this.state,
       editing: false,
     });
   };
-
-  // inputOnChange = () => {
-  //   this.setState({
-  //     ...this.state,
-  //     educationData: {
-  //       ...this.state.educationData,
-  //       university_id: this.uniRef.current.value,
-  //       degree: this.degreeRef.current.value,
-  //       duration: {
-  //         begin: `${this.state.dateRange[0].getTime()}`,
-  //         end: `${this.state.dateRange[1].getTime()}`,
-  //       },
-  //     },
-  //   });
-  // };
 
   dateRangePickerOnChange = newDateRange => {
     this.setState({
@@ -205,36 +202,48 @@ class EducationCard extends Component {
     node.className = '';
   };
 
+  onLocationChange = location => {
+    this.setState({
+      ...this.state,
+      educationData: {
+        ...this.state.educationData,
+        location: {
+          nation_code: location.countryCode,
+          location_code: location.code,
+        },
+      },
+    });
+  };
+
   render() {
-    // console.log(this.props.e)
-    // console.log(this.state.educationData.university_id);
-    // console.log(this.state.educationData.major);
-    // console.log(this.state.educationData.degree);
-    // console.log(this.state.educationData.duration.begin);
-    // console.log(this.state.educationData);
+    // console.log(this.state.educationData)
     let toShow = (
       <div className={classes.EducationCard}>
-        <img src={schoolIcon} alt='no img' />
+        <img
+          src='http://frontendpic.oss-us-east-1.aliyuncs.com/%E6%95%99%E8%82%B2.png'
+          alt='no img'
+        />
         <div className={classes.SchoolInfo}>
-          <p>{this.state.educationData.university_id}</p>
-          <p>{this.state.educationData.major}</p>
-          <p>{this.state.educationData.degree}</p>
-          <p>
+          <p className={classes.SchoolName}>
+            {this.state.educationData.university_id}
+          </p>
+          <p className={classes.DegreeMajor}>
+            {this.state.educationData.degree} | {this.state.educationData.major}
+          </p>
+          <p className={classes.TimeLocation}>
             {`${this.state.educationData.duration.begin.toLocaleDateString(
-              'zh-cn',
               {
                 year: 'numeric',
                 month: 'numeric',
                 day: 'numeric',
               }
-            )}    ${this.state.educationData.duration.end.toLocaleDateString(
-              'zh-cn',
+            )} ${this.state.educationData.duration.begin.getTime()}    ${this.state.educationData.duration.end.toLocaleDateString(
               {
                 year: 'numeric',
                 month: 'numeric',
                 day: 'numeric',
               }
-            )}`}
+            )} ${this.state.educationData.duration.begin.getTime()} `}
           </p>
           {/* <p>{this.state.educationData.note}</p> */}
         </div>
@@ -250,7 +259,10 @@ class EducationCard extends Component {
       // console.log(this.state.educationData);
       toShow = (
         <div className={classes.EducationCard}>
-          <img src={schoolIcon} alt='no img' />
+          <img
+            src='http://frontendpic.oss-us-east-1.aliyuncs.com/%E6%95%99%E8%82%B2.png'
+            alt='no img'
+          />
           <div className={classes.SchoolInfo}>
             <div ref={this.universityNameRef}>
               <MDBAutocomplete

@@ -43,12 +43,12 @@ class AdvantageTag extends Component {
     this.setState({ ...this.state, addingCard: null, adding: false });
   };
 
-  async postRequest(content) {
+  postRequest = async (content) => {
     await postAsync('/applicants/' + this.props.requestID + '/skills', content);
     // console.log(`posting ${content} and response is ${response}`)
   }
 
-  async putRequest(id, content) {
+  putRequest = async (id, content) => {
     await putAsync(
       '/applicants/' + this.props.requestID + '/skills/' + id,
       content
@@ -56,12 +56,12 @@ class AdvantageTag extends Component {
     // console.log(`putting ${content} with id ${id} and response is ${response}`)
   }
 
-  async deleteRequest(id) {
+  deleteRequest = async (id) => {
     await deleteAsync('/applicants/' + this.props.requestID + '/skills/' + id);
     // console.log(`deleting ${id} and response is ${response}`)
   }
 
-  async getRequest() {
+  getRequest = async () => {
     let cardsRequest = await getAsync(
       '/applicants/' + this.props.requestID + '/skills'
     );
@@ -178,10 +178,6 @@ class AdvantageTag extends Component {
     });
   };
 
-  cancelAdding = () => {
-    this.setState({ ...this.state, addingCard: null, adding: false });
-  };
-
   encodeContent = content => {
     return {
       label_code: this.state.tagMap.get(content.name)
@@ -209,23 +205,23 @@ class AdvantageTag extends Component {
 
     if (cards.length === 0 && this.state.addingCard === null) {
       toShow = (
-        <div className={classes.advantageTag}>
-          <div className={classes.row}>
+        <div className={classes.AdvantageTag}>
+          <div className={classes.Row}>
             <p className={classes.SectionName}>{text.advantageTag}</p>
             <img
-              className={classes.addIcon}
+              className={classes.AddIcon}
               src={addIcon}
               alt='icon'
               onClick={this.addHandler}
             />
           </div>
-          <p>{text.noAdvantageTag}</p>
+          <p className={classes.NoAdvantageTag}>{text.noAdvantageTag}</p>
         </div>
       );
     } else {
       toShow = (
-        <div className={classes.advantageTag}>
-          <div className={classes.row}>
+        <div className={classes.AdvantageTag}>
+          <div className={classes.Row}>
             <p className={classes.SectionName}>{text.advantageTag}</p>
             <img
               className={classes.addIcon}

@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  MDBCol,
-  MDBListGroup,
-  MDBListGroupItem,
-  MDBRow
-} from 'mdbreact';
+import {MDBCol, MDBListGroup, MDBListGroupItem, MDBRow} from 'mdbreact';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import classes from './index.module.css';
@@ -12,9 +7,9 @@ import wrtiteArticle from '../../assets/writeArticle.svg';
 import writeQuestion from '../../assets/writeQuestion.svg';
 import writeReview from '../../assets/writeReview.svg';
 
-import {ReviewCardBarId} from '../../card/review-card-bar-id';
 import {ArticleCardBarId} from '../../../playground/general-component/article-card-bar-id';
 import {AnswerCardBarId} from '../../../playground/general-component/answer-card-bar-id';
+// import {ReviewCardBarId} from '../../../playground/general-component/review-card-bar-id';
 import {languageHelper} from '../../../../tool/language-helper';
 
 const basicCHNFont = {
@@ -43,23 +38,7 @@ class SearchInsightResultReact extends React.Component {
   }
 
   async componentDidMount() {
-    // try {
-    //   const result = await getAsync(`/search?type=${this.state.searchType}&title=%E4%B8%BA%E4%BB%80%E4%B9%88`);
-    //   // console.log(result)
-    //   if (result && result.status) {
-    //     this.setState(() => {
-    //       return {backend: result.content};
-    //     }, () => {console.log(this.state.backend,this.props.keyword);});
-    //   }
-    //   else {
-    //     this.setState(() => {
-    //       return {collectionNum: 0};
-    //     });
-    //   }
-    // } catch (error) {
-    //   // eslint-disable-next-line
-    //   console.log(error);
-    // }
+    //搜索页面切换时，重新set搜索类型
     this.props.handleSearchType();
   }
 
@@ -68,43 +47,23 @@ class SearchInsightResultReact extends React.Component {
       <div className="cell-wall">
         <div className="cell-membrane">
 
-          {
-            this.props.backend ?
-              (this.props.backend.status && this.props.backend.status.code === 2000 ? (this.props.backend.content.data.map((item, index) => (
-                <MDBRow key={index} style={{margin: '1rem 0rem'}}>
-                  <p>{item.content.id}</p>
-                </MDBRow>))) : (this.props.backend.status.code === 4040 ? <p>没有搜索结果。</p> : <p>Here should be a loading card.</p>)
-              )
-              : null
-          }
-
           <MDBRow style={{marginTop: '2vw'}}>
             <main className={classes.mainBody}>
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol>
-                  <ArticleCardBarId id={12} />
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol>
-                  <ReviewCardBarId id={2} />
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol>
-                  <AnswerCardBarId id={12} questionId={12}/>
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol>
-                  {/*<ReviewCardBarId id={1} />*/}
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol>
-                  <ArticleCardBarId id={12} />
-                </MDBCol>
-              </MDBRow>
+              {
+                this.props.backend ?
+                  (this.props.code === 2000 ? (this.props.backend.map((item, index) => (
+                    <MDBRow className={classes.cardBarRow} key={index}>
+                      <MDBCol>
+                        {item.type === 'article' ? <ArticleCardBarId id={item.content.id} /> :
+                          <AnswerCardBarId
+                            questionId={item.content.id}
+                            questionTitle={item.content.title}
+                            id={item.content.answers[0].id} >
+                          </AnswerCardBarId>}
+                      </MDBCol>
+                    </MDBRow>))) : (this.props.backend.status.code === 4040 ? <p>没有搜索结果。</p> : <p>Here should be a loading card.</p>)
+                  ) : null
+              }
             </main>
 
             <aside className={classes.sideBar}>
@@ -151,30 +110,7 @@ class SearchInsightResultReact extends React.Component {
                   className={classes.listGroupItems}
                   style={{height: '10vh'}} />
               </MDBListGroup>
-
-              {/*<Switch>*/}
-              {/*{*/}
-              {/*this.isUserLogin() &&*/}
-              {/*<Route*/}
-              {/*path="/article/create"*/}
-              {/*component={routeProps => <ArticleCreate {...routeProps} />}*/}
-              {/*/>*/}
-              {/*}*/}
-              {/*{*/}
-              {/*this.isUserLogin() &&*/}
-              {/*<Route*/}
-              {/*path="/question/create"*/}
-              {/*component={routeProps => <QuestionCreate {...routeProps} />}*/}
-              {/*/>*/}
-              {/*}*/}
-              {/*{*/}
-              {/*this.isUserLogin() &&*/}
-              {/*<Route*/}
-              {/*path="/review/create"*/}
-              {/*component={routeProps => <ReviewCreate {...routeProps} />}*/}
-              {/*/>*/}
-              {/*}*/}
-              {/*</Switch>*/}
+              
             </aside>
           </MDBRow>
         </div>
@@ -196,7 +132,8 @@ SearchInsightResultReact.propTypes = {
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   handleSearchType: PropTypes.func.isRequired,
-  backend: PropTypes.object.isRequired
+  backend: PropTypes.object.isRequired,
+  code: PropTypes.number.isRequired
 };
 
 export const SearchInsightResult = withRouter(SearchInsightResultReact);
