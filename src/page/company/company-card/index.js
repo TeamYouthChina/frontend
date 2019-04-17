@@ -6,6 +6,7 @@ import { withRouter} from 'react-router-dom';
 import classes from './index.module.css';
 import {languageHelper} from '../../../tool/language-helper';
 import {IfCollect} from '../../playground/general-component/if-collect';
+import {Location} from '../../playground/general-component/location';
 
 
 
@@ -60,7 +61,12 @@ class CompanyCardReact extends React.Component {
                 color: '#8D9AAF',
                 marginBottom:'0.39vw'
               }}
-            > {this.props.backend.content.location} 
+            >
+              <Location
+                code={this.props.backend.content.location[0]}
+                edit={false}
+                locate={()=>{}}
+              />
             </p>
             <p
               style={{

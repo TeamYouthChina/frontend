@@ -9,6 +9,7 @@ import {IfCollect} from '../if-collect';
 
 import {languageHelper} from '../../../../tool/language-helper';
 import {getAsync} from '../../../../tool/api-helper';
+import {Location} from '../location';
 
 
 
@@ -59,7 +60,11 @@ class CompanyCardSquareReact extends React.Component {
         </div>
         <div className="d-flex justify-content-between align-items-center">
           <div className={classes.note}>
-            {this.state.backend.content.location}
+            <Location
+              code={this.state.backend.content.location[0]}
+              edit={false}
+              locate={()=>{}}
+            />
           </div>
           <div className={classes.note}>
             <IfCollect

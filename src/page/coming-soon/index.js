@@ -29,7 +29,7 @@ class CommingSoonReact extends React.Component {
             className="cell-membrane d-flex justify-content-center"
           >
             <img
-              src="http://frontendpic.oss-us-east-1.aliyuncs.com/comingsoon%20%281%29.png?Expires=1555217413&OSSAccessKeyId=TMP.AQHqeGKy_Brn5N1OqJMhbHWer74zkhWB93qh6WDUQVF3oZNo2PXIkQYlPsUiADAtAhQvX0QcX6FAS-w40awKlriAj7tizgIVAIB8lT0Gajd2CyGmZjwgLb-He_8M&Signature=pNBAr5FfTL%2Bv%2FPPi1Fe8CgqjP9s%3D"
+              src="http://frontendpic.oss-us-east-1.aliyuncs.com/comingsoon%20%281%29.png"
               className="img-fluid"
             />
 

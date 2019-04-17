@@ -36,6 +36,7 @@ class SearchReact extends React.Component {
       keyword: null,
       //搜索到的数据
       backend: null,
+      
       //后端状态码
       code: null,
       //分页
@@ -83,6 +84,7 @@ class SearchReact extends React.Component {
       } else {
         return null;
       }
+     
     } catch (error) {
       // eslint-disable-next-line
       console.log(error);

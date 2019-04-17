@@ -41,7 +41,7 @@ class HeaderReact extends React.Component {
                   <a className={'py-2 navbar-brand'} href="/best-for-you">
                     <img 
                       style={{height:'2.5vw'}}
-                      src="https://frontendpic.oss-us-east-1.aliyuncs.com/1.png?Expires=1555536444&OSSAccessKeyId=TMP.AQGTLD32C_Qaeal-ye5YSZybECYteS7YqatJMdgk-Y7CojL0pq2uUn4v2ovFADAtAhUAqP68rf7otvwNJ22CcntvkNU_h0kCFF-HKlTl5JXHxws9ZfIXIa6qutLD&Signature=pO%2BKfAcWiS698PQsNCk7W0f1tkc%3D"
+                      src="https://frontendpic.oss-us-east-1.aliyuncs.com/1.png"
                       className="img-fluid"
                     />
                   </a>
