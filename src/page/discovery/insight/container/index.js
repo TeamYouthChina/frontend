@@ -1,22 +1,19 @@
 import React from 'react';
-import {
-  MDBCol,
-  MDBListGroup,
-  MDBListGroupItem,
-  MDBRow
-} from 'mdbreact';
+import {MDBCol, MDBListGroup, MDBListGroupItem, MDBRow} from 'mdbreact';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import classes from './index.module.css';
 import wrtiteArticle from '../../assets/writeArticle.svg';
 import writeQuestion from '../../assets/writeQuestion.svg';
 import writeReview from '../../assets/writeReview.svg';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
-import {AnswerCardBarId} from '../../card/answer-card-bar-id';
-import {ArticleCardBarId} from '../../card/article-card-bar-id';
-import {ReviewCardBarId} from '../../card/review-card-bar-id';
+import {ArticleCardBarId} from '../../../playground/general-component/article-card-bar-id';
+import {AnswerCardBarId} from '../../../playground/general-component/answer-card-bar-id';
+import {ReviewCardBarId} from '../../../playground/general-component/review-card-bar-id';
 import {languageHelper} from '../../../../tool/language-helper';
 import {getAsync} from '../../../../tool/api-helper';
+import {Loading} from '../../../job-for-you/component/loading';
 
 const basicCHNFont = {
   fontFamily: 'PingFang SC',
@@ -35,30 +32,56 @@ class DiscoveryInsightReact extends React.Component {
     super(props);
     // state
     this.state = {
-      backend: null
+      backend: null,
+      searchType: ['articles', 'questions', 'editorials'],
+      page: 0,
+      code: null,
+      hasMore: true,
+      list: []
     };
     // i18n
     this.text = DiscoveryInsightReact.i18n[languageHelper()];
   }
 
+  getMore = async () => {
+    let result = [];
+    let count = 0;
+    const len = this.state.searchType.length;
+    const limit = 6 / len;
+    let code = null;
+    while (count < len) {
+      const temp = await this.getData(this.state.searchType[count++], limit);
+      result = [...result, ...temp.content.data];
+      code = temp.status.code;
+      // eslint-disable-next-line
+      console.log(code);
+    }
+    // const result = await mockGetAsync(content);
+    this.setState((prevState) => {
+      return {
+        list: prevState.list.concat(result),
+        page: this.state.page + 1
+        // hasMore: backend.content.hasMore && prevState.itemList.length < 23
+      };
+    });
+  };
 
-  async componentDidMount() {
+  getData = async (parameter, limit) => {
     try {
-      const result = await getAsync('/discovery');
+      const result = await getAsync(`/discovery/${parameter}?limit=${limit}&page=${this.state.page}`);
       if (result && result.status) {
-        this.setState(() => {
-          return {backend: result.content};
-        });
-      }
-      else {
-        this.setState(() => {
-          return {collectionNum: 0};
-        });
+        return result;
+      } else {
+        return null;
       }
     } catch (error) {
       // eslint-disable-next-line
       console.log(error);
     }
+  };
+
+  async componentDidMount() {
+    await this.getMore();
   }
 
   render() {
@@ -66,34 +89,36 @@ class DiscoveryInsightReact extends React.Component {
       <div className="cell-wall">
         <div className="cell-membrane">
           <MDBRow style={{marginTop: '2vw'}}>
-            <MDBCol className="px-0" size="10">
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol>
-                  <ArticleCardBarId id={1} />
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol>
-                  <ReviewCardBarId id={1} />
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol>
-                  <AnswerCardBarId id={1} />
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol>
-                  <ReviewCardBarId id={1} />
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol>
-                  <ArticleCardBarId id={1} />
-                </MDBCol>
-              </MDBRow>
-            </MDBCol>
-            <MDBCol className={classes.sideBar} size="2">
+            <main className={classes.mainBody}>
+              <InfiniteScroll
+                dataLength={this.state.list.length}
+                hasMore={this.state.hasMore}
+                loader={
+                  <Loading />
+                }
+                next={this.getMore}
+              >
+                {
+                  this.state.list.map((item, index) => (
+                    <MDBRow key={index} className={classes.cardBarRow}>
+                      <MDBCol>
+                        {(() => {
+                          switch (item.type) {
+                            case 'article':
+                              return <ArticleCardBarId id={item.content.id} />;
+                            case 'question':
+                              return <AnswerCardBarId id={item.content.id} />;
+                            case 'briefReview':
+                              return <ReviewCardBarId id={item.content.id} />;
+                          }
+                        })()}
+                      </MDBCol>
+                    </MDBRow>
+                  ))
+                }
+              </InfiniteScroll>
+            </main>
+            <aside className={classes.sideBar}>
               <MDBListGroup style={{fontSize: '1.25vw', marginBottom: '1.56vw'}}>
                 <MDBListGroupItem
                   hover
@@ -161,7 +186,7 @@ class DiscoveryInsightReact extends React.Component {
               {/*/>*/}
               {/*}*/}
               {/*</Switch>*/}
-            </MDBCol>
+            </aside>
           </MDBRow>
         </div>
       </div>
