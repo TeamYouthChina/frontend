@@ -31,7 +31,13 @@ class ReviewCardSquareReact extends React.Component {
 
 
     return (
-      <div className={classes.content}>
+      <div 
+        className={classes.content}
+        onClick={()=>{
+          this.props.history.push(`/review/${this.props.id}`);
+        }}
+        style={{cursor:'pointer'}}
+      >
         <div className={classes.logo}>“</div>
         <div className={classes.note}>{(this.props.body.length>50)?(this.props.body.substr(0,50)+'...'):(this.props.body)}</div>
         <div className="d-flex align-items-center mt-2">
@@ -57,7 +63,7 @@ ReviewCardSquareReact.i18n = [
 ];
 
 ReviewCardSquareReact.propTypes = {
-  
+  id:PropTypes.number.isRequired,
   body:PropTypes.string.isRequired,
   username:PropTypes.string.isRequired,
   avatar:PropTypes.string.isRequired,

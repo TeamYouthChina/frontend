@@ -11,6 +11,7 @@ import {
 
 import classes from './EducationCard.module.css';
 import Dropdown from '../../Dropdown/Dropdown';
+// import { Location } from './location/index';
 // import { languageHelper } from '../../../../../tool/language-helper';
 
 // const translation = [
@@ -32,6 +33,7 @@ import Dropdown from '../../Dropdown/Dropdown';
 class EducationCard extends Component {
   constructor(props) {
     super(props);
+    // console.log(props.data)
     this.state = {
       editing: this.props.data ? false : true, // eslint-disable-line
       educationData: this.props.data // eslint-disable-line
@@ -57,13 +59,17 @@ class EducationCard extends Component {
           },
           note: '',
         },
-      dateRange: [new Date(), new Date()],
+      dateRange: this.props.data ? [new Date(this.props.data.duration.begin), new Date(this.props.data.duration.begin)] : [new Date(), new Date()],
       universityError: false,
       majorError: false,
     };
 
     this.universityNameRef = React.createRef();
     this.majorNameRef = React.createRef();
+  }
+
+  componentDidMount() {
+    // console.log("card mount")
   }
 
   // this method only toggle 'editing'
@@ -96,12 +102,12 @@ class EducationCard extends Component {
     if (this.state.educationData.id) {
       // console.log(`id to delete is ${this.state.proData.id}`);
       this.props.saveHandler(
-        this.state.educationData,
+        {...this.state.educationData},
         this.state.educationData.id,
         'update'
       );
     } else {
-      this.props.saveHandler(this.state.educationData, null, 'add');
+      this.props.saveHandler({...this.state.educationData}, null, 'add');
     }
     this.setState({
       ...this.state,
@@ -196,8 +202,21 @@ class EducationCard extends Component {
     node.className = '';
   };
 
+  onLocationChange = location => {
+    this.setState({
+      ...this.state,
+      educationData: {
+        ...this.state.educationData,
+        location: {
+          nation_code: location.countryCode,
+          location_code: location.code,
+        },
+      },
+    });
+  };
+
   render() {
-    // console.log('a render')
+    // console.log(this.state.educationData)
     let toShow = (
       <div className={classes.EducationCard}>
         <img
@@ -213,20 +232,18 @@ class EducationCard extends Component {
           </p>
           <p className={classes.TimeLocation}>
             {`${this.state.educationData.duration.begin.toLocaleDateString(
-              'zh-cn',
               {
                 year: 'numeric',
                 month: 'numeric',
                 day: 'numeric',
               }
-            )}    ${this.state.educationData.duration.end.toLocaleDateString(
-              'zh-cn',
+            )} ${this.state.educationData.duration.begin.getTime()}    ${this.state.educationData.duration.end.toLocaleDateString(
               {
                 year: 'numeric',
                 month: 'numeric',
                 day: 'numeric',
               }
-            )}`}
+            )} ${this.state.educationData.duration.begin.getTime()} `}
           </p>
           {/* <p>{this.state.educationData.note}</p> */}
         </div>

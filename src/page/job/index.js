@@ -20,19 +20,16 @@ class JobReact extends React.Component {
   constructor(props) {
     super(props);
     // state
-    this.state = {
-      
-    };
+    this.state = {};
     // i18n
     this.text = JobReact.i18n[languageHelper()];
   }
   async componentDidMount() {
-
     this.setState({
       backend: await getAsync(`/jobs/${this.props.match.params.id}`)
     });
-
   }
+  
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
     if (pathname) {
@@ -50,9 +47,9 @@ class JobReact extends React.Component {
                 <JobCard backend={this.state.backend}/>
                 <JobDesci backend={this.state.backend}/>
                 <KnowCompany backend={this.state.backend}/>
-                <SimilarJob backend={this.state.backend}/>
+                <SimilarJob title={this.state.backend.content.name}/>
+                <br/>
               </div>
-             
             </div>
           </div>
         </div>

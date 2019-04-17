@@ -58,7 +58,8 @@ class SearchInsightResultReact extends React.Component {
                           <AnswerCardBarId
                             questionId={item.content.id}
                             questionTitle={item.content.title}
-                            id={item.content.answers[0].id} />}
+                            id={item.content.answers[0].id} >
+                          </AnswerCardBarId>}
                       </MDBCol>
                     </MDBRow>))) : (this.props.backend.status.code === 4040 ? <p>没有搜索结果。</p> : <p>Here should be a loading card.</p>)
                   ) : null

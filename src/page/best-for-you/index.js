@@ -34,6 +34,9 @@ class BestForYouReact extends React.Component {
   async componentDidMount() {
     this.setState({
       render: 1,
+      user: await getAsync('/me'),
+      job: await getAsync('/discovery/jobs?limit=6&page=1'),
+      company: await getAsync('/discovery/companies?limit=3&page=1'),
       userFulltext: await getAsync('/discovery/users?limit=3&page=1'),
       questionFulltext: await getAsync('/discovery/questions?limit=4&page=1'),
       reviewFulltext: await getAsync('/discovery/editorials?limit=6&offset=0'),
@@ -65,14 +68,23 @@ class BestForYouReact extends React.Component {
                 >
                   <div className={classes.logo}>
                     <img
-                      src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg"
-                      className="rounded-circle img-fluid p-0 float-right w-100"
+                      src={(this.state.user.content.avatar_url==='---')?('http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'):(this.state.user.content.avatar_url==='---')}
+                      className="rounded-circle img-fluid p-0 float-right"
+                      alt="Sample avatar"
                     />
                   </div>
                   <div className="ml-4">
-                    <p className={classes.name}>郭益豪，欢迎来到职道！</p>
+                    <p className={classes.name}>{this.state.user.content.username}，欢迎来到职道！</p>
 
-                    <p className={classes.review}>查看个人档案 →</p>
+                    <p 
+                      className={classes.review}
+                      onClick={()=>{
+                        this.props.history.push('/my');
+                      }}
+                      style={{cursor:'pointer'}}
+                    >
+                      查看个人档案 →
+                    </p>
                   </div>
 
                 </div>
@@ -92,14 +104,30 @@ class BestForYouReact extends React.Component {
                     <JobCardSquare id={9} jobList={this.state.jobList} />
 
                   </div>
-                  <div className={classes.seemore}>查看更多 →</div>
+                  <div
+                    className={classes.seemore}
+                    onClick={()=>{
+                      this.props.history.push('/job-for-you/intern');
+                    }}
+                    style={{cursor:'pointer'}}
+                  >
+                    查看更多 →
+                  </div>
                   <div className={classes.subtitle} style={{marginTop: '0.78vw'}}>根据您的浏览偏好推荐</div>
                   <div className="d-flex justify-content-between" style={{padding: '1.40vw 0'}}>
                     <JobCardSquare id={8} jobList={this.state.jobList} />
                     <JobCardSquare id={8} jobList={this.state.jobList} />
                     <JobCardSquare id={9} jobList={this.state.jobList} />
                   </div>
-                  <div className={classes.seemore}>查看更多 →</div>
+                  <div 
+                    className={classes.seemore}
+                    onClick={()=>{
+                      this.props.history.push('/job-for-you/intern');
+                    }}
+                    style={{cursor:'pointer'}}
+                  >
+                    查看更多 →
+                  </div>
                 </div>
 
               </div>
@@ -112,11 +140,28 @@ class BestForYouReact extends React.Component {
                 >
                   <div className={classes.title}>公司推荐</div>
                   <div className="d-flex justify-content-between" style={{padding: '1.40vw 0'}}>
-                    <CompanyCardSquare />
-                    <CompanyCardSquare />
-                    <CompanyCardSquare />
+                    {this.state.company.content.data.map((item, index) => {
+                      return (
+                        <div style={{marginBottom:'1vw'}} key={index}>
+                          <CompanyCardSquare
+                            id={item.content.id}
+                          />
+                        </div>
+                      );
+                    })}
+                    <CompanyCardSquare id={1}/>
+                    <CompanyCardSquare id={2}/>
+                    <CompanyCardSquare id={3}/>
                   </div>
-                  <div className={classes.seemore}>查看更多 →</div>
+                  <div
+                    className={classes.seemore}
+                    onClick={()=>{
+                      this.props.history.push('/search/company');
+                    }}
+                    style={{cursor:'pointer'}}
+                  >
+                    查看更多 →
+                  </div>
                 </div>
               </div>
               <div
@@ -141,7 +186,15 @@ class BestForYouReact extends React.Component {
                       );
                     })}
                   </div>
-                  <div className={classes.seemore}>查看更多 →</div>
+                  <div
+                    className={classes.seemore}
+                    onClick={()=>{
+                      this.props.history.push('/discovery/insight');
+                    }}
+                    style={{cursor:'pointer'}}
+                  >
+                    查看更多 →
+                  </div>
                 </div>
               </div>
               <div
@@ -166,7 +219,15 @@ class BestForYouReact extends React.Component {
                     })}
                   </div>
 
-                  <div className={classes.seemore}>查看更多 →</div>
+                  <div
+                    className={classes.seemore}
+                    onClick={()=>{
+                      this.props.history.push('/discovery/insight');
+                    }}
+                    style={{cursor:'pointer'}}
+                  >
+                    查看更多 →
+                  </div>
                 </div>
               </div>
               <div
@@ -192,7 +253,15 @@ class BestForYouReact extends React.Component {
                     })}
                   </div>
 
-                  <div className={classes.seemore}>查看更多 →</div>
+                  <div
+                    className={classes.seemore}
+                    onClick={()=>{
+                      this.props.history.push('/discovery/insight');
+                    }}
+                    style={{cursor:'pointer'}}
+                  >
+                    查看更多 →
+                  </div>
                 </div>
               </div>
               {/*
@@ -232,7 +301,15 @@ class BestForYouReact extends React.Component {
                   </div>
 
 
-                  <div className={classes.seemore}>查看更多 →</div>
+                  <div
+                    className={classes.seemore}
+                    onClick={()=>{
+                      this.props.history.push('/connection');
+                    }}
+                    style={{cursor:'pointer'}}
+                  >
+                    查看更多 →
+                  </div>
                 </div>
               </div>
 

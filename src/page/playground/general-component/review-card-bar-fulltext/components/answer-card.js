@@ -354,6 +354,16 @@ export class AnswerCard extends React.Component {
       getFromChildLength
     }));
   };
+  
+  testUser = () =>{
+    const backend = this.state.backend;
+    if(backend.author !== undefined){
+      return backend.author === null ? backend.author : backend.author.username;
+    } else {
+      return backend.creator === null ? backend.creator : backend.creator.username;
+    }
+  }
+  ;
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.orderScroll);
@@ -366,7 +376,7 @@ export class AnswerCard extends React.Component {
         <div className={classes.cardWrapper} ref={(span) => this.scrollSpan = span}>
           <UserInfor
             score={5}
-            user={backend.author === undefined ? backend.creator.username : backend.author.username}
+            user={this.testUser}
             description={backend.author === undefined ? backend.creator.role[0] : backend.author.role[0]}
             isCollapsed={this.state.isCollapsed}
             short={backend.body.previewText}

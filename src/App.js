@@ -29,6 +29,7 @@ import {Register} from './page/register';
 import {Review} from './page/review';
 import {ReviewEdit} from './page/review-edit';
 import {Search} from './page/search';
+import {SubmitDone} from './page/submit-done';
 import {Video} from './page/video';
 import {VideoEdit} from './page/video-edit';
 import {store} from './redux/store';
@@ -163,6 +164,10 @@ export class App extends React.Component {
               <Route
                 path="/search"
                 component={routeProps => <Search {...routeProps} />}
+              />
+              <Route
+                path="/submit-done"
+                component={routeProps => <SubmitDone {...routeProps} />}
               />
               <Route
                 path="/video/:id/edit"

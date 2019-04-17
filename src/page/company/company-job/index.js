@@ -19,7 +19,7 @@ class CompanyJobReact extends React.Component {
       <div className={classes.content}>
         <p className={classes.name}>在招职位</p>
         <br/>
-        <p className="h1 red-text">该公司在招职位API没有</p>
+        <p className="h3 grey-text">该公司没有别的在招职位</p>
       </div>
     );
   }

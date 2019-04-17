@@ -31,6 +31,7 @@ export class IfCollect extends React.Component {
             lineHeight: 'normal',
             fontSize: '0.875rem',
             color: '#8D9AAF',
+            zIndex:'300'
           }}
           className="ml-3"
          
