@@ -62,7 +62,7 @@ class WorkExperienceCard extends Component {
           },
           note: '',
         },
-      dateRange: [new Date(), new Date()],
+      dateRange: this.props.data ? [new Date(this.props.data.duration.begin), new Date(this.props.data.duration.begin)] : [new Date(), new Date()],
     };
   }
 
@@ -82,6 +82,7 @@ class WorkExperienceCard extends Component {
 
   // packup new data for this card and send to parent
   saveHandler = () => {
+    // console.log(this.state.workData);
     if (!this.state.workData.employer || !this.state.workData.position) {
       alert('请补全信息！');
       return;
@@ -89,12 +90,12 @@ class WorkExperienceCard extends Component {
     if (this.state.workData.id) {
       // console.log(`id to delete is ${this.state.proData.id}`);
       this.props.saveHandler(
-        this.state.workData,
+        {...this.state.workData},
         this.state.workData.id,
         'update'
       );
     } else {
-      this.props.saveHandler(this.state.workData, null, 'add');
+      this.props.saveHandler({...this.state.workData}, null, 'add');
     }
     this.setState({
       ...this.state,
@@ -174,14 +175,12 @@ class WorkExperienceCard extends Component {
             <p className={classes.Employer}>{this.state.workData.employer}</p>
             <p className={classes.TimeLocation}>
               {`${this.state.workData.duration.begin.toLocaleDateString(
-                'zh-cn',
                 {
                   year: 'numeric',
                   month: 'numeric',
                   day: 'numeric',
                 }
               )}\t${this.state.workData.duration.end.toLocaleDateString(
-                'zh-cn',
                 {
                   year: 'numeric',
                   month: 'numeric',
@@ -190,6 +189,7 @@ class WorkExperienceCard extends Component {
               )}`}
             </p>
             <Location
+              className={classes.Location}
               code={
                 this.state.workData.location.location_code
                   ? this.state.workData.location.location_code

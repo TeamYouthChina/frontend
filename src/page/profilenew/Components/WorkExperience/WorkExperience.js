@@ -106,22 +106,33 @@ class WorkExperience extends Component {
 
   // save data locally and send back to server
   saveHandler = async (content, id, mode) => {
-
-    // 暂时给content加的location codes
-    // content.location = {
-    //   nation_code: 'CHN',
-    //   location_code: '000000'
-    // };
-
+    // console.log(content);
     if (mode === 'add') {
-      // console.log('adding');
+      content = this.encodeContent(content);
+      // console.log(content);
       await this.postRequest(content);
       await this.getRequest();
     } else if (mode === 'update') {
-      // console.log('updating');
+      content = this.encodeContent(content);
       await this.putRequest(id, content);
       await this.getRequest();
     }
+  };
+
+  encodeContent = content => {
+    return {
+      id: content.id ? content.id : null,
+      employer: content.employer ? content.employer : '',
+      position: content.position ? content.position : '',
+      duration: {
+        begin: content.duration.begin.getTime(),
+        end: content.duration.end.getTime(),
+      },
+      location: content.location ? content.location : {
+        nation_code: 'CHN', location_code: '000000'
+      },
+      note: content.note,
+    };
   };
 
   /// addhandler only create a empty cards
