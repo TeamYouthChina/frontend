@@ -87,7 +87,7 @@ class Tag extends Component {
         <div className={classes.AddingCard}>
           <MDBSelect getTextContent={this.selectValueOnChange}>
             <MDBSelectInput selected='优势标签' />
-            <MDBSelectOptions search>
+            <MDBSelectOptions search className={classes.SelectOptions}>
               {this.props.tagNames.map(e => {
                 if (e.name === this.state.tagData.name) {
                   return (
@@ -105,10 +105,10 @@ class Tag extends Component {
               })}
             </MDBSelectOptions>
           </MDBSelect>
-          <MDBBtn color='primary' size='lg' onClick={this.saveHandler}>
+          <MDBBtn color='primary' size='md' onClick={this.saveHandler}>
             保存
           </MDBBtn>
-          <MDBBtn color='primary' size='lg' onClick={this.cancelHandler}>
+          <MDBBtn color='primary' size='md' onClick={this.cancelHandler}>
             取消
           </MDBBtn>
         </div>
