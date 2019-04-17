@@ -6,11 +6,9 @@ import PropTypes from 'prop-types';
 import {SearchJobsNavItem} from './secondary-navagations/job';
 import {SearchCompaniesNavItem} from './secondary-navagations/company';
 import {SearchInsightNavItem} from './secondary-navagations/insight';
-import {SearchVideoNavItem} from './secondary-navagations/video';
 import {SearchConnectionNavItem} from './secondary-navagations/coonection';
 import {SearchJobResult} from './container/job';
 import {SearchCompanyResult} from './container/company';
-import {SearchVideoResult} from './container/video';
 import {SearchInsightResult} from './container/insight';
 import {SearchConnectionResult} from './container/connection';
 import {SearchInput} from './component/search-input';
@@ -34,11 +32,17 @@ class SearchReact extends React.Component {
       // activeItemClassicTabs1: "1",
       collapseID: '',
       tabsContent: '职位',
-      keyword: null, //搜索关键词
-      backend: null, //搜索到的数据
+      //搜索关键词
+      keyword: null,
+      //搜索到的数据
+      backend: null,
+      //后端状态码
+      code: null,
+      //分页
+      page: 1,
+      //搜索类型
       searchType: null
     };
-    // this.toggleClassicTabs1 = this.toggleClassicTabs1.bind(this);
   }
 
   handleInputKeyword = event => {
@@ -49,35 +53,41 @@ class SearchReact extends React.Component {
 
   handleKeywordSearch = async (event) => {
     event.preventDefault();
-    try {
-      const result = await getAsync(`/search?type=${this.state.searchType}&title=${this.state.keyword}`);
+    let result = [];
+    let count = 0;
+    const len = this.state.searchType.length;
+    const limit = 6 / len;
+    let code = null;
+    while (count < len) {
+      const temp = await this.getData(this.state.searchType[count++], limit);
+      result = [...result, ...temp.content.data];
+      code = temp.status.code;
       // eslint-disable-next-line
-      console.log(result);
+      console.log(code);
+    }
+    // eslint-disable-next-line
+    console.log(result);
+    this.setState(() => {
+      return {
+        backend: result,
+        code
+      };
+    });
+  };
+
+  getData = async (parameter, limit) => {
+    try {
+      const result = await getAsync(`/search?type=${parameter}&title=${this.state.keyword}&limit=${limit}&page=${this.state.page}`);
       if (result && result.status) {
-        this.setState(() => {
-          return {backend: result};
-        });
+        return result;
       } else {
-        this.setState(() => {
-          return {collectionNum: 0};
-        });
+        return null;
       }
     } catch (error) {
       // eslint-disable-next-line
       console.log(error);
     }
   };
-
-  // handleTabsContent = tabsContent => {
-  //   this.setState({
-  //     ...this.state,
-  //     tabsContent
-  //   });
-  // };
-  //
-  // toggleCollapse = collapseID => () => {
-  //   this.setState(prevState => ({collapseID: (prevState.collapseID !== collapseID ? collapseID : '')}));
-  // };
 
   handleSearchType = () => {
     // eslint-disable-next-line
@@ -86,23 +96,22 @@ class SearchReact extends React.Component {
     switch (true) {
       case path.includes('/job'):
         this.setState(() => {
-          return {searchType: 'job'};
+          return {searchType: ['job']};
         });
         break;
       case path.includes('/company'):
         this.setState(() => {
-          return {searchType: 'company'};
+          return {searchType: ['company']};
         });
         break;
       case path.includes('/insight'):
         this.setState(() => {
-          //todo, 洞见搜索应该整合问题，回答和短则的结果。
-          return {searchType: 'article'};
+          return {searchType: ['article', 'question']};
         });
         break;
       case path.includes('/connection'):
         this.setState(() => {
-          return {searchType: 'connection'};
+          return {searchType: ['connection']};
         });
     }
   };
@@ -156,10 +165,6 @@ class SearchReact extends React.Component {
                 render={(props) => <SearchInsightNavItem {...props} />}
               />
               <Route
-                path={`${this.props.match.url}/video`}
-                component={routeProps => <SearchVideoNavItem basicCHNFont={basicCHNFont} />}
-              />
-              <Route
                 path={`${this.props.match.url}/connection`}
                 component={routeProps => <SearchConnectionNavItem basicCHNFont={basicCHNFont} />}
               />
@@ -194,21 +199,11 @@ class SearchReact extends React.Component {
                 }
               />
               <Route
-                path={`${this.props.match.url}/video`}
-                render={(props) =>
-                  <SearchVideoResult
-                    {...props}
-                    keyword={this.state.keyword}
-                    backend={this.state.backend}
-                    handleSearchType={this.handleSearchType} />
-                }
-              />
-              <Route
                 path={`${this.props.match.url}/insight`}
                 render={(props) =>
                   <SearchInsightResult
                     {...props}
-                    keyword={this.state.keyword}
+                    code={this.state.code}
                     backend={this.state.backend}
                     handleSearchType={this.handleSearchType} />
                 }
