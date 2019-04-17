@@ -24,7 +24,13 @@ class AnswersReact extends React.Component {
   async componentDidMount() {
     if (isLogin()) {
       if (this.props.match.params.aid !== undefined) {
-        const data = this.props.answers[this.props.match.params.aid];
+        let data = null;
+        for (let i in this.props.answers) {
+          if(String(this.props.answers[i].id) === this.props.match.params.aid){
+            data = this.props.answers[i];
+            break;
+          }
+        }
         if (data !== undefined) {
           this.setState(() => ({
             backend: data
