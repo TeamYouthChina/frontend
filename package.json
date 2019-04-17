@@ -1,0 +1,38 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@wojtekmaj/react-daterange-picker": "^2.1.0",
+    "braft-editor": "^2.2.9",
+    "eslint-plugin-react": "^7.12.4",
+    "griffith": "^1.2.1",
+    "isomorphic-fetch": "^2.2.1",
+    "js-cookie": "^2.2.0",
+    "mdbreact": "git+https://oauth2:HA3Lyzg_ziCJX8WTS113@git.mdbootstrap.com/mdb/react/re-pro.git",
+    "prop-types": "^15.7.2",
+    "query-string": "^6.3.0",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "react-infinite-scroll-component": "^4.5.2",
+    "react-redux": "^6.0.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.8",
+    "redux": "^4.0.1"
+  },
+  "scripts": {
+    "start": "PORT=2001 react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

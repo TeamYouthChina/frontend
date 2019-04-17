@@ -1,0 +1,27 @@
+.wrapper {
+  padding: 0;
+  margin-top: 1.562vw;
+}
+.mdbRow {
+  margin: .64vw 0; 
+  display: flex;
+}
+.avatar {
+  height: 100%;
+  margin: .469vw .859vw .469vw 0;
+}
+.imgStyle {
+  width: 2.5vw;
+  background: #F4F4F4
+}
+.commentWrapper {
+  padding-top: .391vw;
+  flex-grow: 1
+}
+.showSpan {
+  font-size: 1.093vw;
+  color: #31394D;
+}
+.iconStyle {
+  margin-left: .196vw;
+}

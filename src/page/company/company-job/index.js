@@ -1,0 +1,37 @@
+import React from 'react';
+import {withRouter} from 'react-router-dom';
+
+import classes from './index.module.css';
+import {languageHelper} from '../../../tool/language-helper';
+
+class CompanyJobReact extends React.Component {
+  constructor(props) {
+    super(props);
+    // state
+    this.state = {};
+    // i18n
+    this.text = CompanyJobReact.i18n[languageHelper()];
+    // style
+  }
+
+  render() {
+    return (
+      <div className={classes.content}>
+        <p className={classes.name}>在招职位</p>
+        <br/>
+        <p className="h3 grey-text">该公司没有别的在招职位</p>
+      </div>
+    );
+  }
+}
+
+CompanyJobReact.i18n = [
+  {},
+  {}
+];
+
+CompanyJobReact.propTypes = {
+  
+};
+
+export const CompanyJob = withRouter(CompanyJobReact);

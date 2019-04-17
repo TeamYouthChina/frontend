@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -u
+SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
+
+# The script is executed on the root directory of the repo.
+LIST=`git diff-index --name-only --diff-filter=d HEAD | grep .*\\.js | grep -v json`
+./eslint.sh ${LIST};

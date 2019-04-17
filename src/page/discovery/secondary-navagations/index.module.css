@@ -1,0 +1,11 @@
+.tabItems {
+  color: #454f69 !important;
+  font-size: 1.25vw !important;
+  font-weight: 400;
+  margin-left: 3.14vw;
+  margin-right: 3.14vw;
+}
+
+.tabItems:focus {
+  color: #4F65E1 !important;
+}

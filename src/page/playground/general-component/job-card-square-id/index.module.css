@@ -1,0 +1,54 @@
+.content{
+  width: 26.4vw;
+  padding:1.72vw 2.34vw;
+  background: #FFFFFF;
+  border: 1px solid #F0F3FA;
+  box-sizing: border-box;
+  border-radius: 2px;
+  z-index: 100;
+}
+.content:hover {
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  border-color: #eee;
+  transition: all 0.2s ease-in-out;
+}
+.logo{
+  width: 4.6875vw;
+  height: auto;
+}
+.title{
+  height: 3.55vw;
+  font-family: PingFang SC;
+  font-size: 1.25vw;
+  font-weight: bolder;
+  line-height: normal;
+
+  color: #454F69;
+
+
+}
+.company{
+  font-family: PingFang SC;
+  font-size: 1.09vw;
+  line-height: normal;
+  margin-top: 0.78vw;
+
+  color: #454F69;
+}
+.location{
+  font-family: PingFang SC;
+  font-size: 1.09vw;
+  line-height: normal;
+  margin-top: 0.39vw;
+
+  color: #454F69;
+}
+.ddl{
+  font-family: PingFang SC;
+  font-size: 1.09vw;
+  line-height: normal;
+  margin-top: 1.41vw;
+
+  color: #8D9AAF;
+
+}
