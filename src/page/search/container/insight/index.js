@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  MDBCol,
-  MDBListGroup,
-  MDBListGroupItem,
-  MDBRow
-} from 'mdbreact';
+import {MDBCol, MDBListGroup, MDBListGroupItem, MDBRow} from 'mdbreact';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import classes from './index.module.css';
@@ -12,9 +7,9 @@ import wrtiteArticle from '../../assets/writeArticle.svg';
 import writeQuestion from '../../assets/writeQuestion.svg';
 import writeReview from '../../assets/writeReview.svg';
 
-import {ReviewCardBarId} from '../../card/review-card-bar-id';
 import {ArticleCardBarId} from '../../../playground/general-component/article-card-bar-id';
 import {AnswerCardBarId} from '../../../playground/general-component/answer-card-bar-id';
+// import {ReviewCardBarId} from '../../../playground/general-component/review-card-bar-id';
 import {languageHelper} from '../../../../tool/language-helper';
 
 const basicCHNFont = {
@@ -68,43 +63,22 @@ class SearchInsightResultReact extends React.Component {
       <div className="cell-wall">
         <div className="cell-membrane">
 
-          {
-            this.props.backend ?
-              (this.props.backend.status && this.props.backend.status.code === 2000 ? (this.props.backend.content.data.map((item, index) => (
-                <MDBRow key={index} style={{margin: '1rem 0rem'}}>
-                  <p>{item.content.id}</p>
-                </MDBRow>))) : (this.props.backend.status.code === 4040 ? <p>没有搜索结果。</p> : <p>Here should be a loading card.</p>)
-              )
-              : null
-          }
-
           <MDBRow style={{marginTop: '2vw'}}>
             <main className={classes.mainBody}>
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol>
-                  <ArticleCardBarId id={12} />
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol>
-                  <ReviewCardBarId id={2} />
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol>
-                  <AnswerCardBarId id={12} questionId={12}/>
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol>
-                  {/*<ReviewCardBarId id={1} />*/}
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol>
-                  <ArticleCardBarId id={12} />
-                </MDBCol>
-              </MDBRow>
+              {
+                this.props.backend ?
+                  (this.props.code === 2000 ? (this.props.backend.map((item, index) => (
+                    <MDBRow className={classes.cardBarRow} key={index}>
+                      <MDBCol>
+                        {item.type === 'article' ? <ArticleCardBarId id={item.content.id} /> :
+                          <AnswerCardBarId
+                            questionId={item.content.id}
+                            questionTitle={item.content.title}
+                            id={item.content.answers[0].id} />}
+                      </MDBCol>
+                    </MDBRow>))) : (this.props.backend.status.code === 4040 ? <p>没有搜索结果。</p> : <p>Here should be a loading card.</p>)
+                  ) : null
+              }
             </main>
 
             <aside className={classes.sideBar}>
@@ -196,7 +170,8 @@ SearchInsightResultReact.propTypes = {
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   handleSearchType: PropTypes.func.isRequired,
-  backend: PropTypes.object.isRequired
+  backend: PropTypes.object.isRequired,
+  code: PropTypes.number.isRequired
 };
 
 export const SearchInsightResult = withRouter(SearchInsightResultReact);

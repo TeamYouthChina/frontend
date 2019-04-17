@@ -36,9 +36,10 @@ class SearchReact extends React.Component {
       tabsContent: '职位',
       keyword: null, //搜索关键词
       backend: null, //搜索到的数据
+      code: null,
+      page: 1,
       searchType: null
     };
-    // this.toggleClassicTabs1 = this.toggleClassicTabs1.bind(this);
   }
 
   handleInputKeyword = event => {
@@ -49,35 +50,41 @@ class SearchReact extends React.Component {
 
   handleKeywordSearch = async (event) => {
     event.preventDefault();
-    try {
-      const result = await getAsync(`/search?type=${this.state.searchType}&title=${this.state.keyword}`);
+    let result = [];
+    let count = 0;
+    const len = this.state.searchType.length;
+    const limit = 6 / len;
+    let code = null;
+    while (count < len) {
+      const temp = await this.getData(this.state.searchType[count++], limit);
+      result = [...result, ...temp.content.data];
+      code = temp.status.code;
       // eslint-disable-next-line
-      console.log(result);
+      console.log(code);
+    }
+    // eslint-disable-next-line
+    console.log(result);
+    this.setState(() => {
+      return {
+        backend: result,
+        code
+      };
+    });
+  };
+
+  getData = async (parameter, limit) => {
+    try {
+      const result = await getAsync(`/search?type=${parameter}&title=${this.state.keyword}&limit=${limit}&page=${this.state.page}`);
       if (result && result.status) {
-        this.setState(() => {
-          return {backend: result};
-        });
+        return result;
       } else {
-        this.setState(() => {
-          return {collectionNum: 0};
-        });
+        return null;
       }
     } catch (error) {
       // eslint-disable-next-line
       console.log(error);
     }
   };
-
-  // handleTabsContent = tabsContent => {
-  //   this.setState({
-  //     ...this.state,
-  //     tabsContent
-  //   });
-  // };
-  //
-  // toggleCollapse = collapseID => () => {
-  //   this.setState(prevState => ({collapseID: (prevState.collapseID !== collapseID ? collapseID : '')}));
-  // };
 
   handleSearchType = () => {
     // eslint-disable-next-line
@@ -86,23 +93,23 @@ class SearchReact extends React.Component {
     switch (true) {
       case path.includes('/job'):
         this.setState(() => {
-          return {searchType: 'job'};
+          return {searchType: ['job']};
         });
         break;
       case path.includes('/company'):
         this.setState(() => {
-          return {searchType: 'company'};
+          return {searchType: ['company']};
         });
         break;
       case path.includes('/insight'):
         this.setState(() => {
           //todo, 洞见搜索应该整合问题，回答和短则的结果。
-          return {searchType: 'article'};
+          return {searchType: ['article', 'question']};
         });
         break;
       case path.includes('/connection'):
         this.setState(() => {
-          return {searchType: 'connection'};
+          return {searchType: ['connection']};
         });
     }
   };
@@ -208,7 +215,7 @@ class SearchReact extends React.Component {
                 render={(props) =>
                   <SearchInsightResult
                     {...props}
-                    keyword={this.state.keyword}
+                    code={this.state.code}
                     backend={this.state.backend}
                     handleSearchType={this.handleSearchType} />
                 }
