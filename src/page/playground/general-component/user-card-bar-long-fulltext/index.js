@@ -21,7 +21,7 @@ class UserCardBarAuthReact extends React.Component {
   async componentDidMount() {
     if (this.props.id) {
       this.setState({
-        backend: await getAsync(`/discovery/${this.props.id}`)
+        backend: await getAsync(`/applicants/${this.props.id}`)
       });
     } else {
       this.setState({
@@ -36,37 +36,37 @@ class UserCardBarAuthReact extends React.Component {
         <div>
           <img
             style={deviceHelper.getType() === deviceHelper.MOBILE ? {width: '50px'} : {width: '80px'}}
-            src={(this.state.backend.content.avatarUrl)?(this.state.backend.content.avatarUrl):('http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png')}
+            src={(!(this.props.avatarUrl==='---'))?(this.props.avatarUrl):('http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png')}
             className="rounded-circle img-fluid p-0 float-right"
             alt="Sample avatar"
           />
         </div>
         <div>
           <div className={classes.name}>
-            {this.state.backend.content.name}
+            {this.props.name}
           </div>
           <div className="d-flex">
             <div>
               <p className={classes.education}>
-                {this.state.backend.content.education[0].degree},{this.state.mockData.content.education[0].duration[0].end}
+                {this.props.role},{this.props.role}
               </p>
               <p className={classes.info}>
-                {this.state.mockData.content.works[1].duration[0].begin} {this.state.mockData.content.works[1].position}
+                {this.props.nation} 
               </p>
               <p className={classes.info}>
-                {this.state.mockData.content.works[0].duration[0].begin} {this.state.mockData.content.works[0].position}
+                {this.props.age}
               </p>
             </div>
             <div>
-              <p className={classes.education}>
-                {this.state.mockData.content.education[0].major} <span className="red-text h6">API没有</span>
+              {/*<p className={classes.education}>
+                {this.state.backend.content.educations[0]} 
               </p>
               <p className={classes.info}>
-                {this.state.mockData.content.education[0].university}
+                {this.state.backend.content.educations[0]}
               </p>
               <p className={classes.info}>
-                {this.state.mockData.content.education[0].organization} <span className="red-text h6">API没有</span>
-              </p>
+                {this.state.backend.content.educations[0]} 
+              </p>*/}
             </div>
           </div>
         </div>
@@ -89,6 +89,11 @@ UserCardBarAuthReact.i18n = [
 UserCardBarAuthReact.propTypes = {
   // self
   id: PropTypes.string.isRequired,
+  name:PropTypes.string.isRequired,
+  avatarUrl:PropTypes.string.isRequired,
+  role:PropTypes.string.isRequired,
+  nation:PropTypes.string.isRequired,
+  age:PropTypes.number.isRequired,
   
   // React Router
   match: PropTypes.object.isRequired,

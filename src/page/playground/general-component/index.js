@@ -18,7 +18,7 @@ import {Location} from './location';
 //import {ReviewCardBarId} from './review-card-bar-id';
 //import {ReviewCardBarFulltext} from './review-card-bar-fulltext';
 import {UserCardSquareAuth} from './user-card-square-fulltext';
-import {UserCardBarAuth} from './user-card-bar-auth';
+import {UserCardBarAuth} from './user-card-bar-long-fulltext';
 
 class GeneralComponentReact extends React.Component {
   constructor(props) {

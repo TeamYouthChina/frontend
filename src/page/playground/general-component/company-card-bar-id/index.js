@@ -13,6 +13,7 @@ import {IfCollect} from '../if-collect';
 import location from './location.svg';
 
 import { languageHelper } from '../../../../tool/language-helper';
+import {Location} from '../location';
 
 
 class CompanyCardBarIdReact extends React.Component {
@@ -68,9 +69,11 @@ class CompanyCardBarIdReact extends React.Component {
             </div>
             <div className={classes.Des1}>
               <img src={location} alt="no img" />
-              <p>
-                
-              </p>
+              <Location
+                code={this.state.backend.content.location[0]}
+                edit={false}
+                locate={()=>{}}
+              />
             </div>
             <div className={classes.Des2}>
               <img src={employee} alt="no img" />

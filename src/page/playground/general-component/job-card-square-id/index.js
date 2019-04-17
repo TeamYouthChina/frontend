@@ -14,6 +14,7 @@ import {IfCollect} from '../if-collect';
 import {languageHelper} from '../../../../tool/language-helper';
 
 import {getAsync} from '../../../../tool/api-helper';
+import {Location} from '../location';
 
 
 
@@ -66,7 +67,13 @@ class JobCardSquareReact extends React.Component {
         </div>
         <div className={classes.title}>{this.state.backend.content.name}</div>
         <div className={classes.company}>{this.state.backend.content.organization.name}</div>
-        <div className={classes.location}>{this.state.backend.content.location}</div>
+        <div className={classes.location}>
+          <Location
+            code={this.state.backend.content.location[0]}
+            edit={false}
+            locate={()=>{}}
+          />
+        </div>
         <div className="d-flex justify-content-between">
           <div className={classes.ddl}>{this.state.backend.content.deadLine}</div>
           
