@@ -146,6 +146,7 @@ export class AnswerCard extends React.Component {
   onVote = () => {
     let evaluateStatus = this.state.backend.evaluateStatus;
     let upvoteCount = this.state.backend.upvoteCount;
+    let downvoteCount = this.state.backend.downvoteCount;
     const data = {
       id:Number(window.localStorage.id)
     };
@@ -173,7 +174,7 @@ export class AnswerCard extends React.Component {
           upvoteCount
         }
       }));
-    } else {
+    } else if(evaluateStatus === 3) {
       evaluateStatus = 1;
       upvoteCount++;
       try {
@@ -192,6 +193,110 @@ export class AnswerCard extends React.Component {
         backend: {
           ...this.state.backend,
           evaluateStatus,
+          upvoteCount
+        }
+      }));
+    } else {
+      evaluateStatus = 1;
+      upvoteCount++;
+      downvoteCount--;
+      try {
+        fetch(
+          `${urlPrefix}/${type}/${id}/upvote`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+      this.setState(() => ({
+        backend: {
+          ...this.state.backend,
+          evaluateStatus,
+          upvoteCount,
+          downvoteCount
+        }
+      }));
+    }
+  };
+  // 反对
+  onDownVote = () => {
+    let evaluateStatus = this.state.backend.evaluateStatus;
+    let downvoteCount = this.state.backend.downvoteCount;
+    let upvoteCount = this.state.backend.upvoteCount;
+    const data = {
+      id:Number(window.localStorage.id)
+    };
+    let id = this.props.reviewId === undefined ? this.state.backend.id : this.props.reviewId;
+    let type = this.props.type === 'fromQuestion' ? 'answers' : 'editorials';
+    if (evaluateStatus === 2) {
+      evaluateStatus = 3;
+      downvoteCount--;
+      try {
+        fetch(
+          `${urlPrefix}/${type}/${id}/vote`,
+          {
+            method: 'DELETE',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+      this.setState(() => ({
+        backend: {
+          ...this.state.backend,
+          evaluateStatus,
+          downvoteCount
+        }
+      }));
+    } else if(evaluateStatus === 3) {
+      evaluateStatus = 2;
+      downvoteCount++;
+      try {
+        fetch(
+          `${urlPrefix}/${type}/${id}/downvote`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+      this.setState(() => ({
+        backend: {
+          ...this.state.backend,
+          evaluateStatus,
+          downvoteCount
+        }
+      }));
+    } else {
+      evaluateStatus = 2;
+      downvoteCount++;
+      upvoteCount--;
+      try {
+        fetch(
+          `${urlPrefix}/${type}/${id}/downvote`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+      this.setState(() => ({
+        backend: {
+          ...this.state.backend,
+          evaluateStatus,
+          downvoteCount,
           upvoteCount
         }
       }));
@@ -289,9 +394,11 @@ export class AnswerCard extends React.Component {
               evaluateStatus={backend.evaluateStatus}
               onAttention={this.onAttention}
               onVote={this.onVote}
+              onDownVote={this.onDownVote}
               attention={backend.attention}
               attentionCount={backend.attentionCount}
               upvoteCount={backend.upvoteCount}
+              downvoteCount={backend.downvoteCount}
             />
           ) : null}
         </div>

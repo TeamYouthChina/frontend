@@ -183,8 +183,8 @@ class Comments extends React.Component {
 Comments.propTypes = {
   // 评论text
   commentsText: PropTypes.string.isRequired,
-  onTellParent: PropTypes.func.isRequired,
   history: PropTypes.object,
+  onTellParent: PropTypes.func,
   id: PropTypes.number,
   type: PropTypes.string,
   // 收起评论

@@ -210,7 +210,9 @@ class ArticleCreate extends React.Component {
         previewText: previewText,
         compiletype: 1
       },
-      company_id:null
+      rela_id: 0,
+      rela_type: 0,
+      is_anonymous: false
     };
     if(this.props.match.params.id === undefined) {
       try {

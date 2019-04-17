@@ -24,11 +24,21 @@
   padding: 0.391vw 0.781vw;
   margin-left: 1.172vw;
   font-size: 1.094vw;
-  background-color: red!important;
   color:#8D9AAF;
   font-family: PingFang SC;
   line-height: normal;
 }
 .iconStyle {
   margin-right: 0.391vw;
+}
+.btnIcon{
+  margin-right:.78vw;
+}
+.btnOthers{
+  border:none;
+  font-family: PingFang SC;
+  line-height: normal;
+  color:inherit;
+  font-size:1.09vw;
+  padding:.78vw 1.56vw;
 }
