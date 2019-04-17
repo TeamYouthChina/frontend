@@ -5,7 +5,12 @@
   border: 1px solid #F0F3FA;
   box-sizing: border-box;
   border-radius: 2px;
-  
+  z-index: 100;
+}
+.content:hover {
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  border-color: #eee;
+  transition: all 0.2s ease-in-out;
 }
 .logo{
   width: 4.6875vw;

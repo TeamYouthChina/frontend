@@ -32,7 +32,13 @@ class ArticleCardSquareReact extends React.Component {
 
 
     return (
-      <div className={classes.content}>
+      <div 
+        className={classes.content}
+        onClick={()=>{
+          this.props.history.push(`/article/${this.props.id}`);
+        }}
+        style={{cursor:'pointer'}}
+      >
         <div className="d-flex justify-content-between">
           <div className={classes.title}>
             {this.props.title}

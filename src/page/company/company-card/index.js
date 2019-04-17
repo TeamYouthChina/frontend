@@ -4,12 +4,7 @@ import { withRouter} from 'react-router-dom';
 
 
 import classes from './index.module.css';
-
-import logo from './logo.png';
-
-
 import {languageHelper} from '../../../tool/language-helper';
-
 import {IfCollect} from '../../playground/general-component/if-collect';
 
 
@@ -30,7 +25,9 @@ class CompanyCardReact extends React.Component {
       <div className={classes.companycard}>
         <div>
           <img
-            src={logo}
+            src={(this.props.backend.content.avatarUrl)?(this.props.backend.content.avatarUrl):('https://frontendpic.oss-us-east-1.aliyuncs.com/%E5%85%AC%E5%8F%B8.png')}
+            alt="no img"
+            className="img-fluid p-0 float-right"
             style={{
               width:'5.7vw',
               height:'auto',
@@ -86,7 +83,11 @@ class CompanyCardReact extends React.Component {
             alignSelf:'flex-end'
           }}
         >
-          <IfCollect/>
+          <IfCollect
+            id={this.props.backend.content.id}
+            type={2}
+            ifcollect={this.props.backend.content.collected}
+          />
         </div>
 
       </div>
