@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
 
 import classes from './index.module.css';
-import {AnswerCardSquare} from '../playground/general-component/answer-card-square-full';
-import {ArticleCardSquare} from '../playground/general-component/article-card-square-id';
+import {AnswerCardSquare} from '../playground/general-component/answer-card-square-fulltext';
+import {ArticleCardSquare} from '../playground/general-component/article-card-square-fulltext';
 import {CompanyCardSquare} from '../playground/general-component/company-card-square-id';
 import {JobCardSquare} from '../playground/general-component/job-card-square-id';
-import {ReviewCardSquare} from '../playground/general-component/review-card-square-id';
-import {UserCardBarFull} from '../playground/general-component/user-card-bar-full';
+import {ReviewCardSquare} from '../playground/general-component/review-card-square-fulltext';
+import {UserCardBarFull} from '../playground/general-component/user-card-bar-fulltext';
 
 
 import {languageHelper} from '../../tool/language-helper';
@@ -131,9 +131,11 @@ class BestForYouReact extends React.Component {
                       return (
                         <div style={{marginBottom:'1vw'}} key={index}>
                           <AnswerCardSquare
+                            id={item.content.id}
                             title={item.content.title}
                             avatar={item.content.creator.avatar_url}
                             username={item.content.creator.username}
+                            
                           />
                         </div>
                       );
@@ -154,6 +156,7 @@ class BestForYouReact extends React.Component {
                       return (
                         <ReviewCardSquare
                           key={index}
+                          id={item.content.id}
                           body={item.content.body.previewText}
                           title={item.title}
                           avatar={item.content.author.avatar_url}
@@ -178,9 +181,11 @@ class BestForYouReact extends React.Component {
                       return (
                         <div style={{marginBottom:'1vw'}} key={index}>
                           <ArticleCardSquare
+                            id={item.content.id}
                             title={item.content.title}
-                            avatar={item.author}
-                            username={item.author}
+                            avatar={item.content.author}
+                            username={item.content.author}
+                            ifcollect={item.content.attention}
                           />
                         </div>
                       );

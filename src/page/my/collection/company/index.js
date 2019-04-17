@@ -86,7 +86,7 @@ class CompanyReact extends React.Component {
                             fontSize: '1.09375vw'
                           }}
                         >
-                          {this.state.backend.content.data.length}家公司
+                          API没有家公司
                         </span>
                       </div>
                     );
@@ -132,7 +132,7 @@ class CompanyReact extends React.Component {
                   return (
                     <div>
                       {
-                        this.state.backend.content.data.map((item, index) => {
+                        this.state.backend.content.company.data.map((item, index) => {
                           return (
                             <div
                               key={index}
