@@ -5,7 +5,7 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 import {Application} from './application';
 import {CollectionSwitch} from './collection/index.switch';
 import {FileSwitch} from './file/index.switch';
-// import {content} from './index.mock';
+import {content} from './index.mock';
 import {ComingSoon} from '../coming-soon';
 import {Message} from './message';
 import {Establish} from './establish';
@@ -16,7 +16,7 @@ import {Header2} from '../header-2';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 import * as deviceHelper from '../../tool/device-helper';
-// import {mockGetAsync} from '../../tool/api-helper';
+import {mockGetAsync} from '../../tool/api-helper';
 
 
 class MyReact extends React.Component {
@@ -52,10 +52,9 @@ class MyReact extends React.Component {
   async componentDidMount() {
     // const requestedData = await getAsync();
     // this.setState({ cardData: requestedData, ...this.state });
-    
-    // 这个componentdidmount 导致下面所有的components都刷新两边
-    // const requestedData = await mockGetAsync(content);
-    // this.setState({ ...this.state, mockData: requestedData});
+
+    const requestedData = await mockGetAsync(content);
+    this.setState({ ...this.state, mockData: requestedData});
   }
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);

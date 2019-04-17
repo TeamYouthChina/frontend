@@ -1,7 +1,7 @@
 import React from 'react';
 import {MDBIcon} from 'mdbreact';
 import PropTypes from 'prop-types';
-import {withRouter, Link} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 import {SignedIn} from './signed-in';
 //import {SignedOut} from './signed-out';
@@ -38,21 +38,28 @@ class HeaderReact extends React.Component {
               <div className="cell-wall">
                 <div className={`cell-membrane ${classes['header-flex']} align-items-center`}>
                   
-                  <a className={`py-2 ${classes.yc} navbar-brand`} href="/best-for-you">
-                    <MDBIcon className="mr-sm-2" icon="cubes" />
-                    职 道
+                  <a className={'py-2 navbar-brand'} href="/best-for-you">
+                    <img 
+                      style={{height:'2.5vw'}}
+                      src="https://frontendpic.oss-us-east-1.aliyuncs.com/1.png?Expires=1555536444&OSSAccessKeyId=TMP.AQGTLD32C_Qaeal-ye5YSZybECYteS7YqatJMdgk-Y7CojL0pq2uUn4v2ovFADAtAhUAqP68rf7otvwNJ22CcntvkNU_h0kCFF-HKlTl5JXHxws9ZfIXIa6qutLD&Signature=pO%2BKfAcWiS698PQsNCk7W0f1tkc%3D"
+                      className="img-fluid"
+                    />
                   </a>
                   
                   <ul className={`d-flex list-inline  pl-md-3 my-0 mr-auto ${classes.nav}`}>
                     <li
                       className={`${classes.navItem} nav-item list-inline-item mr-3`}
                     >
-                      <Link 
+                      <a 
                         className="nav-link"
-                        to="/discovery"
+                        onClick={
+                          () => {
+                            this.props.history.push('/discovery');
+                          }
+                        }
                       >
                         职场社交
-                      </Link>
+                      </a>
                     </li>
                     <li
                       className={`${classes.navItem} mr-3 nav-item`}

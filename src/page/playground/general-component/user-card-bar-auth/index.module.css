@@ -4,6 +4,11 @@
   background: #FFFFFF;
   border-radius: 2px;
 }
+.content:hover {
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  border-color: #eee;
+  transition: all 0.2s ease-in-out;
+}
 .name{
   font-family: PingFang SC;
   font-size: 16px;

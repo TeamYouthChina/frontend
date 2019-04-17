@@ -30,7 +30,13 @@ class AnswerCardSquareReact extends React.Component {
 
 
     return (
-      <div className={classes.content}>
+      <div 
+        className={classes.content}
+        onClick={()=>{
+          this.props.history.push(`/question/${this.props.id}`);
+        }}
+        style={{cursor:'pointer'}}
+      >
         <div className="d-flex justify-content-between">
           <div className={classes.title}>
             {this.props.title}
@@ -79,6 +85,7 @@ AnswerCardSquareReact.propTypes = {
   // self
 
   /* 在这里添加自定义的组件属性。重要！务必添加，否则 ESlint 会报错，并导致无法 commit。 */
+  id:PropTypes.number.isRequired,
   avatar: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
