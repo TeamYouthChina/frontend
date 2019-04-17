@@ -33,7 +33,7 @@ class SearchReact extends React.Component {
       collapseID: '',
       tabsContent: '职位',
       //搜索关键词
-      keyword: null,
+      keyword: '',
       //搜索到的数据
       backend: null,
       //后端状态码
@@ -89,6 +89,7 @@ class SearchReact extends React.Component {
     }
   };
 
+  //切换搜索页面时，更改搜索类型
   handleSearchType = () => {
     // eslint-disable-next-line
     const path = this.props.location.pathname;
@@ -106,7 +107,7 @@ class SearchReact extends React.Component {
         break;
       case path.includes('/insight'):
         this.setState(() => {
-          return {searchType: ['article', 'question']};
+          return {searchType: ['article', 'question', 'editorial']};
         });
         break;
       case path.includes('/connection'):

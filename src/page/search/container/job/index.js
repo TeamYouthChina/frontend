@@ -38,7 +38,7 @@ class SearchJobResultReact extends React.Component {
     // state
     this.state = {
       collectionType: 'job',
-      collectionNum: null
+      collectionNum: 0
     };
     // i18n
     this.text = SearchJobResultReact.i18n[languageHelper()];
