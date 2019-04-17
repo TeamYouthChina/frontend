@@ -34,11 +34,11 @@ class DiscoveryInsightReact extends React.Component {
     this.state = {
       backend: null,
       //搜索类型，三种文章类型混合搜索
-      searchType: ['articles', 'questions', 'editorials'], 
+      searchType: ['articles', 'questions', 'editorials'],
       //分页
-      page: 0, 
+      page: 0,
       //后端状态码
-      code: null, 
+      code: null,
       // infiniteScroll是否可以继续滚动
       hasMore: true,
       //存储文章条目
@@ -61,11 +61,15 @@ class DiscoveryInsightReact extends React.Component {
       // eslint-disable-next-line
       console.log(code);
     }
+    // eslint-disable-next-line
+    console.log(result);
+
     // const result = await mockGetAsync(content);
     this.setState((prevState) => {
       return {
         list: prevState.list.concat(result),
-        page: this.state.page + 1
+        page: this.state.page + 1,
+        code
         // hasMore: backend.content.hasMore && prevState.itemList.length < 23
       };
     });
@@ -95,33 +99,38 @@ class DiscoveryInsightReact extends React.Component {
         <div className="cell-membrane">
           <MDBRow style={{marginTop: '2vw'}}>
             <main className={classes.mainBody}>
-              <InfiniteScroll
-                dataLength={this.state.list.length}
-                hasMore={this.state.hasMore}
-                loader={
-                  <Loading />
-                }
-                next={this.getMore}
-              >
-                {
-                  this.state.list.map((item, index) => (
-                    <MDBRow key={index} className={classes.cardBarRow}>
-                      <MDBCol>
-                        {(() => {
-                          switch (item.type) {
-                            case 'article':
-                              return <ArticleCardBarId id={item.content.id} />;
-                            case 'question':
-                              return <AnswerCardBarId id={item.content.id} />;
-                            case 'briefReview':
-                              return <ReviewCardBarId id={item.content.id} />;
-                          }
-                        })()}
-                      </MDBCol>
-                    </MDBRow>
-                  ))
-                }
-              </InfiniteScroll>
+              {this.state.code === 2000 ?
+                <InfiniteScroll
+                  dataLength={this.state.list.length}
+                  hasMore={this.state.hasMore}
+                  loader={
+                    <Loading />
+                  }
+                  next={this.getMore}
+                >
+                  {
+                    this.state.list.map((item, index) => (
+                      <MDBRow key={index} className={classes.cardBarRow}>
+                        <MDBCol>
+                          {(() => {
+                            switch (item.type) {
+                              case 'article':
+                                return <ArticleCardBarId id={item.content.id} />;
+                              case 'question':
+                                return <AnswerCardBarId
+                                  questionId={item.content.id}
+                                  questionTitle={item.content.title}
+                                  id={item.content.answers[0].id} />;
+                              case 'editorial':
+                                return <ReviewCardBarId id={item.content.id} />;
+                            }
+                          })()}
+                        </MDBCol>
+                      </MDBRow>
+                    ))
+                  }
+                </InfiniteScroll> : <Loading />}
+
             </main>
             <aside className={classes.sideBar}>
               <MDBListGroup style={{fontSize: '1.25vw', marginBottom: '1.56vw'}}>
