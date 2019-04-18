@@ -17,7 +17,7 @@ const Share = React.memo((props) =>(
 ));
 
 Share.propTypes = {
-  onShare: PropTypes.object.isRequired,
+  onShare: PropTypes.func.isRequired,
   content: PropTypes.string.isRequired,
   showShare: PropTypes.bool.isRequired,
 };

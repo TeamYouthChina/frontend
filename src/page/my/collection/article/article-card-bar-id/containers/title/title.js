@@ -7,7 +7,7 @@ import classes from './index.module.css';
 const Title = (props) => (
   <div className={classes.wrapper}>
     <Link  to={{
-      pathname:'/question/0/answer/0',
+      pathname:`/article/${props.id}`,
     }}>
       <strong className={classes.title}>{props.title}</strong>
     </Link>
@@ -19,6 +19,7 @@ const Title = (props) => (
 Title.propTypes = {
   // self
   title: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default Title;
