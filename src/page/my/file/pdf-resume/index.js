@@ -20,6 +20,10 @@ class PdfResumeReact extends React.Component {
     this.text = PdfResumeReact.i18n[languageHelper()];
   }
 
+  componentDidMount(){
+
+  }
+
   onCreateResume = () => {
     this.setState({
       upload: true
