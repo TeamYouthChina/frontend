@@ -26,12 +26,14 @@ class ReplyCard extends React.Component{
   onVote = () => {
     let evaluateStatus = this.state.backend.evaluateStatus;
     let upvoteCount = this.state.backend.upvoteCount;
+    let downvoteCount = this.state.backend.downvoteCount;
     const data = {
       id:Number(window.localStorage.id)
     };
+    // 取消点赞
     if (evaluateStatus === 1) {
       evaluateStatus = 3;
-      upvoteCount = upvoteCount === null ? 0 : --upvoteCount;
+      upvoteCount--;
       try {
         fetch(
           `${urlPrefix}/replies/${this.props.data.id}/vote`,
@@ -51,9 +53,11 @@ class ReplyCard extends React.Component{
           upvoteCount
         }
       }));
-    } else {
+    } else if(evaluateStatus === 2) {
+      // 取消反对
       evaluateStatus = 1;
-      upvoteCount = upvoteCount === null ? 1 : ++upvoteCount;
+      upvoteCount++;
+      downvoteCount--;
       try {
         fetch(
           `${urlPrefix}/replies/${this.props.data.id}/upvote`,
@@ -70,6 +74,107 @@ class ReplyCard extends React.Component{
         backend: {
           ...this.state.backend,
           evaluateStatus,
+          upvoteCount,
+          downvoteCount
+        }
+      }));
+    } else {
+      evaluateStatus = 1;
+      upvoteCount++;
+      try {
+        fetch(
+          `${urlPrefix}/replies/${this.props.data.id}/upvote`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+      this.setState(() => ({
+        backend: {
+          ...this.state.backend,
+          evaluateStatus,
+          upvoteCount
+        }
+      }));
+    }
+  };
+  // 反对
+  onDownVote = () => {
+    let evaluateStatus = this.state.backend.evaluateStatus;
+    let upvoteCount = this.state.backend.upvoteCount;
+    let downvoteCount = this.state.backend.downvoteCount;
+    const data = {
+      id:Number(window.localStorage.id)
+    };
+    if (evaluateStatus === 2) {
+      evaluateStatus = 3;
+      downvoteCount--;
+      try {
+        fetch(
+          `${urlPrefix}/replies/${this.props.data.id}/vote`,
+          {
+            method: 'DELETE',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+      this.setState(() => ({
+        backend: {
+          ...this.state.backend,
+          evaluateStatus,
+          downvoteCount
+        }
+      }));
+    } else if(evaluateStatus === 3) {
+      evaluateStatus = 2;
+      downvoteCount++;
+      try {
+        fetch(
+          `${urlPrefix}/replies/${this.props.data.id}/downvote`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+      this.setState(() => ({
+        backend: {
+          ...this.state.backend,
+          evaluateStatus,
+          downvoteCount
+        }
+      }));
+    } else {
+      evaluateStatus = 2;
+      downvoteCount++;
+      upvoteCount--;
+      try {
+        fetch(
+          `${urlPrefix}/replies/${this.props.data.id}/downvote`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+      this.setState(() => ({
+        backend: {
+          ...this.state.backend,
+          evaluateStatus,
+          downvoteCount,
           upvoteCount
         }
       }));
@@ -97,7 +202,9 @@ class ReplyCard extends React.Component{
               />
               <ReplyFooter
                 onVote={this.onVote}
+                onDownVote={this.onDownVote}
                 upvoteCount={backend.upvoteCount}
+                downvoteCount={backend.downvoteCount}
                 evaluateStatus={backend.evaluateStatus}
               />
             </div>

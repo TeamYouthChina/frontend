@@ -51,9 +51,8 @@ class CompanyReact extends React.Component {
               <div>
                 <CompanyCard backend={this.state.backend} />
                 <CompanyDesci backend={this.state.backend} />
-                <CompanyJob />
+                <CompanyJob id={this.state.backend.content.id}/>
                 <CompanyPic backend={this.state.backend}/>
-                
               </div>
               {/*<div className={classes.menu}>
                 <div className={classes.font} style={{color: '#4F65E1'}}>概况</div>

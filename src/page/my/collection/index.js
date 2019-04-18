@@ -8,6 +8,7 @@ import company from './company.png';
 import job from './job.png';
 import {Redirect} from 'react-router-dom';
 import {CollectionCard} from './card';
+import {isLogin} from '../../../tool/api-helper';
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 
@@ -18,6 +19,13 @@ class CollectionReact extends React.Component {
     this.state = {};
     // i18n
     this.text = CollectionReact.i18n[languageHelper()];
+  }
+  
+
+  componentDidMount() {
+    if(!isLogin()){
+      this.props.history.push('/login');
+    }
   }
 
   render() {
@@ -38,23 +46,23 @@ class CollectionReact extends React.Component {
             </div>
             <div className="d-flex" style={{marginBottom:'2.03vw'}}>
               <div style={{marginRight:'1.875vw'}}>
-                <CollectionCard text={'职位'} logo={job} tag={'16份职位'} url={'job'}/>
+                <CollectionCard text={'职位'} logo={job} type={'job'} url={'job'}/>
               </div>
               <div>
-                <CollectionCard text={'公司'} logo={company} tag={'7家公司'} url={'company'}/>
+                <CollectionCard text={'公司'} logo={company}  type={'company'} url={'company'}/>
               </div>
             </div>
             <div className="d-flex" style={{marginBottom:'2.03vw'}}>
               <div style={{marginRight:'1.875vw'}}>
-                <CollectionCard text={'文章'} logo={article} tag={'4篇文章'} url={'article'}/>
+                <CollectionCard text={'文章'} logo={article} type={'article'} url={'article'}/>
               </div>
               <div>
-                <CollectionCard text={'短则'} logo={comment} tag={'16条短则'}/>
+                <CollectionCard text={'短则'} logo={comment} type={'editorial'} url={'review'}/>
               </div>
             </div>
             <div className="d-flex" style={{marginBottom:'8.03vw'}}>
               <div style={{marginRight:'1.875vw'}}>
-                <CollectionCard text={'回答'} logo={answer} tag={'12条回答'} url={'answer'}/>
+                <CollectionCard text={'回答'} logo={answer} type={'answer'} url={'answer'}/>
               </div>
             </div>
             

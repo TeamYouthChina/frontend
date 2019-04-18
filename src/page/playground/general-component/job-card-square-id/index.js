@@ -42,9 +42,6 @@ class JobCardSquareReact extends React.Component {
     }
   }
   render() {
-
-
-
     return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ? (
       <div 
         className={classes.content}

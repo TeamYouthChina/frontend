@@ -137,7 +137,7 @@ class Comments extends React.Component {
           <CommentCard
             key={item.id}
             id={item.id}
-            user={item.creator.username}
+            user={item.creator && item.creator.username}
             time={timeHelper(item.modified_at)}
             content={item.body}
             upvoteCount={item.upvoteCount}
@@ -149,7 +149,7 @@ class Comments extends React.Component {
           <CommentCard
             key={item.id}
             id={item.id}
-            user={item.creator.username}
+            user={item.creator && item.creator.username}
             time={timeHelper(item.modified_at)}
             content={item.body}
             upvoteCount={item.upvoteCount}

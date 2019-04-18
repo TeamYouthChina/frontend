@@ -6,8 +6,8 @@ import {languageHelper} from '../../../../tool/language-helper';
 import classes from './review-dex.module.css';
 import Comment from '../../public/comment.svg';
 import Share from '../../public/share.svg';
-import ThumbUp from '../../public/thumb-up.svg';
 import braftEditor from 'braft-editor';
+import {MDBIcon} from 'mdbreact';
 
 const ReviewDes = (props) => (
   <div className={classes.reviewDesWrapper}>
@@ -24,7 +24,9 @@ const ReviewDes = (props) => (
           <span className={classes.titleSpan}>{props.user}</span>
           <span className={classes.desSpan}>{props.description}</span>
         </div>
-        <button onClick={props.onAttention} className={props.attention ? classes.btnStyleFocusActive : classes.btnStyleFocus}>
+        <button 
+          onClick={props.onAttention}
+          className={props.attention ? classes.btnStyleFocusActive : classes.btnStyleFocus}>
           {props.attention ? '已关注' : '+关注短则'}
         </button>
       </div>
@@ -36,16 +38,36 @@ const ReviewDes = (props) => (
     <br />
     <div style={{width: '66.1vw'}}>
       <p className={classes.questionTitle}>{props.content.title}</p>
-      <p className={classes.richText} dangerouslySetInnerHTML={{__html: props.content.detail === '' ? braftEditor.createEditorState(props.content.detail).toHTML() : braftEditor.createEditorState(JSON.parse(props.content.detail).braftEditorRaw).toHTML()}} />
+      <p 
+        className={classes.richText}
+        dangerouslySetInnerHTML={{__html: props.content.detail === '' ? braftEditor.createEditorState(props.content.detail).toHTML() : braftEditor.createEditorState(JSON.parse(props.content.detail).braftEditorRaw).toHTML()}} />
       <div className={classes.reviewFooter}>
         <span className={classes.footerFont}>
           {props.time}
         </span>
         <div>
-          <span onClick={props.onVote} className={props.evaluateStatus !== 3 ? classes.footerFontActive : classes.footerFont}>
-            <img className={classes.footerIcon} src={ThumbUp} alt="" />
-            {props.upvoteCount}个点赞
-          </span>
+          {props.evaluateStatus === 1 ? (
+            <span onClick={props.onVote} className={classes.footerFont}>
+              <MDBIcon className={classes.footerIcon} icon="thumbs-up" />
+              {props.upvoteCount}个点赞
+            </span>
+          ) : (
+            <span onClick={props.onVote} className={classes.footerFont}>
+              <MDBIcon className={classes.footerIcon} far icon="thumbs-up" />
+              {props.upvoteCount}个点赞
+            </span>
+          )}
+          {props.evaluateStatus === 2 ? (
+            <span onClick={props.onDownVote} className={classes.footerFont}>
+              <MDBIcon className={classes.footerIcon} icon="thumbs-down" />
+              {props.downvoteCount}个反对
+            </span>
+          ) : (
+            <span onClick={props.onDownVote} className={classes.footerFont}>
+              <MDBIcon className={classes.footerIcon} far icon="thumbs-down" />
+              {props.downvoteCount}个反对
+            </span>
+          )}
           <span className={classes.footerFont}>
             <img className={classes.footerIcon} src={Comment} alt="" />
             {props.commentsText}
@@ -89,8 +111,10 @@ ReviewDes.propTypes = {
   time: PropTypes.string.isRequired,
   commentsText: PropTypes.string.isRequired,
   upvoteCount: PropTypes.number.isRequired,
+  downvoteCount: PropTypes.number.isRequired,
   attention: PropTypes.bool.isRequired,
   onVote: PropTypes.func.isRequired,
+  onDownVote: PropTypes.func.isRequired,
   onAttention: PropTypes.func.isRequired,
   evaluateStatus: PropTypes.number,
   // editorState: PropTypes.object.isRequired

@@ -5,6 +5,8 @@ import {MDBCol, MDBIcon} from 'mdbreact';
 import {connect} from 'react-redux';
 import {languageHelper} from '../../../../tool/language-helper';
 import {Link} from 'react-router-dom';
+import HalfHeart from '../../public/false.png';
+import FullHeart from '../../public/true.png';
 
 import classes from './question-des.module.css';
 
@@ -29,7 +31,9 @@ const QuestionDes = React.memo((props) => (
     {/*</div>*/}
     <br />
     <p className={classes.questionTitle}>{props.content.title}</p>
-    <p className={classes.richText} dangerouslySetInnerHTML={{__html: props.content.detail === '' ? braftEditor.createEditorState(props.content.detail).toHTML() : braftEditor.createEditorState(JSON.parse(props.content.detail).braftEditorRaw).toHTML()}} />
+    <p 
+      className={classes.richText}
+      dangerouslySetInnerHTML={{__html: props.content.detail === '' ? braftEditor.createEditorState(props.content.detail).toHTML() : braftEditor.createEditorState(JSON.parse(props.content.detail).braftEditorRaw).toHTML()}} />
     <div>
       {props.answerStatus !== false ? (
         <Link to={{
@@ -60,9 +64,15 @@ const QuestionDes = React.memo((props) => (
       <button className={classes.btnOthers}>
         <MDBIcon className={classes.btnIcon} icon="thumbs-up" />{props.text.toInvite}
       </button>
-      <button onClick={props.onAttention} className={props.attention ? classes.btnOthersActive : classes.btnOthers}>
-        <MDBIcon className={classes.btnIcon} icon="heart" />{props.text.collection}
-      </button>
+      {!props.attention ? (
+        <button onClick={props.onAttention} className={classes.btnOthers}>
+          <img alt={'collection'} className={classes.btnIcon} src={HalfHeart} />{props.text.collection}
+        </button>
+      ) : (
+        <button onClick={props.onAttention} className={classes.btnOthers}>
+          <img alt={'discollection'} className={classes.btnIcon} src={FullHeart} />{props.text.discollection}
+        </button>
+      )}
       <button className={classes.btnOthers}>
         <MDBIcon className={classes.btnIcon} icon="share" />{props.text.share}
       </button>
@@ -78,7 +88,8 @@ const i18n = [
     hasAnswer: '修改回答',
     toInvite: '邀请回答',
     share: '分享',
-    collection: '收藏'
+    collection: '收藏',
+    discollection:'已收藏'
   },
   {
     focusNum: 'focus number',
@@ -98,7 +109,7 @@ QuestionDes.propTypes = {
   questionId: PropTypes.string.isRequired,
   attention: PropTypes.bool.isRequired,
   onAttention: PropTypes.func.isRequired,
-  answerStatus: PropTypes.oneOfType([PropTypes.bool,PropTypes.number]).isRequired,
+  answerStatus: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
   // editorState: PropTypes.object.isRequired,
   // React Redux
   bodyClientWidth: PropTypes.number.isRequired

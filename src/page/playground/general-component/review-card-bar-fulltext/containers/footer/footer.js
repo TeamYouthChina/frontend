@@ -5,6 +5,8 @@ import classes from './index.module.css';
 import share from '../../public/share.svg';
 import {connect} from 'react-redux';
 import {languageHelper} from '../../../../../../tool/language-helper';
+import HalfHeart from '../../public/false.png';
+import FullHeart from '../../public/true.png';
 
 const Footer = (props) => (
   <Fragment>
@@ -16,16 +18,37 @@ const Footer = (props) => (
       </MDBCol>
       <MDBCol size="9">
         <div className={classes.btnWrapper}>
-          <MDBBtn onClick={props.onVote} className={props.evaluateStatus !== 3 ? classes.btnStyleActive : classes.btnStyle} flat>
-            <span>
-              <MDBIcon className={classes.iconStyle} far icon="thumbs-up"/>{props.upvoteCount}个{props.text.thumb}
-            </span>
+          <MDBBtn onClick={props.onVote} className={props.evaluateStatus === 1 ? classes.btnStyleActive : classes.btnStyle} flat>
+            {props.evaluateStatus === 1 ? (
+              <span>
+                <MDBIcon className={classes.iconStyle} icon="thumbs-up"/>{props.upvoteCount}个{props.text.thumb}
+              </span>
+            ) : (
+              <span>
+                <MDBIcon className={classes.iconStyle} far icon="thumbs-up"/>{props.upvoteCount}个{props.text.thumb}
+              </span>
+            )}
           </MDBBtn>
-          <MDBBtn onClick={props.onAttention} className={props.attention ? classes.btnStyleActive : classes.btnStyle} flat>
-            <span>
-              <MDBIcon className={classes.iconStyle} far icon="heart"/>{props.attentionCount}个{props.text.collection}
-            </span>
+          <MDBBtn onClick={props.onDownVote} className={props.evaluateStatus === 2 ? classes.btnStyleActive : classes.btnStyle} flat>
+            {props.evaluateStatus === 2 ? (
+              <span>
+                <MDBIcon className={classes.iconStyle} icon="thumbs-down"/>{props.downvoteCount}个{props.text.disthumb}
+              </span>
+            ) : (
+              <span>
+                <MDBIcon className={classes.iconStyle} far icon="thumbs-down"/>{props.downvoteCount}个{props.text.disthumb}
+              </span>
+            )}
           </MDBBtn>
+          {!props.attention ? (
+            <button onClick={props.onAttention} className={classes.btnOthers}>
+              <img alt={'collection'} className={classes.iconStyle} src={HalfHeart} />{props.text.collection}
+            </button>
+          ) : (
+            <button onClick={props.onAttention} className={classes.btnOthers}>
+              <img alt={'discollection'} className={classes.iconStyle} src={FullHeart} />{props.text.discollection}
+            </button>
+          )}
           <MDBBtn onClick={props.showComments} className={classes.btnStyle} flat>
             <MDBIcon className={classes.iconStyle} far icon="comment"/>{props.commentsText}
           </MDBBtn>
@@ -57,10 +80,12 @@ Footer.propTypes = {
   isCollapsed: PropTypes.bool.isRequired,
   text: PropTypes.object.isRequired,
   upvoteCount: PropTypes.number,
+  downvoteCount: PropTypes.number,
   attentionCount: PropTypes.number.isRequired,
   attention: PropTypes.bool.isRequired,
   evaluateStatus: PropTypes.number.isRequired,
   onVote: PropTypes.func.isRequired,
+  onDownVote: PropTypes.func.isRequired,
   onAttention: PropTypes.func.isRequired,
   // func
   showComments: PropTypes.func.isRequired,
@@ -72,7 +97,9 @@ Footer.propTypes = {
 const i18n = [
   {
     thumb:'点赞',
+    disthumb:'反对',
     collection:'收藏',
+    discollection:'已收藏',
     share:'分享',
     ellipsis:'收起',
   },

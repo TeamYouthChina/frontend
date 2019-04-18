@@ -9,7 +9,7 @@ import writeReview from '../../assets/writeReview.svg';
 
 import {ArticleCardBarId} from '../../../playground/general-component/article-card-bar-id';
 import {AnswerCardBarId} from '../../../playground/general-component/answer-card-bar-id';
-// import {ReviewCardBarId} from '../../../playground/general-component/review-card-bar-id';
+import {ReviewCardBarId} from '../../../playground/general-component/review-card-bar-id';
 import {languageHelper} from '../../../../tool/language-helper';
 
 const basicCHNFont = {
@@ -37,6 +37,10 @@ class SearchInsightResultReact extends React.Component {
     this.text = SearchInsightResultReact.i18n[languageHelper()];
   }
 
+  // shouldComponentUpdate(nextProps, nextState, nextContext) {
+  //   return this.props.backend != nextProps.
+  // }
+
   async componentDidMount() {
     //搜索页面切换时，重新set搜索类型
     this.props.handleSearchType();
@@ -50,16 +54,23 @@ class SearchInsightResultReact extends React.Component {
           <MDBRow style={{marginTop: '2vw'}}>
             <main className={classes.mainBody}>
               {
-                this.props.backend ?
+                this.props.backend.length ?
                   (this.props.code === 2000 ? (this.props.backend.map((item, index) => (
                     <MDBRow className={classes.cardBarRow} key={index}>
                       <MDBCol>
-                        {item.type === 'article' ? <ArticleCardBarId id={item.content.id} /> :
-                          <AnswerCardBarId
-                            questionId={item.content.id}
-                            questionTitle={item.content.title}
-                            id={item.content.answers[0].id} >
-                          </AnswerCardBarId>}
+                        {(() => {
+                          switch (item.type) {
+                            case 'article':
+                              return <ArticleCardBarId id={item.content.id} />;
+                            case 'question':
+                              return <AnswerCardBarId
+                                questionId={item.content.id}
+                                questionTitle={item.content.title}
+                                id={item.content.answers[0].id} />;
+                            case 'editorial':
+                              return <ReviewCardBarId id={item.content.id} />;
+                          }
+                        })()}
                       </MDBCol>
                     </MDBRow>))) : (this.props.backend.status.code === 4040 ? <p>没有搜索结果。</p> : <p>Here should be a loading card.</p>)
                   ) : null
@@ -132,7 +143,7 @@ SearchInsightResultReact.propTypes = {
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   handleSearchType: PropTypes.func.isRequired,
-  backend: PropTypes.object.isRequired,
+  backend: PropTypes.array.isRequired,
   code: PropTypes.number.isRequired
 };
 

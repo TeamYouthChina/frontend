@@ -32,3 +32,11 @@
 .iconStyle {
   margin-right: 0.391vw;
 }
+.btnOthers{
+  border:none;
+  font-family: PingFang SC;
+  line-height: normal;
+  color:inherit;
+  font-size:1.09vw;
+  padding:.78vw 1.56vw;
+}

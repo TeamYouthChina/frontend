@@ -62,7 +62,7 @@ class Comments extends React.Component {
           if(result.status.code === 2000){
             this.setState(()=>({
               commentLists:result.content.data
-            }),()=>{
+            }), ()=>{
               this.props.onTellParent(this.state.commentLists.length);
             });
           } else {
@@ -183,10 +183,9 @@ class Comments extends React.Component {
 Comments.propTypes = {
   // 评论text
   commentsText: PropTypes.string.isRequired,
-  commentsData: PropTypes.array.isRequired,
   history: PropTypes.object,
-  id: PropTypes.number,
   onTellParent: PropTypes.func,
+  id: PropTypes.number,
   type: PropTypes.string,
   // 收起评论
   showComments: PropTypes.func.isRequired,
