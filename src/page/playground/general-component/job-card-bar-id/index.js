@@ -11,6 +11,7 @@ import { languageHelper } from '../../../../tool/language-helper';
 import location from '../company-card-bar-id/location.svg';
 
 import {getAsync} from '../../../../tool/api-helper';
+import {Location} from '../location';
 
 
 class JobCardBarIdReact extends React.Component {
@@ -67,7 +68,11 @@ class JobCardBarIdReact extends React.Component {
               <div className={classes.Row}>
                 <div className={classes.Column}>
                   <img src={location} alt="no img" />
-                  <p>{this.state.backend.content.location}</p>
+                  <Location
+                    code={this.state.backend.content.location[0]}
+                    edit={false}
+                    locate={()=>{}}
+                  />
                 </div>
                 <div className={classes.Column}>
                   <img src={detail} alt="no img" />

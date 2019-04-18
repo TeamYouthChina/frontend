@@ -16,6 +16,10 @@ class SearchConnectionResultReact extends React.Component {
     // i18n
     this.text = SearchConnectionResultReact.i18n[languageHelper()];
   }
+  
+  componentDidMount() {
+    this.props.handleSearchType();
+  }
 
   render() {
     return (
@@ -72,7 +76,8 @@ SearchConnectionResultReact.propTypes = {
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
+  location: PropTypes.object.isRequired,
+  handleSearchType: PropTypes.func.isRequired
 };
 
 export const SearchConnectionResult = withRouter(SearchConnectionResultReact);
