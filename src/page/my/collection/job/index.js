@@ -88,7 +88,7 @@ class JobReact extends React.Component {
                             fontSize: '1.09375vw'
                           }}
                         >
-                          API没有份职位
+                          {this.state.backend.content.job.data.length}份职位
                         </span>
                       </div>
                     );

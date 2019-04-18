@@ -147,6 +147,6 @@ export class IfCollect extends React.Component {
 IfCollect.propTypes = {
   //self
   ifcollect:PropTypes.bool.isRequired,
-  type:PropTypes.bool.isRequired,
-  id:PropTypes.bool.isRequired,
+  type:PropTypes.number.isRequired,
+  id:PropTypes.number.isRequired,
 };
