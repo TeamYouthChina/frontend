@@ -42,11 +42,11 @@ const Footer = (props) => (
           </MDBBtn>
           {props.attention ? (
             <button onClick={props.onAttention} className={classes.btnOthers}>
-              <img alt={'collection'} className={classes.iconStyle} src={HalfHeart} />{props.text.collection}
+              <img alt={'discollection'} className={classes.iconStyle} src={FullHeart} />{props.text.discollection}
             </button>
           ) : (
             <button onClick={props.onAttention} className={classes.btnOthers}>
-              <img alt={'discollection'} className={classes.iconStyle} src={FullHeart} />{props.text.discollection}
+              <img alt={'collection'} className={classes.iconStyle} src={HalfHeart} />{props.text.collection}
             </button>
           )}
           <MDBBtn onClick={props.showComments} className={classes.btnStyle} flat>
