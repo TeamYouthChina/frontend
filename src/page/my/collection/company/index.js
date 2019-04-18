@@ -86,7 +86,7 @@ class CompanyReact extends React.Component {
                             fontSize: '1.09375vw'
                           }}
                         >
-                          API没有家公司
+                          {this.state.backend.content.company.data.length}家公司
                         </span>
                       </div>
                     );

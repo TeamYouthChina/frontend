@@ -53,12 +53,12 @@ class CompanyCardBarIdReact extends React.Component {
       
       <div 
         className={classes.Card}
-        onClick={()=>{
-          this.props.history.push(`/company/${this.state.backend.content.id}`);
-        }}
+        
         style={{cursor:'pointer'}}
       >
-        <div className={classes.Clickable} onClick={this.clickOnCard} />
+        <div className={classes.Clickable} onClick={()=>{
+          this.props.history.push(`/company/${this.state.backend.content.id}`);
+        }} />
         <div className={classes.UnClickable}>
           <div className={classes.Icon}>
             <img src={(this.state.backend.content.avatarUrl)?(this.state.backend.content.avatarUrl):('https://frontendpic.oss-us-east-1.aliyuncs.com/%E5%85%AC%E5%8F%B8.png')} alt="no img" />

@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 
 import {SignedIn} from './signed-in';
-//import {SignedOut} from './signed-out';
+import {SignedOut} from './signed-out';
 import classes from './index.module.css';
-//import {isLogin} from '../../tool/api-helper';
+import {isLogin} from '../../tool/api-helper';
 import {languageHelper} from '../../tool/language-helper';
 import * as device from '../../tool/device-helper';
 
@@ -123,7 +123,7 @@ class HeaderReact extends React.Component {
                   </ul>
                   <ul className={`d-flex list-inline my-0 ml-auto ${classes.nav}`}>
                     <ul className="ml-auto nav-item">
-                      {/*<div className="d-flex flex-row">
+                      {<div className="d-flex flex-row">
                         {
                           isLogin() ? (
                             <SignedIn />
@@ -131,12 +131,7 @@ class HeaderReact extends React.Component {
                             <SignedOut />
                           )
                         }
-                      </div>*/}
-                      <div className="d-flex flex-row">
-                       
-                        <SignedIn />
-                          
-                      </div>
+                      </div>}
                     </ul>
                   </ul>
                 </div>

@@ -48,12 +48,12 @@ class JobCardSquareReact extends React.Component {
     return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ? (
       <div 
         className={classes.content}
-        onClick={()=>{
-          this.props.history.push(`/job/${this.state.backend.content.id}`);
-        }}
+        
         style={{cursor:'pointer'}}
       >
-        <div className="d-flex justify-content-between">
+        <div className="d-flex justify-content-between" onClick={()=>{
+          this.props.history.push(`/job/${this.state.backend.content.id}`);
+        }}>
           <div className={classes.logo}>
             <img 
               src={(this.state.backend.content.organization.avatarUrl)?(this.state.backend.content.organization.avatarUrl):('http://frontendpic.oss-us-east-1.aliyuncs.com/%E5%B7%A5%E4%BD%9C.png')} 
@@ -68,7 +68,9 @@ class JobCardSquareReact extends React.Component {
             />
           </div>
         </div>
-        <div className={classes.title}>{this.state.backend.content.name}</div>
+        <div className={classes.title} onClick={()=>{
+          this.props.history.push(`/job/${this.state.backend.content.id}`);
+        }}>{this.state.backend.content.name}</div>
         <div className={classes.company}>{this.state.backend.content.organization.name}</div>
         <div className={classes.location}>
           <Location
@@ -80,12 +82,11 @@ class JobCardSquareReact extends React.Component {
         <div className="d-flex justify-content-between">
           <div className={classes.ddl}>{this.state.backend.content.deadLine}</div>
           
-          <div className={classes.ddl}> 
+          <div className={classes.ddl} style={{zIndex:'500'}}> 
             <IfCollect 
               id={this.state.backend.content.id}
               type={1}
               ifcollect={this.state.backend.content.collected}
-              style={{zIndex:'500'}}
             />
           </div>
           
@@ -109,8 +110,8 @@ JobCardSquareReact.propTypes = {
 
   // React Router
   match: PropTypes.object.isRequired,
-  id:PropTypes.object.isRequired,
-  jobList:PropTypes.object.isRequired,
+  id:PropTypes.number.isRequired,
+  jobList:PropTypes.array.isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired
   
