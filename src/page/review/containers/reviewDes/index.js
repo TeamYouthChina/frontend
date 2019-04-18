@@ -72,10 +72,11 @@ const ReviewDes = (props) => (
             <img className={classes.footerIcon} src={Comment} alt="" />
             {props.commentsText}
           </span>
-          <span className={classes.footerFontEnd}>
+          <span onClick={props.onShare} className={classes.footerFontEnd}>
             <img className={classes.footerIcon} src={Share} alt="" />
             分享
           </span>
+          
         </div>
       </div>
     </div>
@@ -113,9 +114,11 @@ ReviewDes.propTypes = {
   upvoteCount: PropTypes.number.isRequired,
   downvoteCount: PropTypes.number.isRequired,
   attention: PropTypes.bool.isRequired,
+  showShare: PropTypes.bool.isRequired,
   onVote: PropTypes.func.isRequired,
   onDownVote: PropTypes.func.isRequired,
   onAttention: PropTypes.func.isRequired,
+  onShare: PropTypes.func.isRequired,
   evaluateStatus: PropTypes.number,
   // editorState: PropTypes.object.isRequired
 };
