@@ -64,7 +64,7 @@ const QuestionDes = React.memo((props) => (
       <button className={classes.btnOthers}>
         <MDBIcon className={classes.btnIcon} icon="thumbs-up" />{props.text.toInvite}
       </button>
-      {props.attention ? (
+      {!props.attention ? (
         <button onClick={props.onAttention} className={classes.btnOthers}>
           <img alt={'collection'} className={classes.btnIcon} src={HalfHeart} />{props.text.collection}
         </button>

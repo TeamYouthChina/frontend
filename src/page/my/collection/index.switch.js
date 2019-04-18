@@ -7,7 +7,7 @@ import {Article} from './article';
 import {Collection} from './index';
 import {Company} from './company';
 import {Job} from './job';
-import {Video} from './video';
+import {Review} from './review';
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 
@@ -49,8 +49,8 @@ class CollectionSwitchReact extends React.Component {
           component={routeProps => <Job {...routeProps} />}
         />
         <Route
-          path={`${this.props.match.url}/video`}
-          component={routeProps => <Video {...routeProps} />}
+          path={`${this.props.match.url}/review`}
+          component={routeProps => <Review {...routeProps} />}
         />
         <Redirect to={this.props.match.url} />
       </Switch>

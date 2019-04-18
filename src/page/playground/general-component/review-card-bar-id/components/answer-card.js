@@ -296,6 +296,50 @@ export class AnswerCard extends React.Component {
     }
   };
 
+  // 收藏
+  onAttention = () => {
+    let attention = !this.state.backend.attention;
+    let id = this.props.reviewId === undefined ? this.state.backend.id : this.props.reviewId;
+    let type = this.props.type === 'fromQuestion' ? 'answers' : 'editorials';
+    this.setState(()=>({
+      backend:{
+        ...this.state.backend,
+        attention:attention
+      }
+    }));
+    const data = {
+      id:Number(window.localStorage.id)
+    };
+    if(attention) {
+      try {
+        fetch(
+          `${urlPrefix}/${type}/${id}/attention`,
+          {
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+    } else {
+      try {
+        fetch(
+          `${urlPrefix}/${type}/attentions/${id}`,
+          {
+            method: 'DELETE',
+            headers: generateHeaders(),
+            body: null
+          },
+        );
+      } catch (e) {
+        alert(e);
+      }
+    }
+
+  };
+
   onTellParent = (length) => {
     let getFromChild = true;
     let getFromChildLength = length;
@@ -342,7 +386,7 @@ export class AnswerCard extends React.Component {
         </div>
         {this.state.showComments ? (
           <Comments
-            id={this.props.ansCommentId}
+            id={this.props.reviewId === undefined ? this.props.ansCommentId : this.props.reviewId}
             type={this.props.type === 'fromQuestion' ? 'answers' : 'editorials'}
             showComments={this.showCommentsFunc}
             getCurrentPage={this.getCurrentPage}

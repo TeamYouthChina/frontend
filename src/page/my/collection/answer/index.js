@@ -3,26 +3,38 @@ import PropTypes from 'prop-types';
 import {Link, Redirect} from 'react-router-dom';
 
 import {AnswerCardBarId} from './answer-card-bar-id';
-import {content} from './index.mock';
 import {languageHelper} from '../../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../../tool/remove-url-slash-suffix';
-import {mockGetAsync} from '../../../../tool/api-helper';
+import {getAsync} from '../../../../tool/api-helper';
 
 class AnswerReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {
-      backend: null
+      backend: null,
+      collectionType: 'answer'
     };
     // i18n
     this.text = AnswerReact.i18n[languageHelper()];
   }
 
   async componentDidMount() {
-    this.setState({
-      backend: await mockGetAsync(content)
-    });
+    try {
+      const result = await getAsync(`/users/${localStorage.getItem('id')}/attentions?type=${this.state.collectionType}`);
+      if (result && result.status && result.status.code === 2000) {
+        this.setState(() => {
+          return {backend: result};
+        });
+      } else {
+        this.setState(() => {
+          return {collectionNum: 0};
+        });
+      }
+    } catch (error) {
+      // eslint-disable-next-line
+      console.log(error);
+    } 
   }
 
   render() {
@@ -30,7 +42,7 @@ class AnswerReact extends React.Component {
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
-    return (
+    return (this.state.backend !== null) ? (
       <div>
         <div
           className="cell-wall"
@@ -74,7 +86,7 @@ class AnswerReact extends React.Component {
                             fontSize: '1.09375vw'
                           }}
                         >
-                          {this.state.backend.content.answers.length}条回答
+                          {this.state.backend.content.answer.data.length}条回答
                         </span>
                       </div>
                     );
@@ -120,13 +132,13 @@ class AnswerReact extends React.Component {
                   return (
                     <div>
                       {
-                        this.state.backend.content.answers.map((item, index) => {
+                        this.state.backend.content.answer.data.map((item, index) => {
                           return (
                             <div
                               key={index}
                               style={{marginBottom: '1.5vw'}}
                             >
-                              <AnswerCardBarId id={item.answers.id} />
+                              <AnswerCardBarId questionId={item.question.id} questionTitle={item.question.title} id={item.id} />
                             </div>
                           );
                         })
@@ -138,6 +150,10 @@ class AnswerReact extends React.Component {
             }
           </div>
         </div>
+      </div>
+    ) : (
+      <div>
+        loading
       </div>
     );
   }
