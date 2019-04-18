@@ -398,7 +398,7 @@ export class AnswerCard extends React.Component {
         </div>
         {this.state.showComments ? (
           <Comments
-            id={this.props.ansCommentId}
+            id={this.props.ansCommentId !== undefined ? this.props.ansCommentId : this.props.answerId}
             type={'answers'}
             showComments={this.showCommentsFunc}
             getCurrentPage={this.getCurrentPage}

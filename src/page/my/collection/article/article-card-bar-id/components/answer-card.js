@@ -166,7 +166,7 @@ export class AnswerCard extends React.Component {
       upvoteCount--;
       try {
         fetch(
-          `${urlPrefix}/articles/${this.props.match.params.id}/vote`,
+          `${urlPrefix}/articles/${this.props.articleId}/vote`,
           {
             method: 'DELETE',
             headers: generateHeaders(),
@@ -190,7 +190,7 @@ export class AnswerCard extends React.Component {
       downvoteCount--;
       try {
         fetch(
-          `${urlPrefix}/articles/${this.props.match.params.id}/upvote`,
+          `${urlPrefix}/articles/${this.props.articleId}/upvote`,
           {
             method: 'PUT',
             headers: generateHeaders(),
@@ -213,7 +213,7 @@ export class AnswerCard extends React.Component {
       upvoteCount++;
       try {
         fetch(
-          `${urlPrefix}/articles/${this.props.match.params.id}/upvote`,
+          `${urlPrefix}/articles/${this.props.articleId}/upvote`,
           {
             method: 'PUT',
             headers: generateHeaders(),
@@ -245,7 +245,7 @@ export class AnswerCard extends React.Component {
       downvoteCount--;
       try {
         fetch(
-          `${urlPrefix}/articles/${this.props.match.params.id}/vote`,
+          `${urlPrefix}/articles/${this.props.articleId}/vote`,
           {
             method: 'DELETE',
             headers: generateHeaders(),
@@ -267,7 +267,7 @@ export class AnswerCard extends React.Component {
       downvoteCount++;
       try {
         fetch(
-          `${urlPrefix}/articles/${this.props.match.params.id}/downvote`,
+          `${urlPrefix}/articles/${this.props.articleId}/downvote`,
           {
             method: 'PUT',
             headers: generateHeaders(),
@@ -290,7 +290,7 @@ export class AnswerCard extends React.Component {
       upvoteCount--;
       try {
         fetch(
-          `${urlPrefix}/articles/${this.props.match.params.id}/downvote`,
+          `${urlPrefix}/articles/${this.props.articleId}/downvote`,
           {
             method: 'PUT',
             headers: generateHeaders(),
@@ -411,7 +411,7 @@ export class AnswerCard extends React.Component {
         </div>
         {this.state.showComments ? (
           <Comments
-            id={this.props.ansCommentId}
+            id={this.props.ansCommentId === undefined ? this.props.articleId : this.props.ansCommentId}
             type={'articles'}
             showComments={this.showCommentsFunc}
             getCurrentPage={this.getCurrentPage}
