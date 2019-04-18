@@ -378,9 +378,11 @@ export class AnswerCard extends React.Component {
               evaluateStatus={backend.evaluateStatus}
               onAttention={this.onAttention}
               onVote={this.onVote}
+              onDownVote={this.onDownVote}
               attention={backend.attention}
               attentionCount={backend.attentionCount}
               upvoteCount={backend.upvoteCount}
+              downvoteCount={backend.downvoteCount}
             />
           ) : null}
         </div>
