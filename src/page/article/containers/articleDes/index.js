@@ -57,7 +57,7 @@ const ArticleDes = React.memo((props) => (
           <img className={classes.footerIcon} src={Comment} alt="" />
           {props.commentsText}
         </span>
-        <span className={classes.footerFontEnd}>
+        <span onClick={props.onShare} className={classes.footerFontEnd}>
           <img className={classes.footerIcon} src={Share} alt="" />
             分享
         </span>
@@ -107,6 +107,7 @@ ArticleDes.propTypes = {
   commentsText: PropTypes.string.isRequired,
   attention: PropTypes.bool.isRequired,
   onVote: PropTypes.func.isRequired,
+  onShare: PropTypes.func.isRequired,
   onDownVote: PropTypes.func.isRequired,
   onAttention: PropTypes.func.isRequired,
   // editorState: PropTypes.object.isRequired,

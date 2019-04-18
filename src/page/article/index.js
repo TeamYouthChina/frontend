@@ -10,6 +10,7 @@ import Comments from './components/comment-card-bar';
 import {getAsync, isLogin} from '../../tool/api-helper';
 import {timeHelper} from '../../tool/time-helper';
 import classes from './index.module.css';
+import Share from './containers/share';
 
 class ArticleReact extends React.Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class ArticleReact extends React.Component {
     this.state = {
       backend:null,
       commentsText:'1条评论',
+      showShare:false
     };
     // i18n
     this.text = ArticleReact.i18n[languageHelper()];
@@ -261,6 +263,13 @@ class ArticleReact extends React.Component {
       commentsText:`${length}条评论`
     }));
   };
+
+  onShare = () =>{
+    const showShare = !this.state.showShare;
+    this.setState(()=>({
+      showShare
+    }));
+  };
   
   getCurrentPage(){}
 
@@ -287,6 +296,12 @@ class ArticleReact extends React.Component {
           attention={backend.attention}
           attentionCount={backend.attentionCount}
           upvoteCount={backend.upvoteCount}
+          onShare={this.onShare}
+        />
+        <Share
+          content={window.location.href}
+          onShare={this.onShare}
+          showShare={this.state.showShare}
         />
         <div style={{marginTop:'70px'}}
           className="cell-wall"

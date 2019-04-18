@@ -9,6 +9,7 @@ import QuestionDes from './containers/question-des/';
 import Answers from './components/answers/';
 import SideBar from './components/side-bar/';
 import classes from './index.module.css';
+import Share from './containers/share';
 
 class QuestionReact extends React.Component {
   constructor(props) {
@@ -16,7 +17,8 @@ class QuestionReact extends React.Component {
     // state
     this.state = {
       backend: null,
-      ifHasAnswered:false
+      ifHasAnswered:false,
+      showShare:false
     };
     // i18n
     this.text = QuestionReact.i18n[languageHelper()];
@@ -88,7 +90,13 @@ class QuestionReact extends React.Component {
         alert(e);
       }
     }
-    
+  };
+  
+  onShare = () =>{
+    const showShare = !this.state.showShare;
+    this.setState(()=>({
+      showShare
+    }));
   };
 
   render() {
@@ -108,6 +116,12 @@ class QuestionReact extends React.Component {
           attention={backend.attention}
           onAttention={this.onAttention}
           answerStatus={this.state.ifHasAnswered}
+          onShare={this.onShare}
+        />
+        <Share
+          content={window.location.href}
+          onShare={this.onShare}
+          showShare={this.state.showShare}
         />
         <div
           className="cell-wall"

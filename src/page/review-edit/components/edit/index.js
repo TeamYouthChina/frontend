@@ -19,19 +19,19 @@ const myUploadFn = (param) => {
   const fd = new FormData();
 
   const successFn = (response) => {
-    if(xhr.readyState === 4 && response) {
-      const id = xhr.responseText.slice(11,30);
+    if (xhr.readyState === 4 && response) {
+      const id = xhr.responseText.slice(11, 30);
       try {
         fetch(
           `${urlPrefix}/static/${id}`,
           {
-            method:'GET',
-            headers:generateHeaders(),
-            body:null
+            method: 'GET',
+            headers: generateHeaders(),
+            body: null
           },
-        ).then((response)=>
+        ).then((response) =>
           response.json()
-        ).then((response)=>{
+        ).then((response) => {
           param.success({
             url: response.content,
             meta: {
@@ -44,7 +44,7 @@ const myUploadFn = (param) => {
               poster: 'http://xxx/xx.png', // 指定视频播放器的封面
             }
           });
-        },()=>{
+        }, () => {
           alert('bad request');
         });
       } catch (e) {
@@ -64,7 +64,7 @@ const myUploadFn = (param) => {
     // 上传发生错误时调用param.error
     param.error({
       msg: 'unable to upload.',
-      a:response
+      a: response
     });
   };
   xhr.upload.addEventListener('progress', progressFn, false);
@@ -74,7 +74,7 @@ const myUploadFn = (param) => {
 
   fd.append('file', param.file);
   xhr.open('POST', serverURL, true);
-  xhr.setRequestHeader('X-AUTHENTICATION',Cookies.get('token'));
+  xhr.setRequestHeader('X-AUTHENTICATION', Cookies.get('token'));
   xhr.send(fd);
 };
 
@@ -85,13 +85,13 @@ class ReviewCreate extends React.Component {
     * */
     this.state = {
       backend: null,
-      allTags:['标签一'],
+      allTags: ['标签一'],
       showPic: false,
       editorState: null,
-      write:null,
-      submit:null,
-      hint:true,
-      inputValue:null
+      write: null,
+      submit: null,
+      hint: true,
+      inputValue: null
     };
     this.text = ReviewCreate.i18n[languageHelper()];
     this.newTag = this.newTag.bind(this);
@@ -103,13 +103,13 @@ class ReviewCreate extends React.Component {
       const write = this.props.match.params.id !== undefined ? '编辑短则' : '写短则';
       const submit = this.props.match.params.id !== undefined ? '提交' : '发布';
       let htmlContent = '';
-      if(this.props.match.params.id !== undefined) {
+      if (this.props.match.params.id !== undefined) {
         try {
           const result = await getAsync(`/editorials/${this.props.match.params.id}`);
-          if(result.status.code === 200) {
+          if (result.status.code === 200) {
             htmlContent = JSON.parse(result.content.body.braftEditorRaw).braftEditorRaw;
             // console.log(htmlContent)
-            this.setState(()=>({
+            this.setState(() => ({
               backend: '',
               write,
               submit,
@@ -122,7 +122,7 @@ class ReviewCreate extends React.Component {
           alert(e);
         }
       } else {
-        this.setState(()=>({
+        this.setState(() => ({
           backend: '',
           write,
           submit,
@@ -158,33 +158,33 @@ class ReviewCreate extends React.Component {
       previewNow
     });
   };
-  
+
   makePreviewText = (richText) => {
     let textLength = 0;
     let blockCount = 0;
     let previewText = '';
     while (textLength < 101) {
-      if(richText.blocks[blockCount].text !== ''){
+      if (richText.blocks[blockCount].text !== '') {
         let end = richText.blocks[blockCount].text.length < (101 - textLength) ? richText.blocks[blockCount].text.length : 101 - textLength;
         previewText += richText.blocks[blockCount].text.slice(0, end);
         textLength += end;
       }
-      if(richText.blocks[++blockCount] === undefined){
+      if (richText.blocks[++blockCount] === undefined) {
         break;
       }
     }
     return previewText;
   };
-  
+
   handleClickUp = (e) => {
     e.stopPropagation();
     this.setState({
-      show:true
+      show: true
     });
-    if(JSON.parse(this.state.editorState.toRAW()).blocks[0].text === '') {
+    if (JSON.parse(this.state.editorState.toRAW()).blocks[0].text === '') {
       alert('can not be null');
       this.setState({
-        show:false
+        show: false
       });
       return;
     }
@@ -192,32 +192,32 @@ class ReviewCreate extends React.Component {
     const data = {
       body: {
         braftEditorRaw: JSON.stringify({
-          braftEditorRaw:this.state.editorState.toRAW(true)
+          braftEditorRaw: this.state.editorState.toRAW(true)
         }),
         previewText: previewText,
         compiletype: 1
       },
     };
-    if(this.props.match.params.id === undefined) {
+    if (this.props.match.params.id === undefined) {
       try {
         fetch(
           `${urlPrefix}/editorials`,
           {
-            method:'POST',
-            headers:generateHeaders(),
-            body:JSON.stringify(data)
+            method: 'POST',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
           },
-        ).then((response)=>
+        ).then((response) =>
           response.json()
-        ).then((response)=>{
+        ).then((response) => {
           this.setState({
-            show:false
+            show: false
           });
-          if(response.status.code === 201) {
-            
+          if (response.status.code === 201) {
+
             this.props.history.push(`/review/${response.content.id}`);
           }
-        },()=>{
+        }, () => {
           alert('bad request');
         });
       } catch (e) {
@@ -228,20 +228,20 @@ class ReviewCreate extends React.Component {
         fetch(
           `${urlPrefix}/editorials/${this.props.match.params.id}`,
           {
-            method:'PUT',
-            headers:generateHeaders(),
-            body:JSON.stringify(data)
+            method: 'PUT',
+            headers: generateHeaders(),
+            body: JSON.stringify(data)
           },
-        ).then((response)=>(
+        ).then((response) => (
           response.json()
-        )).then((response)=>{
+        )).then((response) => {
           this.setState({
-            show:false
+            show: false
           });
-          if(response.status.code === 200) {
+          if (response.status.code === 200) {
             this.props.history.push(`/review/${this.props.match.params.id}`);
           }
-        },()=>{
+        }, () => {
           alert('bad request');
         });
       } catch (e) {
@@ -251,18 +251,18 @@ class ReviewCreate extends React.Component {
 
   };
 
-  deleteIcon(index){
+  deleteIcon(index) {
     let array = this.state.allTags;
     this.setState({
-      allTags:array.slice(0,index).concat(array.slice(index+1,array.length))
+      allTags: array.slice(0, index).concat(array.slice(index + 1, array.length))
     });
   }
-  
-  newTag(e){
+
+  newTag(e) {
     const value = e.target.value;
     let array = this.state.allTags;
-    if(e.keyCode === 13) {
-      if(array.indexOf(value) === 1) {
+    if (e.keyCode === 13) {
+      if (array.indexOf(value) === 1) {
         alert('sorry for repeat');
         e.target.value = null;
         return;
@@ -270,11 +270,11 @@ class ReviewCreate extends React.Component {
       array.push(value);
       e.target.value = null;
       this.setState({
-        allTags:array
+        allTags: array
       });
     }
   }
-  
+
   render() {
     const {editorState} = this.state;
     return (this.state.backend !== null) ? (
@@ -287,7 +287,7 @@ class ReviewCreate extends React.Component {
                 {this.state.write}
               </MDBCol>
               <MDBCol size="4">
-                
+
               </MDBCol>
               <MDBCol size="4" style={{paddingRight: '0'}}>
                 <MDBBtn onClick={this.handleClickUp} className={classes.btnStyle} color="indigo">
@@ -297,14 +297,14 @@ class ReviewCreate extends React.Component {
 
             </MDBRow>
             <MDBRow className={classes.mdbRow2}>
-              <div>
-                <img
-                  src={'https://s3.amazonaws.com/youthchina/WechatIMG29.jpeg'}
-                  alt="avatar"
-                  className={`rounded-circle ${classes.imgStyle}`}
-                />
-                <span className={classes.titleSpan}>weYouth负责人</span>
-              </div>
+              {/*<div>*/}
+              {/*<img*/}
+              {/*src={'https://s3.amazonaws.com/youthchina/WechatIMG29.jpeg'}*/}
+              {/*alt="avatar"*/}
+              {/*className={`rounded-circle ${classes.imgStyle}`}*/}
+              {/*/>*/}
+              {/*<span className={classes.titleSpan}>weYouth负责人</span>*/}
+              {/*</div>*/}
             </MDBRow>
             <div className={classes.editWrapper}>
               <div>
@@ -313,7 +313,7 @@ class ReviewCreate extends React.Component {
                     <div className="myAnswerText">
                       <div className="editor-wrapper" style={{height: '100%', minHeight: '31.2vw'}}>
                         <BraftEditor
-                          media={{uploadFn:myUploadFn}}
+                          media={{uploadFn: myUploadFn}}
                           value={editorState} contentStyle={{height: '100%'}}
                           onChange={(editorState) => this.handleEditorChange(editorState)}
                         />
@@ -354,7 +354,7 @@ class ReviewCreate extends React.Component {
             {/*))}*/}
             {/*<input className={classes.reviewTag} onKeyDown={(e) => this.newTag(e)} type="text" placeholder='输入新标签' />*/}
             {/*</div>*/}
-            
+
             {/*<div className={classes.FTDquestion} style={{margin:'0px'}}>*/}
             {/*<MDBInput style={{padding:'0px'}} label="匿名提问" type="checkbox" id="checkbox1" />*/}
             {/*</div>*/}
