@@ -17,7 +17,7 @@ export class AnswerCard extends React.Component {
     this.state = {
       editorState: null,
       showBottom: false,
-      isCollapsed: false,
+      isCollapsed: true,
       showComments: false,
       commentsText: null,
       getFromChildLength:null,
@@ -377,7 +377,7 @@ export class AnswerCard extends React.Component {
             content={backend.body.braftEditorRaw}
             handleSpanClick={this.handleSpanClick}
           />
-          {this.state.showBottom || !this.state.isCollapsed ? (
+          {this.state.showBottom || this.state.isCollapsed ? (
             <Footer
               editTime={timeHelper(new Date(backend.modified_at))}
               commentsText={this.state.commentsText}
@@ -398,7 +398,7 @@ export class AnswerCard extends React.Component {
         </div>
         {this.state.showComments ? (
           <Comments
-            id={this.props.ansCommentId}
+            id={this.props.ansCommentId !== undefined ? this.props.ansCommentId : this.props.answerId}
             type={'answers'}
             showComments={this.showCommentsFunc}
             getCurrentPage={this.getCurrentPage}

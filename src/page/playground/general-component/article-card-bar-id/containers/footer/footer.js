@@ -18,7 +18,7 @@ const Footer = (props) => (
       </MDBCol>
       <MDBCol size="9">
         <div className={classes.btnWrapper}>
-          <MDBBtn onClick={props.onVote} className={props.evaluateStatus === 1 ? classes.btnStyleActive : classes.btnStyle} flat>
+          <MDBBtn onClick={props.onVote} className={classes.btnStyle} flat>
             {props.evaluateStatus === 1 ? (
               <span>
                 <MDBIcon className={classes.iconStyle} icon="thumbs-up"/>{props.upvoteCount}个{props.text.thumb}
@@ -29,7 +29,7 @@ const Footer = (props) => (
               </span>
             )}
           </MDBBtn>
-          <MDBBtn onClick={props.onDownVote} className={props.evaluateStatus === 2 ? classes.btnStyleActive : classes.btnStyle} flat>
+          <MDBBtn onClick={props.onDownVote} className={classes.btnStyle} flat>
             {props.evaluateStatus === 2 ? (
               <span>
                 <MDBIcon className={classes.iconStyle} icon="thumbs-down"/>{props.downvoteCount}个{props.text.disthumb}
@@ -40,7 +40,7 @@ const Footer = (props) => (
               </span>
             )}
           </MDBBtn>
-          {props.attention ? (
+          {!props.attention ? (
             <button onClick={props.onAttention} className={classes.btnOthers}>
               <img alt={'collection'} className={classes.iconStyle} src={HalfHeart} />{props.text.collection}
             </button>
@@ -97,7 +97,9 @@ Footer.propTypes = {
 const i18n = [
   {
     thumb:'点赞',
+    disthumb:'反对',
     collection:'收藏',
+    discollection:'已收藏',
     share:'分享',
     ellipsis:'收起',
   },

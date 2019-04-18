@@ -42,7 +42,7 @@ class ArticleReact extends React.Component {
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
-    return (
+    return (this.state.backend !== null) ? (
       <div>
         <div
           className="cell-wall"
@@ -86,7 +86,7 @@ class ArticleReact extends React.Component {
                             fontSize: '1.09375vw'
                           }}
                         >
-                          {this.state.backend.content.data.length}篇文章
+                          {this.state.backend.content.article.data.length}篇文章
                         </span>
                       </div>
                     );
@@ -132,7 +132,7 @@ class ArticleReact extends React.Component {
                   return (
                     <div>
                       {
-                        this.state.backend.content.data.map((item, index) => {
+                        this.state.backend.content.article.data.map((item, index) => {
                           return (
                             <div
                               key={index}
@@ -150,6 +150,10 @@ class ArticleReact extends React.Component {
             }
           </div>
         </div>
+      </div>
+    ) : (
+      <div>
+        loading
       </div>
     );
   }

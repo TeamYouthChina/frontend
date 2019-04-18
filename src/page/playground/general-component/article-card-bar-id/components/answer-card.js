@@ -18,7 +18,7 @@ export class AnswerCard extends React.Component {
     this.state = {
       editorState: null,
       showBottom: false,
-      isCollapsed: false,
+      isCollapsed: true,
       getFromChildLength:null,
       getFromChild:null,
       showComments: false,
@@ -166,7 +166,7 @@ export class AnswerCard extends React.Component {
       upvoteCount--;
       try {
         fetch(
-          `${urlPrefix}/articles/${this.props.match.params.id}/vote`,
+          `${urlPrefix}/articles/${this.props.articleId}/vote`,
           {
             method: 'DELETE',
             headers: generateHeaders(),
@@ -190,7 +190,7 @@ export class AnswerCard extends React.Component {
       downvoteCount--;
       try {
         fetch(
-          `${urlPrefix}/articles/${this.props.match.params.id}/upvote`,
+          `${urlPrefix}/articles/${this.props.articleId}/upvote`,
           {
             method: 'PUT',
             headers: generateHeaders(),
@@ -245,7 +245,7 @@ export class AnswerCard extends React.Component {
       downvoteCount--;
       try {
         fetch(
-          `${urlPrefix}/articles/${this.props.match.params.id}/vote`,
+          `${urlPrefix}/articles/${this.props.articleId}/vote`,
           {
             method: 'DELETE',
             headers: generateHeaders(),
@@ -267,7 +267,7 @@ export class AnswerCard extends React.Component {
       downvoteCount++;
       try {
         fetch(
-          `${urlPrefix}/articles/${this.props.match.params.id}/downvote`,
+          `${urlPrefix}/articles/${this.props.articleId}/downvote`,
           {
             method: 'PUT',
             headers: generateHeaders(),
@@ -290,7 +290,7 @@ export class AnswerCard extends React.Component {
       upvoteCount--;
       try {
         fetch(
-          `${urlPrefix}/articles/${this.props.match.params.id}/downvote`,
+          `${urlPrefix}/articles/${this.props.articleId}/downvote`,
           {
             method: 'PUT',
             headers: generateHeaders(),
@@ -390,7 +390,7 @@ export class AnswerCard extends React.Component {
             content={backend.body.braftEditorRaw}
             handleSpanClick={this.handleSpanClick}
           />
-          {this.state.showBottom || !this.state.isCollapsed ? (
+          {this.state.showBottom || this.state.isCollapsed ? (
             <Footer
               editTime={timeHelper(new Date(backend.modified_at))}
               commentsText={this.state.commentsText}
@@ -411,7 +411,7 @@ export class AnswerCard extends React.Component {
         </div>
         {this.state.showComments ? (
           <Comments
-            id={this.props.ansCommentId}
+            id={this.props.ansCommentId === undefined ? this.props.articleId : this.props.ansCommentId}
             type={'articles'}
             showComments={this.showCommentsFunc}
             getCurrentPage={this.getCurrentPage}
@@ -435,7 +435,7 @@ AnswerCard.propTypes = {
   articleId: PropTypes.number,
   history: PropTypes.object.isRequired,
   ansCommentId: PropTypes.number,
-  match: PropTypes.number,
+  match: PropTypes.object,
   // 全文
   fullText: PropTypes.object,
 };

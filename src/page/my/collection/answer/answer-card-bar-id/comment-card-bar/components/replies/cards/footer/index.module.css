@@ -1,0 +1,23 @@
+.btnStyle {
+  padding: 0.39vw 0;
+  margin-left: 1.17vw;
+  font-size: 1.093vw;
+  color: #8D9AAF;
+  font-family: PingFang SC;
+  line-height: normal;
+}
+.imgStyle {
+  margin-top: -.39vw;
+  margin-right: 0.78vw;
+}
+.spanStyle {
+
+}
+.btnStyle2 {
+  padding: 0.39vw 0.78vw;
+  font-size: 1.093vw;
+  color: #8D9AAF;
+}
+.spanStyleActive {
+  color: #2ADFB3;
+}
