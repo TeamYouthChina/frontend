@@ -59,7 +59,7 @@ class EducationCard extends Component {
           },
           note: '',
         },
-      dateRange: this.props.data ? [new Date(this.props.data.duration.begin), new Date(this.props.data.duration.begin)] : [new Date(), new Date()],
+      dateRange: this.props.data ? [new Date(this.props.data.duration.begin), new Date(this.props.data.duration.end)] : [new Date(), new Date()],
       universityError: false,
       majorError: false,
     };
@@ -88,6 +88,9 @@ class EducationCard extends Component {
 
   // packup new data for this card and send to parent
   saveHandler = () => {
+    // console.log(this.state.educationData.duration.begin.getTime())
+    // console.log(this.state.educationData.duration.end.getTime())
+
     if (this.state.universityError || this.state.majorError) {
       alert('至少有一个输出错误，请根据提示修改');
       return;
@@ -116,6 +119,9 @@ class EducationCard extends Component {
   };
 
   dateRangePickerOnChange = newDateRange => {
+    // console.log(newDateRange[0].getTime());
+    // console.log(newDateRange[1].getTime());
+
     this.setState({
       ...this.state,
       dateRange: newDateRange ? newDateRange : [new Date(), new Date()],
@@ -243,7 +249,7 @@ class EducationCard extends Component {
                 month: 'numeric',
                 day: 'numeric',
               }
-            )} ${this.state.educationData.duration.begin.getTime()} `}
+            )} ${this.state.educationData.duration.end.getTime()} `}
           </p>
           {/* <p>{this.state.educationData.note}</p> */}
         </div>
