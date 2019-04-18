@@ -380,7 +380,7 @@ export class AnswerCard extends React.Component {
     return (this.state.backend !== null) ? (
       <React.Fragment>
         <div className={classes.cardWrapper} ref={(span) => this.scrollSpan = span}>
-          <Title title={backend.title} />
+          <Title title={backend.title} id={this.props.articleId}/>
           <UserInfor
             score={5}
             user={backend.author === null ? backend.author : backend.author.username}
