@@ -18,7 +18,7 @@ export class AnswerCard extends React.Component {
     this.state = {
       editorState: null,
       showBottom: false,
-      isCollapsed: false,
+      isCollapsed: true,
       getFromChildLength:null,
       getFromChild:null,
       showComments: false,
@@ -390,7 +390,7 @@ export class AnswerCard extends React.Component {
             content={backend.body.braftEditorRaw}
             handleSpanClick={this.handleSpanClick}
           />
-          {this.state.showBottom || !this.state.isCollapsed ? (
+          {this.state.showBottom || this.state.isCollapsed ? (
             <Footer
               editTime={timeHelper(new Date(backend.modified_at))}
               commentsText={this.state.commentsText}
@@ -435,7 +435,7 @@ AnswerCard.propTypes = {
   articleId: PropTypes.number,
   history: PropTypes.object.isRequired,
   ansCommentId: PropTypes.number,
-  match: PropTypes.number,
+  match: PropTypes.object,
   // 全文
   fullText: PropTypes.object,
 };
