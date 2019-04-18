@@ -35,7 +35,7 @@ class SearchReact extends React.Component {
       //搜索关键词
       keyword: '',
       //搜索到的数据
-      backend: null,
+      backend: [],
       
       //后端状态码
       code: null,
