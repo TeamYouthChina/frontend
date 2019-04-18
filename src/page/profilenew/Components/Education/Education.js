@@ -48,6 +48,9 @@ class Education extends Component {
   };
 
   async postRequest(content) {
+    // console.log(content.duration.begin)
+    // console.log(content.duration.end)
+
     await postAsync(
       '/applicants/' + this.props.requestID + '/educations',
       content
@@ -56,6 +59,10 @@ class Education extends Component {
   }
 
   async putRequest(id, content) {
+    // console.log(content.duration.begin)
+    // console.log(content.duration.end)
+    // console.log(content)   
+
     await putAsync(
       '/applicants/' + this.props.requestID + '/educations/' + id,
       content
@@ -193,6 +200,9 @@ class Education extends Component {
   // save data locally and send back to server
   saveHandler = async (content, id, mode) => {
     // console.log(content);
+    // console.log(content.duration.begin.getTime())
+    // console.log(content.duration.end.getTime())
+
     if (mode === 'add') {
       content = this.encodeContent(content);
       await this.postRequest(content);
@@ -240,6 +250,9 @@ class Education extends Component {
   };
 
   encodeContent = content => {
+    // console.log(content.duration.begin.getTime())
+    // console.log(content.duration.end.getTime())
+
     return {
       id: content.id ? content.id : null,
       university_id: this.state.universityMap.get(content.university_id),
