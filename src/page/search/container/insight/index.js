@@ -37,6 +37,10 @@ class SearchInsightResultReact extends React.Component {
     this.text = SearchInsightResultReact.i18n[languageHelper()];
   }
 
+  // shouldComponentUpdate(nextProps, nextState, nextContext) {
+  //   return this.props.backend != nextProps.
+  // }
+
   async componentDidMount() {
     //搜索页面切换时，重新set搜索类型
     this.props.handleSearchType();
@@ -50,7 +54,7 @@ class SearchInsightResultReact extends React.Component {
           <MDBRow style={{marginTop: '2vw'}}>
             <main className={classes.mainBody}>
               {
-                this.props.backend ?
+                this.props.backend.length ?
                   (this.props.code === 2000 ? (this.props.backend.map((item, index) => (
                     <MDBRow className={classes.cardBarRow} key={index}>
                       <MDBCol>
@@ -139,7 +143,7 @@ SearchInsightResultReact.propTypes = {
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   handleSearchType: PropTypes.func.isRequired,
-  backend: PropTypes.object.isRequired,
+  backend: PropTypes.array.isRequired,
   code: PropTypes.number.isRequired
 };
 
