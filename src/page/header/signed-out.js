@@ -1,6 +1,7 @@
 import React from 'react';
-import {MDBNavbarNav, MDBNavItem, MDBNavLink} from 'mdbreact';
+import {MDBNavbarNav, MDBNavItem} from 'mdbreact';
 import PropTypes from 'prop-types';
+import classes from './index.module.css';
 import {withRouter} from 'react-router-dom';
 
 import {languageHelper} from '../../tool/language-helper';
@@ -19,14 +20,14 @@ class SignedOutReact extends React.Component {
       <div className="d-flex flex-row">
         <div className="flex-fill">
           <MDBNavbarNav>
-            <MDBNavItem className="align-middle">
-              <MDBNavLink to="/login">登 录</MDBNavLink>
+            <MDBNavItem className={`${classes.mouse2} align-middle`}>
+              登录
             </MDBNavItem>
           </MDBNavbarNav>
         </div>
         <MDBNavbarNav right>
-          <MDBNavItem className="mx-2 align-middle">
-            <MDBNavLink to="/register">注 册</MDBNavLink>
+          <MDBNavItem className={`${classes.mouse2} align-middle ml-3`}>
+            注册
           </MDBNavItem>
         </MDBNavbarNav>
       </div>

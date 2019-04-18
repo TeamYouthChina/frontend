@@ -1,3 +1,4 @@
+
 .content{
   width: 26.4vw;
   padding:1.72vw 2.34vw;
@@ -11,6 +12,13 @@
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
   border-color: #eee;
   transition: all 0.2s ease-in-out;
+}
+.collect{
+  position: absolute;
+  left: 84.62%;
+  top: 67.46%;
+  z-index: 900;
+
 }
 .logo{
   width: 4.6875vw;

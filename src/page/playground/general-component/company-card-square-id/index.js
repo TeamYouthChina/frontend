@@ -42,12 +42,12 @@ class CompanyCardSquareReact extends React.Component {
     return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ? (
       <div 
         className={classes.content}
-        onClick={()=>{
-          this.props.history.push(`/company/${this.state.backend.content.id}`);
-        }}
+        
         style={{cursor:'pointer'}}
       >
-        <div className={classes.logo}>
+        <div className={classes.logo} onClick={()=>{
+          this.props.history.push(`/company/${this.state.backend.content.id}`);
+        }}>
           <img
             src={(this.state.backend.content.avatarUrl)?(this.state.backend.content.avatarUrl):('https://frontendpic.oss-us-east-1.aliyuncs.com/%E5%85%AC%E5%8F%B8.png')}
             alt="no img"
@@ -55,7 +55,9 @@ class CompanyCardSquareReact extends React.Component {
           />
 
         </div>
-        <div className={classes.title}>
+        <div className={classes.title} onClick={()=>{
+          this.props.history.push(`/company/${this.state.backend.content.id}`);
+        }}>
           {this.state.backend.content.name}
         </div>
         <div className="d-flex justify-content-between align-items-center">

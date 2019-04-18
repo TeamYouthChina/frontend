@@ -32,12 +32,12 @@ class AnswerCardSquareReact extends React.Component {
     return (
       <div 
         className={classes.content}
-        onClick={()=>{
-          this.props.history.push(`/question/${this.props.id}`);
-        }}
+       
         style={{cursor:'pointer'}}
       >
-        <div className="d-flex justify-content-between">
+        <div className="d-flex justify-content-between"  onClick={()=>{
+          this.props.history.push(`/question/${this.props.id}`);
+        }}>
           <div className={classes.title}>
             {this.props.title}
           </div>
