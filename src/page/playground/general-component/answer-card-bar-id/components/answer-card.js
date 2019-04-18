@@ -10,6 +10,7 @@ import classes from './index.module.css';
 import Title from '../containers/title/title';
 import {isLogin} from '../../../../../tool/api-helper';
 import {timeHelper} from '../../../../../tool/time-helper';
+import Share from '../containers/share';
 
 export class AnswerCard extends React.Component {
   constructor(props) {
@@ -23,6 +24,7 @@ export class AnswerCard extends React.Component {
       getFromChildLength:null,
       getFromChild:null,
       comments: null,
+      showShare:false,
       pageConfig: {
         totalPage: 14 //总页码
       },
@@ -354,6 +356,13 @@ export class AnswerCard extends React.Component {
     }));
   };
 
+  onShare = () =>{
+    const showShare = !this.state.showShare;
+    this.setState(()=>({
+      showShare
+    }));
+  };
+  
   componentWillUnmount() {
     window.removeEventListener('scroll', this.orderScroll);
   }
@@ -377,6 +386,11 @@ export class AnswerCard extends React.Component {
             content={backend.body.braftEditorRaw}
             handleSpanClick={this.handleSpanClick}
           />
+          <Share
+            content={window.location.href}
+            onShare={this.onShare}
+            showShare={this.state.showShare}
+          />
           {this.state.showBottom || this.state.isCollapsed ? (
             <Footer
               editTime={timeHelper(new Date(backend.modified_at))}
@@ -393,6 +407,7 @@ export class AnswerCard extends React.Component {
               attention={backend.attention}
               attentionCount={backend.attentionCount}
               upvoteCount={backend.upvoteCount}
+              onShare={this.onShare}
             />
           ) : null}
         </div>

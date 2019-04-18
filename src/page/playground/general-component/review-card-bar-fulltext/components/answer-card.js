@@ -11,6 +11,7 @@ import classes from './index.module.css';
 import {urlPrefix, generateHeaders} from '../../../../../tool/api-helper';
 import {isLogin} from '../../../../../tool/api-helper';
 import {timeHelper} from '../../../../../tool/time-helper';
+import Share from '../../../../article/containers/share';
 
 export class AnswerCard extends React.Component {
   constructor(props) {
@@ -28,7 +29,8 @@ export class AnswerCard extends React.Component {
         totalPage: 14 //总页码
       },
       stickyRow: {background: '#FFFFFF'},
-      backend: null
+      backend: null,
+      showShare:false
     };
     this.orderScroll = this.orderScroll.bind(this);
     this.handleSpanClick = this.handleSpanClick.bind(this);
@@ -362,8 +364,14 @@ export class AnswerCard extends React.Component {
     } else {
       return backend.creator === null ? backend.creator : backend.creator.username;
     }
-  }
-  ;
+  };
+
+  onShare = () =>{
+    const showShare = !this.state.showShare;
+    this.setState(()=>({
+      showShare
+    }));
+  };
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.orderScroll);
@@ -383,6 +391,13 @@ export class AnswerCard extends React.Component {
             content={backend.body.braftEditorRaw}
             handleSpanClick={this.handleSpanClick}
           />
+          <Share
+            content={window.location.href}
+            onShare={this.onShare}
+            showShare={this.state.showShare}
+            type={this.props.type}
+            id={this.props.reviewId === undefined ? this.state.backend.id : this.props.reviewId}
+          />
           {this.state.showBottom || this.state.isCollapsed ? (
             <Footer
               editTime={timeHelper(new Date(backend.modified_at))}
@@ -399,6 +414,7 @@ export class AnswerCard extends React.Component {
               attentionCount={backend.attentionCount}
               upvoteCount={backend.upvoteCount}
               downvoteCount={backend.downvoteCount}
+              onShare={this.onShare}
             />
           ) : null}
         </div>

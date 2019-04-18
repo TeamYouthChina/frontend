@@ -73,7 +73,7 @@ const QuestionDes = React.memo((props) => (
           <img alt={'discollection'} className={classes.btnIcon} src={FullHeart} />{props.text.discollection}
         </button>
       )}
-      <button className={classes.btnOthers}>
+      <button onClick={props.onShare} className={classes.btnOthers}>
         <MDBIcon className={classes.btnIcon} icon="share" />{props.text.share}
       </button>
     </div>
@@ -109,6 +109,7 @@ QuestionDes.propTypes = {
   questionId: PropTypes.string.isRequired,
   attention: PropTypes.bool.isRequired,
   onAttention: PropTypes.func.isRequired,
+  onShare: PropTypes.func.isRequired,
   answerStatus: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
   // editorState: PropTypes.object.isRequired,
   // React Redux
