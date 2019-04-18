@@ -26,7 +26,7 @@ const preprocessResponse = (response) => {
   if (token) {
     Cookies.set('token', token, {expires: 1});
   }
-  return response.json((data) => {
+  return response.json().then((data) => {
     try {
       // Login credential is expired.
       if (data.status.code.toString().startsWith('401')) {
