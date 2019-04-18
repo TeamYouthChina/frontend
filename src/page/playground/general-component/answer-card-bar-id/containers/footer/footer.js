@@ -97,7 +97,9 @@ Footer.propTypes = {
 const i18n = [
   {
     thumb:'点赞',
+    disthumb:'反对',
     collection:'收藏',
+    discollection:'已收藏',
     share:'分享',
     ellipsis:'收起',
   },
