@@ -38,14 +38,18 @@ class SearchInsightResultReact extends React.Component {
     this.text = SearchInsightResultReact.i18n[languageHelper()];
   }
   
-  async componentDidMount() {
+  componentDidMount() {
     //搜索页面切换时，重新set搜索类型
     this.props.handleSearchType();
   }
   
-  shouldComponentUpdate(nextProps) {
-    return this.props !== nextProps;
+  componentWillUnmount() {
+    // console.log('unmount()')
   }
+
+  // shouldComponentUpdate(nextProps) {
+  //   return this.props !== nextProps;
+  // }
 
   render() {
     return (

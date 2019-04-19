@@ -34,6 +34,8 @@ class SearchReact extends React.Component {
       // activeItemClassicTabs1: "1",
       collapseID: '',
       tabsContent: '职位',
+      //是否unmount子组件
+      renderChild: true,
       //搜索关键词
       keyword: '',
       //搜索到的数据
@@ -60,7 +62,7 @@ class SearchReact extends React.Component {
 
   handleKeywordSearch = async (event) => {
     event.preventDefault();
-
+    this.handleChildUnmount();
     let result = [];
     let count = 0;
     const len = this.state.searchType.length;
@@ -81,7 +83,8 @@ class SearchReact extends React.Component {
     this.setState(() => {
       return {
         backend: result,
-        code
+        code,
+        renderChild: true
       };
     });
   };
@@ -99,6 +102,12 @@ class SearchReact extends React.Component {
       // eslint-disable-next-line
       console.log(error);
     }
+  };
+
+  handleChildUnmount = () => {
+    this.setState(() => {
+      return {renderChild: false};
+    });
   };
 
   //切换搜索页面时，更改搜索类型
@@ -167,20 +176,19 @@ class SearchReact extends React.Component {
             <Switch>
               <Route
                 path={`${this.props.match.url}/job`}
-                component={routeProps => <SearchJobsNavItem basicCHNFont={basicCHNFont} />}
+                render={routeProps => <SearchJobsNavItem basicCHNFont={basicCHNFont} />}
               />
               <Route
                 path={`${this.props.match.url}/company`}
-                component={routeProps => <SearchCompaniesNavItem basicCHNFont={basicCHNFont} />}
+                render={routeProps => <SearchCompaniesNavItem basicCHNFont={basicCHNFont} />}
               />
               <Route
                 path={`${this.props.match.url}/insight`}
-                component={routeProps => <SearchInsightNavItem basicCHNFont={basicCHNFont} />}
                 render={(props) => <SearchInsightNavItem {...props} />}
               />
               <Route
                 path={`${this.props.match.url}/connection`}
-                component={routeProps => <SearchConnectionNavItem basicCHNFont={basicCHNFont} />}
+                render={routeProps => <SearchConnectionNavItem basicCHNFont={basicCHNFont} />}
               />
               <Redirect to={`${this.props.match.url}/job`} />
             </Switch>
@@ -193,7 +201,7 @@ class SearchReact extends React.Component {
             <Switch>
               <Route
                 path={`${this.props.match.url}/job`}
-                render={(props) =>
+                children={(props) =>
                   <SearchJobResult
                     {...props}
                     code={this.state.code}
@@ -204,18 +212,8 @@ class SearchReact extends React.Component {
               />
               <Route
                 path={`${this.props.match.url}/company`}
-                render={(props) =>
+                children={(props) =>
                   <SearchCompanyResult
-                    {...props}
-                    keyword={this.state.keyword}
-                    backend={this.state.backend}
-                    handleSearchType={this.handleSearchType} />
-                }
-              />
-              <Route
-                path={`${this.props.match.url}/insight`}
-                component={(props) =>
-                  <SearchInsightResult
                     {...props}
                     code={this.state.code}
                     backend={this.state.backend}
@@ -223,11 +221,22 @@ class SearchReact extends React.Component {
                 }
               />
               <Route
+                path={`${this.props.match.url}/insight`}
+                children={(props) =>
+                  <SearchInsightResult
+                    {...props}
+                    renderChild={this.state.renderChild}
+                    code={this.state.code}
+                    backend={this.state.backend}
+                    handleSearchType={this.handleSearchType} />
+                }
+              />
+              <Route
                 path={`${this.props.match.url}/connection`}
-                render={(props) =>
+                children={(props) =>
                   <SearchConnectionResult
                     {...props}
-                    keyword={this.state.keyword}
+                    code={this.state.code}
                     backend={this.state.backend}
                     handleSearchType={this.handleSearchType} />
                 }
