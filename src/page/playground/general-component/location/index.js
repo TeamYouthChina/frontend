@@ -359,12 +359,12 @@ class LocationReact extends React.Component {
       // district
       //
       // #1
-      if (cityId.endsWith('00')) {
+      if (districtId.endsWith('00')) {
         districtId = this.unknownId;
       }
       // #2
       this.addUnknownItem(china.districtList);
-      if (!districtId.endsWith('0000')) {
+      if (!cityId.endsWith('0000')) {
         temp = await getAsync(`/static/location?target=3&id=${cityId}`);
         if (!temp.status.code.toString().startsWith('2')) {
           throw temp;

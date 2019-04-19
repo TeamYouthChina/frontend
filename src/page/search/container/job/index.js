@@ -14,7 +14,7 @@ import {withRouter} from 'react-router-dom';
 import classes from './index.module.css';
 import filter from '../../assets/filter.svg';
 
-import {JobCardBarId} from '../../card/job-card-bar-id';
+import {JobCardBarId} from '../../../playground/general-component/job-card-bar-id';
 import {CollectionSidebar} from '../../component/collection-card';
 import {languageHelper} from '../../../../tool/language-helper';
 import {getAsync} from '../../../../tool/api-helper';
@@ -90,31 +90,22 @@ class SearchJobResultReact extends React.Component {
                   </MDBDropdown>
                 </MDBCol>
               </MDBRow>
-              <MDBRow className={classes.jobCardBarRow}>
-                <MDBCol>
-                  <JobCardBarId id={'1'} />
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.jobCardBarRow}>
-                <MDBCol>
-                  <JobCardBarId id={'2'} />
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.jobCardBarRow}>
-                <MDBCol>
-                  <JobCardBarId id={'3'} />
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.jobCardBarRow}>
-                <MDBCol>
-                  <JobCardBarId id={'4'} />
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.jobCardBarRow}>
-                <MDBCol>
-                  <JobCardBarId id={'5'} />
-                </MDBCol>
-              </MDBRow>
+              {
+                this.props.backend.length ?
+                  (this.props.code === 2000 ? (this.props.backend.map((item, index) => (
+                    <MDBRow className={classes.cardBarRow} key={index}>
+                      <MDBCol>
+                        <div
+                          key={index}
+                          style={{marginBottom: '1.56vw'}}
+                        >
+                          <JobCardBarId id={item.id} />
+                        </div>
+                      </MDBCol>
+                    </MDBRow>))) : (this.props.backend.status.code === 4040 ? <p>没有搜索结果。</p> :
+                    <p>Here should be a loading card.</p>)
+                  ) : null
+              }
             </main>
 
             <aside className={classes.sideBar}>
@@ -162,7 +153,9 @@ SearchJobResultReact.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  handleSearchType: PropTypes.func.isRequired
+  handleSearchType: PropTypes.func.isRequired,
+  backend: PropTypes.array.isRequired,
+  code: PropTypes.number.isRequired
 };
 
 export const SearchJobResult = withRouter(SearchJobResultReact);

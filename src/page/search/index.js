@@ -2,6 +2,7 @@ import React from 'react';
 import {Redirect, Route, Switch, withRouter} from 'react-router-dom';
 import {MDBCol, MDBContainer, MDBRow} from 'mdbreact';
 import PropTypes from 'prop-types';
+import debounce from 'lodash/debounce';
 
 import {SearchJobsNavItem} from './secondary-navagations/job';
 import {SearchCompaniesNavItem} from './secondary-navagations/company';
@@ -27,6 +28,7 @@ class SearchReact extends React.Component {
   constructor(props) {
     super(props);
     this.text = SearchReact.i18n[languageHelper()];
+    this.handleInputKeyword = debounce(this.handleInputKeyword, 1000);
 
     this.state = {
       // activeItemClassicTabs1: "1",
@@ -36,7 +38,6 @@ class SearchReact extends React.Component {
       keyword: '',
       //搜索到的数据
       backend: [],
-      
       //后端状态码
       code: null,
       //分页
@@ -46,6 +47,11 @@ class SearchReact extends React.Component {
     };
   }
 
+  onSearchInput = async event => {
+    event.persist();
+    this.handleInputKeyword(event);
+  };
+
   handleInputKeyword = event => {
     this.setState({
       keyword: event.target.value
@@ -54,6 +60,7 @@ class SearchReact extends React.Component {
 
   handleKeywordSearch = async (event) => {
     event.preventDefault();
+
     let result = [];
     let count = 0;
     const len = this.state.searchType.length;
@@ -61,13 +68,16 @@ class SearchReact extends React.Component {
     let code = null;
     while (count < len) {
       const temp = await this.getData(this.state.searchType[count++], limit);
-      result = [...result, ...temp.content.data];
-      code = temp.status.code;
+      if (temp !== null) {
+        result = [...result, ...temp.content.data];
+        code = temp.status.code;
+      }
+      // console.log('数据', temp);
       // eslint-disable-next-line
-      console.log(code);
+      // console.log(code);
     }
     // eslint-disable-next-line
-    console.log(result);
+    // console.log(result);
     this.setState(() => {
       return {
         backend: result,
@@ -84,7 +94,7 @@ class SearchReact extends React.Component {
       } else {
         return null;
       }
-     
+
     } catch (error) {
       // eslint-disable-next-line
       console.log(error);
@@ -124,6 +134,7 @@ class SearchReact extends React.Component {
   }
 
   render() {
+
     // eslint-disable-next-line
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
     if (pathname) {
@@ -147,7 +158,7 @@ class SearchReact extends React.Component {
                   <SearchInput
                     keyword={this.state.keyword}
                     onSubmit={this.handleKeywordSearch}
-                    onChange={this.handleInputKeyword} />
+                    onChange={this.onSearchInput} />
                 </MDBCol>
               </MDBRow>
             </MDBContainer>
@@ -185,7 +196,7 @@ class SearchReact extends React.Component {
                 render={(props) =>
                   <SearchJobResult
                     {...props}
-                    keyword={this.state.keyword}
+                    code={this.state.code}
                     backend={this.state.backend}
                     handleSearchType={this.handleSearchType} />
                 }
@@ -203,7 +214,7 @@ class SearchReact extends React.Component {
               />
               <Route
                 path={`${this.props.match.url}/insight`}
-                render={(props) =>
+                component={(props) =>
                   <SearchInsightResult
                     {...props}
                     code={this.state.code}
