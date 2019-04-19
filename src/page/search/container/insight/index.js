@@ -30,20 +30,21 @@ class SearchInsightResultReact extends React.Component {
     super(props);
     // state
     this.state = {
-      backend: null,
-      searchType: 'article'
+      backend: [],
+      searchType: 'article',
+      code: 0
     };
     // i18n
     this.text = SearchInsightResultReact.i18n[languageHelper()];
   }
-
-  // shouldComponentUpdate(nextProps, nextState, nextContext) {
-  //   return this.props.backend != nextProps.
-  // }
-
+  
   async componentDidMount() {
     //搜索页面切换时，重新set搜索类型
     this.props.handleSearchType();
+  }
+  
+  shouldComponentUpdate(nextProps) {
+    return this.props !== nextProps;
   }
 
   render() {
@@ -72,7 +73,8 @@ class SearchInsightResultReact extends React.Component {
                           }
                         })()}
                       </MDBCol>
-                    </MDBRow>))) : (this.props.backend.status.code === 4040 ? <p>没有搜索结果。</p> : <p>Here should be a loading card.</p>)
+                    </MDBRow>))) : (this.props.backend.status.code === 4040 ? <p>没有搜索结果。</p> :
+                    <p>Here should be a loading card.</p>)
                   ) : null
               }
             </main>
@@ -121,7 +123,7 @@ class SearchInsightResultReact extends React.Component {
                   className={classes.listGroupItems}
                   style={{height: '10vh'}} />
               </MDBListGroup>
-              
+
             </aside>
           </MDBRow>
         </div>
