@@ -4,7 +4,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import {content} from './mock';
 import {Redirect, withRouter} from 'react-router-dom';
 
-import {JobCardBarId} from '../card/job-card-bar-id';
+import {JobCardBarId} from '../../playground/general-component/job-card-bar-id';
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 import {mockGetAsync} from '../../../tool/api-helper';
