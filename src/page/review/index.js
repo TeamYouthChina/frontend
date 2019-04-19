@@ -9,6 +9,7 @@ import ReviewDes from './containers/reviewDes';
 import Comments from './components/comment-card-bar';
 import {generateHeaders, getAsync, isLogin, urlPrefix} from '../../tool/api-helper';
 import {timeHelper} from '../../tool/time-helper';
+import Share from './containers/share';
 
 class ReviewReact extends React.Component {
   constructor(props) {
@@ -16,7 +17,8 @@ class ReviewReact extends React.Component {
     // state
     this.state = {
       backend:null,
-      commentsText:null
+      commentsText:null,
+      showShare:false
     };
     // i18n
     this.text = ReviewReact.i18n[languageHelper()];
@@ -249,6 +251,13 @@ class ReviewReact extends React.Component {
     }));
   };
 
+  onShare = () =>{
+    const showShare = !this.state.showShare;
+    this.setState(()=>({
+      showShare
+    }));
+  };
+  
   getCurrentPage(){}
   
   render() {
@@ -276,6 +285,13 @@ class ReviewReact extends React.Component {
           attention={backend.attention}
           attentionCount={backend.attentionCount}
           upvoteCount={backend.upvoteCount}
+          onShare={this.onShare}
+          showShare={this.state.showShare}
+        />
+        <Share 
+          content={window.location.href} 
+          onShare={this.onShare}
+          showShare={this.state.showShare}
         />
         <div
           className="cell-wall"

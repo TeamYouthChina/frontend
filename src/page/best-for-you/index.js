@@ -149,9 +149,6 @@ class BestForYouReact extends React.Component {
                         </div>
                       );
                     })}
-                    <CompanyCardSquare id={1}/>
-                    <CompanyCardSquare id={2}/>
-                    <CompanyCardSquare id={3}/>
                   </div>
                   <div
                     className={classes.seemore}

@@ -11,6 +11,7 @@ import classes from './index.module.css';
 import Title from '../containers/title/title';
 import {isLogin} from '../../../../../tool/api-helper';
 import {timeHelper} from '../../../../../tool/time-helper';
+import Share from '../../../../article/containers/share';
 
 export class AnswerCard extends React.Component {
   constructor(props) {
@@ -24,6 +25,7 @@ export class AnswerCard extends React.Component {
       showComments: false,
       commentsText: null,
       comments: null,
+      showShare:false,
       pageConfig: {
         totalPage: 14 //总页码
       },
@@ -369,7 +371,15 @@ export class AnswerCard extends React.Component {
     } else {
       return author.role[0];
     }
-  }
+  };
+
+  onShare = () =>{
+    const showShare = !this.state.showShare;
+    this.setState(()=>({
+      showShare
+    }));
+  };
+
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.orderScroll);
@@ -380,7 +390,7 @@ export class AnswerCard extends React.Component {
     return (this.state.backend !== null) ? (
       <React.Fragment>
         <div className={classes.cardWrapper} ref={(span) => this.scrollSpan = span}>
-          <Title title={backend.title} />
+          <Title title={backend.title} id={this.props.articleId}/>
           <UserInfor
             score={5}
             user={backend.author === null ? backend.author : backend.author.username}
@@ -389,6 +399,11 @@ export class AnswerCard extends React.Component {
             short={backend.body.previewText}
             content={backend.body.braftEditorRaw}
             handleSpanClick={this.handleSpanClick}
+          />
+          <Share
+            content={window.location.href}
+            onShare={this.onShare}
+            showShare={this.state.showShare}
           />
           {this.state.showBottom || this.state.isCollapsed ? (
             <Footer
@@ -406,6 +421,7 @@ export class AnswerCard extends React.Component {
               attentionCount={backend.attentionCount}
               upvoteCount={backend.upvoteCount}
               downvoteCount={backend.downvoteCount}
+              onShare={this.onShare}
             />
           ) : null}
         </div>

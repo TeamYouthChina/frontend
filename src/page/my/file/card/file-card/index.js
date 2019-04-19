@@ -36,7 +36,7 @@ class FileCardReact extends React.Component {
         </div>
         <div className="ml-2">
           <div className="d-flex">
-            <div className={classes.title}>实习_简历</div>
+            <div className={classes.title}>{this.props.name}</div>
             <div className={`ml-1 ${classes.text}`}>中文</div>
           </div>
           <div className={`mt-1 ${classes.text}`}>上次修改：2019年3月3号</div>
@@ -58,11 +58,10 @@ FileCardReact.i18n = [
 
 FileCardReact.propTypes = {
   // self
-  text: PropTypes.string.isRequired,
-  logo: PropTypes.string.isRequired,
-  tag: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
+  language:PropTypes.string.isRequired,
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,

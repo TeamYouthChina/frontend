@@ -45,13 +45,13 @@ class JobCardBarIdReact extends React.Component {
     return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ? (
       <div 
         className={classes.Card}
-        onClick={()=>{
-          this.props.history.push(`/job/${this.state.backend.content.id}`);
-        }}
+        
         style={{cursor:'pointer'}}
       >
-        <div className={classes.Clickable} />
-        <div className={classes.UnClickable}>
+        <div className={classes.Clickable} onClick={()=>{
+          this.props.history.push(`/job/${this.state.backend.content.id}`);
+        }}/>
+        <div className={classes.UnClickable} >
           <div className={classes.Img}>
             <img src={(this.state.backend.content.organization.avatarUrl)?(this.state.backend.content.organization.avatarUrl):('http://frontendpic.oss-us-east-1.aliyuncs.com/%E5%B7%A5%E4%BD%9C.png')} alt="no img" />
           </div>
