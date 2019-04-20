@@ -67,7 +67,7 @@ class AnswerCardSquareReact extends React.Component {
           </div>
           
           <div className={classes.answer}>
-            <IfCollect/>
+            {/*<IfCollect/>*/}
           </div>
         </div>
       </div>

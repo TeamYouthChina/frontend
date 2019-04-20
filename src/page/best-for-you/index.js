@@ -38,8 +38,8 @@ class BestForYouReact extends React.Component {
       job: await getAsync('/discovery/jobs?limit=6&page=1'),
       company: await getAsync('/discovery/companies?limit=3&page=1'),
       userFulltext: await getAsync('/discovery/users?limit=3&page=1'),
-      questionFulltext: await getAsync('/discovery/questions?limit=4&page=1'),
-      reviewFulltext: await getAsync('/discovery/editorials?limit=6&offset=0'),
+      questionFulltext: await getAsync('/discovery/questions?limit=6&page=1'),
+      reviewFulltext: await getAsync('/discovery/editorials?limit=3&offset=1'),
       articleFulltext: await getAsync('/discovery/articles?limit=4&page=1')
     });
   }
@@ -52,10 +52,12 @@ class BestForYouReact extends React.Component {
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
+   
     switch (this.state.render) {
       case 0:
         return null;
       case 1:
+        
         return (
           (
             <div>

@@ -65,11 +65,11 @@ class ArticleCardSquareReact extends React.Component {
             <div className={classes.people}>{this.props.username}</div>
             {/*<div className={classes.tag2}><div className="px-2">{this.state.backend.content.author.role}</div></div>*/}
           </div>
-          <IfCollect
-            id={this.props.id}
-            type={5}
-            ifcollect={this.props.ifcollect}
-          />
+          {/*<IfCollect*/}
+            {/*id={this.props.id}*/}
+            {/*type={5}*/}
+            {/*ifcollect={this.props.ifcollect}*/}
+          {/*/>*/}
         </div>
       </div>
 

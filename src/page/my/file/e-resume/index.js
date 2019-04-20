@@ -32,8 +32,15 @@ class EResumeReact extends React.Component {
               <div className={classes.title}>简历</div>
               <div className={classes.btn}>新建简历</div>
             </div>
-           
-            <div className={classes['blue-text']}>
+
+
+            <div
+              className={classes['blue-text']}
+              onClick={()=>{
+                this.props.history.push(`/my/file`);
+              }}
+              style={{cursor:'pointer'}}
+            >
               {'< '}我的文件
             </div>
             <div className="d-flex justify-content-between">
