@@ -35,7 +35,6 @@ class ApplicationCardReact extends React.Component {
 
     return (
       <div style={{marginBottom: '8vw', background: '#FFFFFF', padding: '0.72vw 0'}}>
-        <p className={classes.api}>整个API 都！没！有！</p>
         {this.props.applicationList.map((item, index) => {
           return (
             <div className={classes.content} key={index}>
@@ -76,11 +75,7 @@ ApplicationCardReact.i18n = [
 
 ApplicationCardReact.propTypes = {
   // self
-  applicationList: PropTypes.object.isRequired,
-  text: PropTypes.string.isRequired,
-  logo: PropTypes.string.isRequired,
-  tag: PropTypes.string.isRequired,
-
+  applicationList: PropTypes.array.isRequired,
 };
 
 export const ApplicationCard = ApplicationCardReact;
