@@ -6,7 +6,7 @@ import {withRouter} from 'react-router-dom';
 
 
 import classes from './index.module.css';
-import {IfCollect} from '../if-collect';
+//import {IfCollect} from '../if-collect';
 
 import {languageHelper} from '../../../../tool/language-helper';
 
@@ -65,11 +65,11 @@ class ArticleCardSquareReact extends React.Component {
             <div className={classes.people}>{this.props.username}</div>
             {/*<div className={classes.tag2}><div className="px-2">{this.state.backend.content.author.role}</div></div>*/}
           </div>
-          <IfCollect
-            id={this.props.id}
-            type={5}
-            ifcollect={this.props.ifcollect}
-          />
+          {/*<IfCollect*/}
+          {/*id={this.props.id}*/}
+          {/*type={5}*/}
+          {/*ifcollect={this.props.ifcollect}*/}
+          {/*/>*/}
         </div>
       </div>
 

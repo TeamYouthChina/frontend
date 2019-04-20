@@ -70,8 +70,7 @@ class CollectionCardReact extends React.Component {
             {this.props.text}
           </div>
           <div className={classes.tag}>
-            您关注的{this.props.text}数
-            {backend === null ? '     0' : `    ${backend[this.props.type].data.length}`}
+            {backend === null ? '     0' : `    ${backend[this.props.type].data.length}`}{this.props.unit}{this.props.text}
           </div>
         </div>
         <div>
@@ -91,6 +90,7 @@ CollectionCardReact.i18n = [
 CollectionCardReact.propTypes = {
   // self
   text: PropTypes.string.isRequired,
+  unit: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   logo: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,

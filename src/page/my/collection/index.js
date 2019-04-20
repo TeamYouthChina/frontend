@@ -46,23 +46,23 @@ class CollectionReact extends React.Component {
             </div>
             <div className="d-flex" style={{marginBottom:'2.03vw'}}>
               <div style={{marginRight:'1.875vw'}}>
-                <CollectionCard text={'职位'} logo={job} type={'job'} url={'job'}/>
+                <CollectionCard text={'职位'} unit={'份'} logo={job} type={'job'} url={'job'}/>
               </div>
               <div>
-                <CollectionCard text={'公司'} logo={company}  type={'company'} url={'company'}/>
+                <CollectionCard text={'公司'} unit={'家'} logo={company}  type={'company'} url={'company'}/>
               </div>
             </div>
             <div className="d-flex" style={{marginBottom:'2.03vw'}}>
               <div style={{marginRight:'1.875vw'}}>
-                <CollectionCard text={'文章'} logo={article} type={'article'} url={'article'}/>
+                <CollectionCard text={'文章'} unit={'篇'} logo={article} type={'article'} url={'article'}/>
               </div>
               <div>
-                <CollectionCard text={'短则'} logo={comment} type={'editorial'} url={'review'}/>
+                <CollectionCard text={'短则'} unit={'条'}logo={comment} type={'editorial'} url={'review'}/>
               </div>
             </div>
             <div className="d-flex" style={{marginBottom:'8.03vw'}}>
               <div style={{marginRight:'1.875vw'}}>
-                <CollectionCard text={'回答'} logo={answer} type={'answer'} url={'answer'}/>
+                <CollectionCard text={'回答'}  unit={'条'}logo={answer} type={'answer'} url={'answer'}/>
               </div>
             </div>
             

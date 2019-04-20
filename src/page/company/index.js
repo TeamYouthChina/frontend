@@ -7,10 +7,13 @@ import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 import bg from './company-card/Rectangle 8.png';
 import classes from './index.module.css';
 
+import {CompanyArticle} from './company-article';
 import {CompanyCard} from './company-card';
 import {CompanyDesci} from './company-descri';
 import {CompanyJob} from './company-job';
 import {CompanyPic} from './company-pic';
+import {CompanyQuestion} from './company-question';
+import {CompanyReview} from './company-review';
 
 
 import {getAsync} from '../../tool/api-helper';
@@ -52,6 +55,9 @@ class CompanyReact extends React.Component {
                 <CompanyCard backend={this.state.backend} />
                 <CompanyDesci backend={this.state.backend} />
                 <CompanyJob id={this.state.backend.content.id}/>
+                <CompanyReview keyword={this.state.backend.content.name}/>
+                <CompanyQuestion keyword={this.state.backend.content.name}/>
+                <CompanyArticle keyword={this.state.backend.content.name}/>
                 <CompanyPic backend={this.state.backend}/>
               </div>
               {/*<div className={classes.menu}>
@@ -77,9 +83,8 @@ CompanyReact.i18n = [
 
 CompanyReact.propTypes = {
   // self
-  backend: PropTypes.object.isRequired,
+  
   // React Router
-  id:PropTypes.number.isRequired,
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired

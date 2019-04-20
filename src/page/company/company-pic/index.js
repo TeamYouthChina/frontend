@@ -37,10 +37,6 @@ CompanyPicReact.i18n = [
 
 CompanyPicReact.propTypes = {
   // self
-  align: PropTypes.string.isRequired,
-  backgroundColor: PropTypes.string.isRequired,
-  intervalVw: PropTypes.number.isRequired,
-  itemList: PropTypes.array.isRequired,
   backend:PropTypes.object.isRequired,
   // React Router
   match: PropTypes.object.isRequired,
