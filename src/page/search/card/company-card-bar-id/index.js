@@ -13,6 +13,7 @@ import {IfCollect} from '../../../playground/general-component/if-collect';
 import location from './location.svg';
 
 import { languageHelper } from '../../../../tool/language-helper';
+import {Location} from '../../../playground/general-component/location';
 
 
 class CompanyCardBarIdReact extends React.Component {
@@ -50,8 +51,14 @@ class CompanyCardBarIdReact extends React.Component {
     
     return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ? (
       
-      <div className={classes.Card}>
-        <div className={classes.Clickable} onClick={this.clickOnCard} />
+      <div 
+        className={classes.Card}
+        
+        style={{cursor:'pointer'}}
+      >
+        <div className={classes.Clickable} onClick={()=>{
+          this.props.history.push(`/company/${this.state.backend.content.id}`);
+        }} />
         <div className={classes.UnClickable}>
           <div className={classes.Icon}>
             <img src={(this.state.backend.content.avatarUrl)?(this.state.backend.content.avatarUrl):('https://frontendpic.oss-us-east-1.aliyuncs.com/%E5%85%AC%E5%8F%B8.png')} alt="no img" />
@@ -62,14 +69,16 @@ class CompanyCardBarIdReact extends React.Component {
             </div>
             <div className={classes.Des1}>
               <img src={location} alt="no img" />
-              <p>
-                
-              </p>
+              <Location
+                code={this.state.backend.content.location[0]}
+                edit={false}
+                locate={()=>{}}
+              />
             </div>
             <div className={classes.Des2}>
               <img src={employee} alt="no img" />
               <p>
-                <a>{this.state.backend.content.website}</a>
+                <a href={this.state.backend.content.website}>{this.state.backend.content.website}</a>
               </p>
             </div>
           </div>
@@ -84,7 +93,11 @@ class CompanyCardBarIdReact extends React.Component {
               </button>
             </div>
             <div className={classes.Like}>
-              <IfCollect ifcollect={this.state.backend.content.collected} type={2}/>
+              <IfCollect
+                ifcollect={this.state.backend.content.collected}
+                type={2}
+                id={this.state.backend.content.id}
+              />
             </div>
           </div>
         </div>
