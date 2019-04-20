@@ -1,13 +1,6 @@
 import React from 'react';
 import {
-  MDBCol,
-  MDBDropdown,
-  MDBDropdownItem,
-  MDBDropdownMenu,
-  MDBDropdownToggle,
-  MDBListGroup,
-  MDBListGroupItem,
-  MDBRow
+  MDBCol, MDBDropdown, MDBDropdownItem, MDBDropdownMenu, MDBDropdownToggle, MDBListGroup, MDBListGroupItem, MDBRow
 } from 'mdbreact';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
@@ -44,16 +37,12 @@ class SearchJobResultReact extends React.Component {
     this.text = SearchJobResultReact.i18n[languageHelper()];
   }
 
-  componentWillUnmount() {
-    this.props.handleUnmount();
-  }
-
   async componentDidMount() {
     try {
       const result = await getAsync(`/users/${localStorage.getItem('id')}/attentions?type=${this.state.collectionType}`);
       if (result && result.status && result.status.code === 2000) {
         this.setState(() => {
-          return {collectionNum: result.content.length};
+          return {collectionNum: result.content.job.item_count};
         });
       } else {
         this.setState(() => {
@@ -67,6 +56,10 @@ class SearchJobResultReact extends React.Component {
     
     //搜索页面切换时，重新set搜索类型
     this.props.handleSearchType();
+  }
+
+  componentWillUnmount() {
+    this.props.handleUnmount();
   }
 
   render() {
@@ -150,9 +143,10 @@ SearchJobResultReact.propTypes = {
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   handleSearchType: PropTypes.func.isRequired,
+  handleUnmount: PropTypes.func.isRequired,
   backend: PropTypes.array.isRequired,
   code: PropTypes.number.isRequired,
-  handleUnmount: PropTypes.func.isRequired
+  keyword: PropTypes.string.isRequired
 };
 
 export const SearchJobResult = withRouter(SearchJobResultReact);
