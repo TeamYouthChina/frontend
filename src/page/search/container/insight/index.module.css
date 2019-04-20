@@ -82,5 +82,6 @@
 }
 
 .mainBody {
+  min-height: 64vh;
   width: 66.17vw;
 }

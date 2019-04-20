@@ -2,7 +2,6 @@ import React from 'react';
 import {Redirect, Route, Switch, withRouter} from 'react-router-dom';
 import {MDBCol, MDBContainer, MDBRow} from 'mdbreact';
 import PropTypes from 'prop-types';
-import debounce from 'lodash/debounce';
 
 import {SearchJobsNavItem} from './secondary-navagations/job';
 import {SearchCompaniesNavItem} from './secondary-navagations/company';
@@ -17,21 +16,13 @@ import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 import {getAsync} from '../../tool/api-helper';
 
-const basicCHNFont = {
-  fontFamily: 'PingFang SC',
-  fontStyle: 'normal',
-  fontWeight: 'normal',
-  lineHeight: 'normal'
-};
-
 class SearchReact extends React.Component {
   constructor(props) {
     super(props);
     this.text = SearchReact.i18n[languageHelper()];
-    this.handleInputKeyword = debounce(this.handleInputKeyword, 1000);
+    // this.handleInputKeyword = debounce(this.handleInputKeyword, 1000);
 
     this.state = {
-      // activeItemClassicTabs1: "1",
       collapseID: '',
       tabsContent: '职位',
       //是否unmount子组件
@@ -47,13 +38,14 @@ class SearchReact extends React.Component {
       //搜索类型
       searchType: null
     };
+    
   }
 
-  onSearchInput = async event => {
-    event.persist();
-    this.handleInputKeyword(event);
-  };
-
+  // onSearchInput = async event => {
+  //   event.persist();
+  //   this.handleInputKeyword(event);
+  // };
+  
   handleInputKeyword = event => {
     this.setState({
       keyword: event.target.value
@@ -106,7 +98,9 @@ class SearchReact extends React.Component {
 
   handleChildUnmount = () => {
     this.setState(() => {
-      return {renderChild: false};
+      return {
+        backend: null
+      };
     });
   };
 
@@ -167,7 +161,7 @@ class SearchReact extends React.Component {
                   <SearchInput
                     keyword={this.state.keyword}
                     onSubmit={this.handleKeywordSearch}
-                    onChange={this.onSearchInput} />
+                    onChange={this.handleInputKeyword} />
                 </MDBCol>
               </MDBRow>
             </MDBContainer>
@@ -176,11 +170,11 @@ class SearchReact extends React.Component {
             <Switch>
               <Route
                 path={`${this.props.match.url}/job`}
-                render={routeProps => <SearchJobsNavItem basicCHNFont={basicCHNFont} />}
+                render={props => <SearchJobsNavItem {...props} />}
               />
               <Route
                 path={`${this.props.match.url}/company`}
-                render={routeProps => <SearchCompaniesNavItem basicCHNFont={basicCHNFont} />}
+                render={props => <SearchCompaniesNavItem {...props} />}
               />
               <Route
                 path={`${this.props.match.url}/insight`}
@@ -188,7 +182,7 @@ class SearchReact extends React.Component {
               />
               <Route
                 path={`${this.props.match.url}/connection`}
-                render={routeProps => <SearchConnectionNavItem basicCHNFont={basicCHNFont} />}
+                render={props => <SearchConnectionNavItem {...props} />}
               />
               <Redirect to={`${this.props.match.url}/job`} />
             </Switch>
@@ -198,51 +192,56 @@ class SearchReact extends React.Component {
         {/*搜索结果细胞*/}
         <div className="cell-wall" style={{backgroundColor: '#F3F5F7'}}>
           <div className="cell-membrane">
-            <Switch>
-              <Route
-                path={`${this.props.match.url}/job`}
-                children={(props) =>
-                  <SearchJobResult
-                    {...props}
-                    code={this.state.code}
-                    backend={this.state.backend}
-                    handleSearchType={this.handleSearchType} />
-                }
-                // component={SearchJobResult}
-              />
-              <Route
-                path={`${this.props.match.url}/company`}
-                children={(props) =>
-                  <SearchCompanyResult
-                    {...props}
-                    code={this.state.code}
-                    backend={this.state.backend}
-                    handleSearchType={this.handleSearchType} />
-                }
-              />
-              <Route
-                path={`${this.props.match.url}/insight`}
-                children={(props) =>
-                  <SearchInsightResult
-                    {...props}
-                    renderChild={this.state.renderChild}
-                    code={this.state.code}
-                    backend={this.state.backend}
-                    handleSearchType={this.handleSearchType} />
-                }
-              />
-              <Route
-                path={`${this.props.match.url}/connection`}
-                children={(props) =>
-                  <SearchConnectionResult
-                    {...props}
-                    code={this.state.code}
-                    backend={this.state.backend}
-                    handleSearchType={this.handleSearchType} />
-                }
-              />
-              <Redirect to={`${this.props.match.url}/job`} />
-            </Switch>
+            {this.state.backend ?
+              <Switch>
+                <Route
+                  path={`${this.props.match.url}/job`}
+                  children={(props) =>
+                    <SearchJobResult
+                      {...props}
+                      code={this.state.code}
+                      backend={this.state.backend}
+                      handleUnmount={this.handleChildUnmount}
+                      handleSearchType={this.handleSearchType} />
+                  }
+                />
+                <Route
+                  path={`${this.props.match.url}/company`}
+                  children={(props) =>
+                    <SearchCompanyResult
+                      {...props}
+                      code={this.state.code}
+                      backend={this.state.backend}
+                      handleUnmount={this.handleChildUnmount}
+                      handleSearchType={this.handleSearchType} />
+                  }
+                />
+                <Route
+                  path={`${this.props.match.url}/insight`}
+                  children={(props) =>
+                    <SearchInsightResult
+                      {...props}
+                      renderChild={this.state.renderChild}
+                      code={this.state.code}
+                      backend={this.state.backend}
+                      handleUnmount={this.handleChildUnmount}
+                      handleSearchType={this.handleSearchType} />
+                  }
+                />
+                <Route
+                  path={`${this.props.match.url}/connection`}
+                  children={(props) =>
+                    <SearchConnectionResult
+                      {...props}
+                      code={this.state.code}
+                      backend={this.state.backend}
+                      handleUnmount={this.handleChildUnmount}
+                      handleSearchType={this.handleSearchType} />
+                  }
+                />
+                <Redirect to={`${this.props.match.url}/job`} />
+              </Switch>
+              : null}
             {/*eslint-enable*/}
           </div>
         </div>

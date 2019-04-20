@@ -1,5 +1,5 @@
 import React from 'react';
-import {MDBCol, MDBListGroup, MDBListGroupItem, MDBRow} from 'mdbreact';
+import {MDBListGroup, MDBListGroupItem, MDBRow} from 'mdbreact';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import classes from './index.module.css';
@@ -7,9 +7,7 @@ import wrtiteArticle from '../../assets/writeArticle.svg';
 import writeQuestion from '../../assets/writeQuestion.svg';
 import writeReview from '../../assets/writeReview.svg';
 
-import {ArticleCardBarId} from '../../../playground/general-component/article-card-bar-id';
-import {AnswerCardBarId} from '../../../playground/general-component/answer-card-bar-id';
-import {ReviewCardBarId} from '../../../playground/general-component/review-card-bar-id';
+import {CardMapper} from '../../component/mapper';
 import {languageHelper} from '../../../../tool/language-helper';
 
 const basicCHNFont = {
@@ -42,9 +40,9 @@ class SearchInsightResultReact extends React.Component {
     //搜索页面切换时，重新set搜索类型
     this.props.handleSearchType();
   }
-  
+
   componentWillUnmount() {
-    // console.log('unmount()')
+    this.props.handleUnmount();
   }
 
   // shouldComponentUpdate(nextProps) {
@@ -60,24 +58,7 @@ class SearchInsightResultReact extends React.Component {
             <main className={classes.mainBody}>
               {
                 this.props.backend.length ?
-                  (this.props.code === 2000 ? (this.props.backend.map((item, index) => (
-                    <MDBRow className={classes.cardBarRow} key={index}>
-                      <MDBCol>
-                        {(() => {
-                          switch (item.type) {
-                            case 'article':
-                              return <ArticleCardBarId id={item.content.id} />;
-                            case 'question':
-                              return <AnswerCardBarId
-                                questionId={item.content.id}
-                                questionTitle={item.content.title}
-                                id={item.content.answers[0].id} />;
-                            case 'editorial':
-                              return <ReviewCardBarId id={item.content.id} />;
-                          }
-                        })()}
-                      </MDBCol>
-                    </MDBRow>))) : (this.props.backend.status.code === 4040 ? <p>没有搜索结果。</p> :
+                  (this.props.code === 2000 ? <CardMapper backend={this.props.backend}/> : (this.props.backend.status.code === 4040 ? <p>没有搜索结果。</p> :
                     <p>Here should be a loading card.</p>)
                   ) : null
               }
@@ -150,7 +131,8 @@ SearchInsightResultReact.propTypes = {
   location: PropTypes.object.isRequired,
   handleSearchType: PropTypes.func.isRequired,
   backend: PropTypes.array.isRequired,
-  code: PropTypes.number.isRequired
+  code: PropTypes.number.isRequired,
+  handleUnmount: PropTypes.func.isRequired
 };
 
 export const SearchInsightResult = withRouter(SearchInsightResultReact);
