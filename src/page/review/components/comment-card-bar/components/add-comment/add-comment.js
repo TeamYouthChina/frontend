@@ -8,17 +8,40 @@ export class AddComment extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      inputValue: ''
+      leftCount: 150
     };
-    this.handleInput = this.handleInput.bind(this);
+    this.isChinese = false;
+    this.maxLength = 150;
   }
-
-  handleInput(e) {
-    let value = e.target.value;
-    this.setState({
-      inputValue: value
+  
+  componentDidMount() {
+    this.textArea.addEventListener('compositionstart',()=>{
+      this.isChinese = true;
+    });
+    this.textArea.addEventListener('compositionend',(e)=>{
+      this.isChinese = false;
+      this.handleInput(e);
     });
   }
+
+  handleInput = (e) =>{
+    if(this.state.leftCount > 0) {
+      if(!this.isChinese){
+        let count = this.maxLength - e.target.value.length;
+        this.setState(()=>({
+          leftCount: count <= 0 ? 0 : count
+        }));
+      }
+    } else {
+      this.textArea.value = this.textArea.value.slice(0,150);
+    }
+  };
+
+  submitComment = (e) => {
+    e.stopPropagation();
+    this.props.addComments(this.textArea.value);
+    this.textArea.value = '';
+  };
 
   render() {
     return (
@@ -31,27 +54,18 @@ export class AddComment extends React.Component {
           />
         </MDBAvatar>
         <div className={classes.addComment}>
-          <input className={classes.inputStyle}
-            placeholder="发表你的评论..." 
-            onChange={(e) => (this.handleInput(e))} value={this.state.inputValue} 
-            onKeyDown={(e)=>{
-              if(e.keyCode === 13) {
-                e.stopPropagation();
-                this.props.addComments(this.state.inputValue);
-                this.setState({
-                  inputValue:''
-                });
-              }
-            }}
+          <textarea
+            ref={text => this.textArea = text}
+            className={classes.inputStyle}
+            placeholder="发表你的评论..."
+            onKeyDown={this.handleInput}
+            style={{maxlength:150}}
           />
+          <div className={classes.countNum}>
+            {this.state.leftCount}
+          </div>
         </div>
-        <MDBBtn className={classes.btnStyle} onClick={(e) => {
-          e.stopPropagation();
-          this.props.addComments(this.state.inputValue);
-          this.setState({
-            inputValue:''
-          });
-        }}>
+        <MDBBtn className={classes.btnStyle} onClick={this.submitComment}>
           发布
         </MDBBtn>
       </MDBRow>
