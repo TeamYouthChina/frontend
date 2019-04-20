@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
 
-import {languageHelper} from '../../tool/language-helper';
-import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
+import {languageHelper} from '../../../tool/language-helper';
+import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 
 import VideoDes from './containers/videoDes';
 import Comments from './components/comment-card-bar';

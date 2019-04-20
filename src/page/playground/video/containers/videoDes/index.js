@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {MDBIcon} from 'mdbreact';
 import {connect} from 'react-redux';
-import {languageHelper} from '../../../../tool/language-helper';
+import {languageHelper} from '../../../../../tool/language-helper';
 
 import GroupList from '../group-list';
 import classes from './videoDes.module.css';

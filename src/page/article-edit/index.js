@@ -21,7 +21,6 @@ class ArticleEditReact extends React.Component {
     return false;
   }
 
-
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
     if (pathname) {

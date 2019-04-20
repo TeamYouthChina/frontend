@@ -16,51 +16,56 @@ import {CompanyQuestion} from './company-question';
 import {CompanyReview} from './company-review';
 
 
-import {getAsync} from '../../tool/api-helper';
+import {getAsync, isLogin} from '../../tool/api-helper';
 
 class CompanyReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {
-      
+      render: 0,
     };
     // i18n
     this.text = CompanyReact.i18n[languageHelper()];
   }
 
   async componentDidMount() {
-
+    if (!isLogin()) {
+      this.setState({
+        render: 2
+      });
+    }
     this.setState({
+      render: 1,
       backend: await getAsync(`/companies/${this.props.match.params.id}`)
     });
-    
   }
-
 
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
-    return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ? (
-      <div className={classes.background}>
-        <div className={classes.bg}>
-          <img src={bg} alt="bg" className={classes.img} />
-        </div>
-        <div className="cell-wall">
-          <div className="cell-membrane">
-            <div className="d-flex">
-              <div>
-                <CompanyCard backend={this.state.backend} />
-                <CompanyDesci backend={this.state.backend} />
-                <CompanyJob id={this.state.backend.content.id}/>
-                <CompanyReview keyword={this.state.backend.content.name}/>
-                <CompanyQuestion keyword={this.state.backend.content.name}/>
-                <CompanyArticle keyword={this.state.backend.content.name}/>
-                <CompanyPic backend={this.state.backend}/>
-              </div>
-              {/*<div className={classes.menu}>
+    switch (this.state.render) {
+      case 1:
+        return (
+          <div className={classes.background}>
+            <div className={classes.bg}>
+              <img src={bg} alt="bg" className={classes.img} />
+            </div>
+            <div className="cell-wall">
+              <div className="cell-membrane">
+                <div className="d-flex">
+                  <div>
+                    <CompanyCard backend={this.state.backend} />
+                    <CompanyDesci backend={this.state.backend} />
+                    <CompanyJob id={this.state.backend.content.id} />
+                    <CompanyReview keyword={this.state.backend.content.name} />
+                    <CompanyQuestion keyword={this.state.backend.content.name} />
+                    <CompanyArticle keyword={this.state.backend.content.name} />
+                    <CompanyPic backend={this.state.backend} />
+                  </div>
+                  {/*<div className={classes.menu}>
                 <div className={classes.font} style={{color: '#4F65E1'}}>概况</div>
                 <div className={classes.font}>在招职位</div>
                 <div className={classes.font}>评价</div>
@@ -68,11 +73,16 @@ class CompanyReact extends React.Component {
                 <div className={classes.font}>图片</div>
                 <div className={classes.font}>视频</div>
               </div>*/}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    ):null;
+        );
+      case 2:
+        return (<Redirect to={`/login?to=${this.props.location.pathname}`} />);
+      default:
+        return null;
+    }
   }
 }
 
@@ -83,7 +93,7 @@ CompanyReact.i18n = [
 
 CompanyReact.propTypes = {
   // self
-  
+
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,

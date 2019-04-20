@@ -6,6 +6,7 @@ import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 import ReviewCreate from './components/edit';
 import classes from './index.module.css';
+import {isLogin} from '../../tool/api-helper';
 
 class ReviewEditReact extends React.Component {
   constructor(props) {
@@ -20,6 +21,9 @@ class ReviewEditReact extends React.Component {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
     if (pathname) {
       return (<Redirect to={pathname} />);
+    }
+    if (!isLogin()) {
+      return (<Redirect to={`/login?to=${this.props.location.pathname}`} />);
     }
     return (
       <div className={classes.wrapper}>

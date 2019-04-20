@@ -13,7 +13,6 @@ import {CreateResume} from './page/create-resume';
 import {Discovery} from './page/discovery';
 import {Footer} from './page/footer';
 import {Header} from './page/header';
-import {Help} from './page/help';
 import {Job} from './page/job';
 import {JobForYou} from './page/job-for-you';
 import {Login} from './page/login';
@@ -21,7 +20,6 @@ import {My} from './page/my';
 import {OnlineApplication} from './page/online-application';
 import {PageNoFound} from './page/page-no-found';
 import {Playground} from './page/playground';
-import {ZhenyiWrapper} from './page/playground/zhenyi';
 import {Question} from './page/question';
 import {QuestionEdit} from './page/question-edit';
 import {Register} from './page/register';
@@ -29,8 +27,6 @@ import {Review} from './page/review';
 import {ReviewEdit} from './page/review-edit';
 import {Search} from './page/search';
 import {SubmitDone} from './page/submit-done';
-import {Video} from './page/video';
-import {VideoEdit} from './page/video-edit';
 import {store} from './redux/store';
 import * as actionJs from './redux/action';
 
@@ -97,10 +93,6 @@ export class App extends React.Component {
                 component={routeProps => <Discovery {...routeProps} />}
               />
               <Route
-                path="/help"
-                component={routeProps => <Help {...routeProps} />}
-              />
-              <Route
                 path="/job/:id"
                 component={routeProps => <Job {...routeProps} />}
               />
@@ -115,6 +107,10 @@ export class App extends React.Component {
               <Route
                 path="/my"
                 component={routeProps => <My {...routeProps} />}
+              />
+              <Route
+                path="/page-no-found"
+                component={routeProps => <PageNoFound {...routeProps} />}
               />
               <Route
                 path="/question/:qid/answer/:aid/edit"
@@ -142,7 +138,7 @@ export class App extends React.Component {
               />
               <Route
                 path="/register"
-                component={routeProps => <Register {...routeProps} />}
+                component={routeProps => <Register {...routeProps} to="/" />}
               />
               <Route
                 path="/review/:id/edit"
@@ -160,23 +156,12 @@ export class App extends React.Component {
                 path="/search"
                 component={routeProps => <Search {...routeProps} />}
               />
+
+              {/* ====== path might change: BEGIN ====== */}
               <Route
                 path="/submit-done"
                 component={routeProps => <SubmitDone {...routeProps} />}
               />
-              <Route
-                path="/video/:id/edit"
-                component={routeProps => <VideoEdit {...routeProps} create={false} />}
-              />
-              <Route
-                path="/video/create"
-                component={routeProps => <VideoEdit {...routeProps} create={true} />}
-              />
-              <Route
-                path="/video/:id"
-                component={routeProps => <Video {...routeProps} />}
-              />
-              {/* ====== path might change: BEGIN ====== */}
               <Route
                 path="/create-resume"
                 component={routeProps => <CreateResume {...routeProps} />}
@@ -191,15 +176,7 @@ export class App extends React.Component {
                 path="/playground"
                 component={routeProps => <Playground {...routeProps} />}
               />
-              <Route
-                path="/playground/zhenyi"
-                component={routeProps => <ZhenyiWrapper {...routeProps} />}
-              />
               {/* ====== playground: END ====== */}
-              <Route
-                path="/page-no-found"
-                component={routeProps => <PageNoFound {...routeProps} />}
-              />
               <Redirect to="/page-no-found" />
             </Switch>
             <Footer />

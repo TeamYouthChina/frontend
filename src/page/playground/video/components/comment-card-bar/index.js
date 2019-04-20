@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { MDBRow} from 'mdbreact';
-import {languageHelper} from '../../../../tool/language-helper';
+import {languageHelper} from '../../../../../tool/language-helper';
 
 import { AddComment } from './components/add-comment';
 import CommentCard from './components/commentCard';
