@@ -50,6 +50,7 @@ const preprocessResponse = (response) => {
         throw error;
       }
     }
+    return data;
   });
 };
 
