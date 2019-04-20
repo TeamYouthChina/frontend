@@ -38,7 +38,6 @@ class Comments extends React.Component {
     } else {
       this.props.history.push('/login');
     }
-    
   }
   // 添加评论
   addComments(value){
@@ -123,6 +122,30 @@ class Comments extends React.Component {
       end
     });
   }
+
+  renderComment = () =>{
+    let start = this.state.start;
+    let end = this.state.end;
+    let array = [];
+    for(let i in this.state.commentLists){
+      if((i > start-1) && (i < end)){
+        let item = this.state.commentLists[i];
+        array.push(
+          <CommentCard
+            id={item.id}
+            user={item.creator && item.creator.username}
+            time={timeHelper(item.modified_at)}
+            content={item.body}
+            upvoteCount={item.upvoteCount}
+            downvoteCount={item.downvoteCount}
+            evaluateStatus={item.evaluateStatus}
+            addComments={this.addComments}
+          />
+        );
+      }
+    }
+    return array;
+  };
   
   render() {
     return (this.state.commentLists !== null) ? (
@@ -133,31 +156,7 @@ class Comments extends React.Component {
         <AddComment 
           addComments={this.addComments}
         />
-        {this.state.commentLists.length < 3 ? this.state.commentLists.map((item) => (
-          <CommentCard
-            key={item.id}
-            id={item.id}
-            user={item.creator && item.creator.username}
-            time={timeHelper(item.modified_at)}
-            content={item.body}
-            upvoteCount={item.upvoteCount}
-            downvoteCount={item.downvoteCount}
-            evaluateStatus={item.evaluateStatus}
-            addComments={this.addComments}
-          />
-        )) : this.state.commentLists.slice(this.state.start, this.state.end).map((item)=>(
-          <CommentCard
-            key={item.id}
-            id={item.id}
-            user={item.creator && item.creator.username}
-            time={timeHelper(item.modified_at)}
-            content={item.body}
-            upvoteCount={item.upvoteCount}
-            downvoteCount={item.downvoteCount}
-            evaluateStatus={item.evaluateStatus}
-            addComments={this.addComments}
-          />
-        ))}
+        {this.renderComment()}
         {this.state.commentLists.length !== 0 ? (
           <MDBRow center className={classes.pagination}>
             <PaginationUse
