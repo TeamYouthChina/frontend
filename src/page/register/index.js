@@ -8,8 +8,9 @@ import {PersonalInfo} from './personalInfo';
 import {BasicInfo} from './basicInfo';
 import {RegisterFailPrompt} from './register-fail';
 import {languageHelper} from '../../tool/language-helper';
-import {postAsync} from '../../tool/api-helper';
+import {isLogin, postAsync} from '../../tool/api-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
+import queryString from 'query-string';
 
 class RegisterReact extends React.Component {
   constructor(props) {
@@ -17,7 +18,6 @@ class RegisterReact extends React.Component {
     // state
     this.state = {
       passwordInputType: 'password',
-      registerType: 'personal', //记录个人登陆还是企业登陆
       showDetail: false, //是否显示用户详细信息填写
       //用户信息
       name: '',
@@ -37,12 +37,6 @@ class RegisterReact extends React.Component {
     this.text = RegisterReact.i18n[languageHelper()];
   }
 
-  // handleRegisterType = (event) => {
-  //   this.setState({
-  //     registerType: event.target.value === 'personal' ? 'personal' : 'company'
-  //   });
-  // };
-
   handleRegisterSubmit = async (event) => {
     event.preventDefault();
 
@@ -57,7 +51,7 @@ class RegisterReact extends React.Component {
       gender: this.state.gender,
       age: this.state.age
     });
-    
+
     if (backend && backend.status && backend.status.code === 2000) {
       this.props.history.push('/login');
       //if register success, set ifRedirect value to be true and re-render the page.
@@ -105,6 +99,14 @@ class RegisterReact extends React.Component {
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
+    if (isLogin()) {
+      const to = queryString.parse(this.props.location.search).to;
+      if (to) {
+        return (<Redirect to={to} />);
+      } else {
+        return (<Redirect to={this.props.to} />);
+      }
+    }
     return (
       <div>
         <div
@@ -118,7 +120,8 @@ class RegisterReact extends React.Component {
             {/*}*/}
             <div className={classes.leftCol}>
               <img className="img-fluid" src={img} alt="view" />
-              <RegisterFailPrompt isOpen={this.state.modalDisplay} toggle={this.toggleModal} prompt={this.state.modalPrompt}/>
+              <RegisterFailPrompt isOpen={this.state.modalDisplay} toggle={this.toggleModal}
+                prompt={this.state.modalPrompt} />
             </div>
 
             <div className={classes.rightCol}>
@@ -154,7 +157,7 @@ RegisterReact.i18n = [
 
 RegisterReact.propTypes = {
   // self
-
+  to: PropTypes.string.isRequired,
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,

@@ -15,8 +15,7 @@ import {Header2} from '../header-2';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 import * as deviceHelper from '../../tool/device-helper';
-import {getAsync} from '../../tool/api-helper';
-
+import {getAsync, isLogin} from '../../tool/api-helper';
 
 
 class MyReact extends React.Component {
@@ -31,6 +30,11 @@ class MyReact extends React.Component {
   }
 
   async componentDidMount() {
+    if (!isLogin()) {
+      this.setState({
+        render: 2
+      });
+    }
     this.setState({
       render: 1,
       user: await getAsync('/me'),
@@ -42,10 +46,7 @@ class MyReact extends React.Component {
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
-
     switch (this.state.render) {
-      case 0:
-        return null;
       case 1:
         return (
           <div>
@@ -61,9 +62,9 @@ class MyReact extends React.Component {
                       width: '5.3vw',
                       height: '5.3vw',
                       marginTop: '-2.65vw',
-                      background:'#F3F5F7'
-                    } : {width: '8.67vw', height: '8.67vw', marginTop: '-4.335vw',background:'#F3F5F7'}}
-                    src={(this.state.user.content.avatar_url==='---')?('http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'):(this.state.user.content.avatar_url==='---')}
+                      background: '#F3F5F7'
+                    } : {width: '8.67vw', height: '8.67vw', marginTop: '-4.335vw', background: '#F3F5F7'}}
+                    src={this.state.user.content.avatar_url === '---' ? 'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png' : this.state.user.content.avatar_url}
                     //src='http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'
                     className="rounded-circle img-fluid p-0 float-right"
                     alt="Sample avatar"
@@ -155,6 +156,10 @@ class MyReact extends React.Component {
             </Switch>
           </div>
         );
+      case 2:
+        return (<Redirect to={`/login?to=${this.props.location.pathname}`} />);
+      default:
+        return null;
     }
   }
 }

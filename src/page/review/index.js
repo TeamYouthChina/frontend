@@ -16,9 +16,9 @@ class ReviewReact extends React.Component {
     super(props);
     // state
     this.state = {
-      backend:null,
-      commentsText:null,
-      showShare:false
+      backend: null,
+      commentsText: null,
+      showShare: false
     };
     // i18n
     this.text = ReviewReact.i18n[languageHelper()];
@@ -32,7 +32,7 @@ class ReviewReact extends React.Component {
         if (result.status.code === 200) {
           this.setState(() => ({
             backend: result.content,
-            commentsText:`${result.content.comments.length}条评论`
+            commentsText: `${result.content.comments.length}条评论`
           }));
         } else {
           this.props.history.push('/page-not-found');
@@ -41,7 +41,7 @@ class ReviewReact extends React.Component {
         alert(e);
       }
     } else {
-      this.props.history.push('/login');
+      this.props.history.push(`/login?to=${this.props.location.pathname}`);
     }
   }
 
@@ -51,7 +51,7 @@ class ReviewReact extends React.Component {
     let upvoteCount = this.state.backend.upvoteCount;
     let downvoteCount = this.state.backend.downvoteCount;
     const data = {
-      id:Number(window.localStorage.id)
+      id: Number(window.localStorage.id)
     };
     // 取消点赞
     if (evaluateStatus === 1) {
@@ -76,7 +76,7 @@ class ReviewReact extends React.Component {
           upvoteCount
         }
       }));
-    } else if(evaluateStatus === 2) {
+    } else if (evaluateStatus === 2) {
       // 取消反对
       evaluateStatus = 1;
       upvoteCount++;
@@ -131,7 +131,7 @@ class ReviewReact extends React.Component {
     let upvoteCount = this.state.backend.upvoteCount;
     let downvoteCount = this.state.backend.downvoteCount;
     const data = {
-      id:Number(window.localStorage.id)
+      id: Number(window.localStorage.id)
     };
     if (evaluateStatus === 2) {
       evaluateStatus = 3;
@@ -155,7 +155,7 @@ class ReviewReact extends React.Component {
           downvoteCount
         }
       }));
-    } else if(evaluateStatus === 3) {
+    } else if (evaluateStatus === 3) {
       evaluateStatus = 2;
       downvoteCount++;
       try {
@@ -203,20 +203,20 @@ class ReviewReact extends React.Component {
       }));
     }
   };
-  
+
   // 收藏
   onAttention = () => {
     let attention = !this.state.backend.attention;
-    this.setState(()=>({
-      backend:{
+    this.setState(() => ({
+      backend: {
         ...this.state.backend,
-        attention:attention
+        attention: attention
       }
     }));
     const data = {
-      id:Number(window.localStorage.id)
+      id: Number(window.localStorage.id)
     };
-    if(attention) {
+    if (attention) {
       try {
         fetch(
           `${urlPrefix}/editorials/${this.props.match.params.id}/attention`,
@@ -246,20 +246,21 @@ class ReviewReact extends React.Component {
   };
 
   onTellParent = (length) => {
-    this.setState(()=>({
-      commentsText:`${length}条评论`
+    this.setState(() => ({
+      commentsText: `${length}条评论`
     }));
   };
 
-  onShare = () =>{
+  onShare = () => {
     const showShare = !this.state.showShare;
-    this.setState(()=>({
+    this.setState(() => ({
       showShare
     }));
   };
-  
-  getCurrentPage(){}
-  
+
+  getCurrentPage() {
+  }
+
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
     if (pathname) {
@@ -270,8 +271,8 @@ class ReviewReact extends React.Component {
       <div className={classes.wrapper}>
         <ReviewDes
           content={{
-            title:backend.title,
-            detail:backend.body.braftEditorRaw
+            title: backend.title,
+            detail: backend.body.braftEditorRaw
           }}
           time={timeHelper(backend.modified_at)}
           user={backend.author && backend.author.username}
@@ -288,8 +289,8 @@ class ReviewReact extends React.Component {
           onShare={this.onShare}
           showShare={this.state.showShare}
         />
-        <Share 
-          content={window.location.href} 
+        <Share
+          content={window.location.href}
           onShare={this.onShare}
           showShare={this.state.showShare}
         />
@@ -299,7 +300,7 @@ class ReviewReact extends React.Component {
           <div
             className="cell-membrane"
           >
-            <div style={{width:'80%'}}>
+            <div style={{width: '80%'}}>
               <Comments
                 id={this.props.match.params.id}
                 type={'editorials'}

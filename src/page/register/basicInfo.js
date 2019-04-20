@@ -12,8 +12,7 @@ class BasicInfoReact extends React.Component {
     super(props);
     // state
     this.state = {
-      passwordInputType: 'password',
-      registerType: 'personal', //记录个人登陆还是企业登陆
+      passwordInputType: 'password'
     };
     // i18n
     this.text = BasicInfoReact.i18n[languageHelper()];
@@ -30,20 +29,6 @@ class BasicInfoReact extends React.Component {
       <div>
         <MDBCol className="offset-2" size="8">
           <div className="text-center">
-            <div className="d-flex align-item-center justify-content-center">
-              <button
-                onClick={this.handleRegisterType}
-                value="personal"
-                className={this.state.registerType === 'personal' ? classes.selectedButton : classes.disableButton}>
-                个人注册
-              </button>
-              <button
-                onClick={this.handleRegisterType}
-                value="company"
-                className={this.state.registerType === 'company' ? classes.selectedButton : classes.disableButton}>
-                企业注册
-              </button>
-            </div>
             <p className={classes.title}>
               开启智能求职之旅
             </p>
