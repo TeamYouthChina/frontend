@@ -48,7 +48,7 @@ export class AddComment extends React.Component {
       <MDBRow className={classes.mdbRow}>
         <MDBAvatar className={classes.avatar}>
           <img
-            src={'https://s3.amazonaws.com/youthchina/WechatIMG29.jpeg'}
+            src={'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'}
             alt="user-avatar"
             className={`rounded-circle ${classes.imgStyle}`}
           />
