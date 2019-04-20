@@ -37,7 +37,7 @@ class EResumeReact extends React.Component {
             <div
               className={classes['blue-text']}
               onClick={()=>{
-                this.props.history.push(`/my/file`);
+                this.props.history.push('/my/file');
               }}
               style={{cursor:'pointer'}}
             >

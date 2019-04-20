@@ -9,7 +9,7 @@ import {withRouter} from 'react-router-dom';
 
 import classes from './index.module.css';
 import more from './more.png';
-import {IfCollect} from '../if-collect';
+//import {IfCollect} from '../if-collect';
 
 import {languageHelper} from '../../../../tool/language-helper';
 
