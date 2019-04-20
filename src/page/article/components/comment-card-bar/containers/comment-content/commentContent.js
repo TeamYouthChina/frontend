@@ -17,6 +17,7 @@ export const CommentContent = (props) => (
     <MDBRow className={classes.contentRow}>
       {props.content}
     </MDBRow>
+    
   </React.Fragment>
 );
 
