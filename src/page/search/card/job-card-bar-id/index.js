@@ -8,9 +8,10 @@ import classes from './index.module.css';
 import detail from './detail.svg';
 import {IfCollect} from '../../../playground/general-component/if-collect';
 import { languageHelper } from '../../../../tool/language-helper';
-import location from './location.svg';
+import location from '../company-card-bar-id/location.svg';
 
 import {getAsync} from '../../../../tool/api-helper';
+import {Location} from '../../../playground/general-component/location';
 
 
 class JobCardBarIdReact extends React.Component {
@@ -42,9 +43,15 @@ class JobCardBarIdReact extends React.Component {
   render() {
 
     return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ? (
-      <div className={classes.Card}>
-        <div className={classes.Clickable} />
-        <div className={classes.UnClickable}>
+      <div 
+        className={classes.Card}
+        
+        style={{cursor:'pointer'}}
+      >
+        <div className={classes.Clickable} onClick={()=>{
+          this.props.history.push(`/job/${this.state.backend.content.id}`);
+        }}/>
+        <div className={classes.UnClickable} >
           <div className={classes.Img}>
             <img src={(this.state.backend.content.organization.avatarUrl)?(this.state.backend.content.organization.avatarUrl):('http://frontendpic.oss-us-east-1.aliyuncs.com/%E5%B7%A5%E4%BD%9C.png')} alt="no img" />
           </div>
@@ -61,7 +68,11 @@ class JobCardBarIdReact extends React.Component {
               <div className={classes.Row}>
                 <div className={classes.Column}>
                   <img src={location} alt="no img" />
-                  <p>{this.state.backend.content.location}</p>
+                  <Location
+                    code={this.state.backend.content.location[0]}
+                    edit={false}
+                    locate={()=>{}}
+                  />
                 </div>
                 <div className={classes.Column}>
                   <img src={detail} alt="no img" />
@@ -93,8 +104,11 @@ class JobCardBarIdReact extends React.Component {
             </div>
           </div>
           <div className={classes.Like}>
-            <IfCollect ifcollect={this.state.backend.content.collected} type={1} id={this.state.backend.content.id}/>
-            
+            <IfCollect 
+              ifcollect={this.state.backend.content.collected} 
+              type={1} 
+              id={this.state.backend.content.id}
+            />
           </div>
         </div>
       </div>

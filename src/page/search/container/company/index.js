@@ -8,7 +8,7 @@ import classes from './index.module.css';
 import filter from '../../assets/filter.svg';
 
 import {CollectionSidebar} from '../../component/collection-card';
-import {CompanyCardBarId} from '../../card/company-card-bar-id';
+import {CardMapper} from '../../component/mapper';
 import {getAsync} from '../../../../tool/api-helper';
 import {languageHelper} from '../../../../tool/language-helper';
 
@@ -41,6 +41,10 @@ class SearchCompanyResultReact extends React.Component {
   //   return nextState.collectionNum !== this.state.collectionNum;
   // }
 
+  componentWillUnmount() {
+    this.props.handleUnmount();
+  }
+
   async componentDidMount() {
     try {
       const result = await getAsync(`/users/${localStorage.getItem('id')}/attentions?type=${this.state.collectionType}`);
@@ -57,6 +61,8 @@ class SearchCompanyResultReact extends React.Component {
       // eslint-disable-next-line
       console.log(error);
     }
+    
+    //搜索页面切换时，重新set搜索类型
     this.props.handleSearchType();
   }
 
@@ -64,15 +70,6 @@ class SearchCompanyResultReact extends React.Component {
     return (
       <div className="cell-wall">
         <div className="cell-membrane">
-          {this.props.backend ?
-            (this.props.backend.status && this.props.backend.status.code === 2000 ?
-              (this.props.backend.content.data.map((item, index) => (
-                <MDBRow key={index} style={{margin: '1rem 0rem'}}>
-                  <p>{item.content.id}</p>
-                </MDBRow>
-              )))
-              : <p>Here should be a loading card.</p>)
-            : null}
 
           <MDBRow style={{marginTop: '2vw'}}>
             <main className={classes.mainBody}>
@@ -97,31 +94,13 @@ class SearchCompanyResultReact extends React.Component {
                   </MDBDropdown>
                 </MDBCol>
               </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol>
-                  <CompanyCardBarId id={'1'} />
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol>
-                  <CompanyCardBarId id={'2'} />
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol>
-                  <CompanyCardBarId id={'3'} />
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol>
-                  <CompanyCardBarId id={'4'} />
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol>
-                  <CompanyCardBarId id={'5'} />
-                </MDBCol>
-              </MDBRow>
+              {
+                this.props.backend.length ?
+                  (this.props.code === 2000 ? <CardMapper backend={this.props.backend}/> : 
+                    (this.props.backend.status.code === 4040 ? <p>没有搜索结果。</p> : 
+                      <p>Here should be a loading card.</p>)
+                  ) : null
+              }
             </main>
 
             <aside className={classes.sideBar}>
@@ -169,7 +148,9 @@ SearchCompanyResultReact.propTypes = {
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   handleSearchType: PropTypes.func.isRequired,
-  backend: PropTypes.object.isRequired
+  backend: PropTypes.object.isRequired,
+  code: PropTypes.number.isRequired,
+  handleUnmount: PropTypes.func.isRequired
 };
 
 export const SearchCompanyResult = withRouter(SearchCompanyResultReact);

@@ -14,7 +14,7 @@ import {withRouter} from 'react-router-dom';
 import classes from './index.module.css';
 import filter from '../../assets/filter.svg';
 
-import {JobCardBarId} from '../../../playground/general-component/job-card-bar-id';
+import {CardMapper} from '../../component/mapper';
 import {CollectionSidebar} from '../../component/collection-card';
 import {languageHelper} from '../../../../tool/language-helper';
 import {getAsync} from '../../../../tool/api-helper';
@@ -44,6 +44,10 @@ class SearchJobResultReact extends React.Component {
     this.text = SearchJobResultReact.i18n[languageHelper()];
   }
 
+  componentWillUnmount() {
+    this.props.handleUnmount();
+  }
+
   async componentDidMount() {
     try {
       const result = await getAsync(`/users/${localStorage.getItem('id')}/attentions?type=${this.state.collectionType}`);
@@ -60,6 +64,8 @@ class SearchJobResultReact extends React.Component {
       // eslint-disable-next-line
       console.log(error);
     }
+    
+    //搜索页面切换时，重新set搜索类型
     this.props.handleSearchType();
   }
 
@@ -92,17 +98,7 @@ class SearchJobResultReact extends React.Component {
               </MDBRow>
               {
                 this.props.backend.length ?
-                  (this.props.code === 2000 ? (this.props.backend.map((item, index) => (
-                    <MDBRow className={classes.cardBarRow} key={index}>
-                      <MDBCol>
-                        <div
-                          key={index}
-                          style={{marginBottom: '1.56vw'}}
-                        >
-                          <JobCardBarId id={item.id} />
-                        </div>
-                      </MDBCol>
-                    </MDBRow>))) : (this.props.backend.status.code === 4040 ? <p>没有搜索结果。</p> :
+                  (this.props.code === 2000 ? <CardMapper backend={this.props.backend}/> : (this.props.backend.status.code === 4040 ? <p>没有搜索结果。</p> :
                     <p>Here should be a loading card.</p>)
                   ) : null
               }
@@ -155,7 +151,8 @@ SearchJobResultReact.propTypes = {
   location: PropTypes.object.isRequired,
   handleSearchType: PropTypes.func.isRequired,
   backend: PropTypes.array.isRequired,
-  code: PropTypes.number.isRequired
+  code: PropTypes.number.isRequired,
+  handleUnmount: PropTypes.func.isRequired
 };
 
 export const SearchJobResult = withRouter(SearchJobResultReact);
