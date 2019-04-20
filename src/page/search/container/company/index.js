@@ -41,16 +41,12 @@ class SearchCompanyResultReact extends React.Component {
   //   return nextState.collectionNum !== this.state.collectionNum;
   // }
 
-  componentWillUnmount() {
-    this.props.handleUnmount();
-  }
-
   async componentDidMount() {
     try {
       const result = await getAsync(`/users/${localStorage.getItem('id')}/attentions?type=${this.state.collectionType}`);
       if (result && result.status && result.status.code === 2000) {
         this.setState(() => {
-          return {collectionNum: result.content.length};
+          return {collectionNum: result.content.company.item_count};
         });
       } else {
         this.setState(() => {
@@ -64,6 +60,10 @@ class SearchCompanyResultReact extends React.Component {
     
     //搜索页面切换时，重新set搜索类型
     this.props.handleSearchType();
+  }
+
+  componentWillUnmount() {
+    this.props.handleUnmount();
   }
 
   render() {
@@ -148,9 +148,9 @@ SearchCompanyResultReact.propTypes = {
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   handleSearchType: PropTypes.func.isRequired,
-  backend: PropTypes.object.isRequired,
+  handleUnmount: PropTypes.func.isRequired,
+  backend: PropTypes.array.isRequired,
   code: PropTypes.number.isRequired,
-  handleUnmount: PropTypes.func.isRequired
 };
 
 export const SearchCompanyResult = withRouter(SearchCompanyResultReact);

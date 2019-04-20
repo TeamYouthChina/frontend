@@ -8,7 +8,7 @@ export const SearchInput = (props) => {
       <input
         name="keyword"
         type="text"
-        // value={props.keyword}
+        value={props.keyword}
         className={`flex-fill p-0 form-control ${classes.searchInput}`}
         placeholder="通过以下方式搜索"
         onChange={props.onChange}

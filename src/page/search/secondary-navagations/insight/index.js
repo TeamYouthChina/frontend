@@ -1,16 +1,6 @@
 import React from 'react';
 import {
-  MDBDropdownItem,
-  MDBNavItem,
-  MDBNavLink,
-  MDBNavbar,
-  MDBNavbarNav,
-  MDBNavbarToggler,
-  MDBCollapse,
-  MDBDropdown,
-  MDBDropdownToggle,
-  MDBDropdownMenu,
-  MDBIcon
+  MDBDropdownItem, MDBNavItem, MDBNavLink, MDBNavbar, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBIcon
 } from 'mdbreact';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
@@ -117,7 +107,7 @@ class SearccInsightNavItemReact extends React.Component {
                     
                     <MDBDropdownItem
                       className={`p-0 ${classes.dropdownItems}${pathname.includes('/search-community-result') ? ' active' : ''}`}
-                      onClick={() => this.handleTabsContent('社区')}>
+                      onClick={() => this.handleTabsContent('洞见')}>
                       <MDBNavLink
                         className="p-2 d-flex justify-content-center align-items-center"
                         style={navyFont}
