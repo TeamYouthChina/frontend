@@ -19,7 +19,6 @@ import {JobForYou} from './page/job-for-you';
 import {Login} from './page/login';
 import {My} from './page/my';
 import {OnlineApplication} from './page/online-application';
-import {Promotion} from './page/promotion';
 import {PageNoFound} from './page/page-no-found';
 import {Playground} from './page/playground';
 import {ZhenyiWrapper} from './page/playground/zhenyi';
@@ -63,7 +62,7 @@ export class App extends React.Component {
               <Route
                 path="/"
                 exact
-                component={() => <Redirect to="/promotion" />}
+                component={() => <Redirect to="/discovery" />}
               />
               <Route
                 path="/article/:id/edit"
@@ -111,15 +110,11 @@ export class App extends React.Component {
               />
               <Route
                 path="/login"
-                component={routeProps => <Login {...routeProps} />}
+                component={routeProps => <Login {...routeProps} to="/my" />}
               />
               <Route
                 path="/my"
                 component={routeProps => <My {...routeProps} />}
-              />
-              <Route
-                path="/promotion"
-                component={routeProps => <Promotion {...routeProps} />}
               />
               <Route
                 path="/question/:qid/answer/:aid/edit"

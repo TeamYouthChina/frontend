@@ -30,7 +30,7 @@ const preprocessResponse = (response) => {
     try {
       // Login credential is expired.
       if (data.status.code.toString().startsWith('401')) {
-        Cookies.remove('token');
+        logout();
       }
     } catch (error) {
       if (error instanceof TypeError) {
@@ -71,6 +71,10 @@ const wait = (ms) => {
 
 export const isLogin = () => {
   return !!Cookies.get('token');
+};
+
+export const logout = () => {
+  Cookies.remove('token');
 };
 
 export const getAsync = async (urlSuffix) => {

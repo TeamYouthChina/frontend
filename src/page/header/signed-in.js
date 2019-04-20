@@ -1,48 +1,41 @@
 import React from 'react';
-import {
-  MDBDropdown,
-  MDBDropdownItem,
-  MDBDropdownMenu,
-  MDBDropdownToggle,
-  MDBIcon,
-  MDBNavItem
-} from 'mdbreact';
+import {MDBDropdown, MDBDropdownItem, MDBDropdownMenu, MDBDropdownToggle, MDBIcon, MDBNavItem} from 'mdbreact';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import {languageHelper} from '../../tool/language-helper';
 import classes from './index.module.css';
-import {getAsync} from '../../tool/api-helper';
+import {getAsync, logout} from '../../tool/api-helper';
 
 class SignedInReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {
-      render:0
+      render: 0
     };
     // i18n
     this.text = SignedInReact.i18n[languageHelper()];
   }
+
   async componentDidMount() {
     this.setState({
       render: 1,
       user: await getAsync('/me'),
     });
   }
+
   render() {
     switch (this.state.render) {
-      case 0:
-        return null;
       case 1:
         return (
           <div className="d-flex">
             <div className="flex-fill align-self-center">
               <ul
                 className="mr-1 d-flex navbar-nav"
-                onClick={()=>{
+                onClick={() => {
                   this.props.history.push('/comingsoon');
                 }}
-                style={{cursor:'pointer'}}
+                style={{cursor: 'pointer'}}
               >
                 <ul className={`${classes.mouse2} d-flex nav-item align-items-center mr-1`}>
                   <div className="d-flex align-items-center">
@@ -58,7 +51,8 @@ class SignedInReact extends React.Component {
                         className="mr-2"
                       />
                       <div>通知</div>
-                    </ul></div>
+                    </ul>
+                  </div>
                   <div>
                   </div>
                 </ul>
@@ -75,10 +69,10 @@ class SignedInReact extends React.Component {
                     nav
                     className="py-0"
                     style={{
-                      width:'3.125vw',
+                      width: '3.125vw',
                     }}>
                     <img
-                      src={(this.state.user.content.avatar_url==='---')?('http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'):(this.state.user.content.avatar_url==='---')}
+                      src={(this.state.user.content.avatar_url === '---') ? ('http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png') : (this.state.user.content.avatar_url === '---')}
                       className="rounded-circle img-fluid p-0 float-right"
                       alt="Sample avatar"
                     />
@@ -86,17 +80,31 @@ class SignedInReact extends React.Component {
                   <MDBDropdownMenu
                     color="indigo darken-1 mt-5"
                     left
-                    style={{zIndex:'-1'}}>
-                    <MDBDropdownItem  onClick={() => {
-                      this.props.history.push('/my');
-                    }}>个人主页</MDBDropdownItem>
-                    <MDBDropdownItem href="/logout">退出</MDBDropdownItem>
+                    style={{zIndex: '-1'}}>
+                    <MDBDropdownItem
+                      onClick={() => {
+                        this.props.history.push('/my');
+                      }}
+                    >
+                      个人主页
+                    </MDBDropdownItem>
+                    <MDBDropdownItem
+                      onClick={() => {
+                        logout();
+                        this.props.history.push('/login');
+                      }}
+                    >
+                      退出
+                    </MDBDropdownItem>
                   </MDBDropdownMenu>
                 </MDBDropdown>
               </MDBNavItem>
             </ul>
           </div>
-        );}
+        );
+      default:
+        return null;
+    }
   }
 }
 

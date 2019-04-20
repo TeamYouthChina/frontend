@@ -9,7 +9,7 @@ import {FilterRow} from '../../component/filter';
 import {languageHelper} from '../../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../../tool/remove-url-slash-suffix';
 import {MDBRow, MDBCol} from 'mdbreact';
-import classes from '../index.module.css';
+import classes from '../../index.module.css';
 
 class CampusReact extends React.Component {
   constructor(props) {

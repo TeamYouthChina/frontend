@@ -1,10 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Redirect, Route, Switch} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 
-import {Intern} from './container/intern';
+import {JobForYouWrapper} from './wrapper';
+import {CollectionCard} from './component/collectionCard';
+// import {TagSidebar} from '../../component/tag';
+import {FilterRow} from './component/filter';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
+import {MDBCol, MDBRow} from 'mdbreact';
+import classes from './index.module.css';
+import {isLogin} from '../../tool/api-helper';
 
 class JobForYouReact extends React.Component {
   constructor(props) {
@@ -20,24 +26,30 @@ class JobForYouReact extends React.Component {
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
+    if (!isLogin()) {
+      return (<Redirect to={`/login?to=${this.props.location.pathname}`} />);
+    }
     return (
       <div>
-        {/* 二级导航条 */}
-        <Switch>
-          {/*<Route*/}
-          {/*path={`${this.props.match.url}/campus`}*/}
-          {/*component={routeProps => <Campus {...routeProps} />}*/}
-          {/*/>*/}
-          {/*<Route*/}
-          {/*path={`${this.props.match.url}/general`}*/}
-          {/*component={routeProps => <General {...routeProps} />}*/}
-          {/*/>*/}
-          <Route
-            path={`${this.props.match.url}/intern`}
-            component={routeProps => <Intern {...routeProps} />}
-          />
-          <Redirect to={`${this.props.match.url}/intern`} />
-        </Switch>
+        <div
+          className="cell-wall"
+          style={{backgroundColor: '#F3F5F7'}}
+        >
+          <div
+            className="cell-membrane"
+          >
+            <MDBRow style={{marginTop: '2vw'}}>
+              <MDBCol className="px-0" size="10">
+                <FilterRow number={55} />
+                <JobForYouWrapper />
+              </MDBCol>
+              <MDBCol className={classes.sidebar} size="2">
+                <CollectionCard number={21} />
+                {/*<TagSidebar tags={['面试经历', '删库经历', '跑路经历']} />*/}
+              </MDBCol>
+            </MDBRow>
+          </div>
+        </div>
       </div>
     );
   }
