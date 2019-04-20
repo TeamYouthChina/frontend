@@ -18,7 +18,12 @@ class SearchConnectionResultReact extends React.Component {
   }
   
   componentDidMount() {
+    //搜索页面切换时，重新set搜索类型
     this.props.handleSearchType();
+  }
+
+  componentWillUnmount() {
+    this.props.handleUnmount();
   }
 
   render() {
@@ -77,7 +82,8 @@ SearchConnectionResultReact.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  handleSearchType: PropTypes.func.isRequired
+  handleSearchType: PropTypes.func.isRequired,
+  handleUnmount: PropTypes.func.isRequired
 };
 
 export const SearchConnectionResult = withRouter(SearchConnectionResultReact);
