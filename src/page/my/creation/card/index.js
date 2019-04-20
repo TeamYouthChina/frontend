@@ -7,8 +7,7 @@ import {languageHelper} from '../../../../tool/language-helper';
 import {Link, withRouter} from 'react-router-dom';
 import {get} from '../../../../tool/api-helper';
 
-
-class CollectionCardReact extends React.Component {
+class CreationCardReact extends React.Component {
   constructor(props) {
     super(props);
     // state
@@ -16,11 +15,11 @@ class CollectionCardReact extends React.Component {
       backend: null
     };
     // i18n
-    this.text = CollectionCardReact.i18n[languageHelper()];
+    this.text = CreationCardReact.i18n[languageHelper()];
   }
 
   componentDidMount() {
-    get(`/users/${window.localStorage.id}/attentions?type=${this.props.type}`).then((data) => {
+    get(`/users/${window.localStorage.id}/my?type=${this.props.type}`).then((data) => {
       if (data.status.code === 2000) {
         this.setState(() => ({
           backend: data.content
@@ -64,13 +63,13 @@ class CollectionCardReact extends React.Component {
   }
 }
 
-CollectionCardReact.i18n = [
+CreationCardReact.i18n = [
   {},
   {}
 
 ];
 
-CollectionCardReact.propTypes = {
+CreationCardReact.propTypes = {
   // self
   text: PropTypes.string.isRequired,
   unit: PropTypes.string.isRequired,
@@ -83,5 +82,5 @@ CollectionCardReact.propTypes = {
   location: PropTypes.object.isRequired,
 };
 
-export const CollectionCard = withRouter(CollectionCardReact);
+export const CreationCard = withRouter(CreationCardReact);
 

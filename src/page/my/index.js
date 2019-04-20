@@ -4,6 +4,7 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 
 import {Application} from './application';
 import {CollectionSwitch} from './collection/index.switch';
+import {CreationSwitch} from './creation/index.switch';
 import {FileSwitch} from './file/index.switch';
 import {ComingSoon} from '../coming-soon';
 import {Message} from './message';
@@ -108,13 +109,12 @@ class MyReact extends React.Component {
                     },
                     {
                       name: '我的发布',
-                      subPath: '/establish'
+                      subPath: '/creation'
                     },
                     {
                       name: '我的收藏',
                       subPath: '/collection'
-                    },
-
+                    }
                   ]}
                 />
               </div>
@@ -127,6 +127,10 @@ class MyReact extends React.Component {
               <Route
                 path={`${this.props.match.url}/collection`}
                 component={routeProps => <CollectionSwitch {...routeProps} />}
+              />
+              <Route
+                path={`${this.props.match.url}/creation`}
+                component={routeProps => <CreationSwitch {...routeProps} />}
               />
               <Route
                 path={`${this.props.match.url}/comingsoon`}
