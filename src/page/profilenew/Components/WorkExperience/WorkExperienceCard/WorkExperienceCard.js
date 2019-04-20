@@ -6,6 +6,7 @@ import { MDBInput } from 'mdbreact';
 import classes from './WorkExperienceCard.module.css';
 import Dropdown from '../../Dropdown/Dropdown';
 import { Location } from './location/index';
+import { addTimeOffset } from '../../../time_helper';
 // import { languageHelper } from '../../../../../tool/language-helper';
 
 // const translation = [
@@ -37,8 +38,8 @@ class WorkExperienceCard extends Component {
             employer: this.props.data.employer, // eslint-disable-line
             position: this.props.data.position, // eslint-disable-line
           duration: {
-              begin: new Date(this.props.data.duration.begin), // eslint-disable-line
-              end: new Date(this.props.data.duration.end), // eslint-disable-line
+              begin: addTimeOffset(new Date(this.props.data.duration.begin)), // eslint-disable-line
+              end: addTimeOffset(new Date(this.props.data.duration.end-1)), // eslint-disable-line
           },
           location: {
             nation_code: '',
@@ -62,7 +63,7 @@ class WorkExperienceCard extends Component {
           },
           note: '',
         },
-      dateRange: this.props.data ? [new Date(this.props.data.duration.begin), new Date(this.props.data.duration.begin)] : [new Date(), new Date()],
+      dateRange: this.props.data ? [addTimeOffset(new Date(this.props.data.duration.begin)), addTimeOffset(new Date(this.props.data.duration.begin-1))] : [new Date(), new Date()],
     };
   }
 

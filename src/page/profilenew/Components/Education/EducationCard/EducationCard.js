@@ -11,6 +11,7 @@ import {
 
 import classes from './EducationCard.module.css';
 import Dropdown from '../../Dropdown/Dropdown';
+import { addTimeOffset } from '../../../time_helper';
 // import { Location } from './location/index';
 // import { languageHelper } from '../../../../../tool/language-helper';
 
@@ -43,8 +44,8 @@ class EducationCard extends Component {
           major: this.props.data.major,
           degree: this.props.data.degree,
           duration: {
-              begin: new Date(this.props.data.duration.begin), // eslint-disable-line
-              end: new Date(this.props.data.duration.end), // eslint-disable-line
+              begin: addTimeOffset(new Date(this.props.data.duration.begin)), // eslint-disable-line
+              end: addTimeOffset(new Date(this.props.data.duration.end - 1)), // eslint-disable-line
           },
             note: this.props.data.note, // eslint-disable-line
         }
@@ -59,7 +60,12 @@ class EducationCard extends Component {
           },
           note: '',
         },
-      dateRange: this.props.data ? [new Date(this.props.data.duration.begin), new Date(this.props.data.duration.end)] : [new Date(), new Date()],
+      dateRange: this.props.data
+        ? [
+          addTimeOffset(new Date(this.props.data.duration.begin)),
+          addTimeOffset(new Date(this.props.data.duration.end - 1)),
+        ]
+        : [new Date(), new Date()],
       universityError: false,
       majorError: false,
     };
@@ -105,12 +111,12 @@ class EducationCard extends Component {
     if (this.state.educationData.id) {
       // console.log(`id to delete is ${this.state.proData.id}`);
       this.props.saveHandler(
-        {...this.state.educationData},
+        { ...this.state.educationData },
         this.state.educationData.id,
         'update'
       );
     } else {
-      this.props.saveHandler({...this.state.educationData}, null, 'add');
+      this.props.saveHandler({ ...this.state.educationData }, null, 'add');
     }
     this.setState({
       ...this.state,
@@ -237,19 +243,15 @@ class EducationCard extends Component {
             {this.state.educationData.degree} | {this.state.educationData.major}
           </p>
           <p className={classes.TimeLocation}>
-            {`${this.state.educationData.duration.begin.toLocaleDateString(
-              {
-                year: 'numeric',
-                month: 'numeric',
-                day: 'numeric',
-              }
-            )} ${this.state.educationData.duration.begin.getTime()}    ${this.state.educationData.duration.end.toLocaleDateString(
-              {
-                year: 'numeric',
-                month: 'numeric',
-                day: 'numeric',
-              }
-            )} ${this.state.educationData.duration.end.getTime()} `}
+            {`${this.state.educationData.duration.begin.toLocaleDateString({
+              year: 'numeric',
+              month: 'numeric',
+              day: 'numeric',
+            })}    ${this.state.educationData.duration.end.toLocaleDateString({
+              year: 'numeric',
+              month: 'numeric',
+              day: 'numeric',
+            })}`}
           </p>
           {/* <p>{this.state.educationData.note}</p> */}
         </div>
