@@ -20,13 +20,23 @@ class SignedOutReact extends React.Component {
       <div className="d-flex flex-row">
         <div className="flex-fill">
           <MDBNavbarNav>
-            <MDBNavItem className={`${classes.mouse2} align-middle`}>
-              登录
+            <MDBNavItem
+              className={`${classes.mouse2} align-middle`}
+              onClick={() => {
+                this.props.history.push('/login');
+              }}
+            >
+              登陆
             </MDBNavItem>
           </MDBNavbarNav>
         </div>
         <MDBNavbarNav right>
-          <MDBNavItem className={`${classes.mouse2} align-middle ml-3`}>
+          <MDBNavItem
+            className={`${classes.mouse2} align-middle ml-3`}
+            onClick={() => {
+              this.props.history.push('/register');
+            }}
+          >
             注册
           </MDBNavItem>
         </MDBNavbarNav>

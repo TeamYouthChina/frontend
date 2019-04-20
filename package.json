@@ -5,6 +5,7 @@
   "dependencies": {
     "@wojtekmaj/react-daterange-picker": "^2.1.0",
     "braft-editor": "^2.2.9",
+    "dataformat": "^1.0.0",
     "eslint-plugin-react": "^7.12.4",
     "griffith": "^1.2.1",
     "isomorphic-fetch": "^2.2.1",

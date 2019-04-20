@@ -38,7 +38,13 @@ class HeaderReact extends React.Component {
               <div className="cell-wall">
                 <div className={`cell-membrane ${classes['header-flex']} align-items-center`}>
                   
-                  <a className={'py-2 navbar-brand'} href="/best-for-you">
+                  <a 
+                    className={'py-2 navbar-brand'}
+                    onClick={()=>{
+                      this.props.history.push('/best-for-you');
+                    }}
+                    style={{cursor:'pointer'}}
+                  >
                     <img 
                       style={{height:'2.5vw'}}
                       src="https://frontendpic.oss-us-east-1.aliyuncs.com/1.png"

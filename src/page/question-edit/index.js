@@ -6,6 +6,7 @@ import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 
 import ArticleCreate from './components/edit';
+import {isLogin} from '../../tool/api-helper';
 
 class QuestionEditReact extends React.Component {
   constructor(props) {
@@ -20,6 +21,9 @@ class QuestionEditReact extends React.Component {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
     if (pathname) {
       return (<Redirect to={pathname} />);
+    }
+    if (!isLogin()) {
+      return (<Redirect to={`/login?to=${this.props.location.pathname}`} />);
     }
     return (
       <div style={{backgroundColor:'#FFFFFF',height:'100%',display:'inline-block'}}>

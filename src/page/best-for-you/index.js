@@ -13,7 +13,7 @@ import {UserCardBarFull} from '../playground/general-component/user-card-bar-ful
 
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
-import {getAsync} from '../../tool/api-helper';
+import {getAsync, isLogin} from '../../tool/api-helper';
 
 
 class BestForYouReact extends React.Component {
@@ -32,6 +32,12 @@ class BestForYouReact extends React.Component {
   }
 
   async componentDidMount() {
+    if (!isLogin()) {
+      this.setState({
+        render: 2
+      });
+      return;
+    }
     this.setState({
       render: 1,
       user: await getAsync('/me'),
@@ -47,15 +53,11 @@ class BestForYouReact extends React.Component {
 
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
-    //console.log(this.state.questionFulltext);
-    //const userdata = this.state.userFulltext.content.data;
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
    
     switch (this.state.render) {
-      case 0:
-        return null;
       case 1:
         
         return (
@@ -70,7 +72,7 @@ class BestForYouReact extends React.Component {
                 >
                   <div className={classes.logo}>
                     <img
-                      src={(this.state.user.content.avatar_url==='---')?('http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'):(this.state.user.content.avatar_url==='---')}
+                      src={(this.state.user.content.avatar_url === '---') ? ('http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png') : (this.state.user.content.avatar_url === '---')}
                       className="rounded-circle img-fluid p-0 float-right"
                       alt="Sample avatar"
                     />
@@ -78,12 +80,12 @@ class BestForYouReact extends React.Component {
                   <div className="ml-4">
                     <p className={classes.name}>{this.state.user.content.username}，欢迎来到职道！</p>
 
-                    <p 
+                    <p
                       className={classes.review}
-                      onClick={()=>{
+                      onClick={() => {
                         this.props.history.push('/my');
                       }}
-                      style={{cursor:'pointer'}}
+                      style={{cursor: 'pointer'}}
                     >
                       查看个人档案 →
                     </p>
@@ -108,10 +110,10 @@ class BestForYouReact extends React.Component {
                   </div>
                   <div
                     className={classes.seemore}
-                    onClick={()=>{
+                    onClick={() => {
                       this.props.history.push('/job-for-you/intern');
                     }}
-                    style={{cursor:'pointer'}}
+                    style={{cursor: 'pointer'}}
                   >
                     查看更多 →
                   </div>
@@ -121,12 +123,12 @@ class BestForYouReact extends React.Component {
                     <JobCardSquare id={8} jobList={this.state.jobList} />
                     <JobCardSquare id={9} jobList={this.state.jobList} />
                   </div>
-                  <div 
+                  <div
                     className={classes.seemore}
-                    onClick={()=>{
+                    onClick={() => {
                       this.props.history.push('/job-for-you/intern');
                     }}
-                    style={{cursor:'pointer'}}
+                    style={{cursor: 'pointer'}}
                   >
                     查看更多 →
                   </div>
@@ -144,7 +146,7 @@ class BestForYouReact extends React.Component {
                   <div className="d-flex justify-content-between" style={{padding: '1.40vw 0'}}>
                     {this.state.company.content.data.map((item, index) => {
                       return (
-                        <div style={{marginBottom:'1vw'}} key={index}>
+                        <div style={{marginBottom: '1vw'}} key={index}>
                           <CompanyCardSquare
                             id={item.content.id}
                           />
@@ -154,10 +156,10 @@ class BestForYouReact extends React.Component {
                   </div>
                   <div
                     className={classes.seemore}
-                    onClick={()=>{
+                    onClick={() => {
                       this.props.history.push('/search/company');
                     }}
-                    style={{cursor:'pointer'}}
+                    style={{cursor: 'pointer'}}
                   >
                     查看更多 →
                   </div>
@@ -173,13 +175,13 @@ class BestForYouReact extends React.Component {
                   <div className="d-flex flex-wrap justify-content-between" style={{padding: '1.40vw 0'}}>
                     {this.state.questionFulltext.content.data.map((item, index) => {
                       return (
-                        <div style={{marginBottom:'1vw'}} key={index}>
+                        <div style={{marginBottom: '1vw'}} key={index}>
                           <AnswerCardSquare
                             id={item.content.id}
                             title={item.content.title}
                             avatar={item.content.creator.avatar_url}
                             username={item.content.creator.username}
-                            
+
                           />
                         </div>
                       );
@@ -187,10 +189,10 @@ class BestForYouReact extends React.Component {
                   </div>
                   <div
                     className={classes.seemore}
-                    onClick={()=>{
+                    onClick={() => {
                       this.props.history.push('/discovery/insight');
                     }}
-                    style={{cursor:'pointer'}}
+                    style={{cursor: 'pointer'}}
                   >
                     查看更多 →
                   </div>
@@ -220,10 +222,10 @@ class BestForYouReact extends React.Component {
 
                   <div
                     className={classes.seemore}
-                    onClick={()=>{
+                    onClick={() => {
                       this.props.history.push('/discovery/insight');
                     }}
-                    style={{cursor:'pointer'}}
+                    style={{cursor: 'pointer'}}
                   >
                     查看更多 →
                   </div>
@@ -239,7 +241,7 @@ class BestForYouReact extends React.Component {
                   <div className="d-flex flex-wrap justify-content-between" style={{padding: '1.40vw 0'}}>
                     {this.state.articleFulltext.content.data.map((item, index) => {
                       return (
-                        <div style={{marginBottom:'1vw'}} key={index}>
+                        <div style={{marginBottom: '1vw'}} key={index}>
                           <ArticleCardSquare
                             id={item.content.id}
                             title={item.content.title}
@@ -254,10 +256,10 @@ class BestForYouReact extends React.Component {
 
                   <div
                     className={classes.seemore}
-                    onClick={()=>{
+                    onClick={() => {
                       this.props.history.push('/discovery/insight');
                     }}
-                    style={{cursor:'pointer'}}
+                    style={{cursor: 'pointer'}}
                   >
                     查看更多 →
                   </div>
@@ -302,10 +304,10 @@ class BestForYouReact extends React.Component {
 
                   <div
                     className={classes.seemore}
-                    onClick={()=>{
+                    onClick={() => {
                       this.props.history.push('/connection');
                     }}
-                    style={{cursor:'pointer'}}
+                    style={{cursor: 'pointer'}}
                   >
                     查看更多 →
                   </div>
@@ -315,6 +317,8 @@ class BestForYouReact extends React.Component {
             </div>
           )
         );
+      case 2:
+        return (<Redirect to={`/login?to=${this.props.location.pathname}`} />);
       default:
         return null;
     }

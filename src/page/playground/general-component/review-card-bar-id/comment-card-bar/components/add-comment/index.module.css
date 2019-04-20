@@ -7,12 +7,18 @@
   margin: .469vw .859vw .469vw 0;
 }
 .imgStyle {
-  width: 2.5vw;
+  width: 5.0vw;
   background: #F4F4F4;
 }
 .addComment {
   margin-top: .391vw;
   flex-grow: 1;
+  position:relative;
+}
+.countNum {
+  position: absolute;
+  bottom:5px;
+  right:5px
 }
 .inputStyle {
   width: 100%;
@@ -23,7 +29,7 @@
   padding: .624vw 0 .624vw 1.562vw;
   font-size: 1.091vw;
   color: #B3C1DB;
-  height: 2.891vw;
+  height: 5.782vw;
   font-family: PingFang SC;
   line-height: normal;
 }

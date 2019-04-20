@@ -7,13 +7,11 @@ import calender from './calender.svg';
 import classes from './index.module.css';
 import detail from './detail.svg';
 import {IfCollect} from '../../../../playground/general-component/if-collect';
-
-import {languageHelper} from '../../../../../tool/language-helper';
+import { languageHelper } from '../../../../../tool/language-helper';
 import location from './location.svg';
 
 import {getAsync} from '../../../../../tool/api-helper';
-
-import {Location} from '../../../../playground/general-component/location';
+import {Location} from './location';
 
 
 class JobCardBarIdReact extends React.Component {
@@ -35,7 +33,7 @@ class JobCardBarIdReact extends React.Component {
       });
     } else {
       this.setState({
-        backend: await getAsync('/jobs/1')
+        backend: await getAsync('/jobs/2')
       });
     }
   }
@@ -43,7 +41,8 @@ class JobCardBarIdReact extends React.Component {
  
 
   render() {
-
+    let dateFormat=require ('dataformat');
+   
     return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ? (
       <div 
         className={classes.Card}
@@ -90,14 +89,15 @@ class JobCardBarIdReact extends React.Component {
                   <img src={calender} alt="no img" />
                   <p>
                     {this.text.kaiFangShenQing}{' '}
-                    {this.state.backend.content.startTime}
+
+                    {dateFormat(this.state.backend.content.start_time)}
                   </p>
                 </div>
                 <div className={classes.Column}>
                   <img src={bag} alt="no img" />
                   <p>
                     {this.text.shenQingJieZhi}{' '}
-                    {this.state.backend.content.deadLine}
+                    {dateFormat(this.state.backend.content.dead_line)}
                   </p>
                 </div>
                
@@ -138,7 +138,7 @@ JobCardBarIdReact.i18n = [
 
 JobCardBarIdReact.propTypes = {
   // self
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 
   // React Router
   match: PropTypes.object.isRequired,

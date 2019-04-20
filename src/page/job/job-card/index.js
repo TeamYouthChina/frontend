@@ -24,7 +24,7 @@ class JobCardReact extends React.Component {
   }
   
   render() {
-   
+    let dateFormat=require ('dataformat');
     return (
       <div className={classes.jobcard}>
         <div >
@@ -57,8 +57,8 @@ class JobCardReact extends React.Component {
               locate={()=>{}}
               className={classes.detail}
             />
-            {'开始日期：'}{this.props.backend.content.start_time}  {' / '}
-            {'截止日期：'}{this.props.backend.content.dead_line}  {' / '}
+            {'开始日期：'}{dateFormat(this.props.backend.content.start_time)}  {' / '}
+            {'截止日期：'}{dateFormat(this.props.backend.content.dead_line)}  {' / '}
             {'工作类型：'}{this.props.backend.content.type}
 
           </div>

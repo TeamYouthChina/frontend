@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Redirect} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import {MDBCol} from 'mdbreact';
 
 import img from './assets/img.png';
@@ -12,8 +12,7 @@ import classes from './index.module.css';
 import Cookies from 'js-cookie';
 import queryString from 'query-string';
 import {LoginFailPrompt} from './login-fail';
-import {postAsync} from '../../tool/api-helper';
-import {isLogin} from '../../tool/api-helper';
+import {isLogin, postAsync} from '../../tool/api-helper';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 
@@ -23,7 +22,6 @@ class LoginReact extends React.Component {
     // state
     this.state = {
       type: 'password',
-      loginType: 'personal', //记录个人登陆还是企业登陆
       id: '',
       password: '',
       modalDisplay: false
@@ -40,16 +38,10 @@ class LoginReact extends React.Component {
       });
     }
   }
-  
+
   toggleModal = () => {
     this.setState({
       modalDisplay: !this.state.modalDisplay
-    });
-  };
-  
-  handleLoginType = (event) => {
-    this.setState({
-      loginType: event.target.value === 'personal' ? 'personal' : 'company'
     });
   };
 
@@ -60,7 +52,7 @@ class LoginReact extends React.Component {
       type: this.state.type === 'text' ? 'password' : 'text'
     });
   };
-  
+
   handleChange = async (event) => {
     this.setState({
       [event.target.name]: event.target.value
@@ -81,7 +73,12 @@ class LoginReact extends React.Component {
       localStorage.setItem('username', backend.content.username);
       localStorage.setItem('avatar', backend.content.avatarUrl ? backend.content.avatarUrl : 'https://s2.ax1x.com/2019/01/27/kuUMYq.jpg', {expires: 1});
       const to = queryString.parse(this.props.location.search).to;
-      this.props.history.push(to ? to : '/my');
+      this.props.history.push(to ? to : '/');
+      if (to) {
+        this.props.history.push(to);
+      } else {
+        this.props.history.push(this.props.to);
+      }
     } else {
       // login fail
       this.setState({
@@ -89,11 +86,19 @@ class LoginReact extends React.Component {
       });
     }
   };
-  
+
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
     if (pathname) {
       return (<Redirect to={pathname} />);
+    }
+    if (isLogin()) {
+      const to = queryString.parse(this.props.location.search).to;
+      if (to) {
+        return (<Redirect to={to} />);
+      } else {
+        return (<Redirect to={this.props.to} />);
+      }
     }
     return (
       <div>
@@ -103,33 +108,15 @@ class LoginReact extends React.Component {
           <div
             className="cell-membrane d-flex"
           >
-            {isLogin() ?
-              <Redirect to="/"/> : null
-            }
-            
             <div className={classes.leftCol}>
               <img className="img-fluid" src={img} alt="view" />
-              <LoginFailPrompt isOpen={this.state.modalDisplay} toggle={this.toggleModal}/>
+              <LoginFailPrompt isOpen={this.state.modalDisplay} toggle={this.toggleModal} />
             </div>
 
             <div className={classes.rightCol}>
               <div>
                 <MDBCol className="offset-2" size="8">
                   <div className="text-center">
-                    <div className="d-flex align-item-center justify-content-center">
-                      <button
-                        onClick={this.handleLoginType}
-                        value="personal"
-                        className={this.state.loginType === 'personal' ? classes.selectedButton : classes.disableButton}>
-                        个人登陆
-                      </button>
-                      <button
-                        onClick={this.handleLoginType}
-                        value="company"
-                        className={this.state.loginType === 'company' ? classes.selectedButton : classes.disableButton}>
-                        企业登陆
-                      </button>
-                    </div>
                     <p className={classes.title}>
                       精准定制的全栈式智慧招聘平台
                     </p>
@@ -180,9 +167,9 @@ class LoginReact extends React.Component {
                   </form>
                   <div className={classes.registerProps}>
                     还没有账号?
-                    <a href="/register" className="blue-text ml-1">
+                    <Link to="/register" className="blue-text ml-1">
                       注册
-                    </a>
+                    </Link>
                   </div>
                   <div className="row d-flex justify-content-center">
                     <a
@@ -190,28 +177,28 @@ class LoginReact extends React.Component {
                       href="https://www.facebook.com"
                       className={classes.outterLoginIcon}
                     >
-                      <img src={facebook} alt="cpnIcon"/>
+                      <img src={facebook} alt="cpnIcon" />
                     </a>
                     <a
                       type="button"
                       href="https://twitter.com"
                       className={classes.outterLoginIcon}
                     >
-                      <img src={google} alt="cpnIcon"/>
+                      <img src={google} alt="cpnIcon" />
                     </a>
                     <a
                       type="button"
                       href="https://www.google.com"
                       className={classes.outterLoginIcon}
                     >
-                      <img src={instgram} alt="cpnIcon"/>
+                      <img src={instgram} alt="cpnIcon" />
                     </a>
                     <a
                       type="button"
                       href="https://www.google.com"
                       className={classes.outterLoginIcon}
                     >
-                      <img src={linkedin} alt="cpnIcon"/>
+                      <img src={linkedin} alt="cpnIcon" />
                     </a>
                   </div>
                 </MDBCol>
@@ -225,6 +212,7 @@ class LoginReact extends React.Component {
   }
 }
 
+
 LoginReact.i18n = [
   {},
   {}
@@ -232,7 +220,7 @@ LoginReact.i18n = [
 
 LoginReact.propTypes = {
   // self
-
+  to: PropTypes.string.isRequired,
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,

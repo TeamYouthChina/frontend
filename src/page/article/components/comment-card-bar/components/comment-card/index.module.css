@@ -16,7 +16,7 @@
 }
 .commentWrapper {
   padding-top: .391vw;
-  flex-grow: 1
+  width: 58vw;
 }
 .showSpan {
   font-size: 1.093vw;

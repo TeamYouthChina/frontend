@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {MDBIcon, MDBRow} from 'mdbreact';
+import {MDBIcon} from 'mdbreact';
 import classes from './index.module.css';
 
 export const CommentContent = (props) => (
@@ -14,9 +14,9 @@ export const CommentContent = (props) => (
       </span>
       <MDBIcon style={{float: 'right'}} icon="ellipsis-v" />
     </div>
-    <MDBRow className={classes.contentRow}>
+    <p className={classes.contentRow}>
       {props.content}
-    </MDBRow>
+    </p>
   </React.Fragment>
 );
 
