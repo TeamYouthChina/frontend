@@ -70,8 +70,12 @@ class DiscoveryReact extends React.Component {
       console.log(code);
     }
     // eslint-disable-next-line
-    console.log(result);
-
+    console.log(result.length);
+    if(result.length === 0) {
+      this.setState(()=>{
+        return {hasMore: false};
+      });
+    }
     // const result = await mockGetAsync(content);
     this.setState((prevState) => {
       return {

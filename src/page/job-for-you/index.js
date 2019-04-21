@@ -10,15 +10,38 @@ import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 import {MDBCol, MDBRow} from 'mdbreact';
 import classes from './index.module.css';
-import {isLogin} from '../../tool/api-helper';
+import {getAsync, isLogin} from '../../tool/api-helper';
 
 class JobForYouReact extends React.Component {
   constructor(props) {
     super(props);
     // state
-    this.state = {};
+    this.state = {
+      collectionNum: 0,
+      collectionType: 'company'
+    };
     // i18n
     this.text = JobForYouReact.i18n[languageHelper()];
+  }
+
+  async componentDidMount() {
+    if(isLogin()){
+      try {
+        const result = await getAsync(`/users/${localStorage.getItem('id')}/attentions?type=${this.state.collectionType}`);
+        if (result && result.status && result.status.code === 2000) {
+          this.setState(() => {
+            return {collectionNum: result.content.company.item_count};
+          });
+        } else {
+          this.setState(() => {
+            return {collectionNum: 0};
+          });
+        }
+      } catch (error) {
+        // eslint-disable-next-line
+        console.log(error);
+      }
+    }
   }
 
   render() {
@@ -40,11 +63,11 @@ class JobForYouReact extends React.Component {
           >
             <MDBRow style={{marginTop: '2vw'}}>
               <MDBCol className="px-0" size="10">
-                <FilterRow number={55} />
+                <FilterRow number={25} />
                 <JobForYouWrapper />
               </MDBCol>
               <MDBCol className={classes.sidebar} size="2">
-                <CollectionCard number={21} />
+                <CollectionCard number={this.state.collectionNum} />
                 {/*<TagSidebar tags={['面试经历', '删库经历', '跑路经历']} />*/}
               </MDBCol>
             </MDBRow>
