@@ -72,7 +72,7 @@ class SearchJobResultReact extends React.Component {
                 <MDBCol
                   size="2" className="px-0 d-flex justify-content-center align-items-center"
                   style={{color: '#8D9AAF', fontSize: '1.09vw'}}>
-                  5个结果
+                  {this.props.backend.length}个结果
                 </MDBCol>
                 <MDBCol className="ml-auto d-flex justify-content-end" size="2">
                   <MDBDropdown>
