@@ -10,7 +10,6 @@ import filter from '../../assets/filter.svg';
 import {CardMapper} from '../../component/mapper';
 import {CollectionSidebar} from '../../component/collection-card';
 import {languageHelper} from '../../../../tool/language-helper';
-import {getAsync} from '../../../../tool/api-helper';
 
 const basicCHNFont = {
   fontFamily: 'PingFang SC',
@@ -31,29 +30,12 @@ class SearchJobResultReact extends React.Component {
     // state
     this.state = {
       collectionType: 'job',
-      collectionNum: 0
     };
     // i18n
     this.text = SearchJobResultReact.i18n[languageHelper()];
   }
 
   async componentDidMount() {
-    try {
-      const result = await getAsync(`/users/${localStorage.getItem('id')}/attentions?type=${this.state.collectionType}`);
-      if (result && result.status && result.status.code === 2000) {
-        this.setState(() => {
-          return {collectionNum: result.content.job.item_count};
-        });
-      } else {
-        this.setState(() => {
-          return {collectionNum: 0};
-        });
-      }
-    } catch (error) {
-      // eslint-disable-next-line
-      console.log(error);
-    }
-    
     //搜索页面切换时，重新set搜索类型
     this.props.handleSearchType();
   }
@@ -99,7 +81,7 @@ class SearchJobResultReact extends React.Component {
 
             <aside className={classes.sideBar}>
               <div>
-                <CollectionSidebar number={this.state.collectionNum} collectionType="职位" />
+                <CollectionSidebar collectionType={'职位'} url={'job'}/>
                 <MDBListGroup
                   style={{fontSize: '1.1vw', marginTop: '1.56vw'}}>
                   <MDBListGroupItem

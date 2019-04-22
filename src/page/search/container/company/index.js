@@ -9,7 +9,6 @@ import filter from '../../assets/filter.svg';
 
 import {CollectionSidebar} from '../../component/collection-card';
 import {CardMapper} from '../../component/mapper';
-import {getAsync} from '../../../../tool/api-helper';
 import {languageHelper} from '../../../../tool/language-helper';
 
 const basicCHNFont = {
@@ -31,7 +30,6 @@ class SearchCompanyResultReact extends React.Component {
     // state
     this.state = {
       collectionType: 'company',
-      collectionNum: 0
     };
     // i18n
     this.text = SearchCompanyResultReact.i18n[languageHelper()];
@@ -42,22 +40,6 @@ class SearchCompanyResultReact extends React.Component {
   // }
 
   async componentDidMount() {
-    try {
-      const result = await getAsync(`/users/${localStorage.getItem('id')}/attentions?type=${this.state.collectionType}`);
-      if (result && result.status && result.status.code === 2000) {
-        this.setState(() => {
-          return {collectionNum: result.content.company.item_count};
-        });
-      } else {
-        this.setState(() => {
-          return {collectionNum: 0};
-        });
-      }
-    } catch (error) {
-      // eslint-disable-next-line
-      console.log(error);
-    }
-    
     //搜索页面切换时，重新set搜索类型
     this.props.handleSearchType();
   }
@@ -104,7 +86,7 @@ class SearchCompanyResultReact extends React.Component {
             </main>
 
             <aside className={classes.sideBar}>
-              <CollectionSidebar number={this.state.collectionNum} collectionType="公司" />
+              <CollectionSidebar  collectionType={'公司'} url={'company'} />
               <MDBListGroup
                 style={{fontSize: '1.1vw', marginTop: '1.56vw'}}>
                 <MDBListGroupItem
