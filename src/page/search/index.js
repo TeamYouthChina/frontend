@@ -63,7 +63,7 @@ class SearchReact extends React.Component {
       const limit = 6 / len;
       let code = null;
       while (count < len) {
-        const temp = await this.getData(this.state.searchType[count++], limit);
+        const temp = await this.getData(this.state.searchType[count++], limit, this.state.keyword.replace(/\s+/g,''));
         if (temp !== null) {
           result = [...result, ...temp.content.data];
           code = temp.status.code;
@@ -79,9 +79,9 @@ class SearchReact extends React.Component {
     }
   };
 
-  getData = async (parameter, limit) => {
+  getData = async (parameter, limit, keyword) => {
     try {
-      const result = await getAsync(`/search?type=${parameter}&title=${this.state.keyword}&limit=${limit}&page=${this.state.page}`);
+      const result = await getAsync(`/search?type=${parameter}&title=${keyword}&limit=${limit}&page=${this.state.page}`);
       if (result && result.status) {
         return result;
       } else {
