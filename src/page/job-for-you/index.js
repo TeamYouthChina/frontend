@@ -67,7 +67,7 @@ class JobForYouReact extends React.Component {
                 <JobForYouWrapper />
               </MDBCol>
               <MDBCol className={classes.sidebar} size="2">
-                <CollectionCard number={this.state.collectionNum} />
+                <CollectionCard number={this.state.collectionNum} url={'job'} collectionType={'职位'}/>
                 {/*<TagSidebar tags={['面试经历', '删库经历', '跑路经历']} />*/}
               </MDBCol>
             </MDBRow>
