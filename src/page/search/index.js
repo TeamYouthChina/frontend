@@ -244,7 +244,7 @@ class SearchReact extends React.Component {
                 <Redirect to={`${this.props.match.url}/job`} />
               </Switch>
               :
-              <div style={{height: '70vh'}}></div>
+              null
             }
             {/*eslint-enable*/}
           </div>
