@@ -19,7 +19,7 @@ export class AddComment extends React.Component {
     this.textArea.addEventListener('compositionend',this.compositionend);
   }
   
-  componentDidUnmount() {
+  componentWillUnmount() {
     this.textArea.removeEventListener('compositionstart',this.compositionstart);
     this.textArea.removeEventListener('compositionend',this.compositionend);
   }

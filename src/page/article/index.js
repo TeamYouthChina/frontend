@@ -270,6 +270,22 @@ class ArticleReact extends React.Component {
       showShare
     }));
   };
+  // 删除文章
+  onDeleteReview = () =>{
+    try {
+      fetch(
+        `${urlPrefix}/articles/${this.props.match.params.id}`,
+        {
+          method: 'DELETE',
+          headers: generateHeaders(),
+          body: null
+        },
+      );
+    } catch (e) {
+      alert(e);
+    }
+    this.props.history.push('/my/profile');
+  };
   
   getCurrentPage(){}
 
@@ -297,6 +313,9 @@ class ArticleReact extends React.Component {
           attentionCount={backend.attentionCount}
           upvoteCount={backend.upvoteCount}
           onShare={this.onShare}
+          id={backend.author === null ? 1 : backend.author.id}
+          articleId={this.props.match.params.id}
+          onDeleteReview={this.onDeleteReview}
         />
         <Share
           content={window.location.href}

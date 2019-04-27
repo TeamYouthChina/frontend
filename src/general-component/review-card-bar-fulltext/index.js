@@ -16,7 +16,7 @@ class ReviewCardBarFulltextReact extends React.Component {
 
   render() {
     return (
-      <AnswerCard ansCommentId={this.props.ansCommentId} fullText={this.props.fulltext} type={this.props.type}/>
+      <AnswerCard qid={this.props.qid} ansCommentId={this.props.ansCommentId} fullText={this.props.fulltext} type={this.props.type}/>
     );
   }
 }
@@ -30,6 +30,7 @@ ReviewCardBarFulltextReact.propTypes = {
   // self
   fulltext: PropTypes.object.isRequired,
   ansCommentId: PropTypes.number.isRequired,
+  qid: PropTypes.number.isRequired,
   type: PropTypes.string,
   // React Router
   match: PropTypes.object.isRequired,

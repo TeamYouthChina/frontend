@@ -10,6 +10,7 @@ import Comment from '../../../review/public/comment.svg';
 import Share from '../../../review/public/share.svg';
 import braftEditor from 'braft-editor';
 import {MDBIcon} from 'mdbreact';
+import {Link} from 'react-router-dom';
 
 const ArticleDes = React.memo((props) => (
   <div className={classes.mdbCol}>
@@ -27,9 +28,22 @@ const ArticleDes = React.memo((props) => (
         <span className={classes.titleSpan}>{props.user}</span>
         <span className={classes.desSpan}>{props.description && props.description[0]}</span>
       </div>
-      <button onClick={props.onAttention} className={props.attention ? classes.btnStyleFocusActive : classes.btnStyleFocus}>
-        {props.attention ? '已关注' : '+关注文章'}
-      </button>
+      {String(props.id) === window.localStorage.id ? (
+        <button className={classes.btnStyleFocus}>
+          <Link style={{color:'#4F65E1'}} to={`/article/${props.articleId}/edit`}>
+            编辑文章
+          </Link>
+        </button>
+      ) : (
+        <button onClick={props.onAttention} className={props.attention ? classes.btnStyleFocusActive : classes.btnStyleFocus}>
+          {props.attention ? '已关注' : '+关注文章'}
+        </button>
+      )}
+      {String(props.id) === window.localStorage.id && (
+        <button className={classes.btnStyleFocus} onClick={props.onDeleteReview}>
+          删除文章
+        </button>
+      )}
       <div className={classes.upZan}>
         {props.evaluateStatus === 1 ? (
           <span onClick={props.onVote} className={classes.footerFont}>
@@ -102,6 +116,8 @@ ArticleDes.propTypes = {
   description: PropTypes.string,
   evaluateStatus: PropTypes.number,
   title: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  articleId: PropTypes.number.isRequired,
   upvoteCount: PropTypes.number.isRequired,
   downvoteCount: PropTypes.number.isRequired,
   commentsText: PropTypes.string.isRequired,
@@ -110,6 +126,7 @@ ArticleDes.propTypes = {
   onShare: PropTypes.func.isRequired,
   onDownVote: PropTypes.func.isRequired,
   onAttention: PropTypes.func.isRequired,
+  onDeleteReview: PropTypes.func.isRequired,
   // editorState: PropTypes.object.isRequired,
   // React Redux
   bodyClientWidth: PropTypes.number.isRequired
