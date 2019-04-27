@@ -4,7 +4,7 @@ import {Redirect, withRouter, Link} from 'react-router-dom';
 
 import {languageHelper} from '../../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../../tool/remove-url-slash-suffix';
-import {ReviewCardBarFulltext} from '../../../playground/general-component/review-card-bar-fulltext';
+import {ReviewCardBarFulltext} from '../../../../general-component/review-card-bar-fulltext';
 import {isLogin} from '../../../../tool/api-helper';
 
 import classes from './answers.module.css';

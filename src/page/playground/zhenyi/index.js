@@ -8,11 +8,11 @@ import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 
 // import Zhenyi from './components';
 
-import {AnswerCardBarId}  from '../general-component/answer-card-bar-id';
+import {AnswerCardBarId}  from '../../../general-component/answer-card-bar-id';
 // import AnswerCardWithoutAuth  from '../general-component/answer-card-bar-fulltext';
-import {ReviewCardBarId} from '../general-component/review-card-bar-id';
+import {ReviewCardBarId} from '../../../general-component/review-card-bar-id';
 // import {ReviewCardBarFulltext}  from '../general-component/review-card-bar-fulltext';
-import {ArticleCardBarId} from '../general-component/article-card-bar-id';
+import {ArticleCardBarId} from '../../../general-component/article-card-bar-id';
 // import {VideoCardBarAuth}  from '../general-component/video-card-bar-id';
 //
 // import data from '../general-component/answer-card-bar-id/components/index.data';
