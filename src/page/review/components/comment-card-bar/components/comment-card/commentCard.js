@@ -17,6 +17,7 @@ export class CommentCard extends React.Component {
     this.state={
       showReplies: false,
       showGive: false,
+      showList:false,
       showCommentsText: '查看回复',
       replyText: '回复',
       commentLists: [],
@@ -216,12 +217,25 @@ export class CommentCard extends React.Component {
       }));
     }
   };
-  
+  // 展现回复
   onShowReply = () => {
     let showGive = !this.state.showGive;
     this.setState(()=>({
       showGive
     }));
+  };
+  // 展开删除菜单
+  onShowList = () => {
+    if(String(this.props.user.id) === window.localStorage.id){
+      const showList = !this.state.showList;
+      this.setState(()=>({
+        showList
+      }));
+    }
+  };
+  // 删除
+  onDeleteComment = () =>{
+    this.props.onDeleteComment(this.props.id);
   };
   
   render(){
@@ -232,16 +246,19 @@ export class CommentCard extends React.Component {
           <MDBRow className={classes.mdbRow}>
             <MDBAvatar className={classes.avatar}>
               <img
-                src={'https://s3.amazonaws.com/youthchina/WechatIMG29.jpeg'}
+                src={'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'}
                 alt="avatar"
                 className={`rounded-circle ${classes.imgStyle}`}
               />
             </MDBAvatar>
             <div className={classes.commentWrapper}>
               <CommentContent
-                user={this.props.user}
+                user={this.props.user && this.props.user.username}
                 time={this.props.time}
                 content={this.props.content}
+                onShowList={this.onShowList}
+                showList={this.state.showList}
+                onDeleteComment={this.onDeleteComment}
               />
               <CommentFooter
                 onShowReply={this.onShowReply}
@@ -276,6 +293,7 @@ CommentCard.propTypes = {
   time: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   onVote: PropTypes.func,
+  onDeleteComment: PropTypes.func,
   upvoteCount: PropTypes.number,
   downvoteCount: PropTypes.number,
   evaluateStatus: PropTypes.number,

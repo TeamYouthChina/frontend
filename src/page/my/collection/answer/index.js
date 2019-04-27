@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link, Redirect} from 'react-router-dom';
 
-import {AnswerCardBarId} from './answer-card-bar-id';
+import {AnswerCardBarId} from '../../../../general-component/answer-card-bar-id';
 import {languageHelper} from '../../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../../tool/remove-url-slash-suffix';
 import {getAsync} from '../../../../tool/api-helper';

@@ -12,7 +12,16 @@ export const CommentContent = (props) => (
       <span className={classes.timeSpan}>
         {props.time}
       </span>
-      <MDBIcon style={{float: 'right'}} icon="ellipsis-v" />
+      <span onClick={props.onShowList} className={classes.iconSpan}>
+        <MDBIcon icon="ellipsis-v" />
+        {props.showList && (
+          <ul onClick={props.onDeleteComment} className={classes.deleteUl}>
+            <li>
+              删除
+            </li>
+          </ul>
+        )}
+      </span>
     </div>
     <p className={classes.contentRow}>
       {props.content}
@@ -26,4 +35,7 @@ CommentContent.propTypes = {
   user: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
+  showList: PropTypes.bool.isRequired,
+  onShowList: PropTypes.func.isRequired,
+  onDeleteComment: PropTypes.func.isRequired,
 };
