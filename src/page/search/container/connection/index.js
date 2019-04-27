@@ -1,10 +1,10 @@
 import React from 'react';
-import {MDBCol, MDBRow} from 'mdbreact';
+import {MDBRow} from 'mdbreact';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import classes from './index.module.css';
 
-import {UserCardBarAuth} from '../../card/user-card-bar-auth';
+import {CardMapper} from '../../component/mapper';
 import {ConnectionFilter} from './filter';
 import {languageHelper} from '../../../../tool/language-helper';
 
@@ -31,37 +31,13 @@ class SearchConnectionResultReact extends React.Component {
       <div className="cell-wall">
         <div className="cell-membrane">
           <MDBRow style={{marginTop: '2vw'}}>
-            <MDBCol style={{marginLeft: 0, padding: 0}} size="2">
+            <aside className={classes.sideBar}>
               <ConnectionFilter/>
-            </MDBCol>
+            </aside>
             
-            <MDBCol className="px-0" size="10">
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol className="p-0">
-                  <UserCardBarAuth id={'1'}/>
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol className="p-0">
-                  <UserCardBarAuth id={'1'}/>
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol className="p-0">
-                  <UserCardBarAuth id={'1'}/>
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol className="p-0">
-                  <UserCardBarAuth id={'1'}/>
-                </MDBCol>
-              </MDBRow>
-              <MDBRow className={classes.cardBarRow}>
-                <MDBCol className="p-0">
-                  <UserCardBarAuth id={'1'}/>
-                </MDBCol>
-              </MDBRow>
-            </MDBCol>
+            <main className={classes.mainBody}>
+              <CardMapper backend={this.props.backend}/>
+            </main>
             
           </MDBRow>
         </div>
@@ -82,6 +58,7 @@ SearchConnectionResultReact.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
+  backend: PropTypes.array.isRequired,
   handleSearchType: PropTypes.func.isRequired,
   handleUnmount: PropTypes.func.isRequired
 };

@@ -1,18 +1,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Redirect, Route, Switch} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 
-import {Intern} from './container/intern';
+import {JobForYouWrapper} from './wrapper';
+import {CollectionCard} from './component/collectionCard';
+// import {TagSidebar} from '../../component/tag';
+import {FilterRow} from './component/filter';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
+import {MDBRow} from 'mdbreact';
+import classes from './index.module.css';
+import {getAsync, isLogin} from '../../tool/api-helper';
 
 class JobForYouReact extends React.Component {
   constructor(props) {
     super(props);
     // state
-    this.state = {};
+    this.state = {
+      collectionNum: 0,
+      collectionType: 'company'
+    };
     // i18n
     this.text = JobForYouReact.i18n[languageHelper()];
+  }
+
+  async componentDidMount() {
+    if(isLogin()){
+      try {
+        const result = await getAsync(`/users/${localStorage.getItem('id')}/attentions?type=${this.state.collectionType}`);
+        if (result && result.status && result.status.code === 2000) {
+          this.setState(() => {
+            return {collectionNum: result.content.company.item_count};
+          });
+        } else {
+          this.setState(() => {
+            return {collectionNum: 0};
+          });
+        }
+      } catch (error) {
+        // eslint-disable-next-line
+        console.log(error);
+      }
+    }
   }
 
   render() {
@@ -20,24 +49,30 @@ class JobForYouReact extends React.Component {
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
+    if (!isLogin()) {
+      return (<Redirect to={`/login?to=${this.props.location.pathname}`} />);
+    }
     return (
       <div>
-        {/* 二级导航条 */}
-        <Switch>
-          {/*<Route*/}
-          {/*path={`${this.props.match.url}/campus`}*/}
-          {/*component={routeProps => <Campus {...routeProps} />}*/}
-          {/*/>*/}
-          {/*<Route*/}
-          {/*path={`${this.props.match.url}/general`}*/}
-          {/*component={routeProps => <General {...routeProps} />}*/}
-          {/*/>*/}
-          <Route
-            path={`${this.props.match.url}/intern`}
-            component={routeProps => <Intern {...routeProps} />}
-          />
-          <Redirect to={`${this.props.match.url}/intern`} />
-        </Switch>
+        <div
+          className="cell-wall"
+          style={{backgroundColor: '#F3F5F7'}}
+        >
+          <div
+            className="cell-membrane"
+          >
+            <MDBRow style={{marginTop: '2vw'}}>
+              <main className={classes.mainBody}>
+                <FilterRow number={25} />
+                <JobForYouWrapper />
+              </main>
+              <aside className={classes.sidebar}>
+                <CollectionCard number={this.state.collectionNum} url={'job'} collectionType={'职位'}/>
+                {/*<TagSidebar tags={['面试经历', '删库经历', '跑路经历']} />*/}
+              </aside>
+            </MDBRow>
+          </div>
+        </div>
       </div>
     );
   }

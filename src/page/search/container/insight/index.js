@@ -3,24 +3,12 @@ import {MDBListGroup, MDBListGroupItem, MDBRow} from 'mdbreact';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import classes from './index.module.css';
-import wrtiteArticle from '../../assets/writeArticle.svg';
+import writeArticle from '../../assets/writeArticle.svg';
 import writeQuestion from '../../assets/writeQuestion.svg';
 import writeReview from '../../assets/writeReview.svg';
 
 import {CardMapper} from '../../component/mapper';
 import {languageHelper} from '../../../../tool/language-helper';
-
-const basicCHNFont = {
-  fontFamily: 'PingFang SC',
-  fontStyle: 'normal',
-  fontWeight: 'normal',
-  lineHeight: 'normal'
-};
-
-const navyFont = {
-  ...basicCHNFont,
-  color: '#31394D'
-};
 
 // todo,动态显示结果数
 class SearchInsightResultReact extends React.Component {
@@ -71,7 +59,7 @@ class SearchInsightResultReact extends React.Component {
                   href="/article/create"
                   className={classes.listGroupItemsInsight}
                 >
-                  <img src={wrtiteArticle} className={classes.sidebarIcon} alt="icon" /> 写文章
+                  <img src={writeArticle} className={classes.sidebarIcon} alt="icon" /> 写文章
                 </MDBListGroupItem>
                 <MDBListGroupItem
                   hover
@@ -92,7 +80,11 @@ class SearchInsightResultReact extends React.Component {
                 <MDBListGroupItem
                   className={classes.listGroupItemsTag}
                 >
-                  <p style={navyFont}>标签</p>
+                  <p style={{
+                    color: '#31394D',
+                    fontFamily: 'PingFang SC', 
+                    fontWeight: 'normal'
+                  }}>标签</p>
                 </MDBListGroupItem>
                 <MDBListGroupItem
                   className={classes.listGroupItems}
@@ -130,9 +122,10 @@ SearchInsightResultReact.propTypes = {
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   handleSearchType: PropTypes.func.isRequired,
+  handleUnmount: PropTypes.func.isRequired,
   backend: PropTypes.array.isRequired,
   code: PropTypes.number.isRequired,
-  handleUnmount: PropTypes.func.isRequired
+  keyword: PropTypes.string.isRequired
 };
 
 export const SearchInsightResult = withRouter(SearchInsightResultReact);

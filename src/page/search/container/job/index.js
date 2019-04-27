@@ -1,13 +1,6 @@
 import React from 'react';
 import {
-  MDBCol,
-  MDBDropdown,
-  MDBDropdownItem,
-  MDBDropdownMenu,
-  MDBDropdownToggle,
-  MDBListGroup,
-  MDBListGroupItem,
-  MDBRow
+  MDBCol, MDBDropdown, MDBDropdownItem, MDBDropdownMenu, MDBDropdownToggle, MDBListGroup, MDBListGroupItem, MDBRow
 } from 'mdbreact';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
@@ -17,7 +10,6 @@ import filter from '../../assets/filter.svg';
 import {CardMapper} from '../../component/mapper';
 import {CollectionSidebar} from '../../component/collection-card';
 import {languageHelper} from '../../../../tool/language-helper';
-import {getAsync} from '../../../../tool/api-helper';
 
 const basicCHNFont = {
   fontFamily: 'PingFang SC',
@@ -38,35 +30,18 @@ class SearchJobResultReact extends React.Component {
     // state
     this.state = {
       collectionType: 'job',
-      collectionNum: 0
     };
     // i18n
     this.text = SearchJobResultReact.i18n[languageHelper()];
   }
 
-  componentWillUnmount() {
-    this.props.handleUnmount();
-  }
-
   async componentDidMount() {
-    try {
-      const result = await getAsync(`/users/${localStorage.getItem('id')}/attentions?type=${this.state.collectionType}`);
-      if (result && result.status && result.status.code === 2000) {
-        this.setState(() => {
-          return {collectionNum: result.content.length};
-        });
-      } else {
-        this.setState(() => {
-          return {collectionNum: 0};
-        });
-      }
-    } catch (error) {
-      // eslint-disable-next-line
-      console.log(error);
-    }
-    
     //搜索页面切换时，重新set搜索类型
     this.props.handleSearchType();
+  }
+
+  componentWillUnmount() {
+    this.props.handleUnmount();
   }
 
   render() {
@@ -79,7 +54,7 @@ class SearchJobResultReact extends React.Component {
                 <MDBCol
                   size="2" className="px-0 d-flex justify-content-center align-items-center"
                   style={{color: '#8D9AAF', fontSize: '1.09vw'}}>
-                  5个结果
+                  {this.props.backend.length}个结果
                 </MDBCol>
                 <MDBCol className="ml-auto d-flex justify-content-end" size="2">
                   <MDBDropdown>
@@ -106,7 +81,7 @@ class SearchJobResultReact extends React.Component {
 
             <aside className={classes.sideBar}>
               <div>
-                <CollectionSidebar number={this.state.collectionNum} collectionType="职位" />
+                <CollectionSidebar collectionType={'职位'} url={'job'}/>
                 <MDBListGroup
                   style={{fontSize: '1.1vw', marginTop: '1.56vw'}}>
                   <MDBListGroupItem
@@ -150,9 +125,10 @@ SearchJobResultReact.propTypes = {
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   handleSearchType: PropTypes.func.isRequired,
+  handleUnmount: PropTypes.func.isRequired,
   backend: PropTypes.array.isRequired,
   code: PropTypes.number.isRequired,
-  handleUnmount: PropTypes.func.isRequired
+  keyword: PropTypes.string.isRequired
 };
 
 export const SearchJobResult = withRouter(SearchJobResultReact);

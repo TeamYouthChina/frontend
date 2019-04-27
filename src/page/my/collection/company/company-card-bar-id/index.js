@@ -12,8 +12,8 @@ import employee from './employee.svg';
 import {IfCollect} from '../../../../playground/general-component/if-collect';
 import location from './location.svg';
 
-import {languageHelper} from '../../../../../tool/language-helper';
-import {Location} from '../../../../playground/general-component/location';
+import { languageHelper } from '../../../../../tool/language-helper';
+import {Location} from './location';
 
 
 class CompanyCardBarIdReact extends React.Component {

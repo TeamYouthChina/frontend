@@ -32,20 +32,20 @@ class SearchReact extends React.Component {
       //搜索到的数据
       backend: [],
       //后端状态码
-      code: null,
+      code: 0,
       //分页
       page: 0,
       //搜索类型
       searchType: null
     };
-    
+
   }
 
   // onSearchInput = async event => {
   //   event.persist();
   //   this.handleInputKeyword(event);
   // };
-  
+
   handleInputKeyword = event => {
     this.setState({
       keyword: event.target.value
@@ -55,35 +55,33 @@ class SearchReact extends React.Component {
   handleKeywordSearch = async (event) => {
     event.preventDefault();
     this.handleChildUnmount();
-    let result = [];
-    let count = 0;
-    const len = this.state.searchType.length;
-    const limit = 6 / len;
-    let code = null;
-    while (count < len) {
-      const temp = await this.getData(this.state.searchType[count++], limit);
-      if (temp !== null) {
-        result = [...result, ...temp.content.data];
-        code = temp.status.code;
+    
+    if (this.state.keyword !== '') {
+      let result = [];
+      let count = 0;
+      const len = this.state.searchType.length;
+      const limit = 6 / len;
+      let code = null;
+      while (count < len) {
+        const temp = await this.getData(this.state.searchType[count++], limit, this.state.keyword.replace(/\s+/g,''));
+        if (temp !== null) {
+          result = [...result, ...temp.content.data];
+          code = temp.status.code;
+        }
       }
-      // console.log('数据', temp);
-      // eslint-disable-next-line
-      // console.log(code);
+      this.setState(() => {
+        return {
+          backend: result,
+          code,
+          renderChild: true
+        };
+      });
     }
-    // eslint-disable-next-line
-    // console.log(result);
-    this.setState(() => {
-      return {
-        backend: result,
-        code,
-        renderChild: true
-      };
-    });
   };
 
-  getData = async (parameter, limit) => {
+  getData = async (parameter, limit, keyword) => {
     try {
-      const result = await getAsync(`/search?type=${parameter}&title=${this.state.keyword}&limit=${limit}&page=${this.state.page}`);
+      const result = await getAsync(`/search?type=${parameter}&title=${keyword}&limit=${limit}&page=${this.state.page}`);
       if (result && result.status) {
         return result;
       } else {
@@ -201,6 +199,7 @@ class SearchReact extends React.Component {
                       {...props}
                       code={this.state.code}
                       backend={this.state.backend}
+                      keyword={this.state.keyword}
                       handleUnmount={this.handleChildUnmount}
                       handleSearchType={this.handleSearchType} />
                   }
@@ -212,6 +211,7 @@ class SearchReact extends React.Component {
                       {...props}
                       code={this.state.code}
                       backend={this.state.backend}
+                      keyword={this.state.keyword}
                       handleUnmount={this.handleChildUnmount}
                       handleSearchType={this.handleSearchType} />
                   }
@@ -224,6 +224,7 @@ class SearchReact extends React.Component {
                       renderChild={this.state.renderChild}
                       code={this.state.code}
                       backend={this.state.backend}
+                      keyword={this.state.keyword}
                       handleUnmount={this.handleChildUnmount}
                       handleSearchType={this.handleSearchType} />
                   }
@@ -235,13 +236,16 @@ class SearchReact extends React.Component {
                       {...props}
                       code={this.state.code}
                       backend={this.state.backend}
+                      keyword={this.state.keyword}
                       handleUnmount={this.handleChildUnmount}
                       handleSearchType={this.handleSearchType} />
                   }
                 />
                 <Redirect to={`${this.props.match.url}/job`} />
               </Switch>
-              : null}
+              :
+              null
+            }
             {/*eslint-enable*/}
           </div>
         </div>

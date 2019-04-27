@@ -44,7 +44,7 @@ class ArticleReact extends React.Component {
         alert(e);
       }
     } else {
-      this.props.history.push('/login');
+      this.props.history.push(`/login?to=${this.props.location.pathname}`);
     }
   }
 

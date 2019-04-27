@@ -11,7 +11,7 @@ import {InvitationSideBar} from './component/invitation';
 import {TagesSideBar} from './component/tag';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
-import {getAsync} from '../../tool/api-helper';
+import {getAsync, isLogin} from '../../tool/api-helper';
 
 
 class ConnectionReact extends React.Component {
@@ -19,29 +19,34 @@ class ConnectionReact extends React.Component {
     super(props);
     // state
     this.state = {
-      render:0
+      render: 0
     };
     // i18n
     this.text = ConnectionReact.i18n[languageHelper()];
   }
+
   async componentDidMount() {
+    if (!isLogin()) {
+      this.setState({
+        render: 2
+      });
+    }
     this.setState({
       render: 1,
       userFulltext: await getAsync('/discovery/users?limit=10&page=1'),
     });
   }
+
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
     switch (this.state.render) {
-      case 0:
-        return null;
       case 1:
         return (
           <div>
-            <div className="d-flex align-items-center justify-items-center" style={{background:'#ffffff'}}>
+            <div className="d-flex align-items-center justify-items-center" style={{background: '#ffffff'}}>
               <div>
                 <img className={classes.topViewImg} src={imgTopViewRight} alt="img" />
               </div>
@@ -60,12 +65,12 @@ class ConnectionReact extends React.Component {
               <div
                 className="cell-membrane"
               >
-                <div className="d-flex justify-content-center" >
-                  <div className="d-flex flex-wrap justify-content-space" style={{marginTop:'2.34vw',width: '70vw'}}>
+                <div className="d-flex justify-content-center">
+                  <main className="d-flex flex-wrap justify-content-space" style={{marginTop: '2.34vw', width: '70vw'}}>
 
                     {this.state.userFulltext.content.data.map((item, index) => {
                       return (
-                        <div style={{marginBottom:'1vw',marginRight:'2vw'}}  key={index}>
+                        <div style={{marginBottom: '1vw', marginRight: '2vw'}} key={index}>
                           <UserCardSquareAuth
                             avatar={item.content.avatar_url}
                             name={item.content.username}
@@ -77,19 +82,21 @@ class ConnectionReact extends React.Component {
                       );
                     })}
 
-                  </div>
-                  <div className={classes.sideBar}>
-                    <FriendSideBar number={[21, 8]}/>
+                  </main>
+                  <aside className={classes.sideBar}>
+                    <FriendSideBar number={[21, 8]} />
 
-                    <InvitationSideBar content={'目前没有未回复的邀请'}/>
+                    <InvitationSideBar content={'目前没有未回复的邀请'} />
 
-                    <TagesSideBar tags={['求职经历', '面试经历']}/>
-                  </div>
+                    <TagesSideBar tags={['求职经历', '面试经历']} />
+                  </aside>
                 </div>
               </div>
             </div>
           </div>
         );
+      case 2:
+        return (<Redirect to={`/login?to=${this.props.location.pathname}`} />);
       default:
         return null;
     }

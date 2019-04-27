@@ -9,7 +9,6 @@ import filter from '../../assets/filter.svg';
 
 import {CollectionSidebar} from '../../component/collection-card';
 import {CardMapper} from '../../component/mapper';
-import {getAsync} from '../../../../tool/api-helper';
 import {languageHelper} from '../../../../tool/language-helper';
 
 const basicCHNFont = {
@@ -31,7 +30,6 @@ class SearchCompanyResultReact extends React.Component {
     // state
     this.state = {
       collectionType: 'company',
-      collectionNum: 0
     };
     // i18n
     this.text = SearchCompanyResultReact.i18n[languageHelper()];
@@ -41,29 +39,13 @@ class SearchCompanyResultReact extends React.Component {
   //   return nextState.collectionNum !== this.state.collectionNum;
   // }
 
-  componentWillUnmount() {
-    this.props.handleUnmount();
-  }
-
   async componentDidMount() {
-    try {
-      const result = await getAsync(`/users/${localStorage.getItem('id')}/attentions?type=${this.state.collectionType}`);
-      if (result && result.status && result.status.code === 2000) {
-        this.setState(() => {
-          return {collectionNum: result.content.length};
-        });
-      } else {
-        this.setState(() => {
-          return {collectionNum: 0};
-        });
-      }
-    } catch (error) {
-      // eslint-disable-next-line
-      console.log(error);
-    }
-    
     //搜索页面切换时，重新set搜索类型
     this.props.handleSearchType();
+  }
+
+  componentWillUnmount() {
+    this.props.handleUnmount();
   }
 
   render() {
@@ -77,7 +59,7 @@ class SearchCompanyResultReact extends React.Component {
                 <MDBCol
                   size="2" className="px-0 d-flex justify-content-center align-items-center"
                   style={{color: '#8D9AAF', fontSize: '1.09vw'}}>
-                  5个结果
+                  {this.props.backend.length}个结果
                 </MDBCol>
                 <MDBCol className="ml-auto d-flex justify-content-end" size="2">
                   <MDBDropdown>
@@ -104,7 +86,7 @@ class SearchCompanyResultReact extends React.Component {
             </main>
 
             <aside className={classes.sideBar}>
-              <CollectionSidebar number={this.state.collectionNum} collectionType="公司" />
+              <CollectionSidebar  collectionType={'公司'} url={'company'} />
               <MDBListGroup
                 style={{fontSize: '1.1vw', marginTop: '1.56vw'}}>
                 <MDBListGroupItem
@@ -148,9 +130,9 @@ SearchCompanyResultReact.propTypes = {
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   handleSearchType: PropTypes.func.isRequired,
-  backend: PropTypes.object.isRequired,
+  handleUnmount: PropTypes.func.isRequired,
+  backend: PropTypes.array.isRequired,
   code: PropTypes.number.isRequired,
-  handleUnmount: PropTypes.func.isRequired
 };
 
 export const SearchCompanyResult = withRouter(SearchCompanyResultReact);

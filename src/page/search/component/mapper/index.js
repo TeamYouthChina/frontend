@@ -7,6 +7,7 @@ import {AnswerCardBarId} from '../../../playground/general-component/answer-card
 import {ReviewCardBarId} from '../../../playground/general-component/review-card-bar-id';
 import {JobCardBarId} from '../../../playground/general-component/job-card-bar-id';
 import {CompanyCardBarId} from '../../../playground/general-component/company-card-bar-id';
+import {UserCardBarAuth} from '../../../playground/general-component/user-card-bar-long-fulltext';
 
 export class CardMapper extends React.Component {
   constructor(props) {
@@ -35,6 +36,8 @@ export class CardMapper extends React.Component {
                   return <JobCardBarId id={item.id} />;
                 case 'company':
                   return <CompanyCardBarId id={item.id} />;
+                case 'user':
+                  return <UserCardBarAuth id={item.id} />;
               }
             })()}
           </MDBCol>

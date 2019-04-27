@@ -13,16 +13,13 @@ import {CreateResume} from './page/create-resume';
 import {Discovery} from './page/discovery';
 import {Footer} from './page/footer';
 import {Header} from './page/header';
-import {Help} from './page/help';
 import {Job} from './page/job';
 import {JobForYou} from './page/job-for-you';
 import {Login} from './page/login';
 import {My} from './page/my';
 import {OnlineApplication} from './page/online-application';
-import {Promotion} from './page/promotion';
 import {PageNoFound} from './page/page-no-found';
 import {Playground} from './page/playground';
-import {ZhenyiWrapper} from './page/playground/zhenyi';
 import {Question} from './page/question';
 import {QuestionEdit} from './page/question-edit';
 import {Register} from './page/register';
@@ -30,8 +27,6 @@ import {Review} from './page/review';
 import {ReviewEdit} from './page/review-edit';
 import {Search} from './page/search';
 import {SubmitDone} from './page/submit-done';
-import {Video} from './page/video';
-import {VideoEdit} from './page/video-edit';
 import {store} from './redux/store';
 import * as actionJs from './redux/action';
 
@@ -59,154 +54,135 @@ export class App extends React.Component {
         <BrowserRouter>
           <div>
             <Header />
-            <Switch>
-              <Route
-                path="/"
-                exact
-                component={() => <Redirect to="/promotion" />}
-              />
-              <Route
-                path="/article/:id/edit"
-                component={routeProps => <ArticleEdit {...routeProps} create={false} />}
-              />
-              <Route
-                path="/article/create"
-                component={routeProps => <ArticleEdit {...routeProps} create={true} />}
-              />
-              <Route
-                path="/article/:id"
-                component={routeProps => <Article {...routeProps} />}
-              />
-              <Route
-                path="/best-for-you"
-                component={routeProps => <BestForYou {...routeProps} />}
-              />
-              <Route
-                path="/company/:id"
-                component={routeProps => <Company {...routeProps} />}
-              />
-              <Route
-                path="/comingsoon"
-                component={routeProps => <ComingSoon {...routeProps} />}
-              />
-              <Route
-                path="/connection"
-                component={routeProps => <Connection {...routeProps} />}
-              />
-              <Route
-                path="/discovery"
-                component={routeProps => <Discovery {...routeProps} />}
-              />
-              <Route
-                path="/help"
-                component={routeProps => <Help {...routeProps} />}
-              />
-              <Route
-                path="/job/:id"
-                component={routeProps => <Job {...routeProps} />}
-              />
-              <Route
-                path="/job-for-you"
-                component={routeProps => <JobForYou {...routeProps} />}
-              />
-              <Route
-                path="/login"
-                component={routeProps => <Login {...routeProps} />}
-              />
-              <Route
-                path="/my"
-                component={routeProps => <My {...routeProps} />}
-              />
-              <Route
-                path="/promotion"
-                component={routeProps => <Promotion {...routeProps} />}
-              />
-              <Route
-                path="/question/:qid/answer/:aid/edit"
-                component={routeProps => <AnswerEdit {...routeProps} create={false} />}
-              />
-              <Route
-                path="/question/:qid/answer/create"
-                component={routeProps => <AnswerEdit {...routeProps} create={true} />}
-              />
-              <Route
-                path="/question/:qid/answer/:aid"
-                component={routeProps => <Question {...routeProps} />}
-              />
-              <Route
-                path="/question/:qid/edit"
-                component={routeProps => <QuestionEdit {...routeProps} create={false} />}
-              />
-              <Route
-                path="/question/create"
-                component={routeProps => <QuestionEdit {...routeProps} create={true} />}
-              />
-              <Route
-                path="/question/:qid"
-                component={routeProps => <Question {...routeProps} />}
-              />
-              <Route
-                path="/register"
-                component={routeProps => <Register {...routeProps} />}
-              />
-              <Route
-                path="/review/:id/edit"
-                component={routeProps => <ReviewEdit {...routeProps} create={false} />}
-              />
-              <Route
-                path="/review/create"
-                component={routeProps => <ReviewEdit {...routeProps} create={true} />}
-              />
-              <Route
-                path="/review/:id"
-                component={routeProps => <Review {...routeProps} />}
-              />
-              <Route
-                path="/search"
-                component={routeProps => <Search {...routeProps} />}
-              />
-              <Route
-                path="/submit-done"
-                component={routeProps => <SubmitDone {...routeProps} />}
-              />
-              <Route
-                path="/video/:id/edit"
-                component={routeProps => <VideoEdit {...routeProps} create={false} />}
-              />
-              <Route
-                path="/video/create"
-                component={routeProps => <VideoEdit {...routeProps} create={true} />}
-              />
-              <Route
-                path="/video/:id"
-                component={routeProps => <Video {...routeProps} />}
-              />
-              {/* ====== path might change: BEGIN ====== */}
-              <Route
-                path="/create-resume"
-                component={routeProps => <CreateResume {...routeProps} />}
-              />
-              <Route
-                path="/online-application"
-                component={routeProps => <OnlineApplication {...routeProps} />}
-              />
-              {/* ====== path might change: END ====== */}
-              {/* ====== playground: BEGIN ====== */}
-              <Route
-                path="/playground"
-                component={routeProps => <Playground {...routeProps} />}
-              />
-              <Route
-                path="/playground/zhenyi"
-                component={routeProps => <ZhenyiWrapper {...routeProps} />}
-              />
-              {/* ====== playground: END ====== */}
-              <Route
-                path="/page-no-found"
-                component={routeProps => <PageNoFound {...routeProps} />}
-              />
-              <Redirect to="/page-no-found" />
-            </Switch>
+            
+            <div style={{minHeight: 'calc(100vh - 50px)'}}>
+              <Switch>
+                <Route
+                  path="/"
+                  exact
+                  component={() => <Redirect to="/discovery" />}
+                />
+                <Route
+                  path="/article/:id/edit"
+                  component={routeProps => <ArticleEdit {...routeProps} create={false} />}
+                />
+                <Route
+                  path="/article/create"
+                  component={routeProps => <ArticleEdit {...routeProps} create={true} />}
+                />
+                <Route
+                  path="/article/:id"
+                  component={routeProps => <Article {...routeProps} />}
+                />
+                <Route
+                  path="/best-for-you"
+                  component={routeProps => <BestForYou {...routeProps} />}
+                />
+                <Route
+                  path="/company/:id"
+                  component={routeProps => <Company {...routeProps} />}
+                />
+                <Route
+                  path="/comingsoon"
+                  component={routeProps => <ComingSoon {...routeProps} />}
+                />
+                <Route
+                  path="/connection"
+                  component={routeProps => <Connection {...routeProps} />}
+                />
+                <Route
+                  path="/discovery"
+                  component={routeProps => <Discovery {...routeProps} />}
+                />
+                <Route
+                  path="/job/:id"
+                  component={routeProps => <Job {...routeProps} />}
+                />
+                <Route
+                  path="/job-for-you"
+                  component={routeProps => <JobForYou {...routeProps} />}
+                />
+                <Route
+                  path="/login"
+                  component={routeProps => <Login {...routeProps} to="/my" />}
+                />
+                <Route
+                  path="/my"
+                  component={routeProps => <My {...routeProps} />}
+                />
+                <Route
+                  path="/page-no-found"
+                  component={routeProps => <PageNoFound {...routeProps} />}
+                />
+                <Route
+                  path="/question/:qid/answer/:aid/edit"
+                  component={routeProps => <AnswerEdit {...routeProps} create={false} />}
+                />
+                <Route
+                  path="/question/:qid/answer/create"
+                  component={routeProps => <AnswerEdit {...routeProps} create={true} />}
+                />
+                <Route
+                  path="/question/:qid/answer/:aid"
+                  component={routeProps => <Question {...routeProps} />}
+                />
+                <Route
+                  path="/question/:qid/edit"
+                  component={routeProps => <QuestionEdit {...routeProps} create={false} />}
+                />
+                <Route
+                  path="/question/create"
+                  component={routeProps => <QuestionEdit {...routeProps} create={true} />}
+                />
+                <Route
+                  path="/question/:qid"
+                  component={routeProps => <Question {...routeProps} />}
+                />
+                <Route
+                  path="/register"
+                  component={routeProps => <Register {...routeProps} to="/" />}
+                />
+                <Route
+                  path="/review/:id/edit"
+                  component={routeProps => <ReviewEdit {...routeProps} create={false} />}
+                />
+                <Route
+                  path="/review/create"
+                  component={routeProps => <ReviewEdit {...routeProps} create={true} />}
+                />
+                <Route
+                  path="/review/:id"
+                  component={routeProps => <Review {...routeProps} />}
+                />
+                <Route
+                  path="/search"
+                  component={routeProps => <Search {...routeProps} />}
+                />
+
+                {/* ====== path might change: BEGIN ====== */}
+                <Route
+                  path="/submit-done"
+                  component={routeProps => <SubmitDone {...routeProps} />}
+                />
+                <Route
+                  path="/create-resume"
+                  component={routeProps => <CreateResume {...routeProps} />}
+                />
+                <Route
+                  path="/online-application"
+                  component={routeProps => <OnlineApplication {...routeProps} />}
+                />
+                {/* ====== path might change: END ====== */}
+                {/* ====== playground: BEGIN ====== */}
+                <Route
+                  path="/playground"
+                  component={routeProps => <Playground {...routeProps} />}
+                />
+                {/* ====== playground: END ====== */}
+                <Redirect to="/page-no-found" />
+              </Switch>
+            </div>
+
             <Footer />
           </div>
         </BrowserRouter>
