@@ -66,7 +66,7 @@ class ConnectionReact extends React.Component {
                 className="cell-membrane"
               >
                 <div className="d-flex justify-content-center">
-                  <div className="d-flex flex-wrap justify-content-space" style={{marginTop: '2.34vw', width: '70vw'}}>
+                  <main className="d-flex flex-wrap justify-content-space" style={{marginTop: '2.34vw', width: '70vw'}}>
 
                     {this.state.userFulltext.content.data.map((item, index) => {
                       return (
@@ -82,14 +82,14 @@ class ConnectionReact extends React.Component {
                       );
                     })}
 
-                  </div>
-                  <div className={classes.sideBar}>
+                  </main>
+                  <aside className={classes.sideBar}>
                     <FriendSideBar number={[21, 8]} />
 
                     <InvitationSideBar content={'目前没有未回复的邀请'} />
 
                     <TagesSideBar tags={['求职经历', '面试经历']} />
-                  </div>
+                  </aside>
                 </div>
               </div>
             </div>

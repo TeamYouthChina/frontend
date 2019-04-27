@@ -8,7 +8,7 @@ import {CollectionCard} from './component/collectionCard';
 import {FilterRow} from './component/filter';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
-import {MDBCol, MDBRow} from 'mdbreact';
+import {MDBRow} from 'mdbreact';
 import classes from './index.module.css';
 import {getAsync, isLogin} from '../../tool/api-helper';
 
@@ -62,14 +62,14 @@ class JobForYouReact extends React.Component {
             className="cell-membrane"
           >
             <MDBRow style={{marginTop: '2vw'}}>
-              <MDBCol className="px-0" size="10">
+              <main className={classes.mainBody}>
                 <FilterRow number={25} />
                 <JobForYouWrapper />
-              </MDBCol>
-              <MDBCol className={classes.sidebar} size="2">
+              </main>
+              <aside className={classes.sidebar}>
                 <CollectionCard number={this.state.collectionNum} url={'job'} collectionType={'职位'}/>
                 {/*<TagSidebar tags={['面试经历', '删库经历', '跑路经历']} />*/}
-              </MDBCol>
+              </aside>
             </MDBRow>
           </div>
         </div>
