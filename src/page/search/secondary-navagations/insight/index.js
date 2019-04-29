@@ -148,27 +148,6 @@ class SearccInsightNavItemReact extends React.Component {
                 </MDBDropdown>
               </MDBNavItem>
 
-              <MDBNavItem className="mx-2">
-                <MDBDropdown>
-                  <MDBDropdownToggle nav>
-                    <div className="d-md-inline" style={navyFont}>帖子类型
-                      <MDBIcon icon="caret-down" style={caretIconColor} />
-                    </div>
-                  </MDBDropdownToggle>
-                  <MDBDropdownMenu>
-                    <MDBDropdownItem className={classes.dropdownItems}
-                      style={navyFont}
-                      href="#!">吐槽</MDBDropdownItem>
-                    <MDBDropdownItem className={classes.dropdownItems}
-                      style={navyFont}
-                      href="#!">科普</MDBDropdownItem>
-                    <MDBDropdownItem className={classes.dropdownItems}
-                      style={navyFont}
-                      href="#!">生活</MDBDropdownItem>
-                  </MDBDropdownMenu>
-                </MDBDropdown>
-              </MDBNavItem>
-
             </MDBNavbarNav>
           </MDBCollapse>
           {/*</MDBContainer>*/}
