@@ -27,6 +27,11 @@ class SearchInsightResultReact extends React.Component {
   componentDidMount() {
     //搜索页面切换时，重新set搜索类型
     this.props.handleSearchType();
+    // let input = document.getElementById('searchIput');
+    // console.log(input);
+    // input.addEventListener('keypress', e =>{
+    //   if(e.keycode === 13) console.log('pressed');
+    // });
   }
 
   componentWillUnmount() {

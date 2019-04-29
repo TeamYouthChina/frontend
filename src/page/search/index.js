@@ -53,17 +53,17 @@ class SearchReact extends React.Component {
   };
 
   handleKeywordSearch = async (event) => {
-    event.preventDefault();
+    if (event) event.preventDefault();
     this.handleChildUnmount();
-    
-    if (this.state.keyword !== '') {
+
+    if (this.state.searchType !== null) {
       let result = [];
       let count = 0;
       const len = this.state.searchType.length;
       const limit = 6 / len;
       let code = null;
       while (count < len) {
-        const temp = await this.getData(this.state.searchType[count++], limit, this.state.keyword.replace(/\s+/g,''));
+        const temp = await this.getData(this.state.searchType[count++], limit, (this.state.keyword === '' ? '\'\'' : this.state.keyword.replace(/\s+/g, '')));
         if (temp !== null) {
           result = [...result, ...temp.content.data];
           code = temp.status.code;
@@ -132,6 +132,7 @@ class SearchReact extends React.Component {
 
   componentDidMount() {
     this.handleSearchType();
+    // this.handleKeywordSearch();
   }
 
   render() {
