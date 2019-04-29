@@ -8,9 +8,9 @@ import writeQuestion from '../playground/discovery-old/assets/writeQuestion.svg'
 import writeReview from '../playground/discovery-old/assets/writeReview.svg';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import {ArticleCardBarId} from '../playground/general-component/article-card-bar-id';
-import {AnswerCardBarId} from '../playground/general-component/answer-card-bar-id';
-import {ReviewCardBarId} from '../playground/general-component/review-card-bar-id';
+import {ArticleCardBarId} from '../../general-component/article-card-bar-id';
+import {AnswerCardBarId} from '../../general-component/answer-card-bar-id';
+import {ReviewCardBarId} from '../../general-component/review-card-bar-id';
 import {languageHelper} from '../../tool/language-helper';
 import {getAsync} from '../../tool/api-helper';
 import {Loading} from '../job-for-you/component/loading';

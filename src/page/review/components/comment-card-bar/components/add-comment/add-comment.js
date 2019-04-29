@@ -15,17 +15,27 @@ export class AddComment extends React.Component {
   }
   
   componentDidMount() {
-    this.textArea.addEventListener('compositionstart',()=>{
-      this.isChinese = true;
-    });
-    this.textArea.addEventListener('compositionend',(e)=>{
-      this.isChinese = false;
-      this.handleInput(e);
-    });
+    this.textArea.addEventListener('compositionstart',this.compositionstart);
+    this.textArea.addEventListener('compositionend',this.compositionend);
+  }
+  
+  componentDidUnmount() {
+    this.textArea.removeEventListener('compositionstart',this.compositionstart);
+    this.textArea.removeEventListener('compositionend',this.compositionend);
   }
 
+  compositionstart = () =>{
+    this.isChinese = true;
+  }
+  
+  compositionend = (e) =>{
+    this.isChinese = false;
+    this.handleInput(e);
+  }
+  
+  //截取150个字
   handleInput = (e) =>{
-    if(this.state.leftCount > 0) {
+    if(this.state.leftCount > -1) {
       if(!this.isChinese){
         let count = this.maxLength - e.target.value.length;
         this.setState(()=>({
@@ -48,7 +58,7 @@ export class AddComment extends React.Component {
       <MDBRow className={classes.mdbRow}>
         <MDBAvatar className={classes.avatar}>
           <img
-            src={'https://s3.amazonaws.com/youthchina/WechatIMG29.jpeg'}
+            src={'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'}
             alt="user-avatar"
             className={`rounded-circle ${classes.imgStyle}`}
           />

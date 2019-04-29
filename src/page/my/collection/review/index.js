@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link, Redirect, withRouter} from 'react-router-dom';
 
-import {ReviewCardBarId} from './review-card-bar-id';
+import {ReviewCardBarId} from '../../../../general-component/review-card-bar-id';
 import {languageHelper} from '../../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../../tool/remove-url-slash-suffix';
 import {getAsync} from '../../../../tool/api-helper';

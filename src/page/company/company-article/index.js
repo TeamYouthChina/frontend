@@ -5,7 +5,7 @@ import {withRouter} from 'react-router-dom';
 import classes from './index.module.css';
 import {languageHelper} from '../../../tool/language-helper';
 import {getAsync} from '../../../tool/api-helper';
-import {ArticleCardBarId} from '../../playground/general-component/article-card-bar-id';
+import {ArticleCardBarId} from '../../../general-component/article-card-bar-id';
 
 class CompanyArticleReact extends React.Component {
   constructor(props) {

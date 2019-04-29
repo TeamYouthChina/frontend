@@ -15,7 +15,7 @@ const ReviewDes = (props) => (
       <div style={{display: 'flex', marginTop: '1.17vw'}}>
         <div style={{display: 'inline-block'}}>
           <img
-            src={'https://s3.amazonaws.com/youthchina/WechatIMG29.jpeg'}
+            src={'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'}
             alt="avatar"
             className={`rounded-circle ${classes.imgStyle}`}
           />

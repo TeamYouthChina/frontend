@@ -124,6 +124,38 @@ class Comments extends React.Component {
     });
   }
 
+  onDeleteComment = (id) => {
+    try {
+      fetch(
+        `${urlPrefix}/comments/${id}`,
+        {
+          method:'DELETE',
+          headers:generateHeaders(),
+          body:null
+        },
+      ).then((res)=>(
+        res.json()
+      )).then(async ()=>{
+        try {
+          const result = await getAsync(`/${this.props.type}/${this.props.id}/comments`);
+          if(result.status.code === 2000){
+            this.setState(()=>({
+              commentLists:result.content.data
+            }),()=>{
+              this.props.onTellParent(this.state.commentLists.length);
+            });
+          } else {
+            this.props.history.push('/page-no-found');
+          }
+        } catch (e) {
+          alert(e);
+        }
+      });
+    } catch (e) {
+      alert(e);
+    }
+  };
+
   renderComment = () =>{
     let start = this.state.start;
     let end = this.state.end;
@@ -134,13 +166,14 @@ class Comments extends React.Component {
         array.push(
           <CommentCard
             id={item.id}
-            user={item.creator && item.creator.username}
+            user={item.creator}
             time={timeHelper(item.modified_at)}
             content={item.body}
             upvoteCount={item.upvoteCount}
             downvoteCount={item.downvoteCount}
             evaluateStatus={item.evaluateStatus}
             addComments={this.addComments}
+            onDeleteComment={this.onDeleteComment}
           />
         );
       }

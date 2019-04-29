@@ -8,7 +8,7 @@ export const UserInfor = (props) => (
       <div style={{flewGrow:'0'}}>
         <img
           style={{width: '2.5vw', background: '#F4F4F4',marginRight:'0.859vw'}}
-          src={'https://s3.amazonaws.com/youthchina/WechatIMG29.jpeg'}
+          src={'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'}
           alt="123"
           className="rounded-circle"
         />
