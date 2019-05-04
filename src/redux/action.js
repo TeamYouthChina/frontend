@@ -1,8 +1,8 @@
 export const type = {
-  bodyClientWidth: 'bodyClientWidth'
+  userId: 'userId'
 };
 
-export const creator = (type, value = undefined) => {
+export const creator = (type, value) => {
   return {
     type,
     value

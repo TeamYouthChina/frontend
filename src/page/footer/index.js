@@ -18,6 +18,7 @@ export class FooterReact extends React.Component {
     return (
       <footer
         className={classes.footerBackGround}
+        style={{height: '5vw'}}
       >
         <div className="cell-wall">
           <div className="cell-membrane">
