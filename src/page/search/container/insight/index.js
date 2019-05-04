@@ -8,6 +8,7 @@ import writeQuestion from '../../assets/writeQuestion.svg';
 import writeReview from '../../assets/writeReview.svg';
 
 import {CardMapper} from '../../component/mapper';
+import {DefaultCardMapper} from '../../component/default-mapper';
 import {languageHelper} from '../../../../tool/language-helper';
 
 // todo,动态显示结果数
@@ -27,21 +28,12 @@ class SearchInsightResultReact extends React.Component {
   componentDidMount() {
     //搜索页面切换时，重新set搜索类型
     this.props.handleSearchType();
-    // let input = document.getElementById('searchIput');
-    // console.log(input);
-    // input.addEventListener('keypress', e =>{
-    //   if(e.keycode === 13) console.log('pressed');
-    // });
   }
 
   componentWillUnmount() {
     this.props.handleUnmount();
   }
-
-  // shouldComponentUpdate(nextProps) {
-  //   return this.props !== nextProps;
-  // }
-
+  
   render() {
     return (
       <div className="cell-wall">
@@ -50,10 +42,10 @@ class SearchInsightResultReact extends React.Component {
           <MDBRow style={{marginTop: '2vw'}}>
             <main className={classes.mainBody}>
               {
-                this.props.backend.length ?
+                this.props.backend && this.props.backend.length ?
                   (this.props.code === 2000 ? <CardMapper backend={this.props.backend}/> : (this.props.backend.status.code === 4040 ? <p>没有搜索结果。</p> :
                     <p>Here should be a loading card.</p>)
-                  ) : null
+                  ) : <DefaultCardMapper type={'questions'} />
               }
             </main>
 
