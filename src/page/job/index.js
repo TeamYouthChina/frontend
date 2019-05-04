@@ -17,6 +17,7 @@ import {get, isLogin} from '../../tool/api-helper';
 
 
 class JobReact extends React.Component {
+  
   constructor(props) {
     super(props);
     // state
