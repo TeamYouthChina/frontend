@@ -21,11 +21,11 @@ class UserCardBarAuthReact extends React.Component {
   async componentDidMount() {
     if (this.props.id) {
       this.setState({
-        backend: await getAsync(`/applicants/${this.props.id}`)
+        backend: await getAsync(`/applicants/${this.props.id}/cards`)
       });
     } else {
       this.setState({
-        backend: await getAsync('/applicants/2')
+        backend: await getAsync('/applicants/2/cards')
       });
     }
   }
