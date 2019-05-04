@@ -8,6 +8,7 @@ import classes from './index.module.css';
 import filter from '../../assets/filter.svg';
 
 import {CardMapper} from '../../component/mapper';
+import {DefaultCardMapper} from '../../component/default-mapper';
 import {CollectionSidebar} from '../../component/collection-card';
 import {languageHelper} from '../../../../tool/language-helper';
 
@@ -54,28 +55,31 @@ class SearchJobResultReact extends React.Component {
                 <MDBCol
                   size="2" className="px-0 d-flex justify-content-center align-items-center"
                   style={{color: '#8D9AAF', fontSize: '1.09vw'}}>
-                  {this.props.backend.length}个结果
+                  {this.props.resultNum+'个结果'}
                 </MDBCol>
-                <MDBCol className="ml-auto d-flex justify-content-end" size="2">
-                  <MDBDropdown>
-                    <MDBDropdownToggle
-                      className={`m-0 ${classes.dropdownButton}`} size="sm"
-                      style={{fontSize: '1.1vw', border: '1px solid #DBE5F7'}}>
-                      相关性 <img className={classes.filter} src={filter} alt="icons" />
-                    </MDBDropdownToggle>
-                    <MDBDropdownMenu basic>
-                      <MDBDropdownItem className={classes.dropdownItems}>规则1</MDBDropdownItem>
-                      <MDBDropdownItem className={classes.dropdownItems}>规则2</MDBDropdownItem>
-                      <MDBDropdownItem className={classes.dropdownItems}>规则3</MDBDropdownItem>
-                    </MDBDropdownMenu>
-                  </MDBDropdown>
-                </MDBCol>
+                {
+                  this.state.display?
+                    <MDBCol className="ml-auto d-flex justify-content-end" size="2">
+                      <MDBDropdown>
+                        <MDBDropdownToggle
+                          className={`m-0 ${classes.dropdownButton}`} size="sm"
+                          style={{fontSize: '1.1vw', border: '1px solid #DBE5F7'}}>
+                          相关性 <img className={classes.filter} src={filter} alt="icons" />
+                        </MDBDropdownToggle>
+                        <MDBDropdownMenu basic>
+                          <MDBDropdownItem className={classes.dropdownItems}>规则1</MDBDropdownItem>
+                          <MDBDropdownItem className={classes.dropdownItems}>规则2</MDBDropdownItem>
+                          <MDBDropdownItem className={classes.dropdownItems}>规则3</MDBDropdownItem>
+                        </MDBDropdownMenu>
+                      </MDBDropdown>
+                    </MDBCol> : null
+                }
               </MDBRow>
               {
-                this.props.backend.length ?
+                this.props.backend && this.props.backend.length ?
                   (this.props.code === 2000 ? <CardMapper backend={this.props.backend}/> : (this.props.backend.status.code === 4040 ? <p>没有搜索结果。</p> :
                     <p>Here should be a loading card.</p>)
-                  ) : null
+                  ) : <DefaultCardMapper type={'jobs'} handleResultNum={this.props.handleResultNum}/>
               }
             </main>
 
@@ -126,8 +130,10 @@ SearchJobResultReact.propTypes = {
   location: PropTypes.object.isRequired,
   handleSearchType: PropTypes.func.isRequired,
   handleUnmount: PropTypes.func.isRequired,
+  handleResultNum: PropTypes.func.isRequired,
   backend: PropTypes.array.isRequired,
   code: PropTypes.number.isRequired,
+  resultNum: PropTypes.number.isRequired,
   keyword: PropTypes.string.isRequired
 };
 

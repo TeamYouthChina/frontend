@@ -36,99 +36,12 @@ class SearchReact extends React.Component {
       //分页
       page: 0,
       //搜索类型
-      searchType: null
+      searchType: null,
+      //result number
+      resultNum: 0
     };
 
   }
-
-  // onSearchInput = async event => {
-  //   event.persist();
-  //   this.handleInputKeyword(event);
-  // };
-
-  handleInputKeyword = event => {
-    this.setState({
-      keyword: event.target.value
-    });
-  };
-
-  handleKeywordSearch = async (event) => {
-    if (event) event.preventDefault();
-    this.handleChildUnmount();
-
-    if (this.state.searchType !== null) {
-      let result = [];
-      let count = 0;
-      const len = this.state.searchType.length;
-      const limit = 6 / len;
-      let code = null;
-      while (count < len) {
-        const temp = await this.getData(this.state.searchType[count++], limit, (this.state.keyword === '' ? '\'\'' : this.state.keyword.replace(/\s+/g, '')));
-        if (temp !== null) {
-          result = [...result, ...temp.content.data];
-          code = temp.status.code;
-        }
-      }
-      this.setState(() => {
-        return {
-          backend: result,
-          code,
-          renderChild: true
-        };
-      });
-    }
-  };
-
-  getData = async (parameter, limit, keyword) => {
-    try {
-      const result = await getAsync(`/search?type=${parameter}&title=${keyword}&limit=${limit}&page=${this.state.page}`);
-      if (result && result.status) {
-        return result;
-      } else {
-        return null;
-      }
-
-    } catch (error) {
-      // eslint-disable-next-line
-      console.log(error);
-    }
-  };
-
-  handleChildUnmount = () => {
-    this.setState(() => {
-      return {
-        backend: null
-      };
-    });
-  };
-
-  //切换搜索页面时，更改搜索类型
-  handleSearchType = () => {
-    // eslint-disable-next-line
-    const path = this.props.location.pathname;
-
-    switch (true) {
-      case path.includes('/job'):
-        this.setState(() => {
-          return {searchType: ['job']};
-        });
-        break;
-      case path.includes('/company'):
-        this.setState(() => {
-          return {searchType: ['company']};
-        });
-        break;
-      case path.includes('/insight'):
-        this.setState(() => {
-          return {searchType: ['article', 'question', 'editorial']};
-        });
-        break;
-      case path.includes('/connection'):
-        this.setState(() => {
-          return {searchType: ['user']};
-        });
-    }
-  };
 
   componentDidMount() {
     this.handleSearchType();
@@ -191,16 +104,71 @@ class SearchReact extends React.Component {
         {/*搜索结果细胞*/}
         <div className="cell-wall" style={{backgroundColor: '#F3F5F7'}}>
           <div className="cell-membrane">
-            {this.state.backend ?
+            {/*{this.state.backend ?*/}
+              {/*<Switch>*/}
+                {/*<Route*/}
+                  {/*path={`${this.props.match.url}/job`}*/}
+                  {/*children={(props) =>*/}
+                    {/*<SearchJobResult*/}
+                      {/*{...props}*/}
+                      {/*code={this.state.code}*/}
+                      {/*backend={this.state.backend}*/}
+                      {/*keyword={this.state.keyword}*/}
+                      {/*handleUnmount={this.handleChildUnmount}*/}
+                      {/*handleSearchType={this.handleSearchType} />*/}
+                  {/*}*/}
+                {/*/>*/}
+                {/*<Route*/}
+                  {/*path={`${this.props.match.url}/company`}*/}
+                  {/*children={(props) =>*/}
+                    {/*<SearchCompanyResult*/}
+                      {/*{...props}*/}
+                      {/*code={this.state.code}*/}
+                      {/*backend={this.state.backend}*/}
+                      {/*keyword={this.state.keyword}*/}
+                      {/*handleUnmount={this.handleChildUnmount}*/}
+                      {/*handleSearchType={this.handleSearchType} />*/}
+                  {/*}*/}
+                {/*/>*/}
+                {/*<Route*/}
+                  {/*path={`${this.props.match.url}/insight`}*/}
+                  {/*children={(props) =>*/}
+                    {/*<SearchInsightResult*/}
+                      {/*{...props}*/}
+                      {/*renderChild={this.state.renderChild}*/}
+                      {/*code={this.state.code}*/}
+                      {/*backend={this.state.backend}*/}
+                      {/*keyword={this.state.keyword}*/}
+                      {/*handleUnmount={this.handleChildUnmount}*/}
+                      {/*handleSearchType={this.handleSearchType} />*/}
+                  {/*}*/}
+                {/*/>*/}
+                {/*<Route*/}
+                  {/*path={`${this.props.match.url}/connection`}*/}
+                  {/*children={(props) =>*/}
+                    {/*<SearchConnectionResult*/}
+                      {/*{...props}*/}
+                      {/*code={this.state.code}*/}
+                      {/*backend={this.state.backend}*/}
+                      {/*keyword={this.state.keyword}*/}
+                      {/*handleUnmount={this.handleChildUnmount}*/}
+                      {/*handleSearchType={this.handleSearchType} />*/}
+                  {/*}*/}
+                {/*/>*/}
+                {/*<Redirect to={`${this.props.match.url}/job`} />*/}
+              {/*</Switch>*/}
+              {/*:*/}
               <Switch>
                 <Route
                   path={`${this.props.match.url}/job`}
                   children={(props) =>
                     <SearchJobResult
                       {...props}
-                      code={this.state.code}
                       backend={this.state.backend}
+                      code={this.state.code}
                       keyword={this.state.keyword}
+                      resultNum={this.state.resultNum}
+                      handleResultNum={this.handleResultNumber}
                       handleUnmount={this.handleChildUnmount}
                       handleSearchType={this.handleSearchType} />
                   }
@@ -210,9 +178,11 @@ class SearchReact extends React.Component {
                   children={(props) =>
                     <SearchCompanyResult
                       {...props}
-                      code={this.state.code}
                       backend={this.state.backend}
+                      code={this.state.code}
                       keyword={this.state.keyword}
+                      resultNum={this.state.resultNum}
+                      handleResultNum={this.handleResultNumber}
                       handleUnmount={this.handleChildUnmount}
                       handleSearchType={this.handleSearchType} />
                   }
@@ -244,15 +214,106 @@ class SearchReact extends React.Component {
                 />
                 <Redirect to={`${this.props.match.url}/job`} />
               </Switch>
-              :
-              null
-            }
+            {/*}*/}
             {/*eslint-enable*/}
           </div>
         </div>
       </div>
     );
   }
+  
+  handleInputKeyword = event => {
+    this.setState({
+      keyword: event.target.value
+    });
+  };
+
+  handleKeywordSearch = async (event) => {
+    if (event) event.preventDefault();
+    this.handleChildUnmount();
+
+    if (this.state.searchType !== null) {
+      let result = [];
+      let count = 0;
+      const len = this.state.searchType.length;
+      const limit = 6 / len;
+      let code = null;
+      while (count < len) {
+        const temp = await this.getData(this.state.searchType[count++], limit, (this.state.keyword === '' ? '\'\'' : this.state.keyword.replace(/\s+/g, '')));
+        if (temp !== null) {
+          result = [...result, ...temp.content.data];
+          code = temp.status.code;
+        }
+      }
+      await this.setState(() => {
+        return {
+          backend: result,
+          code,
+          renderChild: true,
+        };
+      });
+      await this.handleResultNumber(result.length);
+    }
+  };
+
+  getData = async (parameter, limit, keyword) => {
+    try {
+      const result = await getAsync(`/search?type=${parameter}&title=${keyword}&limit=${limit}&page=${this.state.page}`);
+      if (result && result.status) {
+        return result;
+      } else {
+        return null;
+      }
+
+    } catch (error) {
+      // eslint-disable-next-line
+      console.log(error);
+    }
+  };
+
+  handleChildUnmount = () => {
+    this.setState(() => {
+      return {
+        backend: null
+      };
+    });
+  };
+
+  handleResultNumber = num => {
+    this.setState(() => {
+      return {
+        resultNum: num
+      };
+    });
+  };
+
+  //切换搜索页面时，更改搜索类型
+  handleSearchType = () => {
+    // eslint-disable-next-line
+    const path = this.props.location.pathname;
+
+    switch (true) {
+      case path.includes('/job'):
+        this.setState(() => {
+          return {searchType: ['job']};
+        });
+        break;
+      case path.includes('/company'):
+        this.setState(() => {
+          return {searchType: ['company']};
+        });
+        break;
+      case path.includes('/insight'):
+        this.setState(() => {
+          return {searchType: ['article', 'question', 'editorial']};
+        });
+        break;
+      case path.includes('/connection'):
+        this.setState(() => {
+          return {searchType: ['user']};
+        });
+    }
+  };
 }
 
 SearchReact.i18n = [
