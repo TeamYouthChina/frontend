@@ -3,9 +3,9 @@ import * as actionJs from './action';
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionJs.type.bodyClientWidth:
+    case actionJs.type.userId:
       return Object.assign({}, state, {
-        bodyClientWidth: action.value
+        userId: action.value
       });
     default:
       return {
