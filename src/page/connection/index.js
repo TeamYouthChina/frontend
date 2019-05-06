@@ -5,7 +5,7 @@ import {Redirect} from 'react-router-dom';
 import classes from './index.module.css';
 import imgTopViewLeft from './assets/img-topview-left.png';
 import imgTopViewRight from './assets/img-topview-right.png';
-import {UserCardSquareAuth} from './component/card/user-card-square-auth';
+import {UserCardSquareAuth} from './component/card/user-card-square-id';
 import {FriendSideBar} from './component/friends';
 import {InvitationSideBar} from './component/invitation';
 import {TagesSideBar} from './component/tag';
@@ -72,11 +72,7 @@ class ConnectionReact extends React.Component {
                       return (
                         <div style={{marginBottom: '1vw', marginRight: '2vw'}} key={index}>
                           <UserCardSquareAuth
-                            avatar={item.content.avatar_url}
-                            name={item.content.username}
-                            role={item.content.role[0]}
-                            sex={item.content.gender}
-                            nation={item.content.nation}
+                            id = {item.content.id}
                           />
                         </div>
                       );

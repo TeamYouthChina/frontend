@@ -199,54 +199,6 @@ class SearchJobsNavItemReact extends React.Component {
               <MDBNavItem className="mx-2">
                 <MDBDropdown>
                   <MDBDropdownToggle nav>
-                    <div className="d-md-inline" style={navyFont}>工资
-                      <MDBIcon icon="caret-down" style={caretIconColor} />
-                    </div>
-                  </MDBDropdownToggle>
-                  <MDBDropdownMenu>
-                    <MDBDropdownItem
-                      className={classes.dropdownItems}
-                      style={navyFont} href="#!">5000以下</MDBDropdownItem>
-                    <MDBDropdownItem
-                      className={classes.dropdownItems}
-                      style={navyFont} href="#!">5001-10000</MDBDropdownItem>
-                    <MDBDropdownItem
-                      className={classes.dropdownItems}
-                      style={navyFont} href="#!">10001-20000</MDBDropdownItem>
-                    <MDBDropdownItem
-                      className={classes.dropdownItems}
-                      style={navyFont} href="#!">20000以上</MDBDropdownItem>
-                  </MDBDropdownMenu>
-                </MDBDropdown>
-              </MDBNavItem>
-
-              <MDBNavItem className="mx-2">
-                <MDBDropdown>
-                  <MDBDropdownToggle nav>
-                    <div className="d-md-inline" style={navyFont}>学历要求
-                      <MDBIcon icon="caret-down" style={caretIconColor} />
-                    </div>
-                  </MDBDropdownToggle>
-                  <MDBDropdownMenu>
-                    <MDBDropdownItem
-                      className={classes.dropdownItems}
-                      style={navyFont} href="#!">大专</MDBDropdownItem>
-                    <MDBDropdownItem
-                      className={classes.dropdownItems}
-                      style={navyFont} href="#!">本科</MDBDropdownItem>
-                    <MDBDropdownItem
-                      className={classes.dropdownItems}
-                      style={navyFont} href="#!">硕士研究生</MDBDropdownItem>
-                    <MDBDropdownItem
-                      className={classes.dropdownItems}
-                      style={navyFont} href="#!">博士研究生</MDBDropdownItem>
-                  </MDBDropdownMenu>
-                </MDBDropdown>
-              </MDBNavItem>
-
-              <MDBNavItem className="mx-2">
-                <MDBDropdown>
-                  <MDBDropdownToggle nav>
                     <div className="d-md-inline" style={navyFont}>行业
                       <MDBIcon icon="caret-down" style={caretIconColor} />
                     </div>
