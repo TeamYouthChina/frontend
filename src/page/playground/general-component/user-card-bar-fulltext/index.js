@@ -9,9 +9,8 @@ import {languageHelper} from '../../../../tool/language-helper';
 import classes from './index.module.css';
 
 import * as deviceHelper from '../../../../tool/device-helper';
-import {getAsync} from '../../../../tool/api-helper';
 
-class UserCardBarIdReact extends React.Component {
+class UserCardBarFullReact extends React.Component {
   constructor(props) {
     super(props);
     // state
@@ -21,40 +20,31 @@ class UserCardBarIdReact extends React.Component {
       
     };
     // i18n
-    this.text = UserCardBarIdReact.i18n[languageHelper()];
+    this.text = UserCardBarFullReact.i18n[languageHelper()];
   }
-
-  async componentDidMount() {
-
-    this.setState({
-      backend: await getAsync(`/applicants/${this.props.id}/cards`)
-    });
-    
-  }
+  
+  
   render() {
 
-    return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ?(
+    return (
       <div className={`${classes.content} d-flex align-items-center justify-content-between`}>
         <div>
           <img
             style={deviceHelper.getType() === deviceHelper.MOBILE ? {width: '30px'} : {width: '50px'}}
-            src={('http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png')}
+            src={(this.props.avatar==='---')?('http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'):(this.props.avatar)}
             className="rounded-circle img-fluid p-0 float-right"
             alt="Sample avatar"
           />
         </div>
         <div>
           <div className={classes.name}>
-            {this.state.backend.content.name}
+            {this.props.name}
           </div>
           <div className={classes.role}>
-            1
-            {this.state.backend.content.position}
-            
+            {this.props.sex}
           </div>
           <div className={classes.info}>
-            1
-            {this.state.backend.content.company}
+            {this.props.nation}
           </div>
           
          
@@ -68,18 +58,17 @@ class UserCardBarIdReact extends React.Component {
         </div>
        
       </div>
-    ):null;
+    );
   }
 }
 
-UserCardBarIdReact.i18n = [
+UserCardBarFullReact.i18n = [
   {},
   {}
 ];
 
-UserCardBarIdReact.propTypes = {
+UserCardBarFullReact.propTypes = {
   // self
-  id: PropTypes.number.isRequired,
   avatar: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   sex: PropTypes.string.isRequired, 
@@ -92,4 +81,4 @@ UserCardBarIdReact.propTypes = {
   location: PropTypes.object.isRequired
 };
 
-export const UserCardBarId = withRouter(UserCardBarIdReact);
+export const UserCardBarFull = withRouter(UserCardBarFullReact);

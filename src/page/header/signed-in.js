@@ -32,10 +32,7 @@ class SignedInReact extends React.Component {
             <div className="flex-fill align-self-center">
               <ul
                 className="mr-1 d-flex navbar-nav"
-                onClick={() => {
-                  this.props.history.push('/comingsoon');
-                }}
-                style={{cursor: 'pointer'}}
+                
               >
                 <ul className={`${classes.mouse2} d-flex nav-item align-items-center mr-1`}>
                   <div className="d-flex align-items-center">
@@ -43,14 +40,26 @@ class SignedInReact extends React.Component {
                       icon="user-friends"
                       className="mr-1"
                     />
-                    <div>好友</div>
+                    <div
+                      onClick={() => {
+                        this.props.history.push('/comingsoon');
+                      }}
+                      style={{cursor: 'pointer'}}
+                    >
+                      好友</div>
 
                     <ul className={`${classes.mouse2} d-flex nav-item align-items-center ml-3`}>
                       <MDBIcon
                         icon="envelope"
                         className="mr-2"
                       />
-                      <div>通知</div>
+                      <div
+                        onClick={() => {
+                          this.props.history.push('/notification');
+                        }}
+                        style={{cursor: 'pointer'}}
+                      >
+                        通知</div>
                     </ul>
                   </div>
                   <div>
