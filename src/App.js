@@ -29,34 +29,29 @@ import {ReviewEdit} from './page/review-edit';
 import {Search} from './page/search';
 import {SubmitDone} from './page/submit-done';
 import {store} from './redux/store';
+
+/*
 import * as actionJs from './redux/action';
+import {get, isLogin} from './tool/api-helper';
 
-import {languageHelper} from './tool/language-helper';
-
-window.onresize = () => {
-  store.dispatch(actionJs.creator(
-    actionJs.type.bodyClientWidth,
-    document.body.clientWidth
-  ));
-};
+if (isLogin()) {
+  get('/token').then((data) => {
+    store.dispatch(actionJs.creator(
+      actionJs.type.userId,
+      data.status.code === 2000 ? data.content.id : null
+    ));
+  });
+}
+*/
 
 export class App extends React.Component {
-  constructor(props) {
-    super(props);
-    // state
-    this.state = {};
-    // i18n
-    this.text = App.i18n[languageHelper()];
-  }
-
   render() {
     return (
       <Provider store={store}>
         <BrowserRouter>
           <div>
             <Header />
-            
-            <div style={{minHeight: 'calc(100vh - 50px)'}}>
+            <div style={{minHeight: 'calc(100vh - 5vw - 5vw)'}}>
               <Switch>
                 <Route
                   path="/"
@@ -187,7 +182,6 @@ export class App extends React.Component {
                 <Redirect to="/page-no-found" />
               </Switch>
             </div>
-
             <Footer />
           </div>
         </BrowserRouter>
@@ -195,10 +189,3 @@ export class App extends React.Component {
     );
   }
 }
-
-App.i18n = [
-  {},
-  {}
-];
-
-App.propTypes = {};

@@ -11,6 +11,21 @@ import {languageHelper} from '../../tool/language-helper';
 import * as device from '../../tool/device-helper';
 
 class HeaderReact extends React.Component {
+
+  static propTypes = {
+    // self
+
+    // React Router
+    match: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired
+  };
+
+  static i18n = [
+    {},
+    {}
+  ];
+
   constructor(props) {
     super(props);
     // state
@@ -22,6 +37,8 @@ class HeaderReact extends React.Component {
     };
     // i18n
     this.text = HeaderReact.i18n[languageHelper()];
+    //
+    this.height = '5vw';
   }
 
   render() {
@@ -33,30 +50,33 @@ class HeaderReact extends React.Component {
           <header>
             <nav
               className="navbar fixed-top  d-flex justify-content-start align-items-center"
-              style={{background: '#31394D'}}
+              style={{
+                background: '#31394D',
+                height: this.height
+              }}
             >
               <div className="cell-wall">
                 <div className={`cell-membrane ${classes['header-flex']} align-items-center`}>
-                  
-                  <a 
+
+                  <a
                     className={'py-2 navbar-brand'}
-                    onClick={()=>{
+                    onClick={() => {
                       this.props.history.push('/best-for-you');
                     }}
-                    style={{cursor:'pointer'}}
+                    style={{cursor: 'pointer'}}
                   >
-                    <img 
-                      style={{height:'2.5vw'}}
+                    <img
+                      style={{height: '2.5vw'}}
                       src="https://frontendpic.oss-us-east-1.aliyuncs.com/1.png"
                       className="img-fluid"
                     />
                   </a>
-                  
+
                   <ul className={`d-flex list-inline  pl-md-3 my-0 mr-auto ${classes.nav}`}>
                     <li
                       className={`${classes.navItem} nav-item list-inline-item mr-3`}
                     >
-                      <a 
+                      <a
                         className="nav-link"
                         onClick={
                           () => {
@@ -90,22 +110,22 @@ class HeaderReact extends React.Component {
                           () => {
                             this.props.history.push('/connection');
                           }
-                        }                      >
+                        }>
                         人 脉
                       </a>
                     </li>
                     <ul
                       className={`${classes.navItem} nav-item list-inline-item mr-2`}
                     >
-                     
+
                     </ul>
-                    <ul 
+                    <ul
                       className="ml-3 d-flex nav-item align-items-center"
                     >
                       <a
                         className="nav-link"
                         to="/job-for-you2"
-                        
+
                       >
                         <div
                           className="d-flex align-items-center"
@@ -116,15 +136,15 @@ class HeaderReact extends React.Component {
                           }
 
                         >
-                         
+
                           <MDBIcon
                             icon="search"
                             size="lg"
-                            style={this.state.hover===4?{color:'#FAFBFD'}:{color:'#C1C4CA'}}
+                            style={this.state.hover === 4 ? {color: '#FAFBFD'} : {color: '#C1C4CA'}}
                           />
                         </div>
                       </a>
-                     
+
                     </ul>
                   </ul>
                   <ul className={`d-flex list-inline my-0 ml-auto ${classes.nav}`}>
@@ -143,12 +163,8 @@ class HeaderReact extends React.Component {
                 </div>
               </div>
             </nav>
-            <div
-              style={{
-                height: '4.08vw'
-              }}
-            >
-
+            <div style={{height: this.height}}>
+              {/* placeholder */}
             </div>
           </header>
         );
@@ -157,19 +173,5 @@ class HeaderReact extends React.Component {
     }
   }
 }
-
-HeaderReact.i18n = [
-  {},
-  {}
-];
-
-HeaderReact.propTypes = {
-  // self
-
-  // React Router
-  match: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
-};
 
 export const Header = withRouter(HeaderReact);

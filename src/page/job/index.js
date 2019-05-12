@@ -13,27 +13,54 @@ import {JobCard} from './job-card';
 import {JobDesci} from './job-descri';
 import {SimilarJob} from './similar-job';
 
-import {getAsync, isLogin} from '../../tool/api-helper';
+import {get, isLogin} from '../../tool/api-helper';
 
 
 class JobReact extends React.Component {
+  
   constructor(props) {
     super(props);
     // state
-    this.state = {};
+    this.state = {
+      render: 0
+    };
     // i18n
     this.text = JobReact.i18n[languageHelper()];
   }
 
-  async componentDidMount() {
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    // fix the bug of React Router
+    if (nextProps.match.params.id !== this.props.match.params.id) {
+      if (!isLogin()) {
+        this.setState({
+          render: 2,
+        });
+        return;
+      }
+      this.setState({
+        render: 0
+      });
+      get(`/jobs/${nextProps.match.params.id}`).then((data) => {
+        this.setState({
+          render: 1,
+          backend: data
+        });
+      });
+    }
+  }
+
+  componentDidMount() {
     if (!isLogin()) {
       this.setState({
         render: 2,
       });
+      return;
     }
-    this.setState({
-      render: 1,
-      backend: await getAsync(`/jobs/${this.props.match.params.id}`)
+    get(`/jobs/${this.props.match.params.id}`).then((data) => {
+      this.setState({
+        render: 1,
+        backend: data
+      });
     });
   }
 
@@ -79,11 +106,8 @@ JobReact.i18n = [
 
 JobReact.propTypes = {
   // self
-  backend: PropTypes.object.isRequired,
   id: PropTypes.number.isRequired,
-
   // React Router
-
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired

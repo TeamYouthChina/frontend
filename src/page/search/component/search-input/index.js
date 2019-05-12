@@ -10,7 +10,7 @@ class SearchInputReact extends React.Component{
   }
   
   componentDidMount() {
-    this.props.onSubmit();
+    // this.props.onSubmit();
   }
 
   render() {

@@ -15,6 +15,8 @@ import {LoginFailPrompt} from './login-fail';
 import {isLogin, postAsync} from '../../tool/api-helper';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
+import {store} from '../../redux/store';
+import * as actionJs from '../../redux/action';
 
 class LoginReact extends React.Component {
   constructor(props) {
@@ -63,12 +65,16 @@ class LoginReact extends React.Component {
     event.preventDefault();
 
     const backend = await postAsync('/login', {
-      id: this.state.id,
+      identifier: this.state.id,
       password: this.state.password
     });
     // must clean token, valid token will always cause 200 OK return.
     // Cookies.remove('token');
     if (backend && backend.status && backend.status.code === 2000) {
+      store.dispatch(actionJs.creator(
+        actionJs.type.userId,
+        backend.content.id
+      ));
       localStorage.setItem('id', backend.content.id);
       localStorage.setItem('username', backend.content.username);
       localStorage.setItem('avatar', backend.content.avatarUrl ? backend.content.avatarUrl : 'https://s2.ax1x.com/2019/01/27/kuUMYq.jpg', {expires: 1});
