@@ -61,7 +61,7 @@ class LoginReact extends React.Component {
     event.preventDefault();
 
     const backend = await postAsync('/login', {
-      id: this.state.id,
+      identifier: this.state.id,
       password: this.state.password
     });
     // must clean token, valid token will always cause 200 OK return.
