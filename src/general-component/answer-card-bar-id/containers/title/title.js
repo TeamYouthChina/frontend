@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {MDBIcon} from 'mdbreact';
 import classes from './index.module.css';
 /**
- * @description 展现当前回答所属问题的标题
+ * @description 展现当前回答所属问题的标题以及编辑和删除部分
  * @param props, title, answerId, questionId, userId, showList
  * */
 const Title = React.memo((props) => (

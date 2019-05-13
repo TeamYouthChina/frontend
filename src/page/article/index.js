@@ -206,7 +206,6 @@ class ArticleReact extends React.Component {
       }));
     }
   };
-  
   // 收藏
   onAttention = () => {
     let attention = !this.state.backend.attention;
@@ -301,7 +300,8 @@ class ArticleReact extends React.Component {
           title={backend.title}
           time={timeHelper(backend.modified_at)}
           content={backend.body.braftEditorRaw} 
-          user={backend.author === null ? backend.author : backend.author.username} 
+          user={backend.author === null ? backend.author : backend.author.username}
+          avatar={backend.author && backend.author}
           description={this.testRole(backend.author)} 
           commentsText={this.state.commentsText}
           evaluateStatus={backend.evaluateStatus}

@@ -7,7 +7,6 @@ import {languageHelper} from '../../../../tool/language-helper';
 import GroupList from '../group-list';
 import classes from './articleDes.module.css';
 import Comment from '../../../review/public/comment.svg';
-import Share from '../../../review/public/share.svg';
 import braftEditor from 'braft-editor';
 import {MDBIcon} from 'mdbreact';
 import {Link} from 'react-router-dom';
@@ -18,7 +17,7 @@ const ArticleDes = React.memo((props) => (
     <div className={classes.avaWrapper} >
       <div className={classes.avaWrapper2}>
         <img
-          src={'https://s3.amazonaws.com/youthchina/WechatIMG29.jpeg'}
+          src={props.avatar.length > 10 ? props.avatar : 'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'}
           alt="avatar"
           className={`rounded-circle ${classes.avaImg}`}
         />
@@ -71,10 +70,10 @@ const ArticleDes = React.memo((props) => (
           <img className={classes.footerIcon} src={Comment} alt="" />
           {props.commentsText}
         </span>
-        <span onClick={props.onShare} className={classes.footerFontEnd}>
-          <img className={classes.footerIcon} src={Share} alt="" />
-            分享
-        </span>
+        {/*<span onClick={props.onShare} className={classes.footerFontEnd}>*/}
+        {/*<img className={classes.footerIcon} src={Share} alt="" />*/}
+        {/*分享*/}
+        {/*</span>*/}
       </div>
     </div>
     <div className={classes.articleDetailWrapper}>
@@ -111,6 +110,7 @@ const i18n = [
 ArticleDes.propTypes = {
   // self
   content: PropTypes.string.isRequired,
+  avatar: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
   user: PropTypes.string.isRequired,
   description: PropTypes.string,
