@@ -405,19 +405,24 @@ export class AnswerCard extends React.Component {
     return (this.state.backend !== null) ? (
       <React.Fragment>
         <div className={classes.cardWrapper} ref={(span) => this.scrollSpan = span}>
-          <Title title={backend.title} id={this.props.articleId}/>
+          <Title 
+            title={backend.title} 
+            id={this.props.articleId}
+            userId={backend.author === null ? 1 : backend.author.id}
+            onShowList={this.onShowList}
+            showList={this.state.showList}
+            onGoDelete={this.onGoDelete}
+          />
           <UserInfor
             score={5}
-            user={backend.author === null ? backend.author : backend.author.username}
+            user={backend.author === null ? backend.author : `${backend.author.first_name} ${backend.author.last_name}`}
             description={this.testRole(backend.author)}
             isCollapsed={this.state.isCollapsed}
             short={backend.body.previewText}
             content={backend.body.braftEditorRaw}
             handleSpanClick={this.handleSpanClick}
-            userId={backend.creator === null ? 1 : backend.creator.id}
-            onShowList={this.onShowList}
-            showList={this.state.showList}
-            onGoDelete={this.onGoDelete}
+            avatar={backend.author && backend.author.avatar_url} 
+            userId={backend.author === null ? 1 : backend.author.id}
           />
           <Share
             content={window.location.href}

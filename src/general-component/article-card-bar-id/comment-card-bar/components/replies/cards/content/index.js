@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {MDBIcon, MDBRow} from 'mdbreact';
+import {MDBRow} from 'mdbreact';
 import classes from './index.module.css';
 
 const ReplyContent = (props) => (
   <React.Fragment>
     <div>
       <span className={classes.userSpan}>
-        {props.user.username}
+        {props.user.first_name}&nbsp;{props.user.last_name}
       </span>
       <span className={classes.timeSpan}>
         {props.time}
       </span>
-      <MDBIcon style={{float: 'right'}} icon="ellipsis-v" />
+      {/*<MDBIcon style={{float: 'right'}} icon="ellipsis-v" />*/}
     </div>
     <MDBRow className={classes.contentRow}>
       {props.content}

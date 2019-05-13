@@ -11,3 +11,18 @@
 .iconStyle {
   justify-content: flex-end;
 }
+.ellipsis {
+  flex-grow:1;
+  display: flex;
+  justify-content: flex-end;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
