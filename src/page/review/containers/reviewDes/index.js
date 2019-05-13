@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import {languageHelper} from '../../../../tool/language-helper';
 
 import classes from './review-dex.module.css';
@@ -24,11 +25,24 @@ const ReviewDes = (props) => (
           <span className={classes.titleSpan}>{props.user}</span>
           <span className={classes.desSpan}>{props.description}</span>
         </div>
-        <button 
-          onClick={props.onAttention}
-          className={props.attention ? classes.btnStyleFocusActive : classes.btnStyleFocus}>
-          {props.attention ? '已关注' : '+关注短则'}
-        </button>
+        {String(props.id) === window.localStorage.id ? (
+          <button className={classes.btnStyleFocus}>
+            <Link style={{color:'#FFFFFF'}} to={`/review/${props.reviewId}/edit`}>
+              编辑短则
+            </Link>
+          </button>
+        ) : (
+          <button
+            onClick={props.onAttention}
+            className={props.attention ? classes.btnStyleFocusActive : classes.btnStyleFocus}>
+            {props.attention ? '已关注' : '+关注短则'}
+          </button>
+        )}
+        {String(props.id) === window.localStorage.id && (
+          <button className={classes.btnStyleFocus} onClick={props.onDeleteReview}>
+            删除短则
+          </button>
+        )}
       </div>
       {/*<span className={classes.viewSpanStyle}>*/}
       {/*<MDBIcon className={classes.viewIcon} far icon="eye" />*/}
@@ -38,7 +52,7 @@ const ReviewDes = (props) => (
     <br />
     <div style={{width: '66.1vw'}}>
       <p className={classes.questionTitle}>{props.content.title}</p>
-      <p 
+      <p
         className={classes.richText}
         dangerouslySetInnerHTML={{__html: props.content.detail === '' ? braftEditor.createEditorState(props.content.detail).toHTML() : braftEditor.createEditorState(JSON.parse(props.content.detail).braftEditorRaw).toHTML()}} />
       <div className={classes.reviewFooter}>
@@ -76,7 +90,7 @@ const ReviewDes = (props) => (
             <img className={classes.footerIcon} src={Share} alt="" />
             分享
           </span>
-          
+
         </div>
       </div>
     </div>
@@ -108,6 +122,7 @@ ReviewDes.propTypes = {
   content: PropTypes.object.isRequired,
   text: PropTypes.object.isRequired,
   user: PropTypes.string.isRequired,
+  reviewId: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
   commentsText: PropTypes.string.isRequired,
@@ -116,9 +131,11 @@ ReviewDes.propTypes = {
   attention: PropTypes.bool.isRequired,
   showShare: PropTypes.bool.isRequired,
   onVote: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
   onDownVote: PropTypes.func.isRequired,
   onAttention: PropTypes.func.isRequired,
   onShare: PropTypes.func.isRequired,
+  onDeleteReview: PropTypes.func.isRequired,
   evaluateStatus: PropTypes.number,
   // editorState: PropTypes.object.isRequired
 };

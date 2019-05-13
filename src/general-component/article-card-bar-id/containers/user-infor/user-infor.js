@@ -20,6 +20,18 @@ export const UserInfor = (props) => (
           {props.description}
         </span>
       </div>
+      {String(props.userId) === window.localStorage.id && (
+        <div onClick={props.onShowList} className={classes.ellipsis} >
+          <MDBIcon icon="ellipsis-h"/>
+          {props.showList && (
+            <ul className={classes.iconUl}>
+              <li onClick={props.onGoDelete}>
+                删除内容
+              </li>
+            </ul>
+          )}
+        </div>
+      )}
     </MDBRow>
     {props.isCollapsed ? (
       <div>
@@ -56,6 +68,10 @@ UserInfor.propTypes = {
   // readingTime: PropTypes.number.isRequired,
   isCollapsed: PropTypes.bool.isRequired,
   short: PropTypes.string.isRequired,
+  userId: PropTypes.number.isRequired,
+  showList: PropTypes.bool,
+  onShowList: PropTypes.func,
+  onGoDelete: PropTypes.func,
   // func
   handleSpanClick: PropTypes.func.isRequired,
 

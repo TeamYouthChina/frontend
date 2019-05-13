@@ -136,7 +136,7 @@ class ArticleCreate extends React.Component {
         }
       } else {
         // 不是跳转重定向
-        this.props.history.push('/page-no-found');
+        this.props.history.push(`/question/${this.props.match.params.qid}`);
       }
     } else {
       this.props.history.push('/login');

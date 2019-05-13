@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { MDBRow, MDBBtn} from 'mdbreact';
+import { MDBRow} from 'mdbreact';
 import {languageHelper} from '../../../../tool/language-helper';
 import {withRouter} from 'react-router-dom';
 import { AddComment } from './components/add-comment/add-comment';
 import CommentCard from './components/comment-card/commentCard';
 import { PaginationUse } from './components/pagination';
 import classes from './index.module.css';
-import Expend from '../../public/expand-more.svg';
+// import Expend from '../../public/expand-more.svg';
 import {generateHeaders, isLogin, urlPrefix, getAsync} from '../../../../tool/api-helper';
 import {timeHelper} from '../../../../tool/time-helper';
 
@@ -199,11 +199,11 @@ class Comments extends React.Component {
             />
           </MDBRow>
         ) : null}
-        <MDBRow center className={classes.mdbRow2}>
-          <MDBBtn className={classes.btnStyle} onClick={this.props.showComments} flat>
-            收起评论<img src={Expend} className={classes.iconStyle} alt='up' />
-          </MDBBtn>
-        </MDBRow>
+        {/*<MDBRow center className={classes.mdbRow2}>*/}
+        {/*<MDBBtn className={classes.btnStyle} onClick={this.props.showComments} flat>*/}
+        {/*收起评论<img src={Expend} className={classes.iconStyle} alt='up' />*/}
+        {/*</MDBBtn>*/}
+        {/*</MDBRow>*/}
       </div>
     ) : (
       <div>

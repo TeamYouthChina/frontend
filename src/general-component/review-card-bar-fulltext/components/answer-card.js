@@ -12,7 +12,9 @@ import {urlPrefix, generateHeaders} from '../../../tool/api-helper';
 import {isLogin} from '../../../tool/api-helper';
 import {timeHelper} from '../../../tool/time-helper';
 import Share from '../../../page/article/containers/share';
-
+/**
+ * @description 用于问题详情页下面的answer
+ * */
 export class AnswerCard extends React.Component {
   constructor(props) {
     super(props);
@@ -22,6 +24,7 @@ export class AnswerCard extends React.Component {
       isCollapsed: true,
       showComments: false,
       commentsText: null,
+      showList:false,
       getFromChild:null,
       getFromChildLength:null,
       comments: null,
@@ -373,6 +376,33 @@ export class AnswerCard extends React.Component {
     }));
   };
 
+  // 展开下拉菜单
+  onShowList = () =>{
+    const showList = !this.state.showList;
+    this.setState(()=>({
+      showList
+    }));
+  };
+  // 直接删除
+  onGoDelete = () =>{
+    try {
+      fetch(
+        `${urlPrefix}/answers/${this.state.backend.id}`,
+        {
+          method: 'DELETE',
+          headers: generateHeaders(),
+          body: null
+        },
+      ).then((res)=>(
+        res.json()
+      )).then(()=>{
+        window.location.reload();
+      });
+    } catch (e) {
+      alert(e);
+    }
+  };
+
   componentWillUnmount() {
     window.removeEventListener('scroll', this.orderScroll);
   }
@@ -385,11 +415,16 @@ export class AnswerCard extends React.Component {
           <UserInfor
             score={5}
             user={this.testUser}
+            avatar={backend.creator && `${backend.creator.avatar_url}`}
             description={backend.author === undefined ? backend.creator.role[0] : backend.author.role[0]}
             isCollapsed={this.state.isCollapsed}
             short={backend.body.previewText}
             content={backend.body.braftEditorRaw}
             handleSpanClick={this.handleSpanClick}
+            userId={backend.creator === null ? 1 : backend.creator.id}
+            onShowList={this.onShowList}
+            showList={this.state.showList}
+            onGoDelete={this.onGoDelete}
           />
           <Share
             content={window.location.href}
@@ -445,6 +480,8 @@ AnswerCard.propTypes = {
   ansCommentId: PropTypes.number,
   type: PropTypes.string,
   reviewId: PropTypes.number,
+  location: PropTypes.object,
+  qid: PropTypes.number,
   // 全文
   fullText: PropTypes.object,
 };

@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { MDBRow, MDBBtn} from 'mdbreact';
+import { MDBRow} from 'mdbreact';
 import {languageHelper} from '../../../../tool/language-helper';
 import {withRouter} from 'react-router-dom';
 import { AddComment } from './components/add-comment/add-comment';
 import CommentCard from './components/comment-card/commentCard';
 import { PaginationUse } from './components/pagination';
 import classes from './index.module.css';
-import Expend from '../../public/expand-more.svg';
 import {generateHeaders, isLogin, urlPrefix, getAsync} from '../../../../tool/api-helper';
 import {timeHelper} from '../../../../tool/time-helper';
 
@@ -75,6 +74,38 @@ class Comments extends React.Component {
       alert(e);
     }
   }
+  // 删除评论
+  onGoDelete = (id) => {
+    try {
+      fetch(
+        `${urlPrefix}/comments/${id}`,
+        {
+          method: 'DELETE',
+          headers: generateHeaders(),
+          body: null
+        },
+      ).then((res)=>(
+        res.json()
+      )).then(async ()=>{
+        try {
+          const result = await getAsync(`/${this.props.type}/${this.props.id}/comments`);
+          if(result.status.code === 2000){
+            this.setState(()=>({
+              commentLists:result.content.data
+            }),()=>{
+              this.props.onTellParent(this.state.commentLists.length);
+            });
+          } else {
+            this.props.history.push('/page-no-found');
+          }
+        } catch (e) {
+          alert(e);
+        }
+      });
+    } catch (e) {
+      alert(e);
+    }
+  };
   // 再次获取数据
   fetchAgain = async () => {
     if(isLogin()){
@@ -133,13 +164,16 @@ class Comments extends React.Component {
         array.push(
           <CommentCard
             id={item.id}
-            user={item.creator && item.creator.username}
+            user={item.creator && `${item.creator.first_name} ${item.creator.last_name}`}
+            userId={item.creator && item.creator.id}
             time={timeHelper(item.modified_at)}
             content={item.body}
             upvoteCount={item.upvoteCount}
             downvoteCount={item.downvoteCount}
             evaluateStatus={item.evaluateStatus}
             addComments={this.addComments}
+            onGoDelete={this.onGoDelete}
+            avatar={item.creator && item.creator.avatar_url}
           />
         );
       }
@@ -165,11 +199,11 @@ class Comments extends React.Component {
             />
           </MDBRow>
         ) : null}
-        <MDBRow center className={classes.mdbRow2}>
-          <MDBBtn className={classes.btnStyle} onClick={this.props.showComments} flat>
-            收起评论<img src={Expend} className={classes.iconStyle} alt='up' />
-          </MDBBtn>
-        </MDBRow>
+        {/*<MDBRow center className={classes.mdbRow2}>*/}
+        {/*<MDBBtn className={classes.btnStyle} onClick={this.props.showComments} flat>*/}
+        {/*收起评论<img src={Expend} className={classes.iconStyle} alt='up' />*/}
+        {/*</MDBBtn>*/}
+        {/*</MDBRow>*/}
       </div>
     ) : (
       <div>
