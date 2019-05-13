@@ -1,5 +1,5 @@
 .leftCol {
-  width: 52.34vw;
+  width: 50vw;
   height: 47.34vw;
   background-color: #FAFAFF;
   display: flex;
@@ -9,7 +9,12 @@
 
 .rightCol {
   margin-top: 4vw;
-  width: 46.66vw;
+  width: 50vw;
+}
+
+.imgLogo {
+  width: 20vw;
+  margin: -5.5vw;
 }
 
 .selectedButton {
@@ -40,8 +45,7 @@
   font-weight: normal;
   line-height: normal;
   color: #8D9AAF;
-  margin-top: 5.55vw;
-  margin-bottom: 2.35vw;
+  margin-bottom: 2vw;
 }
 
 .incTitle {
