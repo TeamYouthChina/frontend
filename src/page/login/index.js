@@ -119,11 +119,10 @@ class LoginReact extends React.Component {
               <div>
                 <MDBCol className="offset-2" size="8">
                   <div className="text-center">
+                    <img style={{width: '18vw'}} src="https://weyouth-frontend.oss-us-east-1.aliyuncs.com/234743988c2c0576fe7129e989f68cac.png" alt="logo" />
                     <p className={classes.title}>
                       精准定制的全栈式智慧招聘平台
                     </p>
-                    
-                    <img style={{width: '18vw'}} src="https://weyouth-frontend.oss-us-east-1.aliyuncs.com/234743988c2c0576fe7129e989f68cac.png" alt="logo" />
                   </div>
                   <form
                     className="text-center"
