@@ -57,11 +57,11 @@ export class AddComment extends React.Component {
     return (
       <MDBRow className={classes.mdbRow}>
         {/*<MDBAvatar className={classes.avatar}>*/}
-          {/*<img*/}
-            {/*src={'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'}*/}
-            {/*alt="user-avatar"*/}
-            {/*className={`rounded-circle ${classes.imgStyle}`}*/}
-          {/*/>*/}
+        {/*<img*/}
+        {/*src={'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'}*/}
+        {/*alt="user-avatar"*/}
+        {/*className={`rounded-circle ${classes.imgStyle}`}*/}
+        {/*/>*/}
         {/*</MDBAvatar>*/}
         <div className={classes.addComment}>
           <textarea
