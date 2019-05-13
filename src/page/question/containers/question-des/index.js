@@ -82,9 +82,9 @@ const QuestionDes = React.memo((props) => (
           <img alt={'discollection'} className={classes.btnIcon} src={FullHeart} />{props.text.discollection}
         </button>
       )}
-      <button onClick={props.onShare} className={classes.btnOthers}>
-        <MDBIcon className={classes.btnIcon} icon="share" />{props.text.share}
-      </button>
+      {/*<button onClick={props.onShare} className={classes.btnOthers}>*/}
+      {/*<MDBIcon className={classes.btnIcon} icon="share" />{props.text.share}*/}
+      {/*</button>*/}
     </div>
   </MDBCol>
 ));

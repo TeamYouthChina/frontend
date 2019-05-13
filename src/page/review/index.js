@@ -290,7 +290,7 @@ class ReviewReact extends React.Component {
             detail: backend.body.braftEditorRaw
           }}
           time={timeHelper(backend.modified_at)}
-          user={backend.author && backend.author.username}
+          user={backend.author && `${backend.author.first_name} ${backend.author.last_name}`}
           description={backend.author && backend.author.role[0]}
           commentsText={this.state.commentsText}
           evaluateStatus={backend.evaluateStatus}

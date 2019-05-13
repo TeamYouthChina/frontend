@@ -66,9 +66,9 @@
   padding:.234vw!important;
   height:1.953vw!important;
   width:3.906vw!important;
-  border: none!important;
+  border: 0.078vw solid #DBE5F7!important;
   box-sizing: border-box!important;
-  box-shadow: none!important;
+  box-shadow: 0 0.078vw 1.565vw rgba(141, 154, 175, 0.15)!important;
   border-radius: .156vw!important;
   font-family: PingFang SC!important;
   line-height: normal!important;
@@ -82,9 +82,9 @@
   padding:.234vw!important;
   height:1.953vw!important;
   width:3.906vw!important;
-  border:none!important;
+  border:0.078vw solid #DBE5F7!important;
   box-sizing: border-box!important;
-  box-shadow: none!important;
+  box-shadow: 0 0.078vw 1.565vw rgba(141, 154, 175, 0.15)!important;
   border-radius: .156vw!important;
   font-family: PingFang SC!important;
   line-height: normal!important;

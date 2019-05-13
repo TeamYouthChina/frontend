@@ -62,7 +62,7 @@ class AnswersReact extends React.Component {
     const backend = this.state.backend;
     return (this.state.backend !== null) ? (
       <div className={classes.wrapper}>
-        <p className={classes.answerCount}>{this.props.answers.length}条回答</p>
+        {/*<p className={classes.answerCount}>{this.props.answers.length}条回答</p>*/}
         {this.props.match.params.aid !== undefined ? (
           <React.Fragment>
             <ReviewCardBarFulltext qid={this.props.questionId} type={'fromQuestion'} ansCommentId={this.props.match.params.aid} fulltext={backend} />
@@ -77,7 +77,7 @@ class AnswersReact extends React.Component {
           </React.Fragment>
         ) : (
           <div>
-            <p className={classes.moreAnswer}>更多回答</p>
+            {/*<p className={classes.moreAnswer}>更多回答</p>*/}
             {backend.map((item) => (
               item.id !== backend.aid &&
               (<div key={item.id} style={{marginBottom: '1.56vw'}}>

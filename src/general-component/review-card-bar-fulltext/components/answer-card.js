@@ -415,6 +415,7 @@ export class AnswerCard extends React.Component {
           <UserInfor
             score={5}
             user={this.testUser}
+            avatar={backend.creator && `${backend.creator.avatar_url}`}
             description={backend.author === undefined ? backend.creator.role[0] : backend.author.role[0]}
             isCollapsed={this.state.isCollapsed}
             short={backend.body.previewText}

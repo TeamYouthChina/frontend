@@ -13,7 +13,7 @@ export const UserInfor = (props) => (
       <div className={classes.title}>
         <img
           className={`rounded-circle ${classes.imgStyle}`}
-          src={'https://s3.amazonaws.com/youthchina/WechatIMG29.jpeg'}
+          src={props.avatar.length > 10 ? props.avatar : 'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'}
           alt="user"
         />
         <span className={classes.user}>
@@ -67,6 +67,7 @@ UserInfor.propTypes = {
   // self-data
   user: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  avatar: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   // readingTime: PropTypes.number.isRequired,
   isCollapsed: PropTypes.bool.isRequired,

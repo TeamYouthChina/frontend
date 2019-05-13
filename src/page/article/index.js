@@ -300,7 +300,7 @@ class ArticleReact extends React.Component {
           title={backend.title}
           time={timeHelper(backend.modified_at)}
           content={backend.body.braftEditorRaw} 
-          user={backend.author === null ? backend.author : backend.author.username}
+          user={backend.author === null ? backend.author : `${backend.author.first_name} ${backend.author.last_name}`}
           avatar={backend.author && backend.author}
           description={this.testRole(backend.author)} 
           commentsText={this.state.commentsText}

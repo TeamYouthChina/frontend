@@ -109,6 +109,9 @@ class ArticleCreate extends React.Component {
       if(this.props.match.params.qid !== undefined) {
         try {
           const result = await getAsync(`/questions/${this.props.match.params.qid}`);
+          if(result.content.creator && (result.content.creator.id !== Number(window.localStorage.id))){
+            return this.props.history.push(`/question/${this.props.match.params.qid}`);
+          }
           if(result.status.code === 2000) {
             title = result.content.title;
             htmlContent = JSON.parse(result.content.body.braftEditorRaw).braftEditorRaw;
