@@ -31,7 +31,7 @@ const QuestionDes = React.memo((props) => (
     {/*</div>*/}
     <br />
     <p className={classes.questionTitle}>{props.content.title}</p>
-    <p 
+    <p
       className={classes.richText}
       dangerouslySetInnerHTML={{__html: props.content.detail === '' ? braftEditor.createEditorState(props.content.detail).toHTML() : braftEditor.createEditorState(JSON.parse(props.content.detail).braftEditorRaw).toHTML()}} />
     <div>
@@ -58,9 +58,18 @@ const QuestionDes = React.memo((props) => (
           </button>
         </Link>
       )}
-      <button className={classes.btnFocus}>
-        + 关注问题
-      </button>
+      {String(props.id) === window.localStorage.id && (
+        <button className={classes.btnFocus}>
+          <Link style={{color:'#4F65E1'}} to={`/question/${props.questionId}/edit`}>
+            修改问题
+          </Link>
+        </button>
+      )}
+      {String(props.id) === window.localStorage.id && (
+        <button onClick={props.onDeleteQue} className={classes.btnFocus}>
+            删除问题
+        </button>
+      )}
       <button className={classes.btnOthers}>
         <MDBIcon className={classes.btnIcon} icon="thumbs-up" />{props.text.toInvite}
       </button>
@@ -73,9 +82,9 @@ const QuestionDes = React.memo((props) => (
           <img alt={'discollection'} className={classes.btnIcon} src={FullHeart} />{props.text.discollection}
         </button>
       )}
-      <button onClick={props.onShare} className={classes.btnOthers}>
-        <MDBIcon className={classes.btnIcon} icon="share" />{props.text.share}
-      </button>
+      {/*<button onClick={props.onShare} className={classes.btnOthers}>*/}
+      {/*<MDBIcon className={classes.btnIcon} icon="share" />{props.text.share}*/}
+      {/*</button>*/}
     </div>
   </MDBCol>
 ));
@@ -89,7 +98,7 @@ const i18n = [
     toInvite: '邀请回答',
     share: '分享',
     collection: '收藏',
-    discollection:'已收藏'
+    discollection: '已收藏'
   },
   {
     focusNum: 'focus number',
@@ -106,9 +115,11 @@ QuestionDes.propTypes = {
   // tags: PropTypes.array.isRequired,
   content: PropTypes.object.isRequired,
   text: PropTypes.object.isRequired,
+  id: PropTypes.number.isRequired,
   questionId: PropTypes.string.isRequired,
   attention: PropTypes.bool.isRequired,
   onAttention: PropTypes.func.isRequired,
+  onDeleteQue: PropTypes.func.isRequired,
   onShare: PropTypes.func.isRequired,
   answerStatus: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
   // editorState: PropTypes.object.isRequired,

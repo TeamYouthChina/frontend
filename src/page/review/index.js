@@ -203,7 +203,6 @@ class ReviewReact extends React.Component {
       }));
     }
   };
-
   // 收藏
   onAttention = () => {
     let attention = !this.state.backend.attention;
@@ -244,18 +243,34 @@ class ReviewReact extends React.Component {
       }
     }
   };
-
+  // 上传评论数
   onTellParent = (length) => {
     this.setState(() => ({
       commentsText: `${length}条评论`
     }));
   };
-
+  // 分享
   onShare = () => {
     const showShare = !this.state.showShare;
     this.setState(() => ({
       showShare
     }));
+  };
+  //删除短则
+  onDeleteReview = () => {
+    try {
+      fetch(
+        `${urlPrefix}/editorials/${this.props.match.params.id}/`,
+        {
+          method: 'DELETE',
+          headers: generateHeaders(),
+          body: null
+        },
+      );
+    } catch (e) {
+      alert(e);
+    }
+    this.props.history.push('/my/profile');
   };
 
   getCurrentPage() {
@@ -275,7 +290,7 @@ class ReviewReact extends React.Component {
             detail: backend.body.braftEditorRaw
           }}
           time={timeHelper(backend.modified_at)}
-          user={backend.author && backend.author.username}
+          user={backend.author && `${backend.author.first_name} ${backend.author.last_name}`}
           description={backend.author && backend.author.role[0]}
           commentsText={this.state.commentsText}
           evaluateStatus={backend.evaluateStatus}
@@ -288,6 +303,9 @@ class ReviewReact extends React.Component {
           upvoteCount={backend.upvoteCount}
           onShare={this.onShare}
           showShare={this.state.showShare}
+          id={backend.author.id}
+          reviewId={this.props.match.params.id}
+          onDeleteReview={this.onDeleteReview}
         />
         <Share
           content={window.location.href}

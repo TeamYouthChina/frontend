@@ -206,7 +206,6 @@ class ArticleReact extends React.Component {
       }));
     }
   };
-  
   // 收藏
   onAttention = () => {
     let attention = !this.state.backend.attention;
@@ -270,6 +269,22 @@ class ArticleReact extends React.Component {
       showShare
     }));
   };
+  // 删除文章
+  onDeleteReview = () =>{
+    try {
+      fetch(
+        `${urlPrefix}/articles/${this.props.match.params.id}`,
+        {
+          method: 'DELETE',
+          headers: generateHeaders(),
+          body: null
+        },
+      );
+    } catch (e) {
+      alert(e);
+    }
+    this.props.history.push('/my/profile');
+  };
   
   getCurrentPage(){}
 
@@ -285,7 +300,8 @@ class ArticleReact extends React.Component {
           title={backend.title}
           time={timeHelper(backend.modified_at)}
           content={backend.body.braftEditorRaw} 
-          user={backend.author === null ? backend.author : backend.author.username} 
+          user={backend.author === null ? backend.author : `${backend.author.first_name} ${backend.author.last_name}`}
+          avatar={backend.author && backend.author}
           description={this.testRole(backend.author)} 
           commentsText={this.state.commentsText}
           evaluateStatus={backend.evaluateStatus}
@@ -297,6 +313,9 @@ class ArticleReact extends React.Component {
           attentionCount={backend.attentionCount}
           upvoteCount={backend.upvoteCount}
           onShare={this.onShare}
+          id={backend.author === null ? 1 : backend.author.id}
+          articleId={this.props.match.params.id}
+          onDeleteReview={this.onDeleteReview}
         />
         <Share
           content={window.location.href}

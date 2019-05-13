@@ -33,10 +33,10 @@ class FileReact extends React.Component {
             </div>
             <div className="d-flex" style={{marginBottom:'2.03vw'}}>
               <div style={{marginRight:'1.875vw'}}>
-                <FileGeneralCard text={'PDF简历'} tag={'0份文件'} date={'上次修改时间：2019年3月21'} url={'pdf-resume'}/>
+                <FileGeneralCard jobID={this.props.location.query} text={'PDF简历'} tag={'0份文件'} date={'上次修改时间：2019年3月21'} url={'pdf-resume'}/>
               </div>
               <div>
-                <FileGeneralCard text={'电子简历'} tag={'0份文件'} date={'上次修改时间：2019年3月21'} url={'e-resume'}/>
+                <FileGeneralCard jobID={this.props.location.query} text={'电子简历'} tag={'0份文件'} date={'上次修改时间：2019年3月21'} url={'e-resume'}/>
               </div>
             </div>
             

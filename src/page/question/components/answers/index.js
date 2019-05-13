@@ -62,10 +62,10 @@ class AnswersReact extends React.Component {
     const backend = this.state.backend;
     return (this.state.backend !== null) ? (
       <div className={classes.wrapper}>
-        <p className={classes.answerCount}>{this.props.answers.length}条回答</p>
+        {/*<p className={classes.answerCount}>{this.props.answers.length}条回答</p>*/}
         {this.props.match.params.aid !== undefined ? (
           <React.Fragment>
-            <ReviewCardBarFulltext type={'fromQuestion'} ansCommentId={this.props.match.params.aid} fulltext={backend} />
+            <ReviewCardBarFulltext qid={this.props.questionId} type={'fromQuestion'} ansCommentId={this.props.match.params.aid} fulltext={backend} />
             <div style={{margin: '1.56vw 0vw'}}>
               <Link
                 onClick={() => this.handleMoreAnswer(this.props.match.params.aid)}
@@ -77,11 +77,11 @@ class AnswersReact extends React.Component {
           </React.Fragment>
         ) : (
           <div>
-            <p className={classes.moreAnswer}>更多回答</p>
+            {/*<p className={classes.moreAnswer}>更多回答</p>*/}
             {backend.map((item) => (
               item.id !== backend.aid &&
               (<div key={item.id} style={{marginBottom: '1.56vw'}}>
-                <ReviewCardBarFulltext type={'fromQuestion'} ansCommentId={item.id} fulltext={item} />
+                <ReviewCardBarFulltext qid={this.props.questionId} type={'fromQuestion'} ansCommentId={item.id} fulltext={item} />
               </div>)
             ))}
           </div>
@@ -103,6 +103,7 @@ AnswersReact.i18n = [
 AnswersReact.propTypes = {
   // self
   answers: PropTypes.array.isRequired,
+  questionId: PropTypes.number.isRequired,
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,

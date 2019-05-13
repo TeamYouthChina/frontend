@@ -1,3 +1,7 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+}
 .userSpan {
   margin-right: 0.78vw;
   padding: 0.39vw 0;
@@ -23,25 +27,37 @@
   line-height: normal;
   word-break: break-word;
 }
-.iconSpan {
-  width: 100%;
+.iconStyle {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
   position: relative;
-  padding-left: 48.5vw;
 }
 ul {
   list-style: none;
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 li {
   list-style: none;
-  margin: 0;
-  padding: 0;
 }
-.deleteUl {
+.iconUl {
   position: absolute;
-  right:0;
-  top:3px;
-  background-color: #C4C4C4;
-  height:20px;
+  top:20px;
+  right: 10px;
+}
+.changeText {
+  width: 100%;
+  background: #FFFFFF;
+  border: 0.078vw solid #DBE5F7;
+  box-sizing: border-box;
+  border-radius: .156vw;
+  padding: .624vw 0 .624vw 1.562vw;
+  font-size: 1.091vw;
+  color: #B3C1DB;
+  height: 5vw;
+  font-family: PingFang SC;
+  line-height: normal;
+  max-length:150;
+  resize:none
 }

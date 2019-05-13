@@ -11,12 +11,14 @@
   margin-right: 0.78vw;
 }
 .spanStyle {
- 
+  color: #8D9AAF;
+  font-family: PingFang SC;
+  line-height: normal;
 }
 .btnStyle2 {
   padding: 0.39vw 0.78vw;
   font-size: 1.093vw;
-  color: #8D9AAF;
+  color: #8D9AAF!important;
 }
 .spanStyleActive {
   color: #2ADFB3;

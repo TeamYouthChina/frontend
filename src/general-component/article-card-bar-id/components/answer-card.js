@@ -379,6 +379,21 @@ export class AnswerCard extends React.Component {
       showShare
     }));
   };
+  // 删除答案
+  onGoDelete = () =>{
+    try {
+      fetch(
+        `${urlPrefix}/articles/${this.props.articleId}`,
+        {
+          method: 'DELETE',
+          headers: generateHeaders(),
+          body: null
+        },
+      );
+    } catch (e) {
+      alert(e);
+    }
+  };
 
 
   componentWillUnmount() {
@@ -399,6 +414,10 @@ export class AnswerCard extends React.Component {
             short={backend.body.previewText}
             content={backend.body.braftEditorRaw}
             handleSpanClick={this.handleSpanClick}
+            userId={backend.creator === null ? 1 : backend.creator.id}
+            onShowList={this.onShowList}
+            showList={this.state.showList}
+            onGoDelete={this.onGoDelete}
           />
           <Share
             content={window.location.href}

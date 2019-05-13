@@ -91,12 +91,28 @@ class QuestionReact extends React.Component {
       }
     }
   };
-
+  // 分享
   onShare = () => {
     const showShare = !this.state.showShare;
     this.setState(() => ({
       showShare
     }));
+  };
+  // 删除问题
+  onDeleteQue = () =>{
+    try {
+      fetch(
+        `${urlPrefix}/questions/${this.props.match.params.qid}/`,
+        {
+          method: 'DELETE',
+          headers: generateHeaders(),
+          body: null
+        },
+      );
+    } catch (e) {
+      alert(e);
+    }
+    this.props.history.push('/my/profile');
   };
 
   render() {
@@ -117,6 +133,8 @@ class QuestionReact extends React.Component {
           onAttention={this.onAttention}
           answerStatus={this.state.ifHasAnswered}
           onShare={this.onShare}
+          id={backend.creator ? backend.creator.id : 1}
+          onDeleteQue={this.onDeleteQue}
         />
         <Share
           content={window.location.href}
@@ -151,7 +169,7 @@ class QuestionReact extends React.Component {
                     </div>
                   </div>
                 ) : (
-                  <Answers answers={backend.answers} />
+                  <Answers questionId={this.props.match.params.qid} answers={backend.answers} />
                 )}
               </div>
               <div className={classes.sideBar}>

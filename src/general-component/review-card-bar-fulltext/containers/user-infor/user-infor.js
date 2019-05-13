@@ -3,14 +3,17 @@ import PropTypes from 'prop-types';
 import { MDBIcon, MDBRow} from 'mdbreact';
 import classes from './index.module.css';
 import braftEditor from 'braft-editor';
-
+/**
+ * @description review和answer的内容
+ * @param props, user, description, userId, onShowList, showList
+ * */
 export const UserInfor = (props) => (
   <div>
     <MDBRow className={classes.mdbRow}>
       <div className={classes.title}>
         <img
           className={`rounded-circle ${classes.imgStyle}`}
-          src={'https://s3.amazonaws.com/youthchina/WechatIMG29.jpeg'}
+          src={props.avatar.length > 10 ? props.avatar : 'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'}
           alt="user"
         />
         <span className={classes.user}>
@@ -20,9 +23,18 @@ export const UserInfor = (props) => (
           {props.description}
         </span>
       </div>
-      <div className={classes.ellipsis}>
-        <MDBIcon icon="ellipsis-h" />
-      </div>
+      {String(props.userId) === window.localStorage.id && (
+        <div onClick={props.onShowList} className={classes.ellipsis} >
+          <MDBIcon icon="ellipsis-h"/>
+          {props.showList && (
+            <ul className={classes.iconUl}>
+              <li onClick={props.onGoDelete}>
+                删除内容
+              </li>
+            </ul>
+          )}
+        </div>
+      )}
     </MDBRow>
     {props.isCollapsed ? (
       <div>
@@ -55,10 +67,15 @@ UserInfor.propTypes = {
   // self-data
   user: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  avatar: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   // readingTime: PropTypes.number.isRequired,
   isCollapsed: PropTypes.bool.isRequired,
   short: PropTypes.string.isRequired,
+  userId: PropTypes.number.isRequired,
+  showList: PropTypes.bool,
+  onShowList: PropTypes.func,
+  onGoDelete: PropTypes.func,
   // func
   handleSpanClick: PropTypes.func.isRequired,
 
