@@ -107,7 +107,7 @@ class ReviewCreate extends React.Component {
       if (this.props.match.params.id !== undefined) {
         try {
           const result = await getAsync(`/editorials/${this.props.match.params.id}`);
-          if(result.content.author && (result.content.author !== Number(window.localStorage.id))){
+          if(result.content.author && (result.content.author.id !== Number(window.localStorage.id))){
             return this.props.history.push(`/review/${this.props.match.params.id}`);
           }
           if (result.status.code === 200) {

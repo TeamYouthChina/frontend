@@ -20,6 +20,7 @@ export class AnswerCard extends React.Component {
       editorState: null,
       showBottom: false,
       isCollapsed: true,
+      showList:false,
       getFromChildLength:null,
       getFromChild:null,
       showComments: false,
@@ -377,6 +378,13 @@ export class AnswerCard extends React.Component {
     const showShare = !this.state.showShare;
     this.setState(()=>({
       showShare
+    }));
+  };
+  // 展开下拉菜单
+  onShowList = () =>{
+    const showList = !this.state.showList;
+    this.setState(()=>({
+      showList
     }));
   };
   // 删除答案

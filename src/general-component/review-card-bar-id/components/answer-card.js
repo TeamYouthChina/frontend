@@ -20,6 +20,7 @@ export class AnswerCard extends React.Component {
       showBottom: false,
       isCollapsed: true,
       showComments: false,
+      showList:false,
       commentsText: null,
       getFromChild:null,
       getFromChildLength:null,
@@ -357,7 +358,13 @@ export class AnswerCard extends React.Component {
       showShare
     }));
   };
-
+  // 展开下拉菜单
+  onShowList = () =>{
+    const showList = !this.state.showList;
+    this.setState(()=>({
+      showList
+    }));
+  };
   // 直接删除
   onGoDelete = () =>{
     try {
@@ -388,7 +395,8 @@ export class AnswerCard extends React.Component {
       <React.Fragment>
         <div className={classes.cardWrapper} ref={(span) => this.scrollSpan = span}>
           <UserInfor
-            score={5}
+            score={5} 
+            reviewId={backend.id}
             user={backend.author && `${backend.author.first_name} ${backend.author.last_name}`}
             avatar={backend.author && backend.author.avatar_url}
             description={backend.author === undefined ? backend.creator.role[0] : backend.author.role[0]}

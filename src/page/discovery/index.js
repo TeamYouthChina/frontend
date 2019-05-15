@@ -37,7 +37,7 @@ class DiscoveryReact extends React.Component {
       //搜索类型，三种文章类型混合搜索
       searchType: ['articles', 'questions', 'editorials'],
       //分页
-      page: 0,
+      page: 1,
       //后端状态码
       code: null,
       // infiniteScroll是否可以继续滚动
