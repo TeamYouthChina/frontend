@@ -88,8 +88,8 @@ export class AnswerCard extends React.Component {
       showComments = this.state.commentsText === `${this.state.getFromChildLength}条评论`;
     } else {
       if(this.state.backend.comments !== undefined) {
-        commentsTextNow = this.state.commentsText === `${this.state.backend.comments.comments.length}条评论` ? '收起评论' : `${this.state.backend.comments.comments.length}条评论`;
-        showComments = this.state.commentsText === `${this.state.backend.comments.comments.length}条评论`;
+        commentsTextNow = this.state.commentsText === `${this.state.backend.comments.length}条评论` ? '收起评论' : `${this.state.backend.comments.length}条评论`;
+        showComments = this.state.commentsText === `${this.state.backend.comments.length}条评论`;
       } else {
         commentsTextNow = this.state.commentsText === `${this.state.comments.data.length}条评论` ? '收起评论' : `${this.state.comments.data.length}条评论`;
         showComments = this.state.commentsText === `${this.state.comments.data.length}条评论`;
@@ -389,13 +389,14 @@ export class AnswerCard extends React.Component {
         <div className={classes.cardWrapper} ref={(span) => this.scrollSpan = span}>
           <UserInfor
             score={5}
-            user={backend.author === undefined ? backend.creator.username : backend.author.username}
+            user={backend.author && `${backend.author.first_name} ${backend.author.last_name}`}
+            avatar={backend.author && backend.author.avatar_url}
             description={backend.author === undefined ? backend.creator.role[0] : backend.author.role[0]}
             isCollapsed={this.state.isCollapsed}
             short={backend.body.previewText}
             content={backend.body.braftEditorRaw}
             handleSpanClick={this.handleSpanClick}
-            userId={backend.creator === null ? 1 : backend.creator.id}
+            userId={backend.author === null ? 1 : backend.author.id}
             onShowList={this.onShowList}
             showList={this.state.showList}
             onGoDelete={this.onGoDelete}

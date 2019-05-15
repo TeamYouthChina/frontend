@@ -11,7 +11,18 @@ const Title = (props) => (
     }}>
       <strong className={classes.title}>{props.title}</strong>
     </Link>
-    <MDBIcon className={classes.iconStyle} icon="ellipsis-h"/>
+    {String(props.userId) === window.localStorage.id && (
+      <div onClick={props.onShowList} className={classes.ellipsis} >
+        <MDBIcon icon="ellipsis-h"/>
+        {props.showList && (
+          <ul className={classes.iconUl}>
+            <li onClick={props.onGoDelete}>
+              删除内容
+            </li>
+          </ul>
+        )}
+      </div>
+    )}
   </div>
   
 );
@@ -20,6 +31,10 @@ Title.propTypes = {
   // self
   title: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
+  userId: PropTypes.number.isRequired,
+  onShowList: PropTypes.func.isRequired,
+  onGoDelete: PropTypes.func.isRequired,
+  showList: PropTypes.bool.isRequired,
 };
 
 export default Title;
