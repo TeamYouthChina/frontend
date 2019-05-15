@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { MDBIcon, MDBRow} from 'mdbreact';
 import classes from './index.module.css';
@@ -25,6 +26,11 @@ export const UserInfor = (props) => (
           <MDBIcon icon="ellipsis-h"/>
           {props.showList && (
             <ul className={classes.iconUl}>
+              <li>
+                <Link style={{color:'#212529'}}  to={`/review/${props.reviewId}/edit`}>
+                  编辑内容
+                </Link>
+              </li>
               <li onClick={props.onGoDelete}>
                 删除内容
               </li>
@@ -64,6 +70,7 @@ export const UserInfor = (props) => (
 UserInfor.propTypes = {
   // self-data
   user: PropTypes.string.isRequired,
+  reviewId: PropTypes.number.isRequired,
   description: PropTypes.string.isRequired,
   avatar: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,

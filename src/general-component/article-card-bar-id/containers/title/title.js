@@ -12,10 +12,15 @@ const Title = (props) => (
       <strong className={classes.title}>{props.title}</strong>
     </Link>
     {String(props.userId) === window.localStorage.id && (
-      <div onClick={props.onShowList} className={classes.ellipsis} >
+      <div onClick={props.onShowList} className={classes.iconStyle} >
         <MDBIcon icon="ellipsis-h"/>
         {props.showList && (
           <ul className={classes.iconUl}>
+            <li>
+              <Link style={{color:'#212529'}} to={`/article/${props.id}/edit`}>
+                编辑内容
+              </Link>
+            </li>
             <li onClick={props.onGoDelete}>
               删除内容
             </li>
