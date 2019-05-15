@@ -4,7 +4,6 @@ import {withRouter} from 'react-router-dom';
 
 import {MDBCol} from 'mdbreact';
 import classes from './index.module.css';
-import arrow from './assets/arrow-forward.svg';
 import {languageHelper} from '../../tool/language-helper';
 
 class BasicInfoReact extends React.Component {
@@ -23,30 +22,39 @@ class BasicInfoReact extends React.Component {
       registerType: event.target.value === 'personal' ? 'personal' : 'company'
     });
   };
-
+  
   render() {
     return (
       <div>
         <MDBCol className="offset-2" size="8">
           <div className="text-center">
+            <img 
+              className={classes.imgLogo}
+              src="https://weyouth-frontend.oss-us-east-1.aliyuncs.com/234743988c2c0576fe7129e989f68cac.png" alt="logo" />
             <p className={classes.title}>
               开启智能求职之旅
             </p>
-            <p className={classes.incTitle}>
-              职道
-            </p>
           </div>
-          <div
+          <form
             className="text-center"
-            // onSubmit={this.handleLoginSubmit}
+            onSubmit={this.props.handleSubmit}
           >
             <input
-              placeholder="姓名"
-              name="name"
+              placeholder="姓"
+              name="lastName"
               className={[classes.userInput, classes.mainLoginInput].join(' ')}
               type="text"
               onChange={this.props.handleChange}
-              value={this.props.name}
+              value={this.props.lastName}
+              required
+            />
+            <input
+              placeholder="名"
+              name="firstName"
+              className={[classes.userInput, classes.mainLoginInput].join(' ')}
+              type="text"
+              onChange={this.props.handleChange}
+              value={this.props.firstName}
               required
             />
             <input
@@ -89,13 +97,14 @@ class BasicInfoReact extends React.Component {
             <div className="text-center">
               <button
                 //eslint-disable-next-line
-                onClick={this.props.handleShowDetail}
+                // onClick={this.props.handleShowDetail}
                 className={classes.submitButtonRounded}
                 type="submit">
-                完善个人信息 <img src={arrow} alt="arrow"/>
+                注册 
+                {/*<img src={arrow} alt="arrow"/>*/}
               </button>
             </div>
-          </div>
+          </form>
         </MDBCol>
       </div>
     );
@@ -115,10 +124,12 @@ BasicInfoReact.propTypes = {
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   handleChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
   password: PropTypes.string.isRequired,
   confirmPassword: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired
 };
 
 export const BasicInfo = withRouter(BasicInfoReact);
