@@ -35,7 +35,7 @@ const ArticleDes = React.memo((props) => (
         </button>
       ) : (
         <button onClick={props.onAttention} className={props.attention ? classes.btnStyleFocusActive : classes.btnStyleFocus}>
-          {props.attention ? '已关注' : '+关注文章'}
+          {props.attention ? '已收藏' : '+收藏文章'}
         </button>
       )}
       {String(props.id) === window.localStorage.id && (

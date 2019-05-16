@@ -27,7 +27,7 @@ const ReviewDes = (props) => (
         </div>
         {String(props.id) === window.localStorage.id ? (
           <button className={classes.btnStyleFocus}>
-            <Link style={{color:'#FFFFFF'}} to={`/review/${props.reviewId}/edit`}>
+            <Link style={{color:'#8D9AAF'}} to={`/review/${props.reviewId}/edit`}>
               编辑短则
             </Link>
           </button>
@@ -35,7 +35,7 @@ const ReviewDes = (props) => (
           <button
             onClick={props.onAttention}
             className={props.attention ? classes.btnStyleFocusActive : classes.btnStyleFocus}>
-            {props.attention ? '已关注' : '+关注短则'}
+            {props.attention ? '已收藏' : '+收藏短则'}
           </button>
         )}
         {String(props.id) === window.localStorage.id && (

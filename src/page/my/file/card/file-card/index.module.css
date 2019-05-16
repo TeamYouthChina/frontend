@@ -6,13 +6,21 @@
   background: #FFFFFF;
   border-radius: 4px;
   align-items: center;
-  
- 
 }
 .content:hover {
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
   border-color: #eee;
   transition: all 0.2s ease-in-out;
+}
+.contentActive {
+  display: flex;
+
+  width: 25.55vw;
+  padding: 1.17vw 1.5625vw;
+  background: #FFFFFF;
+  border-radius: 4px;
+  align-items: center;
+  border: 2px solid blue;
 }
 .logo{
   width: 6.79vw;

@@ -422,7 +422,7 @@ export class AnswerCard extends React.Component {
             short={backend.body.previewText}
             content={backend.body.braftEditorRaw}
             handleSpanClick={this.handleSpanClick}
-            userId={backend.author === null ? 1 : backend.author.id}
+            userId={backend.creator === null ? 1 : backend.creator.id}
             onShowList={this.onShowList}
             showList={this.state.showList}
             onGoDelete={this.onGoDelete}
