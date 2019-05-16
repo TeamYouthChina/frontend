@@ -9,5 +9,25 @@
   line-height: normal;
 }
 .iconStyle {
+  flex-grow: 1;
+  display: flex;
   justify-content: flex-end;
+  position: relative;
+  width:80px;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.iconUl {
+  position: absolute;
+  top:20px;
+  right: 10px;
+  background-color: white;
 }

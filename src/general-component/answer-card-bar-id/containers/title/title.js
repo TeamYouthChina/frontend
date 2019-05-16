@@ -20,7 +20,7 @@ const Title = React.memo((props) => (
         {props.showList && (
           <ul className={classes.iconUl}>
             <li>
-              <Link to={{
+              <Link style={{color:'#212529'}} to={{
                 pathname:`/question/${props.questionId}/answer/${props.answerId}/edit`,
                 state:props.data,
               }}>

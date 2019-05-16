@@ -17,7 +17,7 @@ const ArticleDes = React.memo((props) => (
     <div className={classes.avaWrapper} >
       <div className={classes.avaWrapper2}>
         <img
-          src={props.avatar.length > 10 ? props.avatar : 'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'}
+          src={(props.avatar && (props.avatar.length > 10)) ? props.avatar : 'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'}
           alt="avatar"
           className={`rounded-circle ${classes.avaImg}`}
         />
@@ -35,7 +35,7 @@ const ArticleDes = React.memo((props) => (
         </button>
       ) : (
         <button onClick={props.onAttention} className={props.attention ? classes.btnStyleFocusActive : classes.btnStyleFocus}>
-          {props.attention ? '已关注' : '+关注文章'}
+          {props.attention ? '已收藏' : '+收藏文章'}
         </button>
       )}
       {String(props.id) === window.localStorage.id && (
