@@ -11,19 +11,26 @@ class FileCardReact extends React.Component {
   constructor(props) {
     super(props);
     // state
-    this.state = {};
+    this.state = {
+      ifActive:false
+    };
     // i18n
     this.text = FileCardReact.i18n[languageHelper()];
   }
+  // 点击和当前相同即是border
+  handleClick = () => {
+    if(this.props.upFile === this.props.id){
+      this.props.onSelect(null);
+    } else {
+      this.props.onSelect(this.props.id);
+    }
+  };
 
   render() {
-   
     return (
       <div 
-        className={classes.content}
-        onClick={()=>{
-          //this.props.history.push(`/my/collection/${this.props.url}`);
-        }}
+        className={this.props.upFile === this.props.id ? classes.contentActive : classes.content}
+        onClick={this.handleClick}
       >
         <div>
           <img 
@@ -59,8 +66,11 @@ FileCardReact.i18n = [
 FileCardReact.propTypes = {
   // self
   name: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  upFile: PropTypes.number.isRequired,
   url: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
+  onSelect: PropTypes.func.isRequired,
   language:PropTypes.string.isRequired,
   // React Router
   match: PropTypes.object.isRequired,

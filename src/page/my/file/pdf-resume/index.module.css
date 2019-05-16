@@ -5,8 +5,6 @@
   line-height: normal;
   margin-top:2.34vw;
   margin-bottom:1.56vw;
-
-
   color: #454F69;
 
 }
@@ -33,6 +31,38 @@
   border-color: #eee;
   transition: all 0.2s ease-in-out;
 }
+.submitDiv {
+  font-family: PingFang SC;
+  font-size: 1.09vw;
+  font-weight: bolder;
+  line-height: normal;
+  text-align: center;
+  color: #FAFBFD;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7vw 1.5625vw;
+  margin-bottom:1.56vw;
+}
+.submitBtn {
+  background: #4F65E1;
+  border-radius: 4px;
+  height:40px;
+  width: 120px;
+  cursor: pointer;
+  font-family: PingFang SC;
+  font-size: 14px;
+  line-height: 40px;
+  color:#FAFBFD;
+}
+.ImgV {
+  vertical-align: -1px;
+  margin-right: 5px;
+}
+.submitBtn:hover {
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  border-color: #eee;
+  transition: all 0.2s ease-in-out;
+}
 .blue-text{
   font-family: PingFang SC;
   font-size: 1.09vw;
@@ -42,4 +72,15 @@
   
 
   color: #4F65E1;
+}
+.fileParent {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  align-content: flex-start;
+}
+.fileChild {
+  box-sizing: border-box;
+  flex: 0 0 33.3%;
+  margin-bottom: 2.34vw;
 }
