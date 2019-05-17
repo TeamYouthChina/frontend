@@ -5,7 +5,6 @@ import {Redirect} from 'react-router-dom';
 import classes from './index.module.css';
 import {FileCard} from '../card/file-card';
 import UploadModal from './UploadModal/UploadModal';
-import Shape from '../public/Shape.svg';
 
 import {languageHelper} from '../../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../../tool/remove-url-slash-suffix';
@@ -15,10 +14,7 @@ class PdfResumeReact extends React.Component {
     super(props);
     // state
     this.state = {
-      upload: false,
-      upFile:null,
-      // 单纯模拟key
-      fileArray: [0, 1, 2, 3, 4],
+      upload: false
     };
     // i18n
     this.text = PdfResumeReact.i18n[languageHelper()];
@@ -32,33 +28,20 @@ class PdfResumeReact extends React.Component {
     this.setState({
       upload: true
     });
-  };
+  }
 
   onQuitUpload = () => {
     this.setState({
       upload: false
     });
-  };
+  }
 
   onFinishUpload = () => {
     this.setState({
       upload: false
     });
-  };
-  // 选择简历
-  onSelect = (i) => {
-    this.setState(()=>({
-      upFile:i
-    }));
-  };
-  // todo,提交简历          
-  handleSubmit = () => {
-    if(this.state.upFile === null){
-      alert('at least one resume');
-      return;
-    }
-    this.props.history.push('/applySuccess');
-  };
+  }
+
 
   render() {
     // console.log(this.state)
@@ -71,7 +54,7 @@ class PdfResumeReact extends React.Component {
         <div
           className="cell-wall"
         >
-          <div className="cell-membrane">
+          <div className="cell-membrane" style={{height:'40.6vw'}}>
             <UploadModal upload={this.state.upload} quit={this.onQuitUpload} finish={this.onFinishUpload}/>
             <div className="d-flex justify-content-between">
               <div className={classes.title}>简历</div>
@@ -87,22 +70,15 @@ class PdfResumeReact extends React.Component {
             >
               {'< '}我的文件
             </div>
-            <div className={classes.fileParent}>
-              {this.state.fileArray.map((item, index)=>(
-                <div className={classes.fileChild} key={item}>
-                  <FileCard 
-                    upFile={this.state.upFile} 
-                    id={index} 
-                    onSelect={this.onSelect}
-                  />
-                </div>
-              ))}
+            <div className="d-flex justify-content-between">
+              <FileCard/>
+              <FileCard/>
+              <FileCard/>
             </div>
-            <div className={classes.submitDiv}>
-              <button className={classes.submitBtn} onClick={this.handleSubmit}>
-                <img className={classes.ImgV} src={Shape} alt="sendFile" />
-                {this.state.upFile === null ? '选择简历' : '提交简历' }
-              </button>
+            <div className="d-flex mt-3 justify-content-between">
+              <FileCard/>
+              <FileCard/>
+              <FileCard/>
             </div>
           </div>
         </div>

@@ -53,10 +53,7 @@
 }
 .btn{
   width:7.8vw;
-  height: 1.75vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 2.35vw;
   border: 1px solid #4F65E1;
   box-sizing: border-box;
   border-radius: 2px;

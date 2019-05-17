@@ -75,10 +75,10 @@ class MyReact extends React.Component {
                   className="ml-3"
                 >
                   <p className={classes.name}>
-                    {this.state.user.content.username}
+                    {this.state.user.content.first_name}{this.state.user.content.last_name}
                   </p>
                   <p className={classes.education}>
-                    {this.state.user.content.nation}
+                    {this.state.user.content.gender}{', '}{this.state.user.content.nation}
                   </p>
                   <p className={classes.position}>
                     {this.state.user.content.email}
@@ -104,12 +104,12 @@ class MyReact extends React.Component {
                       subPath: '/application'
                     },
                     {
-                      name: '我的文件',
+                      name: '我的简历',
                       subPath: '/file'
                     },
                     {
                       name: '我的发布',
-                      subPath: '/creation'
+                      subPath: '/establish'
                     },
                     {
                       name: '我的收藏',

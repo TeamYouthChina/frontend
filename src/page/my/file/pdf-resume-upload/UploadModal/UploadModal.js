@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
 import fetch from 'isomorphic-fetch';
 
-// import { postAsync } from '../../../../../tool/api-helper';
+import { postAsync } from '../../../../../tool/api-helper';
 import classes from './UploadModal.module.css';
 
 export default class UploadModal extends Component {
@@ -41,11 +41,15 @@ export default class UploadModal extends Component {
     };
 
     await fetch('http://test.zzc-tongji.com/api/v1/static', option)
-      .then(response => response.json());
-    // .catch(error => console.error('Error:', error));
-    // .then(async response => {
-    //   await postAsync('/resume/pdf', {resume: response.content, name: this.state.resumeName});
-    // });
+      .then(response => response.json())
+      .then(async response => {
+        
+         
+        await postAsync(
+          '/resumes/pdf', 
+          
+          {fileId: response.content.toString(), name: this.state.resumeName});
+      });
     this.props.finish();
   };
 
@@ -106,7 +110,7 @@ export default class UploadModal extends Component {
           </MDBModalHeader>
           <MDBModalBody>
             <MDBInput
-              label='给你的简历Î起个名吧!'
+              label='给你的简历起个名吧!'
               outline
               getValue={this.onResumeNameChange}
             />

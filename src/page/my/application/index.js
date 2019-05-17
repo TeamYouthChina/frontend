@@ -8,6 +8,8 @@ import {Redirect} from 'react-router-dom';
 
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
+import {NotificationCard} from '../../notification/Card';
+import {getAsync} from '../../../tool/api-helper';
 
 class ApplicationReact extends React.Component {
   constructor(props) {
@@ -17,13 +19,20 @@ class ApplicationReact extends React.Component {
     // i18n
     this.text = ApplicationReact.i18n[languageHelper()];
   }
+  async componentDidMount() {
+
+    this.setState({
+      backend: await getAsync(`/applicants/${localStorage.getItem('id')}/applications`)
+    });
+
+  }
 
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
-    return (
+    return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ?(
       <div>
         <div
           className="cell-wall" style={{background:'#F3F5F7'}}
@@ -49,121 +58,24 @@ class ApplicationReact extends React.Component {
                 </span>
               </div>
             </div>
-            <ApplicationCard
-              applicationList={[
-                {
-                  job: '用户体验设计实习生',
-                  company: '亚马逊',
-                  location:'上海',
-                  date:'2019.3.1',
-                  status:'已查阅',
-                },
-                {
-                  job: '服务体验实习生',
-                  company: 'Google',
-                  location:'北京',
-                  date:'2019.3.1',
-                  status:'未通过',
-                },
-                {
-                  job: '用户体验设计实习生',
-                  company: '亚马逊',
-                  location:'上海',
-                  date:'2019.3.1',
-                  status:'待审阅',
-                },
-                {
-                  job: '用户体验设计实习生',
-                  company: '亚马逊',
-                  location:'上海',
-                  date:'2019.3.1',
-                  status:'已通过',
-                },
-                {
-                  job: '用户体验设计实习生',
-                  company: '亚马逊',
-                  location:'上海',
-                  date:'2019.3.1',
-                  status:'已面试',
-                },
-                {
-                  job: '用户体验设计实习生',
-                  company: '亚马逊',
-                  location:'上海',
-                  date:'2019.3.1',
-                  status:'已查阅',
-                },
-                {
-                  job: '服务体验实习生',
-                  company: 'Google',
-                  location:'北京',
-                  date:'2019.3.1',
-                  status:'未通过',
-                },
-                {
-                  job: '用户体验设计实习生',
-                  company: '亚马逊',
-                  location:'上海',
-                  date:'2019.3.1',
-                  status:'待审阅',
-                },
-                {
-                  job: '用户体验设计实习生',
-                  company: '亚马逊',
-                  location:'上海',
-                  date:'2019.3.1',
-                  status:'已通过',
-                },
-                {
-                  job: '用户体验设计实习生',
-                  company: '亚马逊',
-                  location:'上海',
-                  date:'2019.3.1',
-                  status:'已面试',
-                },
-                {
-                  job: '用户体验设计实习生',
-                  company: '亚马逊',
-                  location:'上海',
-                  date:'2019.3.1',
-                  status:'已查阅',
-                },
-                {
-                  job: '服务体验实习生',
-                  company: 'Google',
-                  location:'北京',
-                  date:'2019.3.1',
-                  status:'未通过',
-                },
-                {
-                  job: '用户体验设计实习生',
-                  company: '亚马逊',
-                  location:'上海',
-                  date:'2019.3.1',
-                  status:'待审阅',
-                },
-                {
-                  job: '用户体验设计实习生',
-                  company: '亚马逊',
-                  location:'上海',
-                  date:'2019.3.1',
-                  status:'已通过',
-                },
-                {
-                  job: '用户体验设计实习生',
-                  company: '亚马逊',
-                  location:'上海',
-                  date:'2019.3.1',
-                  status:'已面试',
-                },
-
-              ]}
-            />
+            {this.state.backend.content.data.map((item, index) => {
+              return (
+                <div style={{marginBottom: '1vw'}} key={index}>
+                  <NotificationCard
+                    id={item.notification_id}
+                    text={item.text}
+                    isread={item.is_read}
+                    date={item.create_at}
+                  />
+                </div>
+              );
+            })}
+            <ApplicationCard applicationList={this.state.backend.content.data}/>
 
           </div>
         </div>
       </div>
-    );
+    ):null;
   }
 }
 
