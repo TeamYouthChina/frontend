@@ -18,7 +18,10 @@
 .countNum {
   position: absolute;
   bottom:5px;
-  right:5px
+  right:5px;
+  font-family: PingFang SC;
+  line-height: normal;
+  font-size: 1.091vw;
 }
 .inputStyle {
   width: 100%;
@@ -29,9 +32,11 @@
   padding: .624vw 0 .624vw 1.562vw;
   font-size: 1.091vw;
   color: #B3C1DB;
-  height: 5.782vw;
+  height: 5vw;
   font-family: PingFang SC;
   line-height: normal;
+  max-length: 150;
+  resize:none
 }
 .btnStyle {
   flex-grow: 0;

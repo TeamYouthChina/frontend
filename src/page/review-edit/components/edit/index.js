@@ -11,6 +11,7 @@ import classes from './edit.module.css';
 import {generateHeaders, getAsync, isLogin, urlPrefix} from '../../../../tool/api-helper';
 import BraftEditor from 'braft-editor';
 import Cookies from 'js-cookie';
+// import UploadFile from '../UploadFile';
 
 const myUploadFn = (param) => {
 
@@ -106,6 +107,9 @@ class ReviewCreate extends React.Component {
       if (this.props.match.params.id !== undefined) {
         try {
           const result = await getAsync(`/editorials/${this.props.match.params.id}`);
+          if(result.content.author && (result.content.author.id !== Number(window.localStorage.id))){
+            return this.props.history.push(`/review/${this.props.match.params.id}`);
+          }
           if (result.status.code === 200) {
             htmlContent = JSON.parse(result.content.body.braftEditorRaw).braftEditorRaw;
             // console.log(htmlContent)
@@ -363,6 +367,7 @@ class ReviewCreate extends React.Component {
 
           </MDBCol>
         </MDBRow>
+        {/*<UploadFile></UploadFile>*/}
       </div>
     ) : null;
   }

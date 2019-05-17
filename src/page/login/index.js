@@ -4,10 +4,6 @@ import {Link, Redirect} from 'react-router-dom';
 import {MDBCol} from 'mdbreact';
 
 import img from './assets/img.png';
-import facebook from './assets/facebook.svg';
-import google from './assets/google.svg';
-import instgram from './assets/ins.svg';
-import linkedin from './assets/linkedin.svg';
 import classes from './index.module.css';
 import Cookies from 'js-cookie';
 import queryString from 'query-string';
@@ -114,20 +110,18 @@ class LoginReact extends React.Component {
           <div
             className="cell-membrane d-flex"
           >
+            
             <div className={classes.leftCol}>
-              <img className="img-fluid" src={img} alt="view" />
-              <LoginFailPrompt isOpen={this.state.modalDisplay} toggle={this.toggleModal} />
+              <img className={classes.backgroundImg} src={img} alt="view" />
             </div>
 
             <div className={classes.rightCol}>
               <div>
                 <MDBCol className="offset-2" size="8">
                   <div className="text-center">
+                    <img style={{width: '18vw'}} src="https://weyouth-frontend.oss-us-east-1.aliyuncs.com/234743988c2c0576fe7129e989f68cac.png" alt="logo" />
                     <p className={classes.title}>
                       精准定制的全栈式智慧招聘平台
-                    </p>
-                    <p className={classes.incTitle}>
-                      职道
                     </p>
                   </div>
                   <form
@@ -177,36 +171,9 @@ class LoginReact extends React.Component {
                       注册
                     </Link>
                   </div>
-                  <div className="row d-flex justify-content-center">
-                    <a
-                      type="button"
-                      href="https://www.facebook.com"
-                      className={classes.outterLoginIcon}
-                    >
-                      <img src={facebook} alt="cpnIcon" />
-                    </a>
-                    <a
-                      type="button"
-                      href="https://twitter.com"
-                      className={classes.outterLoginIcon}
-                    >
-                      <img src={google} alt="cpnIcon" />
-                    </a>
-                    <a
-                      type="button"
-                      href="https://www.google.com"
-                      className={classes.outterLoginIcon}
-                    >
-                      <img src={instgram} alt="cpnIcon" />
-                    </a>
-                    <a
-                      type="button"
-                      href="https://www.google.com"
-                      className={classes.outterLoginIcon}
-                    >
-                      <img src={linkedin} alt="cpnIcon" />
-                    </a>
-                  </div>
+                  
+                  <LoginFailPrompt isOpen={this.state.modalDisplay} toggle={this.toggleModal} />
+
                 </MDBCol>
               </div>
             </div>

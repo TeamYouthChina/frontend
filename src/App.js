@@ -5,6 +5,7 @@ import {Provider} from 'react-redux';
 import {AnswerEdit} from './page/answer-edit';
 import {Article} from './page/article';
 import {ArticleEdit} from './page/article-edit';
+import {ApplySuccess} from './page/apply-success';
 import {BestForYou} from './page/best-for-you';
 import {Company} from './page/company';
 import {ComingSoon} from './page/coming-soon';
@@ -69,6 +70,10 @@ export class App extends React.Component {
                 <Route
                   path="/article/:id"
                   component={routeProps => <Article {...routeProps} />}
+                />
+                <Route
+                  path="/applySuccess"
+                  component={routeProps => <ApplySuccess {...routeProps} />}
                 />
                 <Route
                   path="/best-for-you"

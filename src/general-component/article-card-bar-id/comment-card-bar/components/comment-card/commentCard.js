@@ -17,6 +17,7 @@ export class CommentCard extends React.Component {
     this.state={
       showReplies: false,
       showGive: false,
+      showList:false,
       showCommentsText: '查看回复',
       replyText: '回复',
       commentLists: [],
@@ -216,11 +217,18 @@ export class CommentCard extends React.Component {
       }));
     }
   };
-  
+  // 添加回复
   onShowReply = () => {
     let showGive = !this.state.showGive;
     this.setState(()=>({
       showGive
+    }));
+  };
+  // 展开下拉菜单
+  onShowList = () => {
+    const showList = !this.state.showList;
+    this.setState(()=>({
+      showList
     }));
   };
   
@@ -232,7 +240,7 @@ export class CommentCard extends React.Component {
           <MDBRow className={classes.mdbRow}>
             <MDBAvatar className={classes.avatar}>
               <img
-                src={'https://s3.amazonaws.com/youthchina/WechatIMG29.jpeg'}
+                src={this.props.avatar.length > 10 ? this.props.avatar : 'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'}
                 alt="avatar"
                 className={`rounded-circle ${classes.imgStyle}`}
               />
@@ -242,6 +250,10 @@ export class CommentCard extends React.Component {
                 user={this.props.user}
                 time={this.props.time}
                 content={this.props.content}
+                userId={this.props.userId || 0}
+                onGoDelete={()=>this.props.onGoDelete(this.props.id)}
+                onShowList={this.onShowList}
+                showList={this.state.showList}
               />
               <CommentFooter
                 onShowReply={this.onShowReply}
@@ -257,8 +269,12 @@ export class CommentCard extends React.Component {
               <span className={classes.showSpan} onClick={this.showRepliesFunc}>
                 {this.state.showCommentsText}<img style={{marginLeft:'0.39vw'}} src={expandMore} alt="" />
               </span>
-              <Reply showReplies={this.state.showReplies} showGive={this.state.showGive} commentId={this.props.id} />
-            </div>
+              <Reply
+                onShowReply={this.onShowReply}
+                showRepliesFunc={this.showRepliesFunc}
+                showReplies={this.state.showReplies}
+                showGive={this.state.showGive}
+                commentId={this.props.id} /></div>
           </MDBRow>
         </div>
       </div>
@@ -274,8 +290,11 @@ CommentCard.propTypes = {
   user: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   time: PropTypes.string.isRequired,
+  avatar: PropTypes.string.isRequired,
+  userId: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   onVote: PropTypes.func,
+  onGoDelete: PropTypes.func.isRequired,
   upvoteCount: PropTypes.number,
   downvoteCount: PropTypes.number,
   evaluateStatus: PropTypes.number,

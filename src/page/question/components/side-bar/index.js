@@ -8,7 +8,7 @@ import {removeUrlSlashSuffix} from '../../../../tool/remove-url-slash-suffix';
 import {MDBCol} from 'mdbreact';
 
 import GroupList from './group-list';
-import Related from './related';
+// import Related from './related';
 
 class SideBarReact extends React.Component {
   constructor(props) {
@@ -34,7 +34,7 @@ class SideBarReact extends React.Component {
       <React.Fragment>
         <MDBCol style={{width:'15.39vw',marginLeft:'1.56vw',padding:'0'}}>
           <GroupList />
-          <Related related={[1,2,3]}/>
+          {/*<Related related={[1,2,3]}/>*/}
         </MDBCol>
       </React.Fragment>
     ) : (

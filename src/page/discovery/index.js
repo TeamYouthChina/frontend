@@ -16,18 +16,6 @@ import {getAsync} from '../../tool/api-helper';
 import {Loading} from '../job-for-you/component/loading';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 
-const basicCHNFont = {
-  fontFamily: 'PingFang SC',
-  fontStyle: 'normal',
-  fontWeight: 'normal',
-  lineHeight: 'normal'
-};
-
-const navyFont = {
-  ...basicCHNFont,
-  color: '#31394D'
-};
-
 class DiscoveryReact extends React.Component {
   constructor(props) {
     super(props);
@@ -37,7 +25,7 @@ class DiscoveryReact extends React.Component {
       //搜索类型，三种文章类型混合搜索
       searchType: ['articles', 'questions', 'editorials'],
       //分页
-      page: 0,
+      page: 1,
       //后端状态码
       code: null,
       // infiniteScroll是否可以继续滚动
@@ -71,8 +59,8 @@ class DiscoveryReact extends React.Component {
     }
     // eslint-disable-next-line
     console.log(result.length);
-    if(result.length === 0) {
-      this.setState(()=>{
+    if (result.length === 0) {
+      this.setState(() => {
         return {hasMore: false};
       });
     }
@@ -174,26 +162,26 @@ class DiscoveryReact extends React.Component {
                       <img src={writeReview} className={classes.sidebarIcon} alt="icon" /> 写短评
                     </MDBListGroupItem>
                   </MDBListGroup>
-                  <MDBListGroup style={{fontSize: '1.1vw'}}>
-                    <MDBListGroupItem
-                      className={classes.listGroupItemsTag}
-                    >
-                      <p style={navyFont}>标签</p>
-                    </MDBListGroupItem>
-                    <MDBListGroupItem
-                      className={classes.listGroupItems}
-                    >
-                      <button className={classes.tagBtn}>求职技巧</button>
-                    </MDBListGroupItem>
-                    <MDBListGroupItem
-                      className={classes.listGroupItems}
-                    >
-                      <button className={classes.tagBtnSelected}>面试经历</button>
-                    </MDBListGroupItem>
-                    <MDBListGroupItem
-                      className={classes.listGroupItems}
-                      style={{height: '10vh'}} />
-                  </MDBListGroup>
+                  {/*<MDBListGroup style={{fontSize: '1.1vw'}}>*/}
+                  {/*<MDBListGroupItem*/}
+                  {/*className={classes.listGroupItemsTag}*/}
+                  {/*>*/}
+                  {/*<p style={navyFont}>标签</p>*/}
+                  {/*</MDBListGroupItem>*/}
+                  {/*<MDBListGroupItem*/}
+                  {/*className={classes.listGroupItems}*/}
+                  {/*>*/}
+                  {/*<button className={classes.tagBtn}>求职技巧</button>*/}
+                  {/*</MDBListGroupItem>*/}
+                  {/*<MDBListGroupItem*/}
+                  {/*className={classes.listGroupItems}*/}
+                  {/*>*/}
+                  {/*<button className={classes.tagBtnSelected}>面试经历</button>*/}
+                  {/*</MDBListGroupItem>*/}
+                  {/*<MDBListGroupItem*/}
+                  {/*className={classes.listGroupItems}*/}
+                  {/*style={{height: '10vh'}} />*/}
+                  {/*</MDBListGroup>*/}
 
                 </aside>
               </MDBRow>

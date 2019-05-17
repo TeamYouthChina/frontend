@@ -5,7 +5,6 @@ import {Redirect} from 'react-router-dom';
 import {JobForYouWrapper} from './wrapper';
 import {CollectionCard} from './component/collectionCard';
 // import {TagSidebar} from '../../component/tag';
-import {FilterRow} from './component/filter';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 import {MDBRow} from 'mdbreact';
@@ -63,7 +62,7 @@ class JobForYouReact extends React.Component {
           >
             <MDBRow style={{marginTop: '2vw'}}>
               <main className={classes.mainBody}>
-                <FilterRow number={25} />
+                {/*<FilterRow number={25} />*/}
                 <JobForYouWrapper />
               </main>
               <aside className={classes.sidebar}>

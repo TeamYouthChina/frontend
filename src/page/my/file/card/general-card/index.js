@@ -17,12 +17,12 @@ class FileGeneralCardReact extends React.Component {
   }
 
   render() {
-   
+    const jobId = this.props.jobID === void 0 ? '' : `?job=${this.props.jobID}`;
     return (
       <div 
         className={classes.content}
         onClick={()=>{
-          this.props.history.push(`/my/file/${this.props.url}`);
+          this.props.history.push(`/my/file/${this.props.url}${jobId}`);
         }}
       >
         <div className={classes.bg} >
@@ -66,6 +66,7 @@ FileGeneralCardReact.i18n = [
 FileGeneralCardReact.propTypes = {
   // self
   text: PropTypes.string.isRequired,
+  jobID: PropTypes.number,
   logo: PropTypes.string.isRequired,
   tag: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,

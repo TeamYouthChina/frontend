@@ -29,6 +29,7 @@
   flex-grow:1;
   display: flex;
   justify-content: flex-end;
+  position: relative;
 }
 ul {
   list-style: none;
@@ -63,4 +64,9 @@ li {
 }
 .richText p {
   word-break: break-word;
+}
+.iconUl {
+  position: absolute;
+  top:20px;
+  z-index: 20;
 }

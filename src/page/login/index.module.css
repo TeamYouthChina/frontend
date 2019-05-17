@@ -1,5 +1,5 @@
 .leftCol {
-  width: 52.34vw;
+  width: 50vw;
   height: 47.34vw;
   background-color: #FAFAFF;
   display: flex;
@@ -7,9 +7,13 @@
   justify-content: center;
 }
 
+.backgroundImg {
+  max-width: 20vw;
+}
+
 .rightCol {
   margin-top: 4vw;
-  width: 46.66vw;
+  width: 50vw;
 }
 
 .selectedButton {
@@ -34,13 +38,11 @@
 }
 
 .title {
-  font-family: PingFang SC;
   font-size: 1.41vw;
   font-weight: normal;
   line-height: normal;
   color: #8D9AAF;
-  margin-top: 5.55vw;
-  margin-bottom: 2.35vw;
+  margin-bottom: 3.55vw;
 }
 
 .incTitle {

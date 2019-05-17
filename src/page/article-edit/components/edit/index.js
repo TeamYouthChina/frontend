@@ -109,6 +109,9 @@ class ArticleCreate extends React.Component {
         try {
           const result = await getAsync(`/articles/${this.props.match.params.id}`);
           if(result.status.code === 200) {
+            if(result.content.author && (result.content.author.id !== Number(window.localStorage.id))){
+              return this.props.history.push(`/article/${this.props.match.params.id}`);
+            }
             title = result.content.title;
             htmlContent = JSON.parse(result.content.body.braftEditorRaw).braftEditorRaw;
             this.setState(()=>({

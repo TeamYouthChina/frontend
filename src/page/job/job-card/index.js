@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter} from 'react-router-dom';
+import { withRouter, Link} from 'react-router-dom';
 
 
 import classes from './index.module.css';
@@ -44,9 +44,6 @@ class JobCardReact extends React.Component {
             <div className={classes.title}>{this.props.backend.content.name}</div>
            
           </div>
-         
-          
-        
           <div 
             className={`${classes.detail}`}
           >
@@ -73,7 +70,13 @@ class JobCardReact extends React.Component {
             />
           </div>
           <div className={`${classes.btn} d-flex`}>
-            <div className="align-self-center w-100" >立即申请</div>
+            <Link 
+              to={{pathname:'/my/file', query:this.props.backend.content.id}} 
+              className="align-self-center w-100" 
+              style={{color:'white'}}
+            >
+              立即申请
+            </Link>
 
           </div>
         </div>

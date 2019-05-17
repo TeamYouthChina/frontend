@@ -3510,7 +3510,7 @@ data-urls@^1.0.0:
 
 dataformat@^1.0.0:
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/dataformat/-/dataformat-1.0.0.tgz#56e43c10d95530e1f072b35bde688f1aef100c1a"
+  resolved "https://registry.npm.taobao.org/dataformat/download/dataformat-1.0.0.tgz#56e43c10d95530e1f072b35bde688f1aef100c1a"
   integrity sha1-VuQ8ENlVMOHwcrNb3miPGu8QDBo=
 
 date-now@^0.1.4:

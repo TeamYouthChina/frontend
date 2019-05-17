@@ -253,7 +253,8 @@ export class CommentCard extends React.Component {
             </MDBAvatar>
             <div className={classes.commentWrapper}>
               <CommentContent
-                user={this.props.user && this.props.user.username}
+                user={this.props.user && `${this.props.user.first_name} ${this.props.user.last_name}`}
+                userId={this.props.user && this.props.user.id}
                 time={this.props.time}
                 content={this.props.content}
                 onShowList={this.onShowList}

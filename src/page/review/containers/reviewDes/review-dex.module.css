@@ -22,8 +22,8 @@
   font-size: 16px;
   line-height: normal;
   text-align: center;
-  color:#FFFFFF;
-  background-color: #4F65E1;
+  color:#8D9AAF;
+  background-color: #FFFFFF;
   border-radius: 2px;
   height:3.12vw;
   align-self: center;
@@ -150,12 +150,12 @@
   max-width: 500px;
 }
 .btnStyleFocusActive {
-  color:white;
+  color:#8D9AAF;
   font-family: PingFang SC;
   font-size: 1.25vw;
   line-height: normal;
   text-align: center;
-  background-color: #4F65E1;
+  background-color: #FFFFFF;
   border-radius: 2px;
   height:3.12vw;
   align-self: center;

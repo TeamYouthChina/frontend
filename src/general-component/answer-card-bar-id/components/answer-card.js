@@ -20,6 +20,7 @@ export class AnswerCard extends React.Component {
       showBottom: false,
       isCollapsed: true,
       showComments: false,
+      showList:false,
       commentsText: null,
       getFromChildLength:null,
       getFromChild:null,
@@ -362,6 +363,28 @@ export class AnswerCard extends React.Component {
       showShare
     }));
   };
+  // 展开下拉菜单
+  onShowList = () =>{
+    const showList = !this.state.showList;
+    this.setState(()=>({
+      showList
+    }));
+  };
+  // 删除答案
+  onGoDelete = () =>{
+    try {
+      fetch(
+        `${urlPrefix}/answers/${this.props.answerId}`,
+        {
+          method: 'DELETE',
+          headers: generateHeaders(),
+          body: null
+        },
+      );
+    } catch (e) {
+      alert(e);
+    }
+  };
   
   componentWillUnmount() {
     window.removeEventListener('scroll', this.orderScroll);
@@ -376,10 +399,16 @@ export class AnswerCard extends React.Component {
             title={this.props.questionTitle}
             questionId={this.props.questionId}
             answerId={this.props.answerId}
+            userId={backend.creator === null ? 1 : backend.creator.id}
+            onShowList={this.onShowList}
+            showList={backend.showList}
+            onGoDelete={this.onGoDelete}
+            data={backend}
           />
           <UserInfor
             score={5}
             user={backend.creator.username}
+            avatar={backend.creator && backend.creator.avatar_url}
             description={backend.creator.role[0]}
             isCollapsed={this.state.isCollapsed}
             short={backend.body.previewText}
