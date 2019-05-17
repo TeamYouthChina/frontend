@@ -1,0 +1,24 @@
+.footerBackGround {
+  background-color: #31394D;
+}
+
+.footer {
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1vw;
+  padding: 2vw;
+}
+
+.footerCopyright {
+  margin-right: 0.3vw;
+}
+
+.footerLink {
+  color: #ffffff;
+}
+
+.footerLink:hover {
+  color: #D8D8D8;
+}

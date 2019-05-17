@@ -4,7 +4,8 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 
 import {EResume} from './e-resume';
 import {File} from './index';
-import {PdfResume} from './pdf-resume';
+import {PdfResume} from './pdf-resume-upload';
+
 
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';

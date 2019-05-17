@@ -8,7 +8,7 @@ import {ArticleCardSquare} from '../playground/general-component/article-card-sq
 import {CompanyCardSquare} from '../playground/general-component/company-card-square-id';
 import {JobCardSquare} from '../playground/general-component/job-card-square-id';
 import {ReviewCardSquare} from '../playground/general-component/review-card-square-fulltext';
-import {UserCardBarId} from '../playground/general-component/user-card-bar-id';
+import {UserCardBarFull} from '../playground/general-component/user-card-bar-fulltext';
 
 
 import {languageHelper} from '../../tool/language-helper';
@@ -78,7 +78,7 @@ class BestForYouReact extends React.Component {
                     />
                   </div>
                   <div className="ml-4">
-                    <p className={classes.name}>{this.state.user.content.username}，欢迎来到职道！</p>
+                    <p className={classes.name}>{this.state.user.content.first_name}{this.state.user.content.last_name}，欢迎来到职道！</p>
 
                     <p
                       className={classes.review}
@@ -289,9 +289,13 @@ class BestForYouReact extends React.Component {
 
                     {this.state.userFulltext.content.data.map((item, index) => {
                       return (
-                        <UserCardBarId
+                        <UserCardBarFull
                           key={index}
-                          id={item.content.id}
+                          avatar={item.content.avatar_url}
+                          name={item.content.first_name+item.content.last_name}
+                          sex={item.content.gender}
+                          nation={item.content.nation}
+                          role={item.content.role[0]}
                         />
                       );
                     })}
