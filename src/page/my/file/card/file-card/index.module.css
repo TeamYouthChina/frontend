@@ -19,7 +19,7 @@
 }
 .title{
   font-family: PingFang SC;
-  font-size: 1.09vw;
+  font-size: 1.4vw;
   font-weight: bolder;
   line-height: normal;
 
@@ -37,6 +37,11 @@
   font-size: 1.09vw;
   font-weight: bolder;
   line-height: normal;
-
+  cursor: pointer;
   color: #4F65E1;
+}
+.blue-text:hover{
+  
+  font-weight: bold;
+  transition: all 0.2s ease-in-out;
 }

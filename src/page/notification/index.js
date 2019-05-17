@@ -5,6 +5,7 @@ import {withRouter} from 'react-router-dom';
 
 import {languageHelper} from '../../tool/language-helper';
 import {getAsync} from '../../tool/api-helper';
+import {NotificationCard} from './Card';
 
 export class NotificationReact extends React.Component {
   constructor(props) {
@@ -19,17 +20,32 @@ export class NotificationReact extends React.Component {
     this.setState({
       backend: await getAsync(`/notifications/${localStorage.getItem('id')}`)
     });
-
+    
   }
+  
 
   render() {
-    return (
+    
+    return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ?(
 
       <div>
-
+        <div className="d-flex flex-wrap justify-content-between" style={{padding: '1.40vw 0'}}>
+          {this.state.backend.content.data.map((item, index) => {
+            return (
+              <div style={{marginBottom: '1vw'}} key={index}>
+                <NotificationCard
+                  id={item.notification_id}
+                  text={item.text}
+                  isread={item.is_read}
+                  date={item.create_at}
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
       
-    );
+    ):null;
   }
 }
 

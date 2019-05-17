@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
 
 import classes from './index.module.css';
-import imgTopViewLeft from './assets/img-topview-left.png';
-import imgTopViewRight from './assets/img-topview-right.png';
+// import imgTopViewLeft from './assets/img-topview-left.png';
+//import imgTopViewRight from './assets/img-topview-right.png';
 import {UserCardSquareAuth} from './component/card/user-card-square-auth';
 import {FriendSideBar} from './component/friends';
 import {InvitationSideBar} from './component/invitation';
@@ -46,18 +46,18 @@ class ConnectionReact extends React.Component {
       case 1:
         return (
           <div>
-            <div className="d-flex align-items-center justify-items-center" style={{background: '#ffffff'}}>
-              <div>
-                <img className={classes.topViewImg} src={imgTopViewRight} alt="img" />
-              </div>
-              <div style={{width: '60vw'}}>
-                <p className={classes.topViewTitle1}>拓宽你的人脉</p>
-                <p className={classes.topViewTitle2}>接触来自不同领域的大牛们能很大程度上帮助你做决策</p>
-              </div>
-              <div>
-                <img className={classes.topViewImg} src={imgTopViewLeft} alt="img" />
-              </div>
-            </div>
+            {/*<div className="d-flex align-items-center justify-items-center" style={{background: '#ffffff'}}>*/}
+            {/*<div>*/}
+            {/*<img className={classes.topViewImg} src={imgTopViewRight} alt="img" />*/}
+            {/*</div>*/}
+            {/*<div style={{width: '60vw'}}>*/}
+            {/*<p className={classes.topViewTitle1}>拓宽你的人脉</p>*/}
+            {/*<p className={classes.topViewTitle2}>接触来自不同领域的大牛们能很大程度上帮助你做决策</p>*/}
+            {/*</div>*/}
+            {/*<div>*/}
+            {/*<img className={classes.topViewImg} src={imgTopViewLeft} alt="img" />*/}
+            {/*</div>*/}
+            {/*</div>*/}
             <div
               className="cell-wall"
               style={{backgroundColor: '#F3F5F7'}}
@@ -66,14 +66,14 @@ class ConnectionReact extends React.Component {
                 className="cell-membrane"
               >
                 <div className="d-flex justify-content-center">
-                  <main className="d-flex flex-wrap justify-content-space" style={{marginTop: '2.34vw', width: '70vw'}}>
+                  <div className="d-flex flex-wrap justify-content-between" style={{marginTop: '2.34vw', width: '70vw'}}>
 
                     {this.state.userFulltext.content.data.map((item, index) => {
                       return (
-                        <div style={{marginBottom: '1vw', marginRight: '2vw'}} key={index}>
+                        <div style={{marginBottom: '1vw', marginRight: '2vw',height:'10.5vw'}} key={index}>
                           <UserCardSquareAuth
                             avatar={item.content.avatar_url}
-                            name={item.content.username}
+                            name={item.content.first_name+item.content.last_name}
                             role={item.content.role[0]}
                             sex={item.content.gender}
                             nation={item.content.nation}
@@ -82,14 +82,14 @@ class ConnectionReact extends React.Component {
                       );
                     })}
 
-                  </main>
-                  <aside className={classes.sideBar}>
+                  </div>
+                  <div className={classes.sideBar}>
                     <FriendSideBar number={[21, 8]} />
 
                     <InvitationSideBar content={'目前没有未回复的邀请'} />
 
                     <TagesSideBar tags={['求职经历', '面试经历']} />
-                  </aside>
+                  </div>
                 </div>
               </div>
             </div>

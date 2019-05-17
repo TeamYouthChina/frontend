@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-//import classes from './index.module.css';
-import {withRouter} from 'react-router-dom';
 
-import {languageHelper} from '../../tool/language-helper';
+import {withRouter} from 'react-router-dom';
+import classes from './index.module.css';
+import logo from './image.png';
+import {languageHelper} from '../../../tool/language-helper';
 
 export class NotificationCardReact extends React.Component {
   constructor(props) {
@@ -16,10 +17,16 @@ export class NotificationCardReact extends React.Component {
 
   render() {
     return (
+      <div className={classes.content}>
+        <div className="d-flex">
+          <div className={classes.border}>
+            <img src={logo} className="img-fluid"/>
+          </div>
+          <div className={classes.text}>
+            {this.props.text}
+          </div>
 
-      <div className="d-flex">
-        
-
+        </div>
       </div>
       
     );
@@ -33,8 +40,9 @@ NotificationCardReact.i18n = [
 
 NotificationCardReact.propTypes = {
   id:PropTypes.number.isRequired,
-  text: PropTypes.String.isRequired,
+  text: PropTypes.string.isRequired,
   date:PropTypes.number.isRequired,
+  isread:PropTypes.bool.isRequired,
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,

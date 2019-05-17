@@ -5,6 +5,7 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 import {EResume} from './e-resume';
 import {File} from './index';
 import {PdfResume} from './pdf-resume';
+import {PdfReview} from './pdf-resume/PdfReview';
 
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
@@ -37,6 +38,10 @@ class FileSwitchReact extends React.Component {
         <Route
           path={`${this.props.match.url}/pdf-resume`}
           component={routeProps => <PdfResume {...routeProps} />}
+        />
+        <Route
+          path={`${this.props.match.url}/pdf-review`}
+          component={routeProps => <PdfReview {...routeProps} />}
         />
         <Redirect to={this.props.match.url} />
       </Switch>

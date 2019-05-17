@@ -41,10 +41,10 @@ class UserCardBarFullReact extends React.Component {
             {this.props.name}
           </div>
           <div className={classes.role}>
-            {this.props.sex}
+            {this.props.role}
           </div>
           <div className={classes.info}>
-            {this.props.nation}
+            {this.props.sex}{', '}{this.props.nation}
           </div>
           
          
@@ -73,6 +73,7 @@ UserCardBarFullReact.propTypes = {
   name: PropTypes.string.isRequired,
   sex: PropTypes.string.isRequired, 
   nation: PropTypes.string.isRequired,
+  role:PropTypes.string.isRequired,
   
   
   // React Router

@@ -78,7 +78,7 @@ class BestForYouReact extends React.Component {
                     />
                   </div>
                   <div className="ml-4">
-                    <p className={classes.name}>{this.state.user.content.username}，欢迎来到职道！</p>
+                    <p className={classes.name}>{this.state.user.content.first_name}{this.state.user.content.last_name}，欢迎来到职道！</p>
 
                     <p
                       className={classes.review}
@@ -292,9 +292,10 @@ class BestForYouReact extends React.Component {
                         <UserCardBarFull
                           key={index}
                           avatar={item.content.avatar_url}
-                          name={item.content.username}
+                          name={item.content.first_name+item.content.last_name}
                           sex={item.content.gender}
                           nation={item.content.nation}
+                          role={item.content.role[0]}
                         />
                       );
                     })}

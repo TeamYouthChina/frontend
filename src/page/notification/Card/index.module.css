@@ -4,6 +4,10 @@
   background: #FFFFFF;
   margin-bottom: 0.7vw;
 }
+.border{
+  border-right: 1px solid #DBE5F7;
+  transform: rotate(90deg);
+}
 .name{
   font-family: PingFang SC;
   font-size: 1.25vw;
