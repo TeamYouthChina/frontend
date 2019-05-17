@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {MDBBtn, MDBCol, MDBIcon, MDBRow} from 'mdbreact';
 import classes from './index.module.css';
-import share from '../../public/share.svg';
+// import share from '../../public/share.svg';
 import {connect} from 'react-redux';
 import {languageHelper} from '../../../../tool/language-helper';
 import HalfHeart from '../../public/false.png';
@@ -52,9 +52,9 @@ const Footer = (props) => (
           <MDBBtn onClick={props.showComments} className={classes.btnStyle} flat>
             <MDBIcon className={classes.iconStyle} far icon="comment"/>{props.commentsText}
           </MDBBtn>
-          <MDBBtn onClick={props.onShare} className={classes.btnStyle} flat>
-            <img src={share} alt="share" className={classes.iconStyle} />{props.text.share}
-          </MDBBtn>
+          {/*<MDBBtn onClick={props.onShare} className={classes.btnStyle} flat>*/}
+          {/*<img src={share} alt="share" className={classes.iconStyle} />{props.text.share}*/}
+          {/*</MDBBtn>*/}
           {/*<MDBBtn flat style={{padding: '5px 10px',}}>*/}
           {/*<MDBIcon style={{marginRight: '5px'}} icon="ban"/>*/}
           {/*举报*/}
