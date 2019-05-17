@@ -53,7 +53,7 @@ const Footer = (props) => (
             <MDBIcon className={classes.iconStyle} far icon="comment"/>{props.commentsText}
           </MDBBtn>
           {/*<MDBBtn onClick={props.onShare} className={classes.btnStyle} flat>*/}
-            {/*<img src={share} alt="share" className={classes.iconStyle} />{props.text.share}*/}
+          {/*<img src={share} alt="share" className={classes.iconStyle} />{props.text.share}*/}
           {/*</MDBBtn>*/}
           {/*<MDBBtn flat style={{padding: '5px 10px',}}>*/}
           {/*<MDBIcon style={{marginRight: '5px'}} icon="ban"/>*/}

@@ -140,7 +140,7 @@ export class ChangeAvatar extends Component {
                   <i className={style.uploadIcon} />
                   <span className={style.upText}>
                   上传图片
-                </span>
+                  </span>
                 </div>
                 <input className={style.upInput} type="file" accept="image/*" onChange={this.onChange} id="123"/>
               </div>
