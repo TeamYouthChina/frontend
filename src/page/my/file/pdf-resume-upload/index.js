@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
 
 import classes from './index.module.css';
-import {FileCard} from '../card/file-card';
+import {FileCard} from '../card-yuwei/file-card';
 import UploadModal from './UploadModal/UploadModal';
 
 import {languageHelper} from '../../../../tool/language-helper';
