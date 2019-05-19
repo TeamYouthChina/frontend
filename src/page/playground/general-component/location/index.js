@@ -9,12 +9,15 @@ import {get, getAsync} from '../../../../tool/api-helper';
 class LocationReact extends React.Component {
   constructor(props) {
     super(props);
+    // constant
+    this.unknownId = '000000';
+    this.defaultProvinceId = '110000'; // 北京市
     // i18n
     this.text = LocationReact.i18n[languageHelper()];
     // state
     this.state = {
       render: 0,
-      code: props.code,
+      code: props.code ? props.code : this.defaultProvinceId,
       display: '',
       country: {
         countrySelectedIndex: 0,
@@ -42,9 +45,6 @@ class LocationReact extends React.Component {
         districtList: []
       }
     };
-    // constant
-    this.unknownId = '000000';
-    this.defaultProvinceId = '110000'; // 北京市
     // function
     this.addUnknownItem = this.addUnknownItem.bind(this);
     this.handleCountryChange = this.handleCountryChange.bind(this);
@@ -516,7 +516,7 @@ LocationReact.i18n = [
 
 LocationReact.propTypes = {
   // self
-  code: PropTypes.string.isRequired,
+  code: PropTypes.string,
   locate: PropTypes.func.isRequired,
   edit: PropTypes.bool.isRequired,
   // React Router

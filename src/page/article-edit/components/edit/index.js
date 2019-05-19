@@ -72,7 +72,6 @@ const myUploadFn = (param) => {
   xhr.addEventListener('load', successFn, false);
   xhr.addEventListener('error', errorFn, false);
   xhr.addEventListener('abort', errorFn, false);
-
   fd.append('file', param.file);
   xhr.open('POST', serverURL, true);
   xhr.setRequestHeader('X-AUTHENTICATION',Cookies.get('token'));

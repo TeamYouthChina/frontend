@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Redirect, Route, Switch} from 'react-router-dom';
+import {Redirect, Route, Switch, Link} from 'react-router-dom';
 
 import {Application} from './application';
 import {CollectionSwitch} from './collection/index.switch';
 import {CreationSwitch} from './creation/index.switch';
 import {FileSwitch} from './file/index.switch';
 import {ComingSoon} from '../coming-soon';
+import {ChangeAvatar} from './change-avatar/index';
 import {Message} from './message';
 import {Establish} from './establish';
 import {ProfileMainBody} from '../profilenew';
@@ -57,7 +58,7 @@ class MyReact extends React.Component {
               <div
                 className="cell-membrane d-flex"
               >
-                <div>
+                <div className={classes.imgWrapper}>
                   <img
                     style={deviceHelper.getType() === deviceHelper.MOBILE ? {
                       width: '5.3vw',
@@ -70,15 +71,18 @@ class MyReact extends React.Component {
                     className="rounded-circle img-fluid p-0 float-right"
                     alt="Sample avatar"
                   />
+                  <Link className={classes.upAvatar} to={`${this.props.match.url}/changeAvatar`}>
+                    更换头像
+                  </Link>
                 </div>
                 <div
                   className="ml-3"
                 >
                   <p className={classes.name}>
-                    {this.state.user.content.username}
+                    {this.state.user.content.first_name}{this.state.user.content.last_name}
                   </p>
                   <p className={classes.education}>
-                    {this.state.user.content.nation}
+                    {this.state.user.content.gender}{', '}{this.state.user.content.nation}
                   </p>
                   <p className={classes.position}>
                     {this.state.user.content.email}
@@ -104,12 +108,12 @@ class MyReact extends React.Component {
                       subPath: '/application'
                     },
                     {
-                      name: '我的文件',
+                      name: '我的简历',
                       subPath: '/file'
                     },
                     {
                       name: '我的发布',
-                      subPath: '/creation'
+                      subPath: '/establish'
                     },
                     {
                       name: '我的收藏',
@@ -127,6 +131,10 @@ class MyReact extends React.Component {
               <Route
                 path={`${this.props.match.url}/collection`}
                 component={routeProps => <CollectionSwitch {...routeProps} />}
+              />
+              <Route
+                path={`${this.props.match.url}/changeAvatar`}
+                component={routeProps => <ChangeAvatar {...routeProps} />}
               />
               <Route
                 path={`${this.props.match.url}/creation`}

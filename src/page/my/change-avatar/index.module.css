@@ -1,0 +1,96 @@
+.wrapper {
+  padding: 30px 180px;
+  display: flex;
+  justify-content: space-between;
+}
+.cropWrapper {
+  height: 270px;
+  width: 480px;
+  position: relative;
+}
+.uploadStyle {
+  margin: auto;
+  position: relative;
+}
+.upInput {
+  position: relative;
+  top:-220px;
+  left: 100px;
+  opacity: 0;
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  z-index: 99;
+  font-size: 14px;
+  line-height: 32px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.uploadLabel {
+  margin: 40px 100px;
+  cursor: pointer;
+  background: #f1f2f5;
+  width: 180px;
+  height: 180px;
+  border: 1px solid #e5e9ef;
+  border-radius: 4px;
+  -webkit-transition: all .6s ease;
+  transition: all .6s ease;
+}
+.uploadLabel:hover {
+  background: #e5e9ef;
+}
+.uploadIcon {
+  margin: 52px auto 0;
+  width: 54px;
+  height: 46px;
+  display: block;
+  background: url(https://s1.hdslb.com/bfs/static/account-fe/static/img/icons_m_2.57e5263.png);
+  background-position: -101px -1065px;
+}
+.upText {
+  display: block;
+  font-family: MicrosoftYaHei;
+  font-size: 16px;
+  color: #6d757a;
+  line-height: 20px;
+  margin-top: 10px;
+  padding: 0 12px;
+  letter-spacing: 0;
+  text-align: center;
+}
+.preWrapper {
+  margin-left: 100px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+.preImg {
+  float: left;
+  overflow: hidden;
+  width: 100px;
+  height: 100px;
+}
+.hintStyle {
+  color: #99a2aa;
+  font-size: 12px;
+  font-family: MicrosoftYaHei;
+  text-align: center;
+}
+.btnWrapper {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.cropBtn {
+  border: 1px solid #00a1d6;
+  color: #fff;
+  background-color: #00a1d6;
+}
+.cropBtnDis {
+  background: #f4f5f7;
+  border-color: #f4f5f7;
+  color: #ccd0d7;
+  cursor: auto;
+}

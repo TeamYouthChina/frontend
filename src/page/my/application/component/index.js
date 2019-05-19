@@ -39,13 +39,13 @@ class ApplicationCardReact extends React.Component {
           return (
             <div className={classes.content} key={index}>
               <div className={classes.job}>
-                {item.job}
+                {item.position.name}
               </div>
               <div className={classes.company}>
-                {item.company}
+                {item.position.organization.name}
               </div>
               <div className={classes.location}>
-                {item.location}
+                {item.position.organization.location}
               </div>
               <div className={classes.date}>
                 {item.date}

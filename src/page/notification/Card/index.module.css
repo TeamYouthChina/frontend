@@ -1,0 +1,40 @@
+.content{
+  
+  padding: 1.25vw 1.95vw;
+  background: #FFFFFF;
+  margin-bottom: 0.7vw;
+}
+.border{
+  border-right: 1px solid #DBE5F7;
+  transform: rotate(90deg);
+}
+.name{
+  font-family: PingFang SC;
+  font-size: 1.25vw;
+  font-weight: bolder;
+  line-height: 1.72vw;/* identical to box height */
+
+  color: #4F65E1;
+}
+.noti{
+  font-family: PingFang SC;
+  font-size: 1.25vw;
+  font-weight: bolder;
+  line-height: 1.72vw;/* identical to box height */
+
+  color: #454F69;
+}
+.text{
+  font-family: PingFang SC;
+  font-size: 1.25vw;
+  line-height: 1.72vw;/* identical to box height */
+
+  color: #8D9AAF;
+}
+.date{
+  font-family: PingFang SC;
+  font-size:1.09vw;
+  line-height: 1.56vw;/* identical to box height */
+
+  color: #8D9AAF;
+}

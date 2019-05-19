@@ -18,6 +18,7 @@ import {Job} from './page/job';
 import {JobForYou} from './page/job-for-you';
 import {Login} from './page/login';
 import {My} from './page/my';
+import {Notification} from './page/notification';
 import {OnlineApplication} from './page/online-application';
 import {PageNoFound} from './page/page-no-found';
 import {Playground} from './page/playground';
@@ -109,6 +110,10 @@ export class App extends React.Component {
                 <Route
                   path="/my"
                   component={routeProps => <My {...routeProps} />}
+                />
+                <Route
+                  path="/notification"
+                  component={routeProps => <Notification {...routeProps} />}
                 />
                 <Route
                   path="/page-no-found"
