@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import fetch from 'isomorphic-fetch';
 
 /* 生产环境 / 测试环境 */
-export const urlPrefix = 'http://test.zzc-tongji.com:8080/api/v1';
+export const urlPrefix = 'http://test.weyouth.co/api/v1';
 
 export const generateHeaders = () => {
   let language = Cookies.get('language');
