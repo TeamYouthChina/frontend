@@ -15,7 +15,7 @@ import Cookies from 'js-cookie';
 
 const myUploadFn = (param) => {
 
-  const serverURL = 'http://test.zzc-tongji.com/api/v1/static';
+  const serverURL = urlPrefix;
   const xhr = new XMLHttpRequest;
   const fd = new FormData();
 
