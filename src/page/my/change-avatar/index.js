@@ -6,6 +6,7 @@ import DeImg from './img/child.png';
 import style from './index.module.css';
 import Cookies from 'js-cookie';
 import PropTypes from 'prop-types';
+import {urlPrefix} from '../../../tool/api-helper';
 /* global FileReader */
 
 const src = DeImg;
@@ -53,7 +54,7 @@ export class ChangeAvatar extends Component {
   // 上传获取id
   myUploadFn = (file) => {
 
-    const serverURL = 'http://test.zzc-tongji.com/api/v1/static';
+    const serverURL = urlPrefix;
     const xhr = new XMLHttpRequest;
     const fd = new FormData();
 
