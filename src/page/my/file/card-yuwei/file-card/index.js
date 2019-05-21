@@ -6,8 +6,6 @@ import logo from './logo.png';
 import {languageHelper} from '../../../../../tool/language-helper';
 import {withRouter} from 'react-router-dom';
 import {MDBBtn, MDBModal, MDBModalBody, MDBModalFooter, MDBModalHeader} from 'mdbreact';
-import {MobilePDFReader } from 'react-read-pdf';
-import pdf from '../../pdf-resume-upload/PdfReview/sample.pdf';
 import {deleteHttp, getAsync} from '../../../../../tool/api-helper';
 
 
@@ -16,7 +14,8 @@ class FileCardReact extends React.Component {
     super(props);
     // state
     this.state = {
-      modal4: false,
+      modal1: false,
+      modal2: false,
       done:false,
     };
     // i18n
@@ -63,7 +62,7 @@ class FileCardReact extends React.Component {
           <div className="d-flex mt-3">
             <div 
               className={`${classes['blue-text']} mr-3`}
-              onClick={this.toggle(4)}
+              onClick={this.toggle(1)}
               style={{cursor:'pointer'}}
             >
               预览
@@ -71,31 +70,61 @@ class FileCardReact extends React.Component {
             <div 
               className={`${classes['blue-text']} mr-3`}
             >
-              导出
+              <a href={this.state.backend.content} style={{color: '#4F65E1'}}>下载</a>
+              
+              
             </div>
             <div
               className={classes['blue-text']}
-              onClick={()=>{
-                deleteHttp(`/resumes/pdf/${this.props.id}`).then(()=>{
-                  this.props.onFresh();
-                });}
-              }
+              onClick={this.toggle(2)}
             >
               删除
             </div>
           </div>
         </div>
 
-        <MDBModal isOpen={this.state.modal4} toggle={this.toggle(4)} size="lg">
-          <MDBModalHeader toggle={this.toggle(4)}>我的简历</MDBModalHeader>
-          <MDBModalBody style={{height:'78vw'}}>
-            <div style={{padding:'5vw'}}>
-              <MobilePDFReader url={pdf} style={{width:'55vw',boxSizing:'content-box',border:'white',borderShadow:'none'}}/>
+        <MDBModal isOpen={this.state.modal1} toggle={this.toggle(1)} size="lg">
+          <MDBModalHeader toggle={this.toggle(1)}>我的简历</MDBModalHeader>
+          <MDBModalBody style={{height:'78vw'}} className="d-flex justify-content-center">
+            <div style={{padding:'1vw 5vw'}}>
+              {/*<MobilePDFReader url={pdf} style={{width:'55vw',boxSizing:'content-box',border:'white',borderShadow:'none'}}/>*/}
+              <object
+                style={{width:'60vw',height:'75vw'}}
+                data={this.state.backend.content}
+                type="application/pdf"
+              >
+                <embed 
+                  src={this.state.backend.content} 
+                  type="application/pdf" />
+              </object>
             </div>
           </MDBModalBody>
           <MDBModalFooter>
-            <MDBBtn color="secondary" onClick={this.toggle(4)}>Close</MDBBtn>
-            <MDBBtn color="primary">Save changes</MDBBtn>
+            <MDBBtn color="secondary" size="sm" onClick={this.toggle(1)}>关闭</MDBBtn>
+            <MDBBtn color="primary"  size="sm">导出</MDBBtn>
+          </MDBModalFooter>
+        </MDBModal>
+
+        <MDBModal isOpen={this.state.modal2} toggle={this.toggle(2)} centered size="sm">
+          <MDBModalHeader toggle={this.toggle(2)}>提示</MDBModalHeader>
+          <MDBModalBody>
+          确定删除简历{this.props.name}么？
+          </MDBModalBody>
+          <MDBModalFooter>
+            <MDBBtn size="sm" color="secondary" onClick={this.toggle(2)}>关闭</MDBBtn>
+            <MDBBtn size="sm" color="primary"
+              onClick={()=>{
+                deleteHttp(`/resumes/pdf/${this.props.id}`).then(()=>{
+                  this.setState({
+                    modal2:false
+                  });
+                  this.props.onFresh();
+                  
+                });}
+              }     
+            >
+              删除
+            </MDBBtn>
           </MDBModalFooter>
         </MDBModal>
 
