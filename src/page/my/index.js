@@ -66,7 +66,8 @@ class MyReact extends React.Component {
                       marginTop: '-2.65vw',
                       background: '#F3F5F7'
                     } : {width: '8.67vw', height: '8.67vw', marginTop: '-4.335vw', background: '#F3F5F7'}}
-                    src={this.state.user.content.avatar_url === '---' ? 'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png' : this.state.user.content.avatar_url}
+                    // 因为要更新头像
+                    src={localStorage.getItem('avatar') === '---' ? 'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png' : localStorage.getItem('avatar')}
                     //src='http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'
                     className="rounded-circle img-fluid p-0 float-right"
                     alt="Sample avatar"

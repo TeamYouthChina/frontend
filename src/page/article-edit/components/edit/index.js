@@ -347,7 +347,6 @@ class ArticleCreate extends React.Component {
           </MDBCol>
           <MDBCol size="1">
           </MDBCol>
-          
         </MDBRow>
       </div>
     ) : (

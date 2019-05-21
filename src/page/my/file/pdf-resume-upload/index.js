@@ -16,7 +16,10 @@ class PdfResumeReact extends React.Component {
     super(props);
     // state
     this.state = {
-      upload: false
+      upload: false,
+      uploadIndex:null,
+      btnText:'选择一份简历',
+      applyStart:false,
     };
     // i18n
     this.text = PdfResumeReact.i18n[languageHelper()];
@@ -58,7 +61,20 @@ class PdfResumeReact extends React.Component {
         backend:response
       });
     });
-  }
+  };
+  
+  // 选择简历
+  chooseFile = (index) => {
+    this.setState(()=>({
+      uploadIndex:index,
+      btnText:'准备申请'
+    }));
+  };
+  // 提交申请
+  handleApply = () => {
+    //todo, 申请api
+  };
+  
   render() {
     // console.log(this.state)
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
@@ -66,6 +82,7 @@ class PdfResumeReact extends React.Component {
       return (<Redirect to={pathname} />);
     }
     // console.log(this.state.backend)
+    const { uploadIndex, btnText, applyStart} = this.state;
     return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ?(
       <div>
         <div
@@ -90,7 +107,7 @@ class PdfResumeReact extends React.Component {
             <div className="d-flex flex-wrap justify-content-between">
               {this.state.backend.content.data.map((item, index) => {
                 return (
-                  <div style={{marginBottom: '1vw'}} key={index}>
+                  <div className={(uploadIndex === index) && classes.fileWrapper} style={{marginBottom: '1vw'}} key={index} onClick={() => this.chooseFile(index)}>
                     <FileCard
                       id={item.id}
                       name={item.name}
@@ -100,6 +117,11 @@ class PdfResumeReact extends React.Component {
                   </div>
                 );
               })}
+            </div>
+            <div className={classes.btnWrapper}>
+              <button onClick={this.handleApply} className={(!applyStart || (uploadIndex === null)) ? classes.btn : `${classes.btn} disabled`}>
+                { btnText }
+              </button>
             </div>
           </div>
         </div>

@@ -53,3 +53,9 @@
 
   color: #C1C4CA;
 }
+.fileWrapper {
+  border: 1px solid blue;
+}
+.btnWrapper {
+  text-align: center;
+}
