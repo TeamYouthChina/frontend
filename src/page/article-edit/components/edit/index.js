@@ -12,7 +12,6 @@ import BraftEditor from 'braft-editor';
 import 'braft-editor/dist/index.css';
 import {isLogin, urlPrefix, generateHeaders, getAsync} from '../../../../tool/api-helper';
 import Cookies from 'js-cookie';
-
 const myUploadFn = (param) => {
 
   const serverURL = urlPrefix;

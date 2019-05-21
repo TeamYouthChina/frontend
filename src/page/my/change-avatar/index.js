@@ -18,8 +18,10 @@ export class ChangeAvatar extends Component {
     this.state = {
       src,
       cropResult: null,
+      sliceText:'确认裁剪'
     };
-    this.name = null;
+    // 控制button
+    this.loadingTime = false;
     this.cropImage = this.cropImage.bind(this);
     this.onChange = this.onChange.bind(this);
     this.useDefaultImage = this.useDefaultImage.bind(this);
@@ -54,7 +56,7 @@ export class ChangeAvatar extends Component {
   // 上传获取id
   myUploadFn = (file) => {
 
-    const serverURL = urlPrefix;
+    const serverURL = `${urlPrefix}/static`;
     const xhr = new XMLHttpRequest;
     const fd = new FormData();
 
@@ -62,17 +64,35 @@ export class ChangeAvatar extends Component {
       if(xhr.readyState === 4 && response) {
         const id = xhr.responseText.slice(11,30);
         try{
-          fetch(`http://test.zzc-tongji.com/api/v1/static/${id}`,{
+          fetch(`${urlPrefix}/static/${id}`,{
             method:'GET',
             headers:new Headers({
               'X-AUTHENTICATION':Cookies.get('token')
             }),
             body:null
           }).then((res)=>(res.json())).then((res)=>{
-            this.setState(()=>({
-              cropResult:res.content
-            }));
-            this.props.history.push('/my/profile');
+            const data = {
+              avatar_url:res.content
+            };
+            localStorage.setItem('avatar', res.content);
+            const userId = window.localStorage.id;
+            try {
+              fetch(`${urlPrefix}/users/${userId}`, {
+                method: 'PATCH',
+                headers: new Headers({
+                  'X-AUTHENTICATION': Cookies.get('token'),
+                  'Content-Type': 'application/json',
+                }),
+                body: JSON.stringify(data)
+              }).then((res)=>res.json()).then(()=>{
+                this.setState(()=>({
+                  cropResult:res.content
+                }));
+                this.props.history.push('/my/profile');
+              });
+            } catch (e) {
+              alert(e);
+            }
           });
         }catch (e) {
           alert(e);
@@ -87,6 +107,10 @@ export class ChangeAvatar extends Component {
     xhr.open('POST', serverURL, true);
     xhr.setRequestHeader('X-AUTHENTICATION',Cookies.get('token'));
     xhr.send(fd);
+    this.loadingTime = true;
+    this.setState(()=>({
+      sliceText:'上传中'
+    }));
   };
   // 使用默认
   useDefaultImage() {
@@ -182,8 +206,8 @@ export class ChangeAvatar extends Component {
           <br style={{clear: 'both'}} />
         </div>
         <div className={style.btnWrapper}>
-          <button className={this.state.src === DeImg ? `${style.cropBtnDis} disabled` : style.cropBtn} onClick={this.cropImage}>
-            确认裁剪
+          <button className={(this.loadingTime || this.state.src === DeImg) ? `${style.cropBtnDis} disabled` : style.cropBtn} onClick={this.cropImage}>
+            {this.state.sliceText}
           </button>
         </div>
       </div>

@@ -29,6 +29,9 @@ export const ApplySuccess = React.memo(()=>(
         </div>
       </div>
     </div>
+    {setTimeout(()=>(
+      alert('其实还没有成功啦~')
+    ), 3000)}
   </div>
 ));
 ApplySuccess.displayName = 'ApplySuccess';

@@ -8,7 +8,7 @@ import UploadModal from './UploadModal/UploadModal';
 
 import {languageHelper} from '../../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../../tool/remove-url-slash-suffix';
-import {get,getAsync} from '../../../../tool/api-helper';
+import {get, getAsync} from '../../../../tool/api-helper';
 
 
 class PdfResumeReact extends React.Component {
@@ -16,7 +16,10 @@ class PdfResumeReact extends React.Component {
     super(props);
     // state
     this.state = {
-      upload: false
+      upload: false,
+      uploadIndex: null,
+      btnText: '选择一份简历',
+      applyStart: false,
     };
     // i18n
     this.text = PdfResumeReact.i18n[languageHelper()];
@@ -46,19 +49,47 @@ class PdfResumeReact extends React.Component {
     this.setState({
       upload: false
     });
-    get('/resumes?type=pdf').then((response)=>{
+    get('/resumes?type=pdf').then((response) => {
       this.setState({
-        backend:response
+        backend: response
       });
     });
   }
   onFresh = () => {
-    get('/resumes?type=pdf').then((response)=>{
+    get('/resumes?type=pdf').then((response) => {
       this.setState({
-        backend:response
+        backend: response
       });
     });
-  }
+  };
+
+  // 选择简历
+  chooseFile = (index) => {
+    let a = this.props.location.search;
+    const uploadIndex = this.state.uploadIndex;
+    // 不是从job过来不让选
+    if (a.indexOf('?job=') === -1) {
+      alert('请先选择目标工作');
+      return;
+    }
+    if(index === uploadIndex) {
+      this.setState(() => ({
+        uploadIndex: null,
+        btnText: '选择一份简历'
+      }));
+    } else {
+      this.setState(() => ({
+        uploadIndex: index,
+        btnText: '准备申请'
+      }));
+    }
+  };
+  // 提交申请
+  handleApply = () => {
+    //todo, 申请api
+    this.props.history.push('/applySuccess');
+  };
+
   render() {
     // console.log(this.state)
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
@@ -66,13 +97,14 @@ class PdfResumeReact extends React.Component {
       return (<Redirect to={pathname} />);
     }
     // console.log(this.state.backend)
-    return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ?(
+    const {uploadIndex, btnText, applyStart} = this.state;
+    return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ? (
       <div>
         <div
           className="cell-wall"
         >
-          <div className="cell-membrane" style={{height:'40.6vw'}}>
-            <UploadModal upload={this.state.upload} quit={this.onQuitUpload} finish={this.onFinishUpload}/>
+          <div className="cell-membrane" style={{height: '40.6vw'}}>
+            <UploadModal upload={this.state.upload} quit={this.onQuitUpload} finish={this.onFinishUpload} />
             <div className="d-flex justify-content-between">
               <div className={classes.title}>简历</div>
               <div onClick={this.onCreateResume} className={classes.btn}>新建简历</div>
@@ -80,37 +112,43 @@ class PdfResumeReact extends React.Component {
 
             <div
               className={classes['blue-text']}
-              onClick={()=>{
+              onClick={() => {
                 this.props.history.push('/my/file');
               }}
-              style={{cursor:'pointer'}}
+              style={{cursor: 'pointer'}}
             >
               {'< '}我的文件
             </div>
-            <div className="d-flex flex-wrap justify-content-between">
+            <div className={`d-flex flex-wrap ${classes.fileFlexWrapper}`}>
               {this.state.backend.content.data.map((item, index) => {
                 return (
-                  <div style={{marginBottom: '1vw'}} key={index}>
+                  <div className={classes.fileWrapper} style={{marginBottom: '1vw'}} key={index} onClick={() => this.chooseFile(index)}>
                     <FileCard
                       id={item.id}
                       name={item.name}
                       fileId={item.fileId}
                       onFresh={this.onFresh}
+                      ifActive={uploadIndex === index}
                     />
                   </div>
                 );
               })}
             </div>
+            <div className={classes.btnWrapper}>
+              <button onClick={this.handleApply} className={(applyStart || (uploadIndex === null)) ? `${classes.btnDis} disabled` : classes.btn}>
+                {btnText}
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    ):(
+    ) : (
       <div>
         <div
           className="cell-wall"
         >
-          <div className="cell-membrane" style={{height:'40.6vw'}}>
-            <UploadModal upload={this.state.upload} quit={this.onQuitUpload} finish={this.onFinishUpload}/>
+          <div className="cell-membrane" style={{height: '40.6vw'}}>
+            <UploadModal upload={this.state.upload} quit={this.onQuitUpload} finish={this.onFinishUpload} />
             <div className="d-flex justify-content-between">
               <div className={classes.title}>简历</div>
               <div onClick={this.onCreateResume} className={classes.btn}>新建简历</div>
@@ -118,10 +156,10 @@ class PdfResumeReact extends React.Component {
 
             <div
               className={classes['blue-text']}
-              onClick={()=>{
+              onClick={() => {
                 this.props.history.push('/my/file');
               }}
-              style={{cursor:'pointer'}}
+              style={{cursor: 'pointer'}}
             >
               {'< '}我的文件
             </div>
