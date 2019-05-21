@@ -81,7 +81,7 @@ class SignedInReact extends React.Component {
                       width: '3.125vw',
                     }}>
                     <img
-                      src={(this.state.user.content.avatar_url==='---')?('http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'):(this.state.user.content.avatar_url==='---')}
+                      src={(this.state.user.content.avatar_url==='---') ? ('http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'): this.state.user.content.avatar_url}
                       //src='http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'
                       className="rounded-circle img-fluid p-0 float-right"
                       alt="Sample avatar"
