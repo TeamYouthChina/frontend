@@ -11,10 +11,12 @@ import {
 import Dropzone from 'react-dropzone';
 import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
-import fetch from 'isomorphic-fetch';
 
-import { postAsync } from '../../../../../tool/api-helper';
+
+import { postAsync} from '../../../../../tool/api-helper';
+
 import classes from './UploadModal.module.css';
+
 
 export default class UploadModal extends Component {
   constructor() {
@@ -22,6 +24,7 @@ export default class UploadModal extends Component {
     this.state = {
       files: [],
       resumeName: '',
+      fileId:'',
     };
   }
 
@@ -32,25 +35,44 @@ export default class UploadModal extends Component {
     }
     let theFile = new FormData();
     theFile.append('file', this.state.files[0]);
-    const option = {
-      method: 'POST',
-      body: theFile,
-      headers: new Headers({
-        'x-authentication': Cookies.get('token'),
-      }),
-    };
+    const xhr = new XMLHttpRequest;
+    const successFn = async(response) => {
+      if(xhr.readyState === 4 && response) {
+        const id = xhr.responseText.slice(11,30);
 
-    await fetch('http://test.zzc-tongji.com/api/v1/static', option)
-      .then(response => response.json())
-      .then(async response => {
-        
-         
         await postAsync(
-          '/resumes/pdf', 
-          
-          {fileId: response.content.toString(), name: this.state.resumeName});
-      });
-    this.props.finish();
+          '/resumes/pdf',
+          {fileId: id, name: this.state.resumeName});
+        this.props.finish();
+      }
+    };
+    xhr.addEventListener('load', successFn, false);
+    xhr.open('POST', 'http://test.weyouth.co/api/v1/static', true);
+    xhr.setRequestHeader('X-AUTHENTICATION',Cookies.get('token'));
+    xhr.send(theFile);
+   
+    
+    
+    // const option = {
+    //   method: 'POST',
+    //   body: theFile,
+    //   headers: new Headers({
+    //     'x-authentication': Cookies.get('token'),
+    //   }),
+    // };
+    //
+    //
+    // await fetch('http://test.weyouth.co/api/v1/static', option)
+    //
+    //   .then(response => response.json())
+    //   .then(async data =>{
+    //
+    //     await postAsync(
+    //       '/resumes/pdf',
+    //
+    //       {fileId: data.content, name: this.state.resumeName});
+    //   });
+    
   };
 
   onDrop = files => {
@@ -81,7 +103,6 @@ export default class UploadModal extends Component {
   };
 
   render() {
-    // console.log(this.state.files);
 
     const files = this.state.files.map(file => (
       <li key={file.name}>
