@@ -25,7 +25,7 @@ class PdfResumeReact extends React.Component {
   async componentDidMount() {
 
     this.setState({
-      backend: await getAsync(`/resumes/pdf/${localStorage.getItem('id')}`)
+      backend: await getAsync('/resumes?type=pdf')
     });
 
   }
@@ -46,14 +46,14 @@ class PdfResumeReact extends React.Component {
     this.setState({
       upload: false
     });
-    get(`/resumes/pdf/${localStorage.getItem('id')}`).then((response)=>{
+    get('/resumes?type=pdf').then((response)=>{
       this.setState({
         backend:response
       });
     });
   }
   onFresh = () => {
-    get(`/resumes/pdf/${localStorage.getItem('id')}`).then((response)=>{
+    get('/resumes?type=pdf').then((response)=>{
       this.setState({
         backend:response
       });
@@ -88,35 +88,18 @@ class PdfResumeReact extends React.Component {
               {'< '}我的文件
             </div>
             <div className="d-flex flex-wrap justify-content-between">
-              {/*{this.state.backend.content.map((item, index) => {*/}
-              {/*return (*/}
-              {/*<div style={{marginBottom: '1vw'}} key={index}>*/}
-              {/*<FileCard*/}
-              {/*id={item.id}*/}
-              {/*name={item.name}*/}
-              {/*fileId={item.fileId}*/}
-              {/*/>*/}
-              {/*</div>*/}
-              {/*);*/}
-              {/*})}*/}
-            </div>
-            <div className="d-flex mt-3 justify-content-between">
-              <FileCard
-                id={this.state.backend.content.id}
-                name={this.state.backend.content.name}
-                fileId={this.state.backend.content.fileId}
-                onFresh={this.onFresh}
-              />
-              <FileCard
-                id={this.state.backend.content.id}
-                name={this.state.backend.content.name}
-                fileId={this.state.backend.content.fileId}
-              />
-              <FileCard
-                id={this.state.backend.content.id}
-                name={this.state.backend.content.name}
-                fileId={this.state.backend.content.fileId}
-              />
+              {this.state.backend.content.data.map((item, index) => {
+                return (
+                  <div style={{marginBottom: '1vw'}} key={index}>
+                    <FileCard
+                      id={item.id}
+                      name={item.name}
+                      fileId={item.fileId}
+                      onFresh={this.onFresh}
+                    />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
