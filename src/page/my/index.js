@@ -17,15 +17,17 @@ import {Header2} from '../header-2';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 import * as deviceHelper from '../../tool/device-helper';
-import {getAsync, isLogin} from '../../tool/api-helper';
+import {getAsync, isLogin, get} from '../../tool/api-helper';
 
+const defaultAva = 'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png';
 
 class MyReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {
-      render: 0
+      render: 0,
+      userAvatar:localStorage.getItem('avatar'),
     };
     // i18n
     this.text = MyReact.i18n[languageHelper()];
@@ -37,10 +39,25 @@ class MyReact extends React.Component {
         render: 2
       });
     }
-    this.setState({
-      render: 1,
-      user: await getAsync('/me'),
-    });
+    const result = await getAsync('/me');
+    let userAvatar = this.state.userAvatar;
+    if((userAvatar !== defaultAva) && userAvatar.length > 10) {
+      get(`/static/${userAvatar}`).then((res)=>{
+        userAvatar = res.content;
+        this.setState({
+          render: 1,
+          user: result,
+          userAvatar
+        });
+      });
+    } else {
+      userAvatar = defaultAva;
+      this.setState({
+        render: 1,
+        user: result,
+        userAvatar
+      });
+    }
   }
 
   render() {
@@ -48,6 +65,7 @@ class MyReact extends React.Component {
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
+    const { userAvatar } = this.state;
     switch (this.state.render) {
       case 1:
         return (
@@ -67,7 +85,7 @@ class MyReact extends React.Component {
                       background: '#F3F5F7'
                     } : {width: '8.67vw', height: '8.67vw', marginTop: '-4.335vw', background: '#F3F5F7'}}
                     // 因为要更新头像
-                    src={localStorage.getItem('avatar') === '---' ? 'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png' : localStorage.getItem('avatar')}
+                    src={userAvatar}
                     //src='http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'
                     className="rounded-circle img-fluid p-0 float-right"
                     alt="Sample avatar"
