@@ -164,6 +164,8 @@ class Comments extends React.Component {
         array.push(
           <CommentCard
             id={item.id}
+            key={item.id}
+            userAll={item.creator}
             user={item.creator && `${item.creator.first_name} ${item.creator.last_name}`}
             userId={item.creator && item.creator.id}
             time={timeHelper(item.modified_at)}

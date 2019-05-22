@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import {languageHelper} from '../../../tool/language-helper';
-import {generateHeaders, getAsync, urlPrefix} from '../../../tool/api-helper';
+import {defaultAva, generateHeaders, get, getAsync, urlPrefix} from '../../../tool/api-helper';
 import UserInfor from '../containers/user-infor/user-infor';
 import Comments from '../comment-card-bar';
 import Footer from '../containers/footer/footer';
@@ -23,6 +23,7 @@ export class AnswerCard extends React.Component {
       showList:false,
       getFromChildLength:null,
       getFromChild:null,
+      authorAvatar:null,
       showComments: false,
       commentsText: null,
       comments: null,
@@ -130,12 +131,23 @@ export class AnswerCard extends React.Component {
       if (this.props.articleId !== undefined) {
         try {
           const results = await getAsync(`/articles/${this.props.articleId}`);
+          let authorAvatar;
           if (results.status.code === 200 && (comments.status.code === 2000)) {
             this.setState(() => ({
               backend: results.content,
               comments: comments.content,
               commentsText: `${comments.content.data.length}条评论`
             }));
+            if((results.content.author === null) || (results.content.author.avatar_url.length < 10)){
+              authorAvatar = defaultAva;
+            } else {
+              authorAvatar = results.content.author.avatar_url;
+              get(`/static/${authorAvatar}`).then((res)=>{
+                this.setState(()=>({
+                  authorAvatar:res.content
+                }));
+              });
+            }
           } else {
             this.props.history.push('/page-no-found');
           }
@@ -409,7 +421,7 @@ export class AnswerCard extends React.Component {
   }
 
   render() {
-    const backend = this.state.backend;
+    const {backend, authorAvatar} = this.state;
     return (this.state.backend !== null) ? (
       <React.Fragment>
         <div className={classes.cardWrapper} ref={(span) => this.scrollSpan = span}>
@@ -429,7 +441,7 @@ export class AnswerCard extends React.Component {
             short={backend.body.previewText}
             content={backend.body.braftEditorRaw}
             handleSpanClick={this.handleSpanClick}
-            avatar={backend.author && backend.author.avatar_url} 
+            avatar={authorAvatar} 
             userId={backend.author === null ? 1 : backend.author.id}
           />
           <Share
