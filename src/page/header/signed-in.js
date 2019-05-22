@@ -4,20 +4,37 @@ import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import {languageHelper} from '../../tool/language-helper';
 import classes from './index.module.css';
-import {getAsync, logout} from '../../tool/api-helper';
+import {get, getAsync, logout} from '../../tool/api-helper';
+
+const defaultAva = 'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png';
 
 class SignedInReact extends React.Component {
   constructor(props) {
     super(props);
     // state
     this.state = {
-      render: 0
+      render: 0,
+      userAvatar:localStorage.getItem('avatar'),
     };
     // i18n
     this.text = SignedInReact.i18n[languageHelper()];
   }
 
   async componentDidMount() {
+    let userAvatar = this.state.userAvatar;
+    if((userAvatar !== defaultAva) && userAvatar.length > 10) {
+      get(`/static/${userAvatar}`).then((res)=>{
+        userAvatar = res.content;
+        this.setState({
+          userAvatar
+        });
+      });
+    } else {
+      userAvatar = defaultAva;
+      this.setState({
+        userAvatar
+      });
+    }
     this.setState({
       render: 1,
       user: await getAsync('/me'),
@@ -81,7 +98,7 @@ class SignedInReact extends React.Component {
                       width: '3.125vw',
                     }}>
                     <img
-                      src={(this.state.user.content.avatar_url==='---') ? ('http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'): this.state.user.content.avatar_url}
+                      src={this.state.userAvatar}
                       //src='http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'
                       className="rounded-circle img-fluid p-0 float-right"
                       alt="Sample avatar"

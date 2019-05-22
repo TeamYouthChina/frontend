@@ -69,7 +69,6 @@ class PdfResumeReact extends React.Component {
     const uploadIndex = this.state.uploadIndex;
     // 不是从job过来不让选
     if (a.indexOf('?job=') === -1) {
-      alert('请先选择目标工作');
       return;
     }
     if(index === uploadIndex) {
@@ -134,11 +133,13 @@ class PdfResumeReact extends React.Component {
                 );
               })}
             </div>
-            <div className={classes.btnWrapper}>
-              <button onClick={this.handleApply} className={(applyStart || (uploadIndex === null)) ? `${classes.btnDis} disabled` : classes.btn}>
-                {btnText}
-              </button>
-            </div>
+            {this.props.location.search.indexOf('?job=') !== -1 && (
+              <div className={classes.btnWrapper}>
+                <button onClick={this.handleApply} className={(applyStart || (uploadIndex === null)) ? `${classes.btnDis} disabled` : classes.btn}>
+                  {btnText}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
