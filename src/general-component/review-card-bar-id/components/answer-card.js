@@ -403,7 +403,7 @@ export class AnswerCard extends React.Component {
 
   render() {
     const {backend, authorAvatar} = this.state;
-    return (this.state.backend !== null) ? (
+    return (backend !== null) ? (
       <React.Fragment>
         <div className={classes.cardWrapper} ref={(span) => this.scrollSpan = span}>
           <UserInfor
