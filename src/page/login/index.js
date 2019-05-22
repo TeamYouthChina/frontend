@@ -73,7 +73,7 @@ class LoginReact extends React.Component {
       ));
       localStorage.setItem('id', backend.content.id);
       localStorage.setItem('username', backend.content.username);
-      localStorage.setItem('avatar', backend.content.avatarUrl ? backend.content.avatarUrl : 'https://s2.ax1x.com/2019/01/27/kuUMYq.jpg', {expires: 1});
+      localStorage.setItem('avatar', backend.content.avatarUrl ? backend.content.avatarUrl : 'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png', {expires: 1});
       const to = queryString.parse(this.props.location.search).to;
       this.props.history.push(to ? to : '/');
       if (to) {

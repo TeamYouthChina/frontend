@@ -12,10 +12,9 @@ import BraftEditor from 'braft-editor';
 import 'braft-editor/dist/index.css';
 import {isLogin, urlPrefix, generateHeaders, getAsync} from '../../../../tool/api-helper';
 import Cookies from 'js-cookie';
-
 const myUploadFn = (param) => {
 
-  const serverURL = 'http://test.zzc-tongji.com/api/v1/static';
+  const serverURL = urlPrefix;
   const xhr = new XMLHttpRequest;
   const fd = new FormData();
 

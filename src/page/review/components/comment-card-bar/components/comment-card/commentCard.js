@@ -6,7 +6,7 @@ import {CommentContent} from '../../containers/comment-content/commentContent';
 import {CommentFooter} from '../../containers/comment-footer/commentFooter';
 import classes from './index.module.css';
 import expandMore from '../../../../public/expand-more.svg';
-import {urlPrefix, generateHeaders} from '../../../../../../tool/api-helper';
+import {urlPrefix, generateHeaders, defaultAva, get} from '../../../../../../tool/api-helper';
 import Reply from '../replies';
 
 
@@ -20,6 +20,7 @@ export class CommentCard extends React.Component {
       showList:false,
       showCommentsText: '查看回复',
       replyText: '回复',
+      authorAvatar:null,
       commentLists: [],
       evaluateStatus:null,
       downvoteCount:null,
@@ -31,7 +32,7 @@ export class CommentCard extends React.Component {
   
 
   componentDidMount() {
-    const {evaluateStatus, downvoteCount, upvoteCount} = this.props;
+    const {evaluateStatus, downvoteCount, upvoteCount, userAll} = this.props;
     this.setState(()=>({
       backend:{
         evaluateStatus,
@@ -39,6 +40,17 @@ export class CommentCard extends React.Component {
         upvoteCount,
       }
     }));
+    let authorAvatar;
+    if((userAll === null) || (userAll.avatar_url.length < 10)){
+      authorAvatar = defaultAva;
+    } else {
+      authorAvatar = userAll.avatar_url;
+      get(`/static/${authorAvatar}`).then((res)=>{
+        this.setState(()=>({
+          authorAvatar:res.content
+        }));
+      });
+    }
   }
 
   showRepliesFunc(){
@@ -239,14 +251,14 @@ export class CommentCard extends React.Component {
   };
   
   render(){
-    const {backend} = this.state;
+    const {backend, authorAvatar} = this.state;
     return (backend !== null) ? (
       <div className={classes.wrapper}>
         <div>
           <MDBRow className={classes.mdbRow}>
             <MDBAvatar className={classes.avatar}>
               <img
-                src={'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'}
+                src={authorAvatar}
                 alt="avatar"
                 className={`rounded-circle ${classes.imgStyle}`}
               />
@@ -275,7 +287,7 @@ export class CommentCard extends React.Component {
               <span className={classes.showSpan} onClick={this.showRepliesFunc}>
                 {this.state.showCommentsText}<img style={{marginLeft:'0.39vw'}} src={expandMore} alt="" />
               </span>
-              <Reply showReplies={this.state.showReplies} showGive={this.state.showGive} commentId={this.props.id} />
+              <Reply onShowReply={this.onShowReply} showReplies={this.state.showReplies} showGive={this.state.showGive} commentId={this.props.id} />
             </div>
           </MDBRow>
         </div>
@@ -299,6 +311,7 @@ CommentCard.propTypes = {
   downvoteCount: PropTypes.number,
   evaluateStatus: PropTypes.number,
   match: PropTypes.object,
+  userAll: PropTypes.object.isRequired,
 };
 
 export default CommentCard;

@@ -7,7 +7,7 @@ import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 import {generateHeaders, urlPrefix} from '../../tool/api-helper';
 import ArticleDes from './containers/articleDes';
 import Comments from './components/comment-card-bar';
-import {getAsync, isLogin} from '../../tool/api-helper';
+import {getAsync, isLogin, get, defaultAva} from '../../tool/api-helper';
 import {timeHelper} from '../../tool/time-helper';
 import classes from './index.module.css';
 import Share from './containers/share';
@@ -19,7 +19,8 @@ class ArticleReact extends React.Component {
     this.state = {
       backend:null,
       commentsText:'1条评论',
-      showShare:false
+      showShare:false,
+      authorAvatar:null,
     };
     // i18n
     this.text = ArticleReact.i18n[languageHelper()];
@@ -31,7 +32,18 @@ class ArticleReact extends React.Component {
       try {
         const result = await getAsync(`/articles/${id}`);
         const comments = await getAsync(`/articles/${id}/comments`);
+        let authorAvatar = null;
         if (result.status.code === 200) {
+          if((result.content.author === null) || (result.content.author.avatar_url.length < 10)){
+            authorAvatar = defaultAva;
+          } else {
+            authorAvatar = result.content.author.avatar_url;
+            get(`/static/${authorAvatar}`).then((res)=>{
+              this.setState(()=>({
+                authorAvatar:res.content
+              }));
+            });
+          }
           this.setState(() => ({
             backend: result.content,
             comments:comments.content,
@@ -293,7 +305,7 @@ class ArticleReact extends React.Component {
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
-    const backend = this.state.backend;
+    const {backend, authorAvatar} = this.state;
     return (this.state.backend !== null) ? (
       <div className={classes.wrapper}>
         <ArticleDes
@@ -301,7 +313,7 @@ class ArticleReact extends React.Component {
           time={timeHelper(backend.modified_at)}
           content={backend.body.braftEditorRaw} 
           user={backend.author === null ? backend.author : `${backend.author.first_name} ${backend.author.last_name}`}
-          avatar={backend.author && backend.author}
+          avatar={ authorAvatar }
           description={this.testRole(backend.author)} 
           commentsText={this.state.commentsText}
           evaluateStatus={backend.evaluateStatus}

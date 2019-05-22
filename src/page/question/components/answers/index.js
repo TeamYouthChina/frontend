@@ -31,12 +31,13 @@ class AnswersReact extends React.Component {
             break;
           }
         }
-        if (data !== undefined) {
+        if (data !== null) {
           this.setState(() => ({
             backend: data
           }));
         } else {
           alert('no this answer');
+          this.props.history.replace(`/question/${this.props.match.params.qid}`);
         }
       } else {
         this.setState({

@@ -5,14 +5,15 @@ import classes from './index.module.css';
 import {MDBAvatar, MDBRow} from 'mdbreact';
 import ReplyContent from './content';
 import ReplyFooter from './footer';
-import {urlPrefix, generateHeaders} from '../../../../../../../tool/api-helper';
+import {urlPrefix, generateHeaders, defaultAva, get} from '../../../../../../../tool/api-helper';
 import {timeHelper} from '../../../../../../../tool/time-helper';
 
 class ReplyCard extends React.Component{
   constructor(props){
     super(props);
     this.state={
-      backend:null
+      backend:null,
+      authorAvatar:null,
     };
   }
 
@@ -20,6 +21,18 @@ class ReplyCard extends React.Component{
     this.setState(()=>({
       backend:{...this.props.data},
     }));
+    let userAll = this.props.data.creator;
+    let authorAvatar;
+    if((userAll === null) || (userAll.avatar_url.length < 10)){
+      authorAvatar = defaultAva;
+    } else {
+      authorAvatar = userAll.avatar_url;
+      get(`/static/${authorAvatar}`).then((res)=>{
+        this.setState(()=>({
+          authorAvatar:res.content
+        }));
+      });
+    }
   }
 
   // 点赞
@@ -182,14 +195,14 @@ class ReplyCard extends React.Component{
   };
   
   render(){
-    const {backend} = this.state;
+    const {backend, authorAvatar} = this.state;
     return (backend !== null) ? (
       <div className={classes.wrapper}>
         <div>
           <MDBRow className={classes.mdbRow}>
             <MDBAvatar className={classes.avatar}>
               <img
-                src={backend.creator.avatar_url.length > 10 ? backend.creator.avatar : 'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'}
+                src={authorAvatar}
                 alt="avatar"
                 className={`rounded-circle ${classes.imgStyle}`}
               />

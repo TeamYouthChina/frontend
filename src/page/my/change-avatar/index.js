@@ -6,6 +6,7 @@ import DeImg from './img/child.png';
 import style from './index.module.css';
 import Cookies from 'js-cookie';
 import PropTypes from 'prop-types';
+import {urlPrefix} from '../../../tool/api-helper';
 /* global FileReader */
 
 const src = DeImg;
@@ -17,12 +18,15 @@ export class ChangeAvatar extends Component {
     this.state = {
       src,
       cropResult: null,
+      sliceText: '确认裁剪'
     };
-    this.name = null;
+    // 控制button
+    this.loadingTime = false;
     this.cropImage = this.cropImage.bind(this);
     this.onChange = this.onChange.bind(this);
     this.useDefaultImage = this.useDefaultImage.bind(this);
   }
+
   // 实时显示
   onChange(e) {
     e.preventDefault();
@@ -40,6 +44,7 @@ export class ChangeAvatar extends Component {
     };
     reader.readAsDataURL(files[0]);
   }
+
   // 切割
   cropImage() {
     if (typeof this.cropper.getCroppedCanvas() === 'undefined') {
@@ -50,30 +55,35 @@ export class ChangeAvatar extends Component {
     formData.append('file', result);
     this.myUploadFn(result);
   }
+
   // 上传获取id
   myUploadFn = (file) => {
 
-    const serverURL = 'http://test.zzc-tongji.com/api/v1/static';
+    const serverURL = `${urlPrefix}/static`;
     const xhr = new XMLHttpRequest;
     const fd = new FormData();
 
     const successFn = (response) => {
-      if(xhr.readyState === 4 && response) {
-        const id = xhr.responseText.slice(11,30);
-        try{
-          fetch(`http://test.zzc-tongji.com/api/v1/static/${id}`,{
-            method:'GET',
-            headers:new Headers({
-              'X-AUTHENTICATION':Cookies.get('token')
+      if (xhr.readyState === 4 && response) {
+        const id = xhr.responseText.slice(11, 30);
+        // 存上传好的id
+        const data = {
+          avatar_url: id
+        };
+        localStorage.setItem('avatar', id);
+        const userId = window.localStorage.id;
+        try {
+          fetch(`${urlPrefix}/users/${userId}`, {
+            method: 'PATCH',
+            headers: new Headers({
+              'X-AUTHENTICATION': Cookies.get('token'),
+              'Content-Type': 'application/json',
             }),
-            body:null
-          }).then((res)=>(res.json())).then((res)=>{
-            this.setState(()=>({
-              cropResult:res.content
-            }));
+            body: JSON.stringify(data)
+          }).then((res) => res.json()).then(() => {
             this.props.history.push('/my/profile');
           });
-        }catch (e) {
+        } catch (e) {
           alert(e);
         }
       }
@@ -84,22 +94,28 @@ export class ChangeAvatar extends Component {
     xhr.addEventListener('load', successFn, false);
     fd.append('file', file);
     xhr.open('POST', serverURL, true);
-    xhr.setRequestHeader('X-AUTHENTICATION',Cookies.get('token'));
+    xhr.setRequestHeader('X-AUTHENTICATION', Cookies.get('token'));
     xhr.send(fd);
+    this.loadingTime = true;
+    this.setState(() => ({
+      sliceText: '上传中'
+    }));
   };
+
   // 使用默认
   useDefaultImage() {
     this.setState({src});
   }
+
   // blob转码
   convertBase64ToBlob = (base64) => {
     let base64Arr = base64.split(',');
     let imgtype = '';
     let base64String = '';
-    if(base64Arr.length > 1){
+    if (base64Arr.length > 1) {
       //如果是图片base64，去掉头信息
       base64String = base64Arr[1];
-      imgtype = base64Arr[0].substring(base64Arr[0].indexOf(':')+1,base64Arr[0].indexOf(';'));
+      imgtype = base64Arr[0].substring(base64Arr[0].indexOf(':') + 1, base64Arr[0].indexOf(';'));
     }
     // 将base64解码
     let bytes = atob(base64String);
@@ -114,7 +130,7 @@ export class ChangeAvatar extends Component {
     }
 
     // 生成Blob对象（文件对象）
-    return new Blob( [bytesCode] , {type : imgtype});
+    return new Blob([bytesCode], {type: imgtype});
   };
   //将base64转换为文件
   dataURLtoFile = (dataurl, filename) => {
@@ -142,7 +158,7 @@ export class ChangeAvatar extends Component {
                   上传图片
                   </span>
                 </div>
-                <input className={style.upInput} type="file" accept="image/*" onChange={this.onChange} id="123"/>
+                <input className={style.upInput} type="file" accept="image/*" onChange={this.onChange} id="123" />
               </div>
             ) : (
               <React.Fragment>
@@ -181,8 +197,10 @@ export class ChangeAvatar extends Component {
           <br style={{clear: 'both'}} />
         </div>
         <div className={style.btnWrapper}>
-          <button className={this.state.src === DeImg ? `${style.cropBtnDis} disabled` : style.cropBtn} onClick={this.cropImage}>
-            确认裁剪
+          <button
+            className={(this.loadingTime || this.state.src === DeImg) ? `${style.cropBtnDis} disabled` : style.cropBtn}
+            onClick={this.cropImage}>
+            {this.state.sliceText}
           </button>
         </div>
       </div>
