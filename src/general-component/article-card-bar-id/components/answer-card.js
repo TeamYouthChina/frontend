@@ -130,7 +130,7 @@ export class AnswerCard extends React.Component {
       if (this.props.articleId !== undefined) {
         try {
           const results = await getAsync(`/articles/${this.props.articleId}`);
-          if (results.status.code === 200) {
+          if (results.status.code === 200 && (comments.status.code === 2000)) {
             this.setState(() => ({
               backend: results.content,
               comments: comments.content,
