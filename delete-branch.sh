@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
+SCRIPT_PATH=`cd "$(dirname "$0")"; pwd -P`
 
 # input
 if [[ -z $1 ]]; then
@@ -9,7 +9,7 @@ if [[ -z $1 ]]; then
 fi
 BRANCH=$1
 
-cd ${SCRIPT_PATH}
+cd "${SCRIPT_PATH}"
 ./sync.sh
 git push origin :${BRANCH}
 git branch -d ${BRANCH}
