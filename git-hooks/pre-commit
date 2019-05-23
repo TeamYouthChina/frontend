@@ -5,10 +5,9 @@
 # 1. The script should be executed on the root directory of the repo.
 # 2. Filenames in the repo should match the regex `[a-zA-Z0-9_\-\.]+`.
 
-set -u
-SCRIPT_PATH=`cd "$(dirname "$0")"; pwd -P`
-
 LIST=`git diff --name-only --diff-filter=d --staged HEAD | grep .*\\.js | grep -v json`
 if [[ -n ${LIST} ]]; then 
-    ../eslint.sh ${LIST};
+echo $?
+    ./eslint.sh ${LIST};
+    echo $?
 fi
