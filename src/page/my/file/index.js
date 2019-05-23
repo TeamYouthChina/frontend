@@ -13,17 +13,17 @@ class FileReact extends React.Component {
     // state
     this.state = {
       //todo, 电子简历没有获取
-      pdfCount:null
+      pdfCount: null
     };
     // i18n
     this.text = FileReact.i18n[languageHelper()];
   }
 
   componentDidMount() {
-    if(isLogin()){
-      get('/resumes?type=pdf').then((res)=>{
-        this.setState(()=>({
-          pdfCount:res.content.data.length
+    if (isLogin()) {
+      get('/resumes?type=pdf').then((res) => {
+        this.setState(() => ({
+          pdfCount: res.content.data.length
         }));
       });
     } else {
@@ -33,12 +33,12 @@ class FileReact extends React.Component {
 
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
-    const { pdfCount } = this.state;
+    const {pdfCount} = this.state;
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
     return (
-      <div style={{background:'#F3F5F7'}}>
+      <div style={{background: '#F3F5F7'}}>
         <div
           className="cell-wall"
         >
@@ -49,12 +49,14 @@ class FileReact extends React.Component {
               我的文件
             </div>
             {this.state.pdfCount !== null ? (
-              <div className="d-flex" style={{marginBottom:'2.03vw'}}>
-                <div style={{marginRight:'1.875vw'}}>
-                  <FileGeneralCard jobID={this.props.location.query} text={'PDF简历'} tag={`${pdfCount}份文件`} date={'上次修改时间：2019年3月21'} url={'pdf-resume'}/>
+              <div className="d-flex" style={{marginBottom: '2.03vw'}}>
+                <div style={{marginRight: '1.875vw'}}>
+                  <FileGeneralCard jobID={this.props.location.query} text={'PDF简历'} tag={`${pdfCount}份文件`}
+                    date={'上次修改时间：2019年3月21'} url={'pdf-resume'} />
                 </div>
                 <div>
-                  <FileGeneralCard jobID={this.props.location.query} text={'电子简历'} tag={`${pdfCount}份文件`} date={'上次修改时间：2019年3月21'} url={'e-resume'}/>
+                  <FileGeneralCard jobID={this.props.location.query} text={'电子简历'} tag={`${pdfCount}份文件`}
+                    date={'上次修改时间：2019年3月21'} url={'e-resume'} />
                 </div>
                 {/*vv*/}
                 {/*<div>*/}
@@ -62,8 +64,8 @@ class FileReact extends React.Component {
                 {/*</div>*/}
               </div>
             ) : (
-              <div className="d-flex" style={{marginBottom:'2.03vw'}}>
-                <div style={{marginRight:'1.875vw'}}>
+              <div className="d-flex" style={{marginBottom: '2.03vw'}}>
+                <div style={{marginRight: '1.875vw'}}>
                   loading
                 </div>
                 <div>

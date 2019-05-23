@@ -10,7 +10,7 @@ import {ComingSoon} from '../coming-soon';
 import {ChangeAvatar} from './change-avatar/index';
 import {Message} from './message';
 import {Establish} from './establish';
-import {ProfileMainBody} from '../profilenew';
+import {Profile} from './profile';
 import {Setting} from './setting';
 import classes from './index.module.css';
 import {Header2} from '../header-2';
@@ -177,7 +177,7 @@ class MyReact extends React.Component {
               />
               <Route
                 path={`${this.props.match.url}/profile`}
-                component={routeProps => <ProfileMainBody requestID={localStorage.getItem('id')} {...routeProps} />}
+                component={routeProps => <Profile requestID={localStorage.getItem('id')} {...routeProps} />}
               />
               <Route
                 path={`${this.props.match.url}/setting`}

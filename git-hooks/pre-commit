@@ -1,8 +1,13 @@
 #!/bin/bash
 
-set -u
-SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
+# NOTE:
+# 
+# 1. The script should be executed on the root directory of the repo.
+# 2. Filenames in the repo should match the regex `[a-zA-Z0-9_\-\.]+`.
 
-# The script is executed on the root directory of the repo.
-LIST=`git diff-index --name-only --diff-filter=d HEAD | grep .*\\.js | grep -v json`
-./eslint.sh ${LIST};
+LIST=`git diff --name-only --diff-filter=d --staged HEAD | grep .*\\.js | grep -v json`
+if [[ -n ${LIST} ]]; then 
+echo $?
+    ./eslint.sh ${LIST};
+    echo $?
+fi
