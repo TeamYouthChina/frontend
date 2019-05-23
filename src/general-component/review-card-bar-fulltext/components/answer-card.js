@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import {languageHelper} from '../../../tool/language-helper';
-import {getAsync} from '../../../tool/api-helper';
+import {defaultAva, get, getAsync} from '../../../tool/api-helper';
 import UserInfor from '../containers/user-infor/user-infor';
 import Comments from '../comment-card-bar';
 import Footer from '../containers/footer/footer';
@@ -21,6 +21,7 @@ export class AnswerCard extends React.Component {
     this.state = {
       editorState: null,
       showBottom: false,
+      authorAvatar:null,
       isCollapsed: true,
       showComments: false,
       commentsText: null,
@@ -135,6 +136,17 @@ export class AnswerCard extends React.Component {
             comments: result.content,
             commentsText: `${result.content.data.length}条评论`
           });
+          let authorAvatar;
+          if((this.props.fullText.author === null) || (this.props.fullText.author.avatar_url.length < 10)){
+            authorAvatar = defaultAva;
+          } else {
+            authorAvatar = this.props.fullText.author.avatar_url;
+            get(`/static/${authorAvatar}`).then((res)=>{
+              this.setState(()=>({
+                authorAvatar:res.content
+              }));
+            });
+          }
         } else {
           this.setState(() => ({
             backend: this.props.fullText,
@@ -408,7 +420,7 @@ export class AnswerCard extends React.Component {
   }
 
   render() {
-    const backend = this.state.backend;
+    const {backend, authorAvatar} = this.state;
     return (this.state.backend !== null) ? (
       <React.Fragment>
         <div className={classes.cardWrapper} ref={(span) => this.scrollSpan = span}>
@@ -416,7 +428,7 @@ export class AnswerCard extends React.Component {
             score={5}
             reviewId={backend.id}
             user={this.testUser}
-            avatar={backend.creator && `${backend.creator.avatar_url}`}
+            avatar={authorAvatar}
             description={backend.author === undefined ? backend.creator.role[0] : backend.author.role[0]}
             isCollapsed={this.state.isCollapsed}
             short={backend.body.previewText}

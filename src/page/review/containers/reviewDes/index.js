@@ -16,7 +16,7 @@ const ReviewDes = (props) => (
       <div style={{display: 'flex', marginTop: '1.17vw'}}>
         <div style={{display: 'inline-block'}}>
           <img
-            src={'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'}
+            src={props.authorAvatar}
             alt="avatar"
             className={`rounded-circle ${classes.imgStyle}`}
           />
@@ -122,6 +122,7 @@ ReviewDes.propTypes = {
   content: PropTypes.object.isRequired,
   text: PropTypes.object.isRequired,
   user: PropTypes.string.isRequired,
+  authorAvatar: PropTypes.string.isRequired,
   reviewId: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,

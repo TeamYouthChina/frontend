@@ -53,3 +53,35 @@
 
   color: #C1C4CA;
 }
+.fileFlexWrapper {
+  flex-flow: row wrap;
+  align-content: flex-start;
+}
+.fileWrapper {
+  flex: 0 0 33.3333%;
+}
+.fileWrapperActive {
+  border: 1px solid blue;
+  flex: 0 0 33.3333%;
+}
+.btnWrapper {
+  text-align: center;
+}
+.btnDis {
+  font-family: PingFang SC;
+  font-size: 1.09vw;
+  font-weight: bolder;
+  line-height: normal;
+  text-align: center;
+  color: #FAFBFD;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0.7vw 1.5625vw;
+  cursor: pointer;
+
+  background: #8D9AAF;
+  border-radius: 4px;
+  margin-top:2.34vw;
+  margin-bottom:1.56vw;
+}

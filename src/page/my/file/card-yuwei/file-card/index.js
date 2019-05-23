@@ -21,7 +21,9 @@ class FileCardReact extends React.Component {
     // i18n
     this.text = FileCardReact.i18n[languageHelper()];
   }
-  toggle = nr => () => {
+  toggle = nr => (e) => {
+    // 阻止事件冒泡
+    e.stopPropagation();
     let modalNumber = 'modal' + nr;
     this.setState({
       [modalNumber]: !this.state[modalNumber]
@@ -39,7 +41,7 @@ class FileCardReact extends React.Component {
 
     return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ?(
       <div 
-        className={classes.content}
+        className={this.props.ifActive ? classes.contentActive : classes.content}
         onClick={()=>{
           //this.props.history.push(`/my/collection/${this.props.url}`);
         }}
@@ -59,7 +61,7 @@ class FileCardReact extends React.Component {
           <div className={`${classes.text}`}>中文</div>
 
           {/*<div className={`mt-1 ${classes.text}`}>上次修改：2019年3月3号</div>*/}
-          <div className="d-flex mt-3">
+          <div className={`d-flex mt-3 ${classes.upLayer}`}>
             <div 
               className={`${classes['blue-text']} mr-3`}
               onClick={this.toggle(1)}
@@ -142,6 +144,7 @@ FileCardReact.i18n = [
 FileCardReact.propTypes = {
   // self
   id:PropTypes.number.isRequired,
+  ifActive:PropTypes.bool.isRequired,
   fileId:PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onFresh:PropTypes.func.isRequired,

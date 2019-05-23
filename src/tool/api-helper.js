@@ -185,3 +185,4 @@ export const mockError = (statusCode, delayMs) => {
     }
   );
 };
+export const defaultAva = 'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png';

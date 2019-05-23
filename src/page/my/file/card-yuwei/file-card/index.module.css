@@ -9,6 +9,17 @@
   
  
 }
+.contentActive{
+  display: flex;
+
+  width: 25.55vw;
+  padding: 1.17vw 1.5625vw;
+  background: #FFFFFF;
+  border-radius: 4px;
+  align-items: center;
+  border: 1px solid blue;
+
+}
 .content:hover {
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
   border-color: #eee;
@@ -44,4 +55,8 @@
   
   font-weight: bold;
   transition: all 0.2s ease-in-out;
+}
+.upLayer {
+  position: relative;
+  z-index: 100;
 }

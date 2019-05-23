@@ -13,6 +13,7 @@ import 'braft-editor/dist/index.css';
 import {isLogin, urlPrefix, generateHeaders, getAsync} from '../../../../tool/api-helper';
 import Cookies from 'js-cookie';
 
+
 const myUploadFn = (param) => {
 
   const serverURL = urlPrefix;
@@ -351,6 +352,7 @@ class ArticleCreate extends React.Component {
           <MDBCol size="1">
           </MDBCol>
         </MDBRow>
+        
       </div>
     ) : (
       <div>

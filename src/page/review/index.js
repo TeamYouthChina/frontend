@@ -7,7 +7,7 @@ import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 import classes from './index.module.css';
 import ReviewDes from './containers/reviewDes';
 import Comments from './components/comment-card-bar';
-import {generateHeaders, getAsync, isLogin, urlPrefix} from '../../tool/api-helper';
+import {generateHeaders, getAsync, isLogin, urlPrefix, defaultAva, get} from '../../tool/api-helper';
 import {timeHelper} from '../../tool/time-helper';
 import Share from './containers/share';
 
@@ -18,7 +18,8 @@ class ReviewReact extends React.Component {
     this.state = {
       backend: null,
       commentsText: null,
-      showShare: false
+      showShare: false,
+      authorAvatar:null,
     };
     // i18n
     this.text = ReviewReact.i18n[languageHelper()];
@@ -27,9 +28,20 @@ class ReviewReact extends React.Component {
   async componentDidMount() {
     if (isLogin()) {
       const id = this.props.match.params.id;
+      let authorAvatar;
       try {
         const result = await getAsync(`/editorials/${id}`);
         if (result.status.code === 200) {
+          if((result.content.author === null) || (result.content.author.avatar_url.length < 10)){
+            authorAvatar = defaultAva;
+          } else {
+            authorAvatar = result.content.author.avatar_url;
+            get(`/static/${authorAvatar}`).then((res)=>{
+              this.setState(()=>({
+                authorAvatar:res.content
+              }));
+            });
+          }
           this.setState(() => ({
             backend: result.content,
             commentsText: `${result.content.comments.length}条评论`
@@ -281,7 +293,7 @@ class ReviewReact extends React.Component {
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
-    const backend = this.state.backend;
+    const {backend, authorAvatar} = this.state;
     return (this.state.backend !== null) ? (
       <div className={classes.wrapper}>
         <ReviewDes
@@ -289,6 +301,7 @@ class ReviewReact extends React.Component {
             title: backend.title,
             detail: backend.body.braftEditorRaw
           }}
+          authorAvatar={authorAvatar}
           time={timeHelper(backend.modified_at)}
           user={backend.author && `${backend.author.first_name} ${backend.author.last_name}`}
           description={backend.author && backend.author.role[0]}
