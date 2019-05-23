@@ -38,7 +38,7 @@ class UserCardSquareAuthReact extends React.Component {
         </div>
         <div className={classes.btn}>
           <div className={classes.friend}>
-            加为好友
+            查看好友
           </div>
         </div>
       </div>
