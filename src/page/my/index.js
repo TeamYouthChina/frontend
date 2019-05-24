@@ -8,6 +8,7 @@ import {CreationSwitch} from './creation/index.switch';
 import {FileSwitch} from './file/index.switch';
 import {ComingSoon} from '../coming-soon';
 import {ChangeAvatar} from './change-avatar/index';
+import {Intention} from './intention';
 import {Message} from './message';
 import {Establish} from './establish';
 import {Profile} from './profile';
@@ -123,6 +124,10 @@ class MyReact extends React.Component {
                       subPath: '/profile'
                     },
                     {
+                      name: '求职意向',
+                      subPath: '/intention'
+                    },
+                    {
                       name: '申请进度',
                       subPath: '/application'
                     },
@@ -166,6 +171,10 @@ class MyReact extends React.Component {
               <Route
                 path={`${this.props.match.url}/file`}
                 component={routeProps => <FileSwitch {...routeProps} />}
+              />
+              <Route
+                path={`${this.props.match.url}/intention`}
+                component={routeProps => <Intention {...routeProps} />}
               />
               <Route
                 path={`${this.props.match.url}/message`}

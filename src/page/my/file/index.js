@@ -46,7 +46,7 @@ class FileReact extends React.Component {
             className="cell-membrane"
           >
             <div className={classes.title}>
-              我的文件
+              我的简历
             </div>
             {this.state.pdfCount !== null ? (
               <div className="d-flex" style={{marginBottom: '2.03vw'}}>

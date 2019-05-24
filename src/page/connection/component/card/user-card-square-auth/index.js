@@ -42,6 +42,7 @@ class UserCardSquareAuthReact extends React.Component {
             onClick={()=>{
               this.props.history.push(`/user-review/${this.props.id}`);
             }}
+            style={{cursor:'pointer'}}
           >
             查看信息
           </div>
