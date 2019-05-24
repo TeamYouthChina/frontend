@@ -37,8 +37,13 @@ class UserCardSquareAuthReact extends React.Component {
           <div className={classes.university}>{this.props.sex}{'，'}{this.props.nation}</div>
         </div>
         <div className={classes.btn}>
-          <div className={classes.friend}>
-            加为好友
+          <div
+            className={classes.friend}
+            onClick={()=>{
+              this.props.history.push(`/user-review/${this.props.id}`);
+            }}
+          >
+            查看信息
           </div>
         </div>
       </div>
@@ -53,6 +58,7 @@ UserCardSquareAuthReact.i18n = [
 
 UserCardSquareAuthReact.propTypes = {
   // self
+  id:PropTypes.number.isRequired,
   avatar: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   role: PropTypes.string.isRequired,
