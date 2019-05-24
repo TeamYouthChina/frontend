@@ -30,6 +30,7 @@ import {ReviewEdit} from './page/review-edit';
 import {Search} from './page/search';
 import {SubmitDone} from './page/submit-done';
 import {store} from './redux/store';
+import {UserReview} from './page/review-user';
 
 /*
 import * as actionJs from './redux/action';
@@ -163,12 +164,17 @@ export class App extends React.Component {
                   path="/search"
                   component={routeProps => <Search {...routeProps} />}
                 />
+                <Route
+                  path="/user-review/:id"
+                  component={routeProps => <UserReview{...routeProps} />}
+                />
 
                 {/* ====== path might change: BEGIN ====== */}
                 <Route
                   path="/submit-done"
                   component={routeProps => <SubmitDone {...routeProps} />}
                 />
+               
                 <Route
                   path="/create-resume"
                   component={routeProps => <CreateResume {...routeProps} />}

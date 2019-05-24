@@ -6,6 +6,11 @@
   padding: 25px 20px;
 }
 
+.content:hover {
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  border-color: #eee;
+  transition: all 0.2s ease-in-out;
+}
 .name{
   font-family: PingFang SC;
   font-size: 1.41vw;
@@ -52,4 +57,9 @@
   border: 1px solid #4F65E1;
   box-sizing: border-box;
   border-radius: 2px;
+}
+.btn:hover {
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+  border-color: #4F65E1;
+  transition: all 0.2s ease-in-out;
 }
