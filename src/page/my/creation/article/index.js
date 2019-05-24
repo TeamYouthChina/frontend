@@ -21,7 +21,7 @@ class ArticleReact extends React.Component {
 
   async componentDidMount() {
     try {
-      const result = await getAsync(`/users/${localStorage.getItem('id')}/my?type=${this.state.collectionType}`);
+      const result = await getAsync(`/my?type=${this.state.collectionType}`);
       if (result && result.status && result.status.code === 2000) {
         this.setState(() => {
           return {backend: result};

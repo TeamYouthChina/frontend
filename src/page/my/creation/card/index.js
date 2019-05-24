@@ -19,7 +19,7 @@ class CreationCardReact extends React.Component {
   }
 
   componentDidMount() {
-    get(`/users/${window.localStorage.id}/my?type=${this.props.type}`).then((data) => {
+    get(`/my?type=${this.props.type}`).then((data) => {
       if (data.status.code === 2000) {
         this.setState(() => ({
           backend: data.content
@@ -52,7 +52,7 @@ class CreationCardReact extends React.Component {
             {this.props.text}
           </div>
           <div className={classes.tag}>
-            {backend === null ? '     0' : `    ${backend[this.props.type].data.length}`}{this.props.unit}{this.props.text}
+            {backend === null ? '0' : `${backend.data.length}`}{this.props.unit}{this.props.text}
           </div>
         </div>
         <div>
