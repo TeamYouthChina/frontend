@@ -10,7 +10,7 @@ import {ComingSoon} from '../coming-soon';
 import {ChangeAvatar} from './change-avatar/index';
 import {Intention} from './intention';
 import {Message} from './message';
-import {Establish} from './establish';
+//import {Establish} from './establish';
 import {Profile} from './profile';
 import {Setting} from './setting';
 import classes from './index.module.css';
@@ -137,7 +137,7 @@ class MyReact extends React.Component {
                     },
                     {
                       name: '我的发布',
-                      subPath: '/establish'
+                      subPath: '/creation'
                     },
                     {
                       name: '我的收藏',
@@ -179,10 +179,6 @@ class MyReact extends React.Component {
               <Route
                 path={`${this.props.match.url}/message`}
                 component={routeProps => <Message {...routeProps} />}
-              />
-              <Route
-                path={`${this.props.match.url}/establish`}
-                component={routeProps => <Establish {...routeProps} />}
               />
               <Route
                 path={`${this.props.match.url}/profile`}
