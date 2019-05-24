@@ -12,8 +12,7 @@ import * as deviceHelper from '../../../../tool/device-helper';
 
 class UserCardBarFullReact extends React.Component {
   constructor(props) {
-    super
-    (props);
+    super(props);
     // state
     this.state = {
      
