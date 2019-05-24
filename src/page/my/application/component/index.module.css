@@ -16,7 +16,7 @@
   background: #F0F3FA;
 }
 .job{
-  width:26.17vw ;
+  width:25.17vw ;
   font-family: PingFang SC;
   font-size: 1.09vw;
   font-weight: bolder;
@@ -29,7 +29,7 @@
 }
 
 .company{
-  width: 16.875vw;
+  width: 26.875vw;
   font-family: PingFang SC;
   font-size: 1.09vw;
   font-weight: bolder;
@@ -42,7 +42,7 @@
 }
 
 .location{
-  width: 12.266vw;
+  width: 23.266vw;
   font-family: PingFang SC;
   font-size: 1.09vw;
   line-height: normal;

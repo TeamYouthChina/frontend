@@ -47,10 +47,7 @@ class ApplicationCardReact extends React.Component {
               <div className={classes.location}>
                 {item.position.organization.location}
               </div>
-              <div className={classes.date}>
-                {item.date}
-              </div>
-              <div className={this.applicationStatus(item.status)}>
+              <div className={classes.reviewed}>
                 {item.status}
               </div>
 
