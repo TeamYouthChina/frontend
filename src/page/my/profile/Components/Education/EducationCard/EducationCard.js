@@ -279,6 +279,7 @@ class EducationCard extends Component {
                 clear
                 id='universityName'
                 getValue={this.universityNameChange}
+                placeholder="支持中文/英文"
                 valueDefault={this.state.educationData.university_id}
               />
             </div>
@@ -289,6 +290,7 @@ class EducationCard extends Component {
                 clear
                 id='majorName'
                 getValue={this.majorNameChange}
+                placeholder="仅支持中文"
                 valueDefault={this.state.educationData.major}
               />
             </div>

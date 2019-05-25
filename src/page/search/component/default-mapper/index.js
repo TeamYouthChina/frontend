@@ -49,9 +49,9 @@ export class DefaultCardMapper extends React.Component {
                   case 'editorial':
                     return <ReviewCardBarId id={item.content.id} />;
                   case 'job':
-                    return <JobCardBarId id={item.id} />;
+                    return <JobCardBarId id={item.content.id} />;
                   case 'company':
-                    return <CompanyCardBarId id={item.id} />;
+                    return <CompanyCardBarId id={item.content.id} />;
                   case 'user':
                     return <UserCardBarAuth id={item.id} />;
                 }

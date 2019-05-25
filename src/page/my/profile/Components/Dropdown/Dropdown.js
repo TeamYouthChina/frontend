@@ -28,10 +28,10 @@ const dropdown = props => {
       <div className={classes.dropdown_content}>
         <ul>
           <div>
-            <button onClick={props.edit}>{text.edit}</button>
+            <button className={classes.dropdownItem} onClick={props.edit}>{text.edit}</button>
           </div>
           <div>
-            <button onClick={props.delete}>{text.delete}</button>
+            <button className={classes.dropdownItem} onClick={props.delete}>{text.delete}</button>
           </div>
         </ul>
       </div>
