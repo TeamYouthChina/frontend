@@ -8,9 +8,10 @@ import {CreationSwitch} from './creation/index.switch';
 import {FileSwitch} from './file/index.switch';
 import {ComingSoon} from '../coming-soon';
 import {ChangeAvatar} from './change-avatar/index';
+import {Intention} from './intention';
 import {Message} from './message';
-import {Establish} from './establish';
-import {ProfileMainBody} from '../profilenew';
+//import {Establish} from './establish';
+import {Profile} from './profile';
 import {Setting} from './setting';
 import classes from './index.module.css';
 import {Header2} from '../header-2';
@@ -123,6 +124,10 @@ class MyReact extends React.Component {
                       subPath: '/profile'
                     },
                     {
+                      name: '求职意向',
+                      subPath: '/intention'
+                    },
+                    {
                       name: '申请进度',
                       subPath: '/application'
                     },
@@ -132,7 +137,7 @@ class MyReact extends React.Component {
                     },
                     {
                       name: '我的发布',
-                      subPath: '/establish'
+                      subPath: '/creation'
                     },
                     {
                       name: '我的收藏',
@@ -168,16 +173,16 @@ class MyReact extends React.Component {
                 component={routeProps => <FileSwitch {...routeProps} />}
               />
               <Route
+                path={`${this.props.match.url}/intention`}
+                component={routeProps => <Intention {...routeProps} />}
+              />
+              <Route
                 path={`${this.props.match.url}/message`}
                 component={routeProps => <Message {...routeProps} />}
               />
               <Route
-                path={`${this.props.match.url}/establish`}
-                component={routeProps => <Establish {...routeProps} />}
-              />
-              <Route
                 path={`${this.props.match.url}/profile`}
-                component={routeProps => <ProfileMainBody requestID={localStorage.getItem('id')} {...routeProps} />}
+                component={routeProps => <Profile requestID={localStorage.getItem('id')} {...routeProps} />}
               />
               <Route
                 path={`${this.props.match.url}/setting`}

@@ -291,6 +291,7 @@ class BestForYouReact extends React.Component {
                       return (
                         <UserCardBarFull
                           key={index}
+                          id={item.content.id}
                           avatar={item.content.avatar_url}
                           name={item.content.first_name+item.content.last_name}
                           sex={item.content.gender}

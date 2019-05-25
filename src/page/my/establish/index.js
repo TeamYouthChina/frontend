@@ -4,6 +4,7 @@ import {Redirect} from 'react-router-dom';
 
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
+import {getAsync} from '../../../tool/api-helper';
 
 class EstablishReact extends React.Component {
   constructor(props) {
@@ -13,6 +14,13 @@ class EstablishReact extends React.Component {
     // i18n
     this.text = EstablishReact.i18n[languageHelper()];
   }
+  async componentDidMount() {
+
+    this.setState({
+      backend: await getAsync('/my?type=company')
+    });
+  }
+
 
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
@@ -22,15 +30,12 @@ class EstablishReact extends React.Component {
     return (
       <div>
         <div
-          className="cell-wall" style={{background:'#ffffff'}}
+          className="cell-wall" 
         >
           <div
             className="cell-membrane d-flex justify-content-center"
           >
-            <img
-              src="http://frontendpic.oss-us-east-1.aliyuncs.com/comingsoon%20%281%29.png"
-              className="img-fluid"
-            />
+           
 
           </div>
         </div>

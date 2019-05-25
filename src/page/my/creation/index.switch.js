@@ -5,7 +5,8 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 import {Answer} from './answer';
 import {Article} from './article';
 import {Creation} from './index';
-import {Review} from './review';
+
+//import {Review} from './review';
 import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 
@@ -38,10 +39,10 @@ class CreationSwitchReact extends React.Component {
           path={`${this.props.match.url}/article`}
           component={routeProps => <Article {...routeProps} />}
         />
-        <Route
-          path={`${this.props.match.url}/review`}
-          component={routeProps => <Review {...routeProps} />}
-        />
+        {/*<Route*/}
+        {/*path={`${this.props.match.url}/review`}*/}
+        {/*component={routeProps => <Review {...routeProps} />}*/}
+        {/*/>*/}
         <Redirect to={this.props.match.url} />
       </Switch>
     );

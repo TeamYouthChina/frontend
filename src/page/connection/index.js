@@ -72,6 +72,7 @@ class ConnectionReact extends React.Component {
                       return (
                         <div style={{marginBottom: '1vw', marginRight: '2vw',height:'10.5vw'}} key={index}>
                           <UserCardSquareAuth
+                            id={item.content.id}
                             avatar={item.content.avatar_url}
                             name={item.content.first_name+item.content.last_name}
                             role={item.content.role[0]}
