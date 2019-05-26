@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
 
 import classes from './index.module.css';
-import {FileCard} from '../card-yuwei/file-card';
+import {FileCard} from './card-yuwei/file-card';
 import UploadModal from './UploadModal/UploadModal';
 
-import {languageHelper} from '../../../../tool/language-helper';
-import {removeUrlSlashSuffix} from '../../../../tool/remove-url-slash-suffix';
-import {get, getAsync} from '../../../../tool/api-helper';
+import {languageHelper} from '../tool/language-helper';
+import {removeUrlSlashSuffix} from '../tool/remove-url-slash-suffix';
+import {generateHeaders, get, getAsync, urlPrefix} from '../tool/api-helper';
 
 
-class PdfResumeReact extends React.Component {
+class SendPdfResumeToReact extends React.Component {
   constructor(props) {
     super(props);
     // state
@@ -22,7 +22,7 @@ class PdfResumeReact extends React.Component {
       applyStart: false,
     };
     // i18n
-    this.text = PdfResumeReact.i18n[languageHelper()];
+    this.text = SendPdfResumeToReact.i18n[languageHelper()];
   }
 
   async componentDidMount() {
@@ -63,6 +63,50 @@ class PdfResumeReact extends React.Component {
     });
   };
 
+  // 选择简历
+  chooseFile = (index) => {
+    const uploadIndex = this.state.uploadIndex;
+    if (index === uploadIndex) {
+      this.setState(() => ({
+        uploadIndex: null,
+        btnText: '选择一份简历'
+      }));
+    } else {
+      this.setState(() => ({
+        uploadIndex: index,
+        btnText: '准备申请'
+      }));
+    }
+  };
+  // 提交申请
+  handleApply = () => {
+    let fileId = this.state.uploadIndex;
+    let url = this.props.match.params.id;
+    const data = {
+      resume_id: fileId
+    };
+    const options = {
+      method: 'POST',
+      headers: generateHeaders(),
+      body: JSON.stringify(data),
+    };
+    this.setState(() => ({
+      applyStart: true,
+      btnText: '申请中',
+    }));
+    fetch(`${urlPrefix}/jobs/${url}/apply`, options).then((res) => res.json()).then((res) => {
+      this.setState(() => ({
+        applyStart: false,
+        btnText: '准备申请',
+      }));
+      if (res.status.code === 4000) {
+        alert('已经申请过该公司');
+      } else {
+        this.props.history.push('/applySuccess');
+      }
+    }).catch((e) => alert(`${e} from pdf-resume-upload`));
+  };
+
   render() {
     // console.log(this.state)
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
@@ -70,7 +114,7 @@ class PdfResumeReact extends React.Component {
       return (<Redirect to={pathname} />);
     }
     // console.log(this.state.backend)
-    const {uploadIndex} = this.state;
+    const {uploadIndex, btnText, applyStart} = this.state;
     return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ? (
       <div>
         <div
@@ -95,7 +139,8 @@ class PdfResumeReact extends React.Component {
             <div className={`d-flex flex-wrap ${classes.fileFlexWrapper}`}>
               {this.state.backend.content.data.map((item, index) => {
                 return (
-                  <div className={classes.fileWrapper} style={{marginBottom: '1vw'}} key={index}>
+                  <div className={classes.fileWrapper} style={{marginBottom: '1vw'}} key={index}
+                    onClick={() => this.chooseFile(item.id)}>
                     <FileCard
                       id={item.id}
                       name={item.name}
@@ -106,6 +151,12 @@ class PdfResumeReact extends React.Component {
                   </div>
                 );
               })}
+            </div>
+            <div className={classes.btnWrapper}>
+              <button onClick={this.handleApply}
+                className={(applyStart || (uploadIndex === null)) ? `${classes.btnDis} disabled` : classes.btn}>
+                {btnText}
+              </button>
             </div>
           </div>
         </div>
@@ -139,12 +190,12 @@ class PdfResumeReact extends React.Component {
   }
 }
 
-PdfResumeReact.i18n = [
+SendPdfResumeToReact.i18n = [
   {},
   {}
 ];
 
-PdfResumeReact.propTypes = {
+SendPdfResumeToReact.propTypes = {
   // self
 
   // React Router
@@ -153,4 +204,4 @@ PdfResumeReact.propTypes = {
   location: PropTypes.object.isRequired
 };
 
-export const PdfResume = PdfResumeReact;
+export const SendPdfResumeTo = SendPdfResumeToReact;

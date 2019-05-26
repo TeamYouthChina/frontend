@@ -29,6 +29,7 @@ import {Register} from './page/register';
 import {Review} from './page/review';
 import {ReviewEdit} from './page/review-edit';
 import {Search} from './page/search';
+import {SendPdfResumeTo} from './send-pdf-resume-to';
 import {SubmitDone} from './page/submit-done';
 import {store} from './redux/store';
 import {UserReview} from './page/review-user';
@@ -168,6 +169,10 @@ export class App extends React.Component {
                 <Route
                   path="/search"
                   component={routeProps => <Search {...routeProps} />}
+                />
+                <Route
+                  path="/send-pdf-resume-to/:id"
+                  component={routeProps => <SendPdfResumeTo {...routeProps} />}
                 />
                 <Route
                   path="/user-review/:id"

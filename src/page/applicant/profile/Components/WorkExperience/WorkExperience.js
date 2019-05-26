@@ -10,7 +10,7 @@ import {
   deleteAsync,
 } from '../../../../../tool/api-helper';
 import { languageHelper } from '../../../../../tool/language-helper';
-import addIcon from '../../assets/add.svg';
+// import addIcon from '../../assets/add.svg';
 
 const translation = [
   {
