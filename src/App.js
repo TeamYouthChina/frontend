@@ -3,6 +3,7 @@ import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import {Provider} from 'react-redux';
 
 import {AnswerEdit} from './page/answer-edit';
+import {Applicant} from './page/applicant';
 import {Article} from './page/article';
 import {ArticleEdit} from './page/article-edit';
 import {ApplySuccess} from './page/apply-success';
@@ -28,6 +29,7 @@ import {Register} from './page/register';
 import {Review} from './page/review';
 import {ReviewEdit} from './page/review-edit';
 import {Search} from './page/search';
+import {SendPdfResumeTo} from './send-pdf-resume-to';
 import {SubmitDone} from './page/submit-done';
 import {store} from './redux/store';
 import {UserReview} from './page/review-user';
@@ -71,6 +73,10 @@ export class App extends React.Component {
                 <Route
                   path="/article/:id"
                   component={routeProps => <Article {...routeProps} />}
+                />
+                <Route
+                  path="/applicant/:id"
+                  component={routeProps => <Applicant {...routeProps} />}
                 />
                 <Route
                   path="/applySuccess"
@@ -165,6 +171,10 @@ export class App extends React.Component {
                   component={routeProps => <Search {...routeProps} />}
                 />
                 <Route
+                  path="/send-pdf-resume-to/:id"
+                  component={routeProps => <SendPdfResumeTo {...routeProps} />}
+                />
+                <Route
                   path="/user-review/:id"
                   component={routeProps => <UserReview{...routeProps} />}
                 />
@@ -174,7 +184,7 @@ export class App extends React.Component {
                   path="/submit-done"
                   component={routeProps => <SubmitDone {...routeProps} />}
                 />
-               
+
                 <Route
                   path="/create-resume"
                   component={routeProps => <CreateResume {...routeProps} />}
