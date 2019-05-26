@@ -3,6 +3,7 @@ import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import {Provider} from 'react-redux';
 
 import {AnswerEdit} from './page/answer-edit';
+import {Applicant} from './page/applicant';
 import {Article} from './page/article';
 import {ArticleEdit} from './page/article-edit';
 import {ApplySuccess} from './page/apply-success';
@@ -71,6 +72,10 @@ export class App extends React.Component {
                 <Route
                   path="/article/:id"
                   component={routeProps => <Article {...routeProps} />}
+                />
+                <Route
+                  path="/applicant/:id"
+                  component={routeProps => <Applicant {...routeProps} />}
                 />
                 <Route
                   path="/applySuccess"
@@ -174,7 +179,7 @@ export class App extends React.Component {
                   path="/submit-done"
                   component={routeProps => <SubmitDone {...routeProps} />}
                 />
-               
+
                 <Route
                   path="/create-resume"
                   component={routeProps => <CreateResume {...routeProps} />}

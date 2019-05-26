@@ -1,0 +1,46 @@
+.EducationCard {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  box-sizing: border-box;
+  align-items: start;
+  padding: 30px;
+}
+
+.EducationCard img {
+  height: 65px;
+  width: 65px;
+}
+
+.SchoolInfo {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-grow: 1;
+}
+
+.RedBox {
+  border-bottom: red solid 2px;
+}
+
+.SchoolName {
+  font-family: PingFang SC;
+  font-size: 16px;
+  line-height: normal;
+  color: #454f69;
+}
+
+.DegreeMajor {
+  font-family: PingFang SC;
+  font-size: 16px;
+  line-height: normal;
+  color: #454f69;
+}
+
+.TimeLocation {
+  font-family: PingFang SC;
+  font-size: 14px;
+  line-height: normal;
+  color: #8d9aaf;
+}
