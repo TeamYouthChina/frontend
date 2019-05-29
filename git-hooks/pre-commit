@@ -7,7 +7,5 @@
 
 LIST=`git diff --name-only --diff-filter=d --staged HEAD | grep .*\\.js | grep -v json`
 if [[ -n ${LIST} ]]; then 
-echo $?
     ./eslint.sh ${LIST};
-    echo $?
 fi

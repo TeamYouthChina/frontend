@@ -129,6 +129,8 @@ class DiscoveryReact extends React.Component {
                                       id={item.content.answers[0].id} />;
                                   case 'editorial':
                                     return <ReviewCardBarId id={item.content.id} />;
+                                  default:
+                                    return null;
                                 }
                               })()}
                             </MDBCol>

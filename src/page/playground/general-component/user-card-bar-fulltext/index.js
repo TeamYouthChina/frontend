@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 
-import add from './plus.png';
+//import add from './plus.png';
 
 import {languageHelper} from '../../../../tool/language-helper';
 
@@ -27,11 +27,17 @@ class UserCardBarFullReact extends React.Component {
   render() {
 
     return (
-      <div className={`${classes.content} d-flex align-items-center justify-content-between`}>
-        <div>
+      <div 
+        className={`${classes.content} d-flex align-items-center justify-content-start`}
+        style={{cursor:'pointer'}}
+        onClick={()=>{
+          this.props.history.push(`/user-review/${this.props.id}`);
+        }}
+      >
+        <div className="mr-5">
           <img
             style={deviceHelper.getType() === deviceHelper.MOBILE ? {width: '30px'} : {width: '50px'}}
-            src={(this.props.avatar==='---')?('http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'):(this.props.avatar)}
+            src='http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'
             className="rounded-circle img-fluid p-0 float-right"
             alt="Sample avatar"
           />
@@ -49,14 +55,14 @@ class UserCardBarFullReact extends React.Component {
           
          
         </div>
-        <div className={classes.add}>
-          <img 
-            src={add} 
-            alt="no img"
-            className="img-fluid p-0 w-100"
-          />
-        </div>
-       
+        {/*<div className={classes.add}>*/}
+        {/*<img */}
+        {/*src={add} */}
+        {/*alt="no img"*/}
+        {/*className="img-fluid p-0 w-100"*/}
+        {/*/>*/}
+        {/*</div>*/}
+
       </div>
     );
   }
@@ -69,6 +75,7 @@ UserCardBarFullReact.i18n = [
 
 UserCardBarFullReact.propTypes = {
   // self
+  id:PropTypes.number.isRequired,
   avatar: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   sex: PropTypes.string.isRequired, 

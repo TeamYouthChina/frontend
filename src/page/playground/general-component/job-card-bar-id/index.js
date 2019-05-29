@@ -43,7 +43,7 @@ class JobCardBarIdReact extends React.Component {
   render() {
     let dateFormat=require ('dataformat');
    
-    return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ? (
+    return (this.state.backend && this.state.backend.status && this.state.backend.status.code.toString().startsWith('2')) ? (
       <div 
         className={classes.Card}
         
