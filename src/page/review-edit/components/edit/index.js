@@ -7,6 +7,7 @@ import {
   MDBRow,
   MDBCol, MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBIcon,
 } from 'mdbreact';
+import { AdvantageTag } from '../../../question-edit/components/tags';
 import classes from './edit.module.css';
 import {generateHeaders, getAsync, isLogin, urlPrefix} from '../../../../tool/api-helper';
 import BraftEditor from 'braft-editor';
@@ -310,6 +311,7 @@ class ReviewCreate extends React.Component {
               {/*<span className={classes.titleSpan}>weYouth负责人</span>*/}
               {/*</div>*/}
             </MDBRow>
+            <AdvantageTag />
             <div className={classes.editWrapper}>
               <div>
                 <div className={classes.articleWrapper}>
