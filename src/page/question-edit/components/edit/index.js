@@ -9,6 +9,7 @@ import {
 } from 'mdbreact';
 import classes from './edit.module.css';
 import BraftEditor from 'braft-editor';
+import { AdvantageTag } from '../tags';
 import 'braft-editor/dist/index.css';
 import '../../public/style.css';
 import {isLogin, urlPrefix, generateHeaders,getAsync} from '../../../../tool/api-helper';
@@ -308,6 +309,7 @@ class ArticleCreate extends React.Component {
                 />
               </MDBCol>
             </MDBRow>
+            <AdvantageTag />
             <div className={classes.editWrapper}>
               <div>
                 <div className={classes.articleWrapper}>
