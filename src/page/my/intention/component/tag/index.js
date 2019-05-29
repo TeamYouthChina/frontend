@@ -6,6 +6,7 @@ import {MDBIcon} from 'mdbreact';
 
 import classes from './index.module.css';
 import {languageHelper} from '../../../../../tool/language-helper';
+import {deleteHttp} from '../../../../../tool/api-helper';
 
 class TagReact extends React.Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class TagReact extends React.Component {
     // i18n
     this.text = TagReact.i18n[languageHelper()];
     // style
+    
     this.onMouseEnter = this.onMouseEnter.bind(this);
     this.onMouseLeave = this.onMouseLeave.bind(this);
   }
@@ -31,8 +33,16 @@ class TagReact extends React.Component {
       hover: false,
     });
   }
-
+  
   render() {
+    if(this.props.isFinish){
+      let body={
+        label_code:this.props.tag,
+        target_id:100,
+        target_type:100
+      };
+      this.props.submit(body);
+    }
     return (
       <div
         onMouseOver={this.onMouseEnter}
@@ -41,14 +51,25 @@ class TagReact extends React.Component {
         {this.state.hover?(
           <div className={`${classes.type2} d-flex` }>
             <div className="mr-2">
-            软件工程
+              {this.props.tag}
             </div>
             <div>
-              <MDBIcon  icon="times" />
+              <MDBIcon  
+                icon="times"
+                onClick={()=>{
+                  deleteHttp(`/labels/${this.props.tag}/100/${this.props.id}`).then(()=>{
+                    
+                    this.props.onFresh();
+
+                  });}
+                }
+              />
             </div>
           </div>
         ):(
-          <div className={classes.type1}>软件工程</div>
+          <div className={classes.type1}>
+            {this.props.tag}
+          </div>
         )}
         
       </div>
@@ -63,7 +84,11 @@ TagReact.i18n = [
 
 TagReact.propTypes = {
   // self
-  backend: PropTypes.object.isRequired,
+  id:PropTypes.number.isRequired,
+  tag: PropTypes.string.isRequired,
+  isFinish:PropTypes.bool.isRequired,
+  onFresh:PropTypes.func.isRequired,
+  submit:PropTypes.func.isRequired,
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,

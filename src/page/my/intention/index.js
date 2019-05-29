@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
 
 import {languageHelper} from '../../../tool/language-helper';
+
+import {isLogin} from '../../../tool/api-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 import {AdvantageTag} from './component';
 
@@ -12,9 +14,19 @@ class IntentionReact extends React.Component {
   constructor(props) {
     super(props);
     // state
-    this.state = {};
+    this.state = {
+      backend:null,
+      render:0
+    };
     // i18n
     this.text = IntentionReact.i18n[languageHelper()];
+  }
+  async componentDidMount(){
+    if(!isLogin()){
+      this.props.history.push('/login');
+    }
+
+
   }
 
   render() {
@@ -22,10 +34,11 @@ class IntentionReact extends React.Component {
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
+
     return (
       <div>
         <div
-          className="cell-wall" 
+          className="cell-wall"
         >
           <div
             className="cell-membrane"
@@ -33,12 +46,14 @@ class IntentionReact extends React.Component {
             {/*<div className={classes.title}>*/}
             {/*优势标签*/}
             {/*</div>*/}
-            <AdvantageTag/>
+            <AdvantageTag />
 
           </div>
         </div>
       </div>
     );
+
+
   }
 }
 

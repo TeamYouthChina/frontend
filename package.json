@@ -5,6 +5,7 @@
   "dependencies": {
     "@react-pdf/renderer": "^1.5.6",
     "@wojtekmaj/react-daterange-picker": "^2.1.0",
+    "antd": "^3.19.1",
     "braft-editor": "^2.2.9",
     "dataformat": "^1.0.0",
     "eslint-plugin-react": "^7.12.4",
