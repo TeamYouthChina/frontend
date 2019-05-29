@@ -68,9 +68,10 @@ class AdvantageTagReact extends React.Component {
    
   }
   submit=(body)=>{
-    post('/labels', body).then((data)=>{
-      return(data);
-    });
+    post('/labels', body);
+    // .then((data)=>{
+    //   return(data);
+    // });
   }
   
   onFresh = () => {
@@ -159,8 +160,10 @@ class AdvantageTagReact extends React.Component {
                   color="primary"
                   onClick={()=>{
                     this.setState({
-                      finishtag:true
+                      finishtag:true,
+                      modal1:false
                     });
+                    
                   }}
                 >
                   保存
