@@ -7,6 +7,7 @@ import {
   MDBRow,
   MDBCol, MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBIcon,
 } from 'mdbreact';
+import { AdvantageTag } from '../../../question-edit/components/tags';
 import classes from './edit.module.css';
 import BraftEditor from 'braft-editor';
 import 'braft-editor/dist/index.css';
@@ -305,6 +306,7 @@ class ArticleCreate extends React.Component {
                 />
               </MDBCol>
             </MDBRow>
+            <AdvantageTag />
             <div className={classes.editWrapper}>
               <div>
                 <div className={classes.articleWrapper}>
