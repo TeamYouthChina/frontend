@@ -280,6 +280,11 @@ class ArticleCreate extends React.Component {
     // ];
     return (this.state.backend !== null) ? (
       <div className={classes.wrapper}>
+        <select>
+          <option>
+            
+          </option>
+        </select>
         <MDBRow className={classes.mdbRow}>
           <MDBCol size="1"></MDBCol>
           <MDBCol size="10" className={classes.mdbCol}>
