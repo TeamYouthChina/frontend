@@ -1,0 +1,42 @@
+.type1{
+  border: 1px solid #4F65E1;
+  box-sizing: border-box;
+  padding: 0.625vw 1.7vw;
+  border-radius: 1.5625vw;
+  margin-right: 1.7vw;
+  font-family: PingFang SC;
+  font-size: 1.25vw;
+  font-weight: bolder;
+  line-height: 22px;
+  text-align: center;
+  cursor: pointer;
+
+  color: #4F65E1;
+  
+}
+
+.type2{
+  background: #4F65E1;
+  border-radius: 1.5625vw;
+  padding: 0.625vw 1.7vw;
+  margin-right: 0.7vw;
+  font-family: PingFang SC;
+  font-size: 1.25vw;
+  font-weight: bolder;
+  line-height: 22px;
+  text-align: center;
+  cursor: pointer;
+
+  color: #FFFFFF;
+}
+.type3{
+  background: #F0F3FA;
+  border-radius: 1.5625vw;
+
+  font-family: PingFang SC;
+  font-size: 1.25vw;
+  line-height: 22px;
+  text-align: center;
+  color: #454F69;
+
+}

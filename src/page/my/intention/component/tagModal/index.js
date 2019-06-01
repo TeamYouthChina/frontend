@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 
-import {MDBIcon} from 'mdbreact';
+
 
 import classes from './index.module.css';
 import {languageHelper} from '../../../../../tool/language-helper';
-import {deleteHttp} from '../../../../../tool/api-helper';
 
-class TagReact extends React.Component {
+class TagModalReact extends React.Component {
   constructor(props) {
     super(props);
     // state
@@ -16,7 +15,7 @@ class TagReact extends React.Component {
       hover:false
     };
     // i18n
-    this.text = TagReact.i18n[languageHelper()];
+    this.text = TagModalReact.i18n[languageHelper()];
     // style
     
     this.onMouseEnter = this.onMouseEnter.bind(this);
@@ -53,18 +52,6 @@ class TagReact extends React.Component {
             <div className="mr-2">
               {this.props.tag}
             </div>
-            <div>
-              <MDBIcon  
-                icon="times"
-                onClick={()=>{
-                  deleteHttp(`/labels/${this.props.label_code}/100/${localStorage.getItem('id')}`).then(()=>{
-                    
-                    this.props.fresh();
-
-                  });}
-                }
-              />
-            </div>
           </div>
         ):(
           <div className={classes.type1}>
@@ -77,23 +64,21 @@ class TagReact extends React.Component {
   }
 }
 
-TagReact.i18n = [
+TagModalReact.i18n = [
   {},
   {}
 ];
 
-TagReact.propTypes = {
+TagModalReact.propTypes = {
   // self
-  id:PropTypes.number.isRequired,
+  
   tag: PropTypes.string.isRequired,
-  label_code: PropTypes.string.isRequired,
-  isFinish:PropTypes.bool.isRequired,
-  fresh:PropTypes.func.isRequired,
-  submit:PropTypes.func.isRequired,
+  //modalDelete:PropTypes.func.isRequired,
+  
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired
 };
 
-export const Tag = withRouter(TagReact);
+export const TagModal = withRouter(TagModalReact);
