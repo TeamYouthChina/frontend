@@ -1,0 +1,64 @@
+.dropdown {
+  align-self: flex-start;
+  position: relative;
+}
+
+
+.dropbtn {
+  background-color: white;
+  padding: auto;
+  margin: 0;
+  border: none;
+  color: #31394D;
+  display: flex;
+  font-family: "PingFang SC";
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  font-size: 16px;
+  text-align: center;
+  transition-duration: 0.4s;
+  width: 2.3vw;
+}
+
+
+.dropdown_content {
+  display: none;
+  position: absolute;
+  top:4vw;
+  border-radius: 0.4vw;
+  background-color: #2ADFB3;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  color: #31394D;
+  font-family: "PingFang SC";
+  font-style: normal;
+  font-weight: 500;
+  overflow:hidden;
+  line-height: normal;
+  font-size: 16px;
+}
+
+.dropdownItem {
+  text-align: start;
+  padding-left: 0.6vw;
+  height: 2.2vw;
+  width: 7vw;
+}
+
+.dropdownItem:hover, .dropdownItem button:hover {
+  background-color: #e7e7e7;
+  transition-duration: 0.4s;
+}
+
+.dropdown:hover .dropdown_content {
+  display: flex;
+}
+
+.dropdown:hover .dropbtn {
+  /*background-color: blue;*/
+}
+
+.dropdown:hover button {
+  border: none;
+}

@@ -35,14 +35,14 @@ class TagReact extends React.Component {
   }
   
   render() {
-    // // if(this.props.isFinish){
-    // //   let body={
-    // //     label_code:this.props.tag,
-    // //     target_id:13,
-    // //     target_type:100
-    // //   };
-    // //   this.props.submit(body);
-    // }
+    if(this.props.isFinish){
+      let body={
+        label_code:this.props.tag,
+        target_id:100,
+        target_type:100
+      };
+      this.props.submit(body);
+    }
     return (
       <div
         onMouseOver={this.onMouseEnter}
@@ -57,9 +57,9 @@ class TagReact extends React.Component {
               <MDBIcon  
                 icon="times"
                 onClick={()=>{
-                  deleteHttp(`/labels/${this.props.label_code}/100/${localStorage.getItem('id')}`).then(()=>{
+                  deleteHttp(`/labels/${this.props.tag}/100/${this.props.id}`).then(()=>{
                     
-                    this.props.fresh();
+                    this.props.onFresh();
 
                   });}
                 }
@@ -86,9 +86,8 @@ TagReact.propTypes = {
   // self
   id:PropTypes.number.isRequired,
   tag: PropTypes.string.isRequired,
-  label_code: PropTypes.string.isRequired,
   isFinish:PropTypes.bool.isRequired,
-  fresh:PropTypes.func.isRequired,
+  onFresh:PropTypes.func.isRequired,
   submit:PropTypes.func.isRequired,
   // React Router
   match: PropTypes.object.isRequired,
