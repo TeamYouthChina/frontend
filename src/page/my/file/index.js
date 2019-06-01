@@ -61,7 +61,6 @@ class FileReact extends React.Component {
                 {/*<FileGeneralCard jobID={this.props.location.query} text={'电子简历'} tag={`${pdfCount}份文件`}*/}
                 {/*date={'上次修改时间：2019年3月21'} url={'e-resume'} />*/}
                 {/*</div>*/}
-
               </div>
             ) : (
               <div className="d-flex" style={{marginBottom: '2.03vw'}}>
