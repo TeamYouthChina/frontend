@@ -371,22 +371,23 @@ export class AnswerCard extends React.Component {
           const results = values[0];
           const comments = values[1];
           if (results.status.code.toString().startsWith('2') && comments.status.code.toString().startsWith('2')) {
-            this.setState(() => ({
-              backend: results.content,
-              comments: comments.content,
-              commentsText: `${comments.content.data.length}条评论`
-            }));
             if (results.content.creator && results.content.creator.avatar_url >= 10) {
               get(`/static/${results.content.author.avatar_url}`).then((res) => {
                 this.setState(() => ({
                   render: 1,
-                  authorAvatar: res.content
+                  authorAvatar: res.content,
+                  backend: results.content,
+                  comments: comments.content,
+                  commentsText: `${comments.content.data.length}条评论`
                 }));
               });
             } else {
               this.setState(() => ({
                 render: 1,
-                authorAvatar: defaultAva
+                authorAvatar: defaultAva,
+                backend: results.content,
+                comments: comments.content,
+                commentsText: `${comments.content.data.length}条评论`
               }));
             }
           } else if (results.status.code.toString().startsWith('401') || comments.status.code.toString().startsWith('401')) {

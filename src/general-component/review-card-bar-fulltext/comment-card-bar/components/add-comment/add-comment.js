@@ -1,5 +1,5 @@
 import React from 'react';
-import {MDBAvatar, MDBBtn, MDBRow} from 'mdbreact';
+import {MDBBtn, MDBRow} from 'mdbreact';
 import PropTypes from 'prop-types';
 import classes from './index.module.css';
 
@@ -46,13 +46,13 @@ export class AddComment extends React.Component {
   render() {
     return (
       <MDBRow className={classes.mdbRow}>
-        <MDBAvatar className={classes.avatar}>
-          <img
-            src={'https://s3.amazonaws.com/youthchina/WechatIMG29.jpeg'}
-            alt="user-avatar"
-            className={`rounded-circle ${classes.imgStyle}`}
-          />
-        </MDBAvatar>
+        {/*<MDBAvatar className={classes.avatar}>*/}
+        {/*<img*/}
+        {/*src={'https://s3.amazonaws.com/youthchina/WechatIMG29.jpeg'}*/}
+        {/*alt="user-avatar"*/}
+        {/*className={`rounded-circle ${classes.imgStyle}`}*/}
+        {/*/>*/}
+        {/*</MDBAvatar>*/}
         <div className={classes.addComment}>
           <textarea
             ref={text => this.textArea = text}
@@ -62,7 +62,7 @@ export class AddComment extends React.Component {
             style={{maxlength:150}}
           />
           <div className={classes.countNum}>
-            {this.state.leftCount}
+            {this.state.leftCount}&nbsp;/&nbsp;150
           </div>
         </div>
         <MDBBtn className={classes.btnStyle} onClick={this.submitComment}>

@@ -33,23 +33,29 @@ export class CommentCard extends React.Component {
 
   componentDidMount() {
     const {evaluateStatus, downvoteCount, upvoteCount, userAll} = this.props;
-    this.setState(()=>({
-      backend:{
-        evaluateStatus,
-        downvoteCount,
-        upvoteCount,
-      }
-    }));
     let authorAvatar;
-    if((userAll === null) || (userAll.avatar_url.length < 10)){
-      authorAvatar = defaultAva;
-    } else {
+    if((userAll !== null) && (userAll.avatar_url.length > 10)){
       authorAvatar = userAll.avatar_url;
       get(`/static/${authorAvatar}`).then((res)=>{
         this.setState(()=>({
-          authorAvatar:res.content
+          authorAvatar:res.content,
+          backend:{
+            evaluateStatus,
+            downvoteCount,
+            upvoteCount,
+          }
         }));
       });
+    } else {
+      authorAvatar = defaultAva;
+      this.setState(()=>({
+        authorAvatar,
+        backend:{
+          evaluateStatus,
+          downvoteCount,
+          upvoteCount,
+        }
+      }));
     }
   }
 

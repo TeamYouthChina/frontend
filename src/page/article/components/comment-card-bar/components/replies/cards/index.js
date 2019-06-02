@@ -18,20 +18,22 @@ class ReplyCard extends React.Component{
   }
 
   componentDidMount(){
-    this.setState(()=>({
-      backend:{...this.props.data},
-    }));
     let userAll = this.props.data.creator;
     let authorAvatar;
-    if((userAll === null) || (userAll.avatar_url.length < 10)){
-      authorAvatar = defaultAva;
-    } else {
+    if((userAll !== null) && (userAll.avatar_url.length > 10)){
       authorAvatar = userAll.avatar_url;
       get(`/static/${authorAvatar}`).then((res)=>{
         this.setState(()=>({
-          authorAvatar:res.content
+          authorAvatar:res.content,
+          backend:{...this.props.data},
         }));
       });
+    } else {
+      authorAvatar = defaultAva;
+      this.setState(()=>({
+        authorAvatar,
+        backend:{...this.props.data},
+      }));
     }
   }
 

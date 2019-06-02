@@ -34,21 +34,25 @@ class ArticleReact extends React.Component {
         const comments = await getAsync(`/articles/${id}/comments`);
         let authorAvatar = null;
         if (result.status.code === 200) {
-          if((result.content.author === null) || (result.content.author.avatar_url.length < 10)){
-            authorAvatar = defaultAva;
-          } else {
+          if((result.content.author !== null) && (result.content.author.avatar_url.length > 10)){
             authorAvatar = result.content.author.avatar_url;
             get(`/static/${authorAvatar}`).then((res)=>{
               this.setState(()=>({
-                authorAvatar:res.content
+                authorAvatar:res.content,
+                backend: result.content,
+                comments:comments.content,
+                commentsText:`${comments.content.data.length}条评论`
               }));
             });
+          } else {
+            authorAvatar = defaultAva;
+            this.setState(()=>({
+              authorAvatar,
+              backend: result.content,
+              comments:comments.content,
+              commentsText:`${comments.content.data.length}条评论`
+            }));
           }
-          this.setState(() => ({
-            backend: result.content,
-            comments:comments.content,
-            commentsText:`${comments.content.data.length}条评论`
-          }));
         } else {
           this.props.history.push('/page-not-found');
         }

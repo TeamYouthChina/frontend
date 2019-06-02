@@ -131,21 +131,25 @@ export class AnswerCard extends React.Component {
         if(this.props.type === 'fromQuestion'){
           // 这里是因为question那边用的是这个卡片....
           const result = await getAsync(`/answers/${this.props.ansCommentId}/comments`);
-          this.setState({
-            backend: this.props.fullText,
-            comments: result.content,
-            commentsText: `${result.content.data.length}条评论`
-          });
           let authorAvatar;
-          if((this.props.fullText.author === null) || (this.props.fullText.author.avatar_url.length < 10)){
-            authorAvatar = defaultAva;
-          } else {
-            authorAvatar = this.props.fullText.author.avatar_url;
+          if((this.props.fullText.creator !== null) && (this.props.fullText.creator.avatar_url.length > 10)){
+            authorAvatar = this.props.fullText.creator.avatar_url;
             get(`/static/${authorAvatar}`).then((res)=>{
               this.setState(()=>({
-                authorAvatar:res.content
+                authorAvatar:res.content,
+                backend: this.props.fullText,
+                comments: result.content,
+                commentsText: `${result.content.data.length}条评论`
               }));
             });
+          } else {
+            authorAvatar = defaultAva;
+            this.setState(()=>({
+              authorAvatar,
+              backend: this.props.fullText,
+              comments: result.content,
+              commentsText: `${result.content.data.length}条评论`
+            }));
           }
         } else {
           this.setState(() => ({
