@@ -97,7 +97,7 @@ class AdvantageTagReact extends React.Component {
   render() {
     switch (this.state.render) {
       case 1:
-        console.log(this.state.backend.content.length);
+        //console.log(this.state.backend.content.length);
         return (
           <div>
             <div className={classes.content}>

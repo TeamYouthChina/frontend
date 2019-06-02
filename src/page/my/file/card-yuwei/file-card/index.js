@@ -91,7 +91,7 @@ class FileCardReact extends React.Component {
             <div style={{padding:'1vw 5vw'}}>
               {/*<MobilePDFReader url={pdf} style={{width:'55vw',boxSizing:'content-box',border:'white',borderShadow:'none'}}/>*/}
               <object
-                style={{width:'60vw',height:'75vw'}}
+                style={{width:'55vw',height:'75vw'}}
                 data={this.state.backend.content}
                 type="application/pdf"
               >

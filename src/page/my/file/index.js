@@ -13,7 +13,8 @@ class FileReact extends React.Component {
     // state
     this.state = {
       //todo, 电子简历没有获取
-      pdfCount: null
+      pdf: null,
+      render:0
     };
     // i18n
     this.text = FileReact.i18n[languageHelper()];
@@ -23,7 +24,8 @@ class FileReact extends React.Component {
     if (isLogin()) {
       get('/resumes?type=pdf').then((res) => {
         this.setState(() => ({
-          pdfCount: res.content.data.length
+          pdf: res,
+          render:1,
         }));
       });
     } else {
@@ -33,49 +35,68 @@ class FileReact extends React.Component {
 
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
-    const {pdfCount} = this.state;
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
-    return (
-      <div style={{background: '#F3F5F7'}}>
-        <div
-          className="cell-wall"
-        >
-          <div
-            className="cell-membrane"
-          >
-            <div className={classes.title}>
-              我的简历
-            </div>
-            {this.state.pdfCount !== null ? (
-              <div className="d-flex" style={{marginBottom: '2.03vw'}}>
-                <div style={{marginRight: '1.875vw'}}>
-                  <FileGeneralCard 
-                    jobID={this.props.location.query} 
-                    text={'PDF简历'} 
-                    tag={`${pdfCount}份文件`}
-                    date={'上次修改时间：2019年3月21'} url={'pdf-resume'} />
+    switch (this.state.render) {
+      case 1:
+        return (
+          <div style={{background: '#F3F5F7'}}>
+            <div
+              className="cell-wall"
+            >
+              <div
+                className="cell-membrane"
+              >
+                <div className={classes.title}>
+                  我的简历
                 </div>
-                {/*<div>*/}
-                {/*<FileGeneralCard jobID={this.props.location.query} text={'电子简历'} tag={`${pdfCount}份文件`}*/}
-                {/*date={'上次修改时间：2019年3月21'} url={'e-resume'} />*/}
+                {this.state.pdf.status.code=== 4040 ? (
+                  <div className="d-flex" style={{marginBottom: '2.03vw'}}>
+                    <div style={{marginRight: '1.875vw'}}>
+                      <FileGeneralCard
+                        jobID={this.props.location.query}
+                        text={'PDF简历'}
+                        tag={'0份文件'}
+                        date={'上次修改时间：2019年3月21'} url={'pdf-resume'} />
+                    </div>
+                    {/*<div>*/}
+                    {/*<FileGeneralCard jobID={this.props.location.query} text={'电子简历'} tag={`${pdfCount}份文件`}*/}
+                    {/*date={'上次修改时间：2019年3月21'} url={'e-resume'} />*/}
+                    {/*</div>*/}
+                  </div>
+                ) : (
+                  <div className="d-flex" style={{marginBottom: '2.03vw'}}>
+                    <div style={{marginRight: '1.875vw'}}>
+                      <FileGeneralCard
+                        jobID={this.props.location.query}
+                        text={'PDF简历'}
+                        tag={`${this.state.pdf.content.data.length}份文件`}
+                        date={'上次修改时间：2019年3月21'} url={'pdf-resume'} />
+                    </div>
+                    {/*<div>*/}
+                    {/*<FileGeneralCard jobID={this.props.location.query} text={'电子简历'} tag={`${pdfCount}份文件`}*/}
+                    {/*date={'上次修改时间：2019年3月21'} url={'e-resume'} />*/}
+                    {/*</div>*/}
+                  </div>
+                )}
+
+                {/*<div className="d-flex" style={{marginBottom: '2.03vw'}}>*/}
+                {/*<div style={{marginRight: '1.875vw'}}>*/}
+                {/*loading*/}
                 {/*</div>*/}
+                {/*<div>*/}
+                {/*loading*/}
+                {/*</div>*/}
+                {/*</div>*/}
+
               </div>
-            ) : (
-              <div className="d-flex" style={{marginBottom: '2.03vw'}}>
-                <div style={{marginRight: '1.875vw'}}>
-                  loading
-                </div>
-                <div>
-                  loading
-                </div>
-              </div>
-            )}
+            </div>
           </div>
-        </div>
-      </div>
-    );
+        );
+      default:
+        return null;
+    }
   }
 }
 

@@ -101,9 +101,9 @@ class MyReact extends React.Component {
                   <p className={classes.name}>
                     {this.state.user.content.first_name}{this.state.user.content.last_name}
                   </p>
-                  <p className={classes.education}>
-                    {this.state.user.content.gender}{', '}{this.state.user.content.nation}
-                  </p>
+                  {/*<p className={classes.education}>*/}
+                  {/*{this.state.user.content.gender}{', '}{this.state.user.content.nation}*/}
+                  {/*</p>*/}
                   <p className={classes.position}>
                     {this.state.user.content.email}
                   </p>
