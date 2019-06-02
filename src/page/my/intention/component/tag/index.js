@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
-
-import {MDBIcon} from 'mdbreact';
-
+import { MDBIcon, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
 import classes from './index.module.css';
 import {languageHelper} from '../../../../../tool/language-helper';
 import {deleteHttp} from '../../../../../tool/api-helper';
@@ -13,7 +11,8 @@ class TagReact extends React.Component {
     super(props);
     // state
     this.state = {
-      hover:false
+      hover:false,
+      modal1:false
     };
     // i18n
     this.text = TagReact.i18n[languageHelper()];
@@ -33,7 +32,13 @@ class TagReact extends React.Component {
       hover: false,
     });
   }
-  
+  toggle = nr => () => {
+    let modalNumber = 'modal' + nr;
+    this.setState({
+      [modalNumber]: !this.state[modalNumber]
+    });
+  }
+
   render() {
     // // if(this.props.isFinish){
     // //   let body={
@@ -57,12 +62,16 @@ class TagReact extends React.Component {
               <MDBIcon  
                 icon="times"
                 onClick={()=>{
-                  deleteHttp(`/labels/${this.props.label_code}/100/${localStorage.getItem('id')}`).then(()=>{
-                    
-                    this.props.fresh();
-
-                  });}
-                }
+                  if (this.props.length===1) {
+                    this.setState({
+                      modal1:true
+                    });
+                  }
+                  else {
+                    deleteHttp(`/labels/${this.props.label_code}/100/${localStorage.getItem('id')}`).then(()=>{
+                      this.props.fresh();
+                    });}
+                }}
               />
             </div>
           </div>
@@ -71,6 +80,15 @@ class TagReact extends React.Component {
             {this.props.tag}
           </div>
         )}
+        <MDBModal isOpen={this.state.modal1} toggle={this.toggle(1)} size="sm" centered>
+          <MDBModalHeader toggle={this.toggle(1)}>提示</MDBModalHeader>
+          <MDBModalBody>
+            <h6>您必须保留至少一个标签</h6>
+          </MDBModalBody>
+          <MDBModalFooter>
+            <MDBBtn color="secondary" size="sm" onClick={this.toggle(1)}>关闭</MDBBtn>
+          </MDBModalFooter>
+        </MDBModal>
         
       </div>
     );
@@ -89,7 +107,7 @@ TagReact.propTypes = {
   label_code: PropTypes.string.isRequired,
   isFinish:PropTypes.bool.isRequired,
   fresh:PropTypes.func.isRequired,
-  submit:PropTypes.func.isRequired,
+  length:PropTypes.number.isRequired,
   // React Router
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,

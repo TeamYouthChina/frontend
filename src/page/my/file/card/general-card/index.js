@@ -30,6 +30,7 @@ class FileGeneralCardReact extends React.Component {
           <img
             src={shape}
             style={{verticalAlign:'center',padding:'1.17vw 0',marginTop:'-1vw'}}
+            className="img-fluid"
           />
 
         </div>
