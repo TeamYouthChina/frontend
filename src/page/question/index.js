@@ -18,7 +18,8 @@ class QuestionReact extends React.Component {
     this.state = {
       backend: null,
       ifHasAnswered: false,
-      showShare: false
+      showShare: false,
+      tags:[]
     };
     // i18n
     this.text = QuestionReact.i18n[languageHelper()];
@@ -29,6 +30,7 @@ class QuestionReact extends React.Component {
       const id = this.props.match.params.qid;
       try {
         const result = await getAsync(`/questions/${id}`);
+        const tags = await getAsync(`/labels/1/${id}`);
         if (result.status.code === 2000) {
           let ifHasAnswered = false;
           for (let i = 0; i < result.content.answers.length; i++) {
@@ -39,7 +41,8 @@ class QuestionReact extends React.Component {
           }
           this.setState(() => ({
             backend: result.content,
-            ifHasAnswered
+            ifHasAnswered,
+            tags:tags.content,
           }));
         } else {
           this.props.history.push('/page-not-found');
@@ -120,10 +123,11 @@ class QuestionReact extends React.Component {
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
-    const backend = this.state.backend;
+    const {backend, tags} = this.state;
     return (this.state.backend !== null) ? (
       <div>
         <QuestionDes
+          tags={tags}
           content={{
             title: backend.title,
             detail: backend.body.braftEditorRaw

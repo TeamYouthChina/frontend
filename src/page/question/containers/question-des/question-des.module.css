@@ -27,6 +27,7 @@
   margin-right:0.39vw;
   font-family: PingFang SC;
   line-height: normal;
+  cursor: default!important;
 }
 .viewSpanStyle {
   background: #F0F3FA;

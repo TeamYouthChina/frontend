@@ -12,23 +12,23 @@ import classes from './question-des.module.css';
 
 const QuestionDes = React.memo((props) => (
   <MDBCol className={classes.mdbCol}>
-    {/*<div className={classes.titleWrapper}>*/}
-    {/*{props.tags.map((item) => {*/}
-    {/*return (*/}
-    {/*<span className={classes.tagWrapper} key={item}>*/}
-    {/*<button className={classes.btnStyle}>*/}
-    {/*{item}*/}
-    {/*</button>*/}
-    {/*</span>*/}
-    {/*);*/}
-    {/*})}*/}
-    {/*<div className={classes.readingWrapper}>*/}
-    {/*<span className={classes.viewSpanStyle}>*/}
-    {/*<MDBIcon className={classes.viewIcon} far icon="eye" />*/}
-    {/*被浏览  <strong className={classes.readingColor}>1872W</strong>*/}
-    {/*</span>*/}
-    {/*</div>*/}
-    {/*</div>*/}
+    <div className={classes.titleWrapper}>
+      {props.tags.map((item) => {
+        return (
+          <span className={classes.tagWrapper} key={item}>
+            <button className={classes.btnStyle}>
+              {item.label_chn}
+            </button>
+          </span>
+        );
+      })}
+      {/*<div className={classes.readingWrapper}>*/}
+      {/*<span className={classes.viewSpanStyle}>*/}
+      {/*<MDBIcon className={classes.viewIcon} far icon="eye" />*/}
+      {/*被浏览  <strong className={classes.readingColor}>1872W</strong>*/}
+      {/*</span>*/}
+      {/*</div>*/}
+    </div>
     <br />
     <p className={classes.questionTitle}>{props.content.title}</p>
     <p
@@ -60,14 +60,14 @@ const QuestionDes = React.memo((props) => (
       )}
       {String(props.id) === window.localStorage.id && (
         <button className={classes.btnFocus}>
-          <Link style={{color:'#4F65E1'}} to={`/question/${props.questionId}/edit`}>
+          <Link style={{color: '#4F65E1'}} to={`/question/${props.questionId}/edit`}>
             修改问题
           </Link>
         </button>
       )}
       {String(props.id) === window.localStorage.id && (
         <button onClick={props.onDeleteQue} className={classes.btnFocus}>
-            删除问题
+          删除问题
         </button>
       )}
       <button className={classes.btnOthers}>
@@ -116,6 +116,7 @@ QuestionDes.propTypes = {
   content: PropTypes.object.isRequired,
   text: PropTypes.object.isRequired,
   id: PropTypes.number.isRequired,
+  tags: PropTypes.array.isRequired,
   questionId: PropTypes.string.isRequired,
   attention: PropTypes.bool.isRequired,
   onAttention: PropTypes.func.isRequired,
