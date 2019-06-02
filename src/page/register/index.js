@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
 
 import img from './assets/img.png';
+import tags from './assets/tags';
 import classes from './index.module.css';
 import {BasicInfo} from './basicInfo';
 import {RegisterFailPrompt} from './register-fail';
@@ -28,11 +29,16 @@ class RegisterReact extends React.Component {
       dateOfBirth: 766627200,
       //以上为用户信息
       modalDisplay: false,
-      modalPrompt: '' //提示信息
+      modalPrompt: '', //提示信息
+      labelDisplay: false,
+      selectedTagName: '',
+      selectedTagCode: '',
       // ifRedirect: false // 是否重定向
     };
     // i18n
     this.text = RegisterReact.i18n[languageHelper()];
+    this.tags = tags;
+    this.dic = [];
   }
 
   handleRegisterSubmit = async (event) => {
@@ -45,8 +51,8 @@ class RegisterReact extends React.Component {
       gender,
       dateOfBirth
     } = this.state;
-    
-    if(this.comparePassword()) {
+
+    if (this.comparePassword()) {
       const backend = await postAsync('/applicants/register', {
         //some user info are temporally fixed
         email,
@@ -58,7 +64,20 @@ class RegisterReact extends React.Component {
       });
 
       if (backend && backend.status && backend.status.code === 2000) {
-        this.props.history.push('/login');
+        localStorage.setItem('id', backend.content.id);
+        const loginfo = await postAsync('/login', {
+          identifier: this.state.email,
+          password: this.state.password
+        });
+
+        if (loginfo && loginfo.status && loginfo.status.code === 2000) {
+          await postAsync(
+            '/labels',
+            {label_code: this.state.selectedTagCode, target_id: localStorage.getItem('id'), target_type: 100}
+          ).then(() => {
+            this.props.history.push('/my');
+          });
+        }
         //if register success, set ifRedirect value to be true and re-render the page.
         // this.setState({ifRedirect: true});
       } else {
@@ -73,14 +92,14 @@ class RegisterReact extends React.Component {
         modalPrompt: '密码输入不一致，请重新输入。'
       });
     }
-    
+
   };
 
   comparePassword = () => {
     const {password, confirmPassword} = this.state;
     return password === confirmPassword;
   };
-  
+
   toggleModal = () => {
     this.setState({
       modalDisplay: !this.state.modalDisplay,
@@ -96,6 +115,19 @@ class RegisterReact extends React.Component {
       [event.target.name]: event.target.value
     });
   };
+
+  handleTagChange = value => {
+    this.setState({
+      selectedTagName: value,
+      selectedTagCode: (this.dic.indexOf(value)+1).toString()
+    });
+  };
+  
+  componentDidMount() {
+    this.tags.content.map(item => {
+      this.dic.push(item.name);
+    });
+  }
 
   render() {
     const pathname = removeUrlSlashSuffix(this.props.location.pathname);
@@ -133,8 +165,12 @@ class RegisterReact extends React.Component {
                 age={this.state.age}
                 gender={this.state.gender}
                 password={this.state.password}
+                selectedTagName={this.state.selectedTagName}
+                selectedTagCode={this.state.selectedTagCode}
                 confirmPassword={this.state.confirmPassword}
+                tags={this.tags}
                 handleChange={this.handleChange}
+                handleTagChange={this.handleTagChange}
                 handleSubmit={this.handleRegisterSubmit}
               />
               <RegisterFailPrompt
