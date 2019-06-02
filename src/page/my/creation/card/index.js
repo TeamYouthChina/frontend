@@ -42,7 +42,7 @@ class CreationCardReact extends React.Component {
         <div className={classes.bg}>
           <img
             src={this.props.logo}
-            className="justify-content-center align-self-center"
+            className="justify-content-center align-self-center img-fluid"
             style={{verticalAlign: 'center', padding: '1.17vw 0'}}
             alt={'logo'}
           />

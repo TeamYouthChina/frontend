@@ -97,7 +97,7 @@ class AdvantageTagReact extends React.Component {
   render() {
     switch (this.state.render) {
       case 1:
-        
+        //console.log(this.state.backend.content.length);
         return (
           <div>
             <div className={classes.content}>
@@ -109,10 +109,12 @@ class AdvantageTagReact extends React.Component {
               {
                 this.state.backend.content.length===0?(
                   <div>
-                    <div 
-                      className={classes.type1} 
+                    <div
+                      className={classes.type1}
                       style={{width:'10vw'}}
-                      onClick={this.toggle(1)}
+                      onClick={()=>{
+                        this.toggle(2);
+                      }}
                     >
                       <MDBIcon icon="plus" />
                     </div>
@@ -123,7 +125,17 @@ class AdvantageTagReact extends React.Component {
 
                 ):(
                   <div className="d-flex justify-content-start">
-                    <div className={classes.type1} onClick={this.toggle(1)}>
+                    <div 
+                      className={classes.type1}
+                      //onClick={this.toggle(1)}
+                      onClick={()=>{
+                        this.select=[];
+                        this.setState({
+                          select:this.select,
+                          modal1:true
+                        });
+                      }}
+                    >
                       <MDBIcon icon="plus" />
                     </div>
                     {this.state.backend.content.map((item,index)=>{
@@ -134,6 +146,7 @@ class AdvantageTagReact extends React.Component {
                             id={item.label_id}
                             tag={item.label_chn}
                             label_code={item.label_code}
+                            length={this.state.backend.content.length}
                           />
                         </div>
                       );

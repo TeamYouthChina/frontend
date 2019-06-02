@@ -17,7 +17,6 @@ class FileGeneralCardReact extends React.Component {
   }
 
   render() {
-   
     return (
       <div 
         className={classes.content}
@@ -26,12 +25,11 @@ class FileGeneralCardReact extends React.Component {
         }}
       >
         <div className={classes.bg} >
-
           <img
             src={shape}
             style={{verticalAlign:'center',padding:'1.17vw 0',marginTop:'-1vw'}}
+            className="img-fluid"
           />
-
         </div>
         <div style={{width:'31.125vw'}}>
           <div className={classes.name}>
@@ -40,18 +38,10 @@ class FileGeneralCardReact extends React.Component {
           <div className={classes.tag}>
             {this.props.tag}
           </div>
-
           { /*<div className={classes.modify}>
             {this.props.date}
           </div>*/}
-
-
-
-         
         </div>
-       
-        
-
       </div>
     );
   }
@@ -60,7 +50,6 @@ class FileGeneralCardReact extends React.Component {
 FileGeneralCardReact.i18n = [
   {},
   {}
-  
 ];
 
 FileGeneralCardReact.propTypes = {
