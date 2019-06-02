@@ -219,7 +219,7 @@ class ReviewCreate extends React.Component {
             show: false
           });
           if (response.status.code === 201) {
-
+            this.dealLabel(response.content.id, 3);
             this.props.history.push(`/review/${response.content.id}`);
           }
         }, () => {
@@ -244,6 +244,7 @@ class ReviewCreate extends React.Component {
             show: false
           });
           if (response.status.code === 200) {
+            this.dealLabel(this.props.match.params.id, 3);
             this.props.history.push(`/review/${this.props.match.params.id}`);
           }
         }, () => {
@@ -253,7 +254,72 @@ class ReviewCreate extends React.Component {
         alert(e);
       }
     }
+  };
 
+  // 存储优势标签
+  tellLabel = (select, oriLabel) => {
+    if(oriLabel !== void 0){
+      this.setState(()=>({
+        select,
+        oriLabel
+      }));
+    } else {
+      this.setState(()=>({
+        select,
+      }));
+    }
+  };
+  // 处理新产生的标签
+  dealLabel = (id, type) => {
+    let { select, oriLabel } = this.state;
+    for(let i=0;i<select.length;i++){
+      let s = select[i];
+      let o = oriLabel[i];
+      if(o !== void 0){
+        if(s.status !== o.status) {
+          if(s.status === 'POST'){
+            const data = {
+              label_code: String(s.id),
+              target_id: id,
+              target_type: type
+            };
+            fetch(
+              `${urlPrefix}/labels`,
+              {
+                method:s.status,
+                headers:generateHeaders(),
+                body:JSON.stringify(data)
+              },
+            );
+          } else {
+            fetch(
+              `${urlPrefix}/labels/${s.id}/${type}/${id}`,
+              {
+                method:s.status,
+                headers:generateHeaders(),
+                body:null
+              },
+            );
+          }
+        }
+      } else {
+        if(s.status === 'POST'){
+          const data = {
+            label_code: String(s.id),
+            target_id: id,
+            target_type: type
+          };
+          fetch(
+            `${urlPrefix}/labels`,
+            {
+              method:s.status,
+              headers:generateHeaders(),
+              body:JSON.stringify(data)
+            },
+          );
+        }
+      }
+    }
   };
 
   deleteIcon(index) {
@@ -311,7 +377,7 @@ class ReviewCreate extends React.Component {
               {/*<span className={classes.titleSpan}>weYouth负责人</span>*/}
               {/*</div>*/}
             </MDBRow>
-            <AdvantageTag />
+            <AdvantageTag type={3} id={this.props.match.params.id} tellLabel={this.tellLabel}/>
             <div className={classes.editWrapper}>
               <div>
                 <div className={classes.articleWrapper}>

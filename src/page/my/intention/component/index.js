@@ -112,9 +112,7 @@ class AdvantageTagReact extends React.Component {
                     <div
                       className={classes.type1}
                       style={{width:'10vw'}}
-                      onClick={()=>{
-                        this.toggle(2);
-                      }}
+                      onClick={this.toggle(1)}
                     >
                       <MDBIcon icon="plus" />
                     </div>

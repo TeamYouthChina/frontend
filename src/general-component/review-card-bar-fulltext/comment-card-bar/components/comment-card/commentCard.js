@@ -17,6 +17,7 @@ export class CommentCard extends React.Component {
     this.state={
       showReplies: false,
       showGive: false,
+      showList:false,
       authorAvatar:null,
       showCommentsText: '查看回复',
       replyText: '回复',
@@ -28,27 +29,33 @@ export class CommentCard extends React.Component {
     };
     this.showRepliesFunc = this.showRepliesFunc.bind(this);
   }
-  
+
 
   componentDidMount() {
     const {evaluateStatus, downvoteCount, upvoteCount, userAll} = this.props;
-    this.setState(()=>({
-      backend:{
-        evaluateStatus,
-        downvoteCount,
-        upvoteCount,
-      }
-    }));
     let authorAvatar;
-    if((userAll === null) || (userAll.avatar_url.length < 10)){
-      authorAvatar = defaultAva;
-    } else {
+    if((userAll !== null) && (userAll.avatar_url.length > 10)){
       authorAvatar = userAll.avatar_url;
       get(`/static/${authorAvatar}`).then((res)=>{
         this.setState(()=>({
-          authorAvatar:res.content
+          authorAvatar:res.content,
+          backend:{
+            evaluateStatus,
+            downvoteCount,
+            upvoteCount,
+          }
         }));
       });
+    } else {
+      authorAvatar = defaultAva;
+      this.setState(()=>({
+        authorAvatar,
+        backend:{
+          evaluateStatus,
+          downvoteCount,
+          upvoteCount,
+        }
+      }));
     }
   }
 
@@ -228,11 +235,18 @@ export class CommentCard extends React.Component {
       }));
     }
   };
-  
+  // 添加回复
   onShowReply = () => {
     let showGive = !this.state.showGive;
     this.setState(()=>({
       showGive
+    }));
+  };
+  // 展开下拉菜单
+  onShowList = () => {
+    const showList = !this.state.showList;
+    this.setState(()=>({
+      showList
     }));
   };
   
@@ -254,6 +268,10 @@ export class CommentCard extends React.Component {
                 user={this.props.user}
                 time={this.props.time}
                 content={this.props.content}
+                userId={this.props.userId || 0}
+                onGoDelete={()=>this.props.onGoDelete(this.props.id)}
+                onShowList={this.onShowList}
+                showList={this.state.showList}
               />
               <CommentFooter
                 onShowReply={this.onShowReply}
@@ -269,7 +287,13 @@ export class CommentCard extends React.Component {
               <span className={classes.showSpan} onClick={this.showRepliesFunc}>
                 {this.state.showCommentsText}<img style={{marginLeft:'0.39vw'}} src={expandMore} alt="" />
               </span>
-              <Reply showReplies={this.state.showReplies} showGive={this.state.showGive} commentId={this.props.id} />
+              <Reply 
+                onShowReply={this.onShowReply}
+                showRepliesFunc={this.showRepliesFunc}
+                showReplies={this.state.showReplies}
+                showGive={this.state.showGive}
+                commentId={this.props.id}  
+              />
             </div>
           </MDBRow>
         </div>
@@ -284,10 +308,12 @@ export class CommentCard extends React.Component {
 
 CommentCard.propTypes = {
   user: PropTypes.string.isRequired,
+  userId: PropTypes.number.isRequired,
   id: PropTypes.number.isRequired,
   time: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   onVote: PropTypes.func,
+  onGoDelete: PropTypes.func,
   upvoteCount: PropTypes.number,
   downvoteCount: PropTypes.number,
   evaluateStatus: PropTypes.number,

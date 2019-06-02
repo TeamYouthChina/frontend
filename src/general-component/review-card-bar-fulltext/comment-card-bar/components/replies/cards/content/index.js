@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {MDBIcon, MDBRow} from 'mdbreact';
+import {MDBRow} from 'mdbreact';
 import classes from './index.module.css';
 
 const ReplyContent = (props) => (
@@ -12,7 +12,7 @@ const ReplyContent = (props) => (
       <span className={classes.timeSpan}>
         {props.time}
       </span>
-      <MDBIcon style={{float: 'right'}} icon="ellipsis-v" />
+      {/*<MDBIcon style={{float: 'right'}} icon="ellipsis-v" />*/}
     </div>
     <MDBRow className={classes.contentRow}>
       {props.content}

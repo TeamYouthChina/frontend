@@ -112,19 +112,23 @@ export class AnswerCard extends React.Component {
           const results = await getAsync(`/editorials/${this.props.reviewId}`);
           let authorAvatar;
           if (results.status.code === 200) {
-            this.setState(() => ({
-              backend: results.content,
-              commentsText: `${results.content.comments.length}条评论`
-            }));
-            if((results.content.author === null) || (results.content.author.avatar_url.length < 10)){
-              authorAvatar = defaultAva;
-            } else {
+            if((results.content.author !== null) && (results.content.author.avatar_url.length > 10)){
               authorAvatar = results.content.author.avatar_url;
               get(`/static/${authorAvatar}`).then((res)=>{
                 this.setState(()=>({
-                  authorAvatar:res.content
+                  authorAvatar:res.content,
+                  backend: results.content,
+                  commentsText: `${results.content.comments.length}条评论`
                 }));
               });
+              
+            } else {
+              authorAvatar = defaultAva;
+              this.setState(()=>({
+                authorAvatar,
+                backend: results.content,
+                commentsText: `${results.content.comments.length}条评论`
+              }));
             }
           } else {
             this.props.history.push('/page-no-found');

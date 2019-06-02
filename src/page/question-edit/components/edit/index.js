@@ -88,6 +88,8 @@ class ArticleCreate extends React.Component {
     * */
     this.state = {
       backend: null,
+      select:null, 
+      oriLabel:null,
       showPic: false,
       title: '',
       write: null,
@@ -129,7 +131,7 @@ class ArticleCreate extends React.Component {
         } catch (e) {
           alert(e);
         }
-      } else {
+      } else {  
         this.setState(()=>({
           backend: '',
           write,
@@ -174,7 +176,7 @@ class ArticleCreate extends React.Component {
       previewNow
     });
   };
-
+  // 截断内容
   makePreviewText = (richText) => {
     let textLength = 0;
     let blockCount = 0;
@@ -191,7 +193,7 @@ class ArticleCreate extends React.Component {
     }
     return previewText;
   };
-    
+  // 提交内容  
   handleClickUp = (e) => {
     e.stopPropagation();
     this.setState({
@@ -235,6 +237,7 @@ class ArticleCreate extends React.Component {
             show:false
           });
           if(response.status.code === 2000) {
+            this.dealLabel(response.content.id, 1);
             this.props.history.push(`/question/${response.content.id}`);
           }
         },()=>{
@@ -259,6 +262,7 @@ class ArticleCreate extends React.Component {
             show:false
           });
           if(response.status.code === 2000) {
+            this.dealLabel(this.props.match.params.qid, 1);
             this.props.history.push(`/question/${this.props.match.params.qid}`);
           }
         },()=>{
@@ -270,7 +274,72 @@ class ArticleCreate extends React.Component {
     }
     
   };
-
+  // 存储优势标签
+  tellLabel = (select, oriLabel) => {
+    if(oriLabel !== void 0){
+      this.setState(()=>({
+        select,
+        oriLabel
+      }));
+    } else {
+      this.setState(()=>({
+        select,
+      }));
+    }
+  };
+  // 处理新产生的标签
+  dealLabel = (id, type) => {
+    let { select, oriLabel } = this.state;
+    for(let i=0;i<select.length;i++){
+      let s = select[i];
+      let o = oriLabel[i];
+      if(o !== void 0){
+        if(s.status !== o.status) {
+          if(s.status === 'POST'){
+            const data = {
+              label_code: String(s.id),
+              target_id: id,
+              target_type: type
+            };
+            fetch(
+              `${urlPrefix}/labels`,
+              {
+                method:s.status,
+                headers:generateHeaders(),
+                body:JSON.stringify(data)
+              },
+            );
+          } else {
+            fetch(
+              `${urlPrefix}/labels/${s.id}/${type}/${id}`,
+              {
+                method:s.status,
+                headers:generateHeaders(),
+                body:null
+              },
+            );
+          }
+        }
+      } else {
+        if(s.status === 'POST'){
+          const data = {
+            label_code: String(s.id),
+            target_id: id,
+            target_type: type
+          };
+          fetch(
+            `${urlPrefix}/labels`,
+            {
+              method:s.status,
+              headers:generateHeaders(),
+              body:JSON.stringify(data)
+            },
+          );
+        }
+      }
+    }
+  };
+  
   render() {
     const {editorState} = this.state;
     // const extendControls = [
@@ -309,7 +378,7 @@ class ArticleCreate extends React.Component {
                 />
               </MDBCol>
             </MDBRow>
-            <AdvantageTag />
+            <AdvantageTag type={1} id={this.props.match.params.qid} tellLabel={this.tellLabel}/>
             <div className={classes.editWrapper}>
               <div>
                 <div className={classes.articleWrapper}>
