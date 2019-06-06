@@ -6,9 +6,9 @@ import classes from './index.module.css';
 import {AnswerCardSquare} from '../playground/general-component/answer-card-square-fulltext';
 import {ArticleCardSquare} from '../playground/general-component/article-card-square-fulltext';
 import {CompanyCardSquare} from '../playground/general-component/company-card-square-id';
-import {JobCardSquare} from '../playground/general-component/job-card-square-id';
+//import {JobCardSquare} from '../playground/general-component/job-card-square-id';
 import {ReviewCardSquare} from '../playground/general-component/review-card-square-fulltext';
-import {UserCardBarFull} from '../playground/general-component/user-card-bar-fulltext';
+//import {UserCardBarFull} from '../playground/general-component/user-card-bar-fulltext';
 
 
 import {languageHelper} from '../../tool/language-helper';
@@ -103,9 +103,19 @@ class BestForYouReact extends React.Component {
                   <div className={classes.title}>职位推荐</div>
                   <div className={classes.subtitle} style={{marginTop: '0.78vw'}}>根据您的求职档案推荐</div>
                   <div className="d-flex justify-content-between" style={{padding: '1.40vw 0'}}>
-                    <JobCardSquare id={7} jobList={this.state.jobList} />
-                    <JobCardSquare id={3} jobList={this.state.jobList} />
-                    <JobCardSquare id={9} jobList={this.state.jobList} />
+                    {this.state.job.content.data.map((item, index) => {
+                      return (
+                        <div style={{marginBottom: '1vw'}} key={index}>
+                          <ArticleCardSquare
+                            id={item.id}
+                            jobList={this.state.jobList}
+                          />
+                        </div>
+                      );
+                    })}
+                    {/*<JobCardSquare id={7} jobList={this.state.jobList} />*/}
+                    {/*<JobCardSquare id={3} jobList={this.state.jobList} />*/}
+                    {/*<JobCardSquare id={9} jobList={this.state.jobList} />*/}
 
                   </div>
                   <div
@@ -117,21 +127,21 @@ class BestForYouReact extends React.Component {
                   >
                     查看更多 →
                   </div>
-                  <div className={classes.subtitle} style={{marginTop: '0.78vw'}}>根据您的浏览偏好推荐</div>
-                  <div className="d-flex justify-content-between" style={{padding: '1.40vw 0'}}>
-                    <JobCardSquare id={8} jobList={this.state.jobList} />
-                    <JobCardSquare id={8} jobList={this.state.jobList} />
-                    <JobCardSquare id={9} jobList={this.state.jobList} />
-                  </div>
-                  <div
-                    className={classes.seemore}
-                    onClick={() => {
-                      this.props.history.push('/job-for-you/intern');
-                    }}
-                    style={{cursor: 'pointer'}}
-                  >
-                    查看更多 →
-                  </div>
+                  {/*<div className={classes.subtitle} style={{marginTop: '0.78vw'}}>根据您的浏览偏好推荐</div>*/}
+                  {/*<div className="d-flex justify-content-between" style={{padding: '1.40vw 0'}}>*/}
+                  {/*<JobCardSquare id={8} jobList={this.state.jobList} />*/}
+                  {/*<JobCardSquare id={8} jobList={this.state.jobList} />*/}
+                  {/*<JobCardSquare id={9} jobList={this.state.jobList} />*/}
+                  {/*</div>*/}
+                  {/*<div*/}
+                  {/*className={classes.seemore}*/}
+                  {/*onClick={() => {*/}
+                  {/*this.props.history.push('/job-for-you/intern');*/}
+                  {/*}}*/}
+                  {/*style={{cursor: 'pointer'}}*/}
+                  {/*>*/}
+                  {/*查看更多 →*/}
+                  {/*</div>*/}
                 </div>
 
               </div>
@@ -148,7 +158,7 @@ class BestForYouReact extends React.Component {
                       return (
                         <div style={{marginBottom: '1vw'}} key={index}>
                           <CompanyCardSquare
-                            id={item.content.id}
+                            id={item.id}
                           />
                         </div>
                       );
@@ -177,10 +187,10 @@ class BestForYouReact extends React.Component {
                       return (
                         <div style={{marginBottom: '1vw'}} key={index}>
                           <AnswerCardSquare
-                            id={item.content.id}
-                            title={item.content.title}
-                            avatar={item.content.creator.avatar_url}
-                            username={item.content.creator.username}
+                            id={item.id}
+                            title={item.title}
+                            avatar={item.creator.avatar_url}
+                            username={item.creator.username}
 
                           />
                         </div>
@@ -210,11 +220,11 @@ class BestForYouReact extends React.Component {
                       return (
                         <ReviewCardSquare
                           key={index}
-                          id={item.content.id}
-                          body={item.content.body.previewText}
+                          id={item.id}
+                          body={item.body.previewText}
                           title={item.title}
-                          avatar={item.content.author.avatar_url}
-                          username={item.content.author.username}
+                          avatar={item.author.avatar_url}
+                          username={item.author.username}
                         />
                       );
                     })}
@@ -243,11 +253,11 @@ class BestForYouReact extends React.Component {
                       return (
                         <div style={{marginBottom: '1vw'}} key={index}>
                           <ArticleCardSquare
-                            id={item.content.id}
-                            title={item.content.title}
-                            avatar={item.content.author}
-                            username={item.content.author}
-                            ifcollect={item.content.attention}
+                            id={item.id}
+                            title={item.title}
+                            avatar={item.author}
+                            username={item.author}
+                            ifcollect={item.attention}
                           />
                         </div>
                       );
@@ -287,19 +297,19 @@ class BestForYouReact extends React.Component {
                   <div className={classes.title}>精选人脉</div>
                   <div className="d-flex justify-content-between" style={{padding: '1.40vw 0'}}>
 
-                    {this.state.userFulltext.content.data.map((item, index) => {
-                      return (
-                        <UserCardBarFull
-                          key={index}
-                          id={item.content.id}
-                          avatar={item.content.avatar_url}
-                          name={item.content.first_name+item.content.last_name}
-                          sex={item.content.gender}
-                          nation={item.content.nation}
-                          role={item.content.role[0]}
-                        />
-                      );
-                    })}
+                    {/*{this.state.userFulltext.content.data.map((item, index) => {*/}
+                    {/*return (*/}
+                    {/*<UserCardBarFull*/}
+                    {/*key={index}*/}
+                    {/*id={item.id}*/}
+                    {/*avatar={item.avatar_url}*/}
+                    {/*name={item.first_name+item.content.last_name}*/}
+                    {/*sex={item.gender}*/}
+                    {/*nation={item.nation}*/}
+                    {/*role={item.role[0]}*/}
+                    {/*/>*/}
+                    {/*);*/}
+                    {/*})}*/}
 
                   </div>
 

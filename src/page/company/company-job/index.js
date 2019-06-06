@@ -12,7 +12,8 @@ class CompanyJobReact extends React.Component {
     super(props);
     // state
     this.state = {
-      compList: []
+      compList: [],
+      render: 0
     };
     // i18n
     this.text = CompanyJobReact.i18n[languageHelper()];
@@ -24,7 +25,8 @@ class CompanyJobReact extends React.Component {
 
     this.setState(() => {
       return {
-        compList: result.content.data
+        compList: result.content.data,
+        render:1
       };
     });
     // eslint-disable-next-line
@@ -33,7 +35,7 @@ class CompanyJobReact extends React.Component {
 
   getData = async (id) => {
     try {
-      const result = await getAsync(`/companies/${id}/jobs`);
+      const result = await getAsync(`/companies/${id}/jobs?page=0`);
       if (result && result.status) {
         return result;
       } else {
@@ -46,20 +48,27 @@ class CompanyJobReact extends React.Component {
   };
 
   render() {
-    return (
-      <div className={classes.content}>
-        <p className={classes.name}>在招职位</p>
-        <br/>
-        {this.state.compList.length !== 0 ?
-          (
-            this.state.compList.map((item, index) => (
-              <CompanyCardBarId key={index} id={item.id}/>
-            ))
-          )
-          : <p className="h3 grey-text">该公司没有别的在招职位</p>
-        }
-      </div>
-    );
+    
+    switch (this.state.render) {
+      case 1:
+        //console.log(this.state.compList);
+        return (
+          <div className={classes.content}>
+            <p className={classes.name}>在招职位</p>
+            <br />
+            {this.state.compList.length !== 0 ?
+              (
+                this.state.compList.map((item, index) => (
+                  <CompanyCardBarId key={index} id={item.id} />
+                ))
+              )
+              : <p className="h3 grey-text">该公司没有别的在招职位</p>
+            }
+          </div>
+        );
+      default:
+        return null;
+    }
   }
 }
 
