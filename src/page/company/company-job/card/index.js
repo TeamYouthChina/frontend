@@ -1,107 +1,149 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
-
+import bag from './bag.svg';
+import calender from './calender.svg';
 import classes from './index.module.css';
+import detail from './detail.svg';
+import {IfCollect} from '../if-collect';
+import { languageHelper } from '../../../../tool/language-helper';
+import location from '../company-card-bar-id/location.svg';
 
-import logo from './logo.png';
-
-
-import {languageHelper} from '../../../tool/language-helper';
-
-import {IfCollect} from '../../playground/general-component/if-collect';
-
-
+import {getAsync} from '../../../../tool/api-helper';
+import {Location} from './location';
 
 
-class CompanyCardReact extends React.Component {
+class JobCardBarIdReact extends React.Component {
   constructor(props) {
     super(props);
     // state
-   
+    this.state = {
+      
+      isLiked: false,
+    };
     // i18n
-    this.text = CompanyCardReact.i18n[languageHelper()];
-    // style
+    this.text = JobCardBarIdReact.i18n[languageHelper()];
+  }
+
+  async componentDidMount() {
+    if (this.props.id) {
+      this.setState({
+        backend: await getAsync(`/jobs/${this.props.id}`)
+      });
+    } else {
+      this.setState({
+        backend: await getAsync('/jobs/2')
+      });
+    }
   }
   
+ 
+
   render() {
-    return (
-      <div className={classes.card}>
-        <div>
-          <img
-            src={logo}
-            style={{
-              width:'5.7vw',
-              height:'auto',
-            }}
-          />
-        </div>
-        <div
-          style={{
-            marginLeft:'2.25vw',
-            width:'47.25vw'
-          }}>
-          <div>
-            <p
-              style={{
-                fontFamily: 'PingFang SC',
-                lineHeight: 'normal',
-                fontSize: '1.875vw',
-                fontWeight:'bolder',
-                color: '#454F69',
-                marginBottom:'0.39vw'
-              }}
-            >
-              {this.props.backend.content.name}
-            </p>
-            <p
-              style={{
-                fontFamily: 'PingFang SC',
-                lineHeight: 'normal',
-                fontSize: '0.875rem',
-                color: '#8D9AAF',
-                marginBottom:'0.39vw'
-              }}
-            > {this.props.backend.content.location} 
-            </p>
-            <p
-              style={{
-                fontFamily: 'PingFang SC',
-                lineHeight: 'normal',
-                fontSize: '1rem',
-                color: '#454F69',
-                margin:'0'
-
-              }}
-            >
-              <a href={this.props.backend.content.website}>{this.props.backend.content.website}</a>
-            </p>
+    let dateFormat=require ('dataformat');
+   
+    return (this.state.backend && this.state.backend.status && this.state.backend.status.code.toString().startsWith('2')) ? (
+      <div 
+        className={classes.Card}
+        
+        style={{cursor:'pointer'}}
+      >
+        <div className={classes.Clickable} onClick={()=>{
+          this.props.history.push(`/job/${this.state.backend.content.id}`);
+        }}/>
+        <div className={classes.UnClickable} >
+          <div className={classes.Img}>
+            <img src={(this.state.backend.content.organization.avatarUrl)?(this.state.backend.content.organization.avatarUrl):('http://frontendpic.oss-us-east-1.aliyuncs.com/%E5%B7%A5%E4%BD%9C.png')} alt="no img" />
           </div>
+          <div className={classes.Info}>
+            <div className={classes.Title}>
+              <p className={classes.P1}>{this.state.backend.content.name}</p>
+            </div>
+            <div className={classes.Des1}>
+              <p className={classes.P2}>
+                {this.state.backend.content.organization.name}
+              </p>
+            </div>
+            <div className={classes.Des2}>
+              <div className={classes.Row}>
+                <div className={classes.Column}>
+                  <img src={location} alt="no img" />
+                  <Location
+                    code={this.state.backend.content.location[0]}
+                    edit={false}
+                    locate={()=>{}}
+                  />
+                </div>
+                <div className={classes.Column}>
+                  <img src={detail} alt="no img" />
+                  <p>
+                    {this.text.type}{' '}
+                    {this.state.backend.content.type}
+                   
+                  </p>
+                </div>
+              </div>
+              <div className={classes.Row}>
+                <div className={classes.Column}>
+                  <img src={calender} alt="no img" />
+                  <p>
+                    {this.text.kaiFangShenQing}{' '}
 
+                    {dateFormat(this.state.backend.content.start_time)}
+                  </p>
+                </div>
+                <div className={classes.Column}>
+                  <img src={bag} alt="no img" />
+                  <p>
+                    {this.text.shenQingJieZhi}{' '}
+                    {dateFormat(this.state.backend.content.dead_line)}
+                  </p>
+                </div>
+               
+                
+              </div>
+            </div>
+          </div>
+          <div className={classes.Like}>
+            <IfCollect 
+              ifcollect={this.state.backend.content.collected} 
+              type={1} 
+              id={this.state.backend.content.id}
+            />
+          </div>
         </div>
-        <div
-          style={{
-            justifyContent:'flex-end',
-            alignSelf:'flex-end'
-          }}
-        >
-          <IfCollect/>
-        </div>
-
       </div>
-    );
+    ):null;
   }
 }
 
-CompanyCardReact.i18n = [
-  {},
-  {}
+JobCardBarIdReact.i18n = [
+  {
+    geYue: '个月',
+    shenQingJieZhi: '申请截止',
+    kaiFangShenQing:'开放申请',
+    type:'类型',
+
+
+  },
+  {
+    geYue: 'months',
+    shenQingJieZhi: 'Applicaiton Deadline',
+    kaiFangShenQing:'Application Start',
+    type:'Type',
+    
+  },
 ];
 
-CompanyCardReact.propTypes = {
+JobCardBarIdReact.propTypes = {
   // self
-  backend: PropTypes.object.isRequired
+  id: PropTypes.number.isRequired,
+
+  // React Router
+  match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired
 };
 
-export const CompanyCard = withRouter(CompanyCardReact);
+export const JobCardBarId = withRouter(JobCardBarIdReact);
