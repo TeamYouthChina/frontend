@@ -283,7 +283,7 @@ class ArticleCreate extends React.Component {
     }
   };
   // 处理新产生的标签
-  dealLabel = (id, type) => {
+  dealLabel = async (id, type) => {
     let { select, oriLabel } = this.state;
     for(let i=0;i<select.length;i++){
       let s = select[i];
@@ -296,7 +296,7 @@ class ArticleCreate extends React.Component {
               target_id: id,
               target_type: type
             };
-            fetch(
+            await fetch(
               `${urlPrefix}/labels`,
               {
                 method:s.status,
@@ -305,7 +305,7 @@ class ArticleCreate extends React.Component {
               },
             );
           } else {
-            fetch(
+            await fetch(
               `${urlPrefix}/labels/${s.id}/${type}/${id}`,
               {
                 method:s.status,
@@ -322,7 +322,7 @@ class ArticleCreate extends React.Component {
             target_id: id,
             target_type: type
           };
-          fetch(
+          await fetch(
             `${urlPrefix}/labels`,
             {
               method:s.status,
