@@ -95,6 +95,7 @@ class ReviewCreate extends React.Component {
       hint: true,
       inputValue: null
     };
+    this.length = 0
     this.text = ReviewCreate.i18n[languageHelper()];
     this.newTag = this.newTag.bind(this);
     this.deleteIcon = this.deleteIcon.bind(this);
@@ -182,6 +183,10 @@ class ReviewCreate extends React.Component {
   };
 
   handleClickUp = (e) => {
+    if (this.length <= 0){
+      alert('at least one tag');
+      return;
+    }
     e.stopPropagation();
     this.setState({
       show: true
@@ -257,7 +262,8 @@ class ReviewCreate extends React.Component {
   };
 
   // 存储优势标签
-  tellLabel = (select, oriLabel) => {
+  tellLabel = (length, select, oriLabel) => {
+    this.length = length
     if(oriLabel !== void 0){
       this.setState(()=>({
         select,
