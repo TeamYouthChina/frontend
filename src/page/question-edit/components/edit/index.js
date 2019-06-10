@@ -99,6 +99,7 @@ class ArticleCreate extends React.Component {
       myUploadFn: null,
       previewNow: false
     };
+    this.length = 0;
     this.text = ArticleCreate.i18n[languageHelper()];
     this.handleEditorChange = this.handleEditorChange.bind(this);
   }
@@ -195,6 +196,10 @@ class ArticleCreate extends React.Component {
   };
   // 提交内容  
   handleClickUp = (e) => {
+    if (this.length <= 0){
+      alert('at least one tag');
+      return;
+    }
     e.stopPropagation();
     this.setState({
       show:true
@@ -275,7 +280,8 @@ class ArticleCreate extends React.Component {
     
   };
   // 存储优势标签
-  tellLabel = (select, oriLabel) => {
+  tellLabel = (length, select, oriLabel) => {
+    this.length = length;
     if(oriLabel !== void 0){
       this.setState(()=>({
         select,
