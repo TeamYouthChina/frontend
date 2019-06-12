@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Link} from 'react-router-dom';
 
-
+import dateFormat from 'dateformat';
 import classes from './index.module.css';
 import {Location} from '../../playground/general-component/location';
 import {IfCollect} from '../../playground/general-component/if-collect';
@@ -24,7 +24,8 @@ class JobCardReact extends React.Component {
   }
   
   render() {
-    let dateFormat=require ('dataformat');
+    let starttime=new Date(this.props.backend.content.start_time);
+    let deadline=new Date(this.props.backend.content.dead_line);
     return (
       <div className={classes.jobcard}>
         <div >
@@ -54,9 +55,18 @@ class JobCardReact extends React.Component {
               locate={()=>{}}
               className={classes.detail}
             />
-            {'开始日期：'}{dateFormat(this.props.backend.content.start_time)}  {' / '}
-            {'截止日期：'}{dateFormat(this.props.backend.content.dead_line)}  {' / '}
-            {'工作类型：'}{this.props.backend.content.type}
+            <div>
+              {'开始日期：'}{dateFormat(starttime,'yyyy-mm-dd')} 
+            </div>
+            <div>
+              {'截止日期：'}{dateFormat(deadline,'yyyy-mm-dd')}
+            </div>
+            <div>
+              {'工作类型：'}{this.props.backend.content.type}
+            </div>
+           
+            
+           
 
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-
+import dateFormat from 'dateformat';
 import bag from './bag.svg';
 import calender from './calender.svg';
 import classes from './index.module.css';
@@ -21,27 +21,28 @@ class JobCardBarIdReact extends React.Component {
     this.state = {
       
       isLiked: false,
+      backend:'',
+      starttime:'',
+      deadline:'',
     };
     // i18n
     this.text = JobCardBarIdReact.i18n[languageHelper()];
   }
+  
 
   async componentDidMount() {
     if (this.props.id) {
+      let backend= await getAsync(`/jobs/${this.props.id}`);
       this.setState({
-        backend: await getAsync(`/jobs/${this.props.id}`)
-      });
-    } else {
-      this.setState({
-        backend: await getAsync('/jobs/2')
+        backend: backend,
+        starttime:new Date(backend.content.start_time),
+        deadline:new Date(backend.content.dead_line),
+        
       });
     }
   }
   
- 
-
   render() {
-    let dateFormat=require ('dataformat');
    
     return (this.state.backend && this.state.backend.status && this.state.backend.status.code.toString().startsWith('2')) ? (
       <div 
@@ -90,14 +91,14 @@ class JobCardBarIdReact extends React.Component {
                   <p>
                     {this.text.kaiFangShenQing}{' '}
 
-                    {dateFormat(this.state.backend.content.start_time)}
+                    {dateFormat(this.state.starttime,'yyyy-mm-dd')}
                   </p>
                 </div>
                 <div className={classes.Column}>
                   <img src={bag} alt="no img" />
                   <p>
                     {this.text.shenQingJieZhi}{' '}
-                    {dateFormat(this.state.backend.content.dead_line)}
+                    {dateFormat(this.state.deadline,'yyyy-mm-dd')}
                   </p>
                 </div>
                

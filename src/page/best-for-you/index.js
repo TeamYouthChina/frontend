@@ -13,8 +13,9 @@ import {ReviewCardSquare} from '../playground/general-component/review-card-squa
 
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
-import {getAsync, isLogin} from '../../tool/api-helper';
-
+import {get, getAsync, isLogin} from '../../tool/api-helper';
+import * as deviceHelper from '../../tool/device-helper';
+const defaultAva = 'http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png';
 
 class BestForYouReact extends React.Component {
   constructor(props) {
@@ -22,7 +23,8 @@ class BestForYouReact extends React.Component {
     // state
     this.state = {
       jobList: [],
-      render: 0
+      render: 0,
+      userAvatar:localStorage.getItem('avatar'),
     };
     // i18n
     this.text = BestForYouReact.i18n[languageHelper()];
@@ -37,6 +39,23 @@ class BestForYouReact extends React.Component {
         render: 2
       });
       return;
+    }
+    const result = await getAsync('/me');
+    let userAvatar = this.state.userAvatar;
+    if((userAvatar !== defaultAva) && userAvatar.length > 10) {
+      get(`/static/${userAvatar}`).then((res)=>{
+        userAvatar = res.content;
+        this.setState({
+          user: result,
+          userAvatar
+        });
+      });
+    } else {
+      userAvatar = defaultAva;
+      this.setState({
+        user: result,
+        userAvatar
+      });
     }
     this.setState({
       render: 1,
@@ -56,7 +75,7 @@ class BestForYouReact extends React.Component {
     if (pathname) {
       return (<Redirect to={pathname} />);
     }
-   
+    const { userAvatar } = this.state;
     switch (this.state.render) {
       case 1:
         
@@ -71,11 +90,21 @@ class BestForYouReact extends React.Component {
                   className="cell-membrane d-flex align-items-center"
                 >
                   <div className={classes.logo}>
-                    <img
-                      src={(this.state.user.content.avatar_url === '---') ? ('http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png') : (this.state.user.content.avatar_url === '---')}
-                      className="rounded-circle img-fluid p-0 float-right"
-                      alt="Sample avatar"
-                    />
+                    <div className={classes.imgWrapper}>
+                      <img
+                        style={deviceHelper.getType() === deviceHelper.MOBILE ? {
+                          width: '5.3vw',
+                          height: '5.3vw',
+                          marginTop: '-2.65vw',
+                          background: '#F3F5F7'
+                        } : {width: '8.67vw', height: '8.67vw', marginTop: '-4.335vw', background: '#F3F5F7'}}
+                        // 因为要更新头像
+                        src={userAvatar}
+                        //src='http://frontendpic.oss-us-east-1.aliyuncs.com/%E4%BA%BA.png'
+                        className="rounded-circle img-fluid p-0 float-right"
+                        alt="Sample avatar"
+                      />
+                    </div>
                   </div>
                   <div className="ml-4">
                     <p className={classes.name}>{this.state.user.content.first_name}{this.state.user.content.last_name}，欢迎来到职道！</p>
