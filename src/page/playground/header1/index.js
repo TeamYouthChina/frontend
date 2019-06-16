@@ -97,29 +97,29 @@ class HeaderReact extends React.Component {
                       </MDBNavLink>
                     </MDBNavItem>
                     {/*<MDBNavItem*/}
-                      {/*className={`${classes.navItem} list-inline-item mr-5`}*/}
-                      {/*onMouseEnter={*/}
-                        {/*() => {*/}
-                          {/*this.setState({*/}
-                            {/*hover: 3*/}
-                          {/*});*/}
-                        {/*}*/}
-                      {/*}*/}
-                      {/*onMouseLeave={*/}
-                        {/*() => {*/}
-                          {/*this.setState({*/}
-                            {/*hover: 0*/}
-                          {/*});*/}
-                        {/*}*/}
-                      {/*}*/}
-                      {/*style={this.props.location.pathname.indexOf('/job-for-you') > -1 || this.state.hover === 3 ? {borderBottom: '4px solid #FFFFFF'} : null}*/}
+                    {/*className={`${classes.navItem} list-inline-item mr-5`}*/}
+                    {/*onMouseEnter={*/}
+                    {/*() => {*/}
+                    {/*this.setState({*/}
+                    {/*hover: 3*/}
+                    {/*});*/}
+                    {/*}*/}
+                    {/*}*/}
+                    {/*onMouseLeave={*/}
+                    {/*() => {*/}
+                    {/*this.setState({*/}
+                    {/*hover: 0*/}
+                    {/*});*/}
+                    {/*}*/}
+                    {/*}*/}
+                    {/*style={this.props.location.pathname.indexOf('/job-for-you') > -1 || this.state.hover === 3 ? {borderBottom: '4px solid #FFFFFF'} : null}*/}
                     {/*>*/}
-                      {/*<MDBNavLink */}
-                        {/*to="/job-for-you2"*/}
-                        {/*style={this.state.hover===3?{color:'#FAFBFD'}:{color:'#C1C4CA'}}*/}
-                      {/*>*/}
-                        {/*人 脉*/}
-                      {/*</MDBNavLink>*/}
+                    {/*<MDBNavLink */}
+                    {/*to="/job-for-you2"*/}
+                    {/*style={this.state.hover===3?{color:'#FAFBFD'}:{color:'#C1C4CA'}}*/}
+                    {/*>*/}
+                    {/*人 脉*/}
+                    {/*</MDBNavLink>*/}
                     {/*</MDBNavItem>*/}
                     <MDBNavItem 
                       className="ml-3 d-flex align-items-center"
