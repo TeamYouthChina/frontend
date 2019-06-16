@@ -14,6 +14,7 @@ import {ReviewCardBarId} from '../../general-component/review-card-bar-id';
 import {languageHelper} from '../../tool/language-helper';
 import {getAsync} from '../../tool/api-helper';
 import {Loading} from '../job-for-you/component/loading';
+import {LoadingComponent} from '../playground/general-component/loading-component';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
 
 class DiscoveryReact extends React.Component {
@@ -194,7 +195,11 @@ class DiscoveryReact extends React.Component {
         // 权宜之计：后端的锅
         return (<Redirect to={`/login?to=${this.props.location.pathname}`} />);
       default:
-        return null;
+        return (
+          <div>
+            <LoadingComponent/>
+          </div>
+        );
     }
   }
 }

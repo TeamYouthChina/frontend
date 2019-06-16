@@ -8,7 +8,7 @@ import UploadModal from './UploadModal/UploadModal';
 
 import {languageHelper} from '../../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../../tool/remove-url-slash-suffix';
-import {get, getAsync} from '../../../../tool/api-helper';
+import {get, getAsync, urlPrefix, generateHeaders} from '../../../../tool/api-helper';
 
 
 class PdfResumeReact extends React.Component {
@@ -37,13 +37,13 @@ class PdfResumeReact extends React.Component {
     this.setState({
       upload: true,
     });
-  };
+  }
 
   onQuitUpload = () => {
     this.setState({
       upload: false
     });
-  };
+  }
 
   onFinishUpload = () => {
     this.setState({
@@ -54,13 +54,62 @@ class PdfResumeReact extends React.Component {
         backend: response
       });
     });
-  };
+  }
   onFresh = () => {
     get('/resumes?type=pdf').then((response) => {
       this.setState({
         backend: response
       });
     });
+  };
+
+  // 选择简历
+  chooseFile = (index) => {
+    let a = this.props.location.search;
+    const uploadIndex = this.state.uploadIndex;
+    // 不是从job过来不让选
+    if (a.indexOf('?job=') === -1) {
+      return;
+    }
+    if(index === uploadIndex) {
+      this.setState(() => ({
+        uploadIndex: null,
+        btnText: '选择一份简历'
+      }));
+    } else {
+      this.setState(() => ({
+        uploadIndex: index,
+        btnText: '准备申请'
+      }));
+    }
+  };
+  // 提交申请
+  handleApply = () => {
+    let fileId = this.state.uploadIndex;
+    let url = this.props.location.search.slice(5);
+    const data = {
+      resume_id:fileId
+    };
+    const options = {
+      method:'POST',
+      headers:generateHeaders(),
+      body:JSON.stringify(data),
+    };
+    this.setState(()=>({
+      applyStart: true,
+      btnText:'申请中',
+    }));
+    fetch(`${urlPrefix}/jobs/${url}/apply`,options).then((res)=>res.json()).then((res)=>{
+      this.setState(()=>({
+        applyStart: false,
+        btnText:'准备申请',
+      }));
+      if(res.status.code === 4000) {
+        alert('已经申请过该公司');
+      } else {
+        this.props.history.push('/applySuccess');
+      }
+    }).catch((e)=>alert(`${e} from pdf-resume-upload`));
   };
 
   render() {
@@ -70,7 +119,7 @@ class PdfResumeReact extends React.Component {
       return (<Redirect to={pathname} />);
     }
     // console.log(this.state.backend)
-    const {uploadIndex} = this.state;
+    const {uploadIndex, btnText, applyStart} = this.state;
     return (this.state.backend && this.state.backend.status.code.toString().startsWith('2')) ? (
       <div>
         <div
@@ -95,7 +144,7 @@ class PdfResumeReact extends React.Component {
             <div className={`d-flex flex-wrap ${classes.fileFlexWrapper}`}>
               {this.state.backend.content.data.map((item, index) => {
                 return (
-                  <div className={classes.fileWrapper} style={{marginBottom: '1vw'}} key={index}>
+                  <div className={classes.fileWrapper} style={{marginBottom: '1vw'}} key={index} onClick={() => this.chooseFile(item.id)}>
                     <FileCard
                       id={item.id}
                       name={item.name}
@@ -107,6 +156,13 @@ class PdfResumeReact extends React.Component {
                 );
               })}
             </div>
+            {this.props.location.search.indexOf('?job=') !== -1 && (
+              <div className={classes.btnWrapper}>
+                <button onClick={this.handleApply} className={(applyStart || (uploadIndex === null)) ? `${classes.btnDis} disabled` : classes.btn}>
+                  {btnText}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

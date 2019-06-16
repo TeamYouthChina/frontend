@@ -11,6 +11,7 @@ import {CardMapper} from '../../component/mapper';
 import {DefaultCardMapper} from '../../component/default-mapper';
 import {CollectionSidebar} from '../../component/collection-card';
 import {languageHelper} from '../../../../tool/language-helper';
+import {LoadingComponent} from '../../../playground/general-component/loading-component';
 
 const basicCHNFont = {
   fontFamily: 'PingFang SC',
@@ -78,7 +79,7 @@ class SearchJobResultReact extends React.Component {
               {
                 this.props.backend && this.props.backend.length ?
                   (this.props.code === 2000 ? <CardMapper backend={this.props.backend}/> : (this.props.backend.status.code === 4040 ? <p>没有搜索结果。</p> :
-                    <p>Here should be a loading card.</p>)
+                    <p><LoadingComponent/></p>)
                   ) : <DefaultCardMapper type={'jobs'} handleResultNum={this.props.handleResultNum}/>
               }
             </main>

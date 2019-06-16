@@ -8,6 +8,7 @@ import {languageHelper} from '../../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../../tool/remove-url-slash-suffix';
 import {getAsync} from '../../../tool/api-helper';
 import {Loading} from '../component/loading';
+import {LoadingComponent} from './loading-component';
 
 class JobForYouWrapperReact extends React.Component {
   constructor(props) {
@@ -109,7 +110,7 @@ class JobForYouWrapperReact extends React.Component {
                 </div>
               ))
             }
-          </InfiniteScroll> : <Loading />}
+          </InfiniteScroll> : <LoadingComponent />}
       </div>
     );
   }

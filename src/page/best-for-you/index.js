@@ -9,7 +9,7 @@ import {CompanyCardSquare} from '../playground/general-component/company-card-sq
 import {JobCardSquare} from '../playground/general-component/job-card-square-id';
 import {ReviewCardSquare} from '../playground/general-component/review-card-square-fulltext';
 //import {UserCardBarFull} from '../playground/general-component/user-card-bar-fulltext';
-
+import {LoadingComponent} from '../playground/general-component/loading-component';
 
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
@@ -79,24 +79,8 @@ class BestForYouReact extends React.Component {
     switch (this.state.render) {
       case 0:
         return(
-          <div className="cell-wall">
-            {/*<div*/}
-            {/*className="cell-wall" style={{height: '15.23vw', background: '#4F65E1'}}*/}
-            {/*>*/}
-            {/*<div*/}
-            {/*className="cell-membrane d-flex align-items-center"*/}
-            {/*>*/}
-            {/*<div className="ml-4">*/}
-            {/*<p className={classes.name}>欢迎来到职道！</p>*/}
-            {/*</div>*/}
-            {/*</div>*/}
-            {/*</div>*/}
-            <div className="cell-membrane">
-              <div className={classes.spinner}>
-                <div className={classes.cube1}></div>
-                <div className={classes.cube2}></div>
-              </div>
-            </div>
+          <div >
+            <LoadingComponent/>
           </div>
         );
       case 1:
@@ -107,7 +91,6 @@ class BestForYouReact extends React.Component {
               <div
                 className="cell-wall" style={{height: '15.23vw', background: '#4F65E1'}}
               >
-
                 <div
                   className="cell-membrane d-flex align-items-center"
                 >
