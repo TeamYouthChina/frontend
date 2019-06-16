@@ -105,7 +105,7 @@ class JobForYouWrapperReact extends React.Component {
                   key={index}
                   style={{marginBottom: '1.56vw'}}
                 >
-                  <JobCardBarId id={item.content.id} />
+                  <JobCardBarId id={item.id} />
                 </div>
               ))
             }

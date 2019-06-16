@@ -50,3 +50,22 @@
 
   color: #4F65E1;
 }
+.imgWrapper {
+  position: relative;
+}
+.upAvatar {
+  position: absolute;
+  top: -4.5vw;
+  left: 0;
+  width: 8.67vw;
+  height: 8.67vw;
+  background: rgba(0,0,0,.6);
+  font-size: 1vw;
+  color: #fff;
+  line-height: 8.67vw;
+  text-align: center;
+  opacity: 0;
+  border-radius: 50%;
+  transition: opacity .2s;
+}
+

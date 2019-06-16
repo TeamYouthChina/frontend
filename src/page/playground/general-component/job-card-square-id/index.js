@@ -15,6 +15,7 @@ import {languageHelper} from '../../../../tool/language-helper';
 
 import {getAsync} from '../../../../tool/api-helper';
 import {Location} from '../location';
+import dateFormat from 'dateformat';
 
 
 
@@ -24,6 +25,9 @@ class JobCardSquareReact extends React.Component {
     // state
     this.state = {
       isCollect:false,
+      backend:'',
+      starttime:'',
+      deadline:'',
     };
     // i18n
     this.text = JobCardSquareReact.i18n[languageHelper()];
@@ -31,13 +35,12 @@ class JobCardSquareReact extends React.Component {
   }
   async componentDidMount() {
     if (this.props.id) {
-      
+      let backend= await getAsync(`/jobs/${this.props.id}`);
       this.setState({
-        backend: await getAsync(`/jobs/${this.props.id}`)
-      });
-    } else {
-      this.setState({
-        backend: await getAsync('/jobs/1')
+        backend: backend,
+        starttime:new Date(backend.content.start_time),
+        deadline:new Date(backend.content.dead_line),
+
       });
     }
   }
@@ -77,7 +80,7 @@ class JobCardSquareReact extends React.Component {
           />
         </div>
         <div className="d-flex justify-content-between">
-          <div className={classes.ddl}>{this.state.backend.content.deadLine}</div>
+          <div className={classes.ddl}>{dateFormat(this.state.starttime,'yyyy-mm-dd')}{'~'} {dateFormat(this.state.deadline,'yyyy-mm-dd')}</div>
           
           <div className={classes.ddl} style={{zIndex:'500'}}> 
             <IfCollect 

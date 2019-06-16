@@ -8,6 +8,7 @@
     "antd": "^3.19.1",
     "braft-editor": "^2.2.9",
     "dataformat": "^1.0.0",
+    "dateformat": "^3.0.3",
     "eslint-plugin-react": "^7.12.4",
     "griffith": "^1.2.1",
     "isomorphic-fetch": "^2.2.1",
