@@ -6,11 +6,11 @@ import PropTypes from 'prop-types';
 import {SearchJobsNavItem} from './secondary-navagations/job';
 import {SearchCompaniesNavItem} from './secondary-navagations/company';
 import {SearchInsightNavItem} from './secondary-navagations/insight';
-import {SearchConnectionNavItem} from './secondary-navagations/coonection';
+//import {SearchConnectionNavItem} from './secondary-navagations/coonection';
 import {SearchJobResult} from './container/job';
 import {SearchCompanyResult} from './container/company';
 import {SearchInsightResult} from './container/insight';
-import {SearchConnectionResult} from './container/connection';
+//import {SearchConnectionResult} from './container/connection';
 import {SearchInput} from './component/search-input';
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
@@ -92,10 +92,10 @@ class SearchReact extends React.Component {
                 path={`${this.props.match.url}/insight`}
                 render={(props) => <SearchInsightNavItem {...props} />}
               />
-              <Route
-                path={`${this.props.match.url}/connection`}
-                render={props => <SearchConnectionNavItem {...props} />}
-              />
+              {/*<Route*/}
+                {/*path={`${this.props.match.url}/connection`}*/}
+                {/*render={props => <SearchConnectionNavItem {...props} />}*/}
+              {/*/>*/}
               <Redirect to={`${this.props.match.url}/job`} />
             </Switch>
           </div>
@@ -200,18 +200,18 @@ class SearchReact extends React.Component {
                       handleSearchType={this.handleSearchType} />
                   }
                 />
-                <Route
-                  path={`${this.props.match.url}/connection`}
-                  children={(props) =>
-                    <SearchConnectionResult
-                      {...props}
-                      code={this.state.code}
-                      backend={this.state.backend}
-                      keyword={this.state.keyword}
-                      handleUnmount={this.handleChildUnmount}
-                      handleSearchType={this.handleSearchType} />
-                  }
-                />
+                {/*<Route*/}
+                  {/*path={`${this.props.match.url}/connection`}*/}
+                  {/*children={(props) =>*/}
+                    {/*<SearchConnectionResult*/}
+                      {/*{...props}*/}
+                      {/*code={this.state.code}*/}
+                      {/*backend={this.state.backend}*/}
+                      {/*keyword={this.state.keyword}*/}
+                      {/*handleUnmount={this.handleChildUnmount}*/}
+                      {/*handleSearchType={this.handleSearchType} />*/}
+                  {/*}*/}
+                {/*/>*/}
                 <Redirect to={`${this.props.match.url}/job`} />
               </Switch>
             {/*}*/}
@@ -308,10 +308,10 @@ class SearchReact extends React.Component {
           return {searchType: ['article', 'question', 'editorial']};
         });
         break;
-      case path.includes('/connection'):
-        this.setState(() => {
-          return {searchType: ['user']};
-        });
+      // case path.includes('/connection'):
+      //   this.setState(() => {
+      //     return {searchType: ['user']};
+      //   });
     }
   };
 }

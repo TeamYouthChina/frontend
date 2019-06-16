@@ -97,7 +97,6 @@ class SearchInsightResultReact extends React.Component {
                   className={classes.listGroupItems}
                   style={{height: '10vh'}} />
               </MDBListGroup>
-
             </aside>
           </MDBRow>
         </div>

@@ -53,17 +53,17 @@ class SignedInReact extends React.Component {
               >
                 <ul className={`${classes.mouse2} d-flex nav-item align-items-center mr-1`}>
                   <div className="d-flex align-items-center">
-                    <MDBIcon
-                      icon="user-friends"
-                      className="mr-1"
-                    />
-                    <div
-                      onClick={() => {
-                        this.props.history.push('/comingsoon');
-                      }}
-                      style={{cursor: 'pointer'}}
-                    >
-                      好友</div>
+                    {/*<MDBIcon*/}
+                    {/*icon="user-friends"*/}
+                    {/*className="mr-1"*/}
+                    {/*/>*/}
+                    {/*<div*/}
+                    {/*onClick={() => {*/}
+                    {/*this.props.history.push('/comingsoon');*/}
+                    {/*}}*/}
+                    {/*style={{cursor: 'pointer'}}*/}
+                    {/*>*/}
+                    {/*好友</div>*/}
 
                     <ul className={`${classes.mouse2} d-flex nav-item align-items-center ml-3`}>
                       <MDBIcon

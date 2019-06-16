@@ -6,10 +6,10 @@ import classes from './index.module.css';
 import {AnswerCardSquare} from '../playground/general-component/answer-card-square-fulltext';
 import {ArticleCardSquare} from '../playground/general-component/article-card-square-fulltext';
 import {CompanyCardSquare} from '../playground/general-component/company-card-square-id';
-//import {JobCardSquare} from '../playground/general-component/job-card-square-id';
+import {JobCardSquare} from '../playground/general-component/job-card-square-id';
 import {ReviewCardSquare} from '../playground/general-component/review-card-square-fulltext';
 //import {UserCardBarFull} from '../playground/general-component/user-card-bar-fulltext';
-
+import {LoadingComponent} from '../playground/general-component/loading-component';
 
 import {languageHelper} from '../../tool/language-helper';
 import {removeUrlSlashSuffix} from '../../tool/remove-url-slash-suffix';
@@ -77,6 +77,12 @@ class BestForYouReact extends React.Component {
     }
     const { userAvatar } = this.state;
     switch (this.state.render) {
+      case 0:
+        return(
+          <div >
+            <LoadingComponent/>
+          </div>
+        );
       case 1:
         
         return (
@@ -85,7 +91,6 @@ class BestForYouReact extends React.Component {
               <div
                 className="cell-wall" style={{height: '15.23vw', background: '#4F65E1'}}
               >
-
                 <div
                   className="cell-membrane d-flex align-items-center"
                 >
@@ -131,21 +136,17 @@ class BestForYouReact extends React.Component {
                 >
                   <div className={classes.title}>职位推荐</div>
                   <div className={classes.subtitle} style={{marginTop: '0.78vw'}}>根据您的求职档案推荐</div>
-                  <div className="d-flex justify-content-between" style={{padding: '1.40vw 0'}}>
+                  <div className="d-flex  flex-wrap justify-content-between" style={{padding: '1.40vw 0'}}>
                     {this.state.job.content.data.map((item, index) => {
                       return (
                         <div style={{marginBottom: '1vw'}} key={index}>
-                          <ArticleCardSquare
+                          <JobCardSquare
                             id={item.id}
                             jobList={this.state.jobList}
                           />
                         </div>
                       );
                     })}
-                    {/*<JobCardSquare id={7} jobList={this.state.jobList} />*/}
-                    {/*<JobCardSquare id={3} jobList={this.state.jobList} />*/}
-                    {/*<JobCardSquare id={9} jobList={this.state.jobList} />*/}
-
                   </div>
                   <div
                     className={classes.seemore}
@@ -317,43 +318,43 @@ class BestForYouReact extends React.Component {
         */}
 
 
-              <div
-                className="cell-wall" style={{padding: '2.82vw 0', background: '#FAFAFF'}}
-              >
-                <div
-                  className="cell-membrane"
-                >
-                  <div className={classes.title}>精选人脉</div>
-                  <div className="d-flex justify-content-between" style={{padding: '1.40vw 0'}}>
+              {/*<div*/}
+              {/*className="cell-wall" style={{padding: '2.82vw 0', background: '#FAFAFF'}}*/}
+              {/*>*/}
+              {/*<div*/}
+              {/*className="cell-membrane"*/}
+              {/*>*/}
+              {/*<div className={classes.title}>精选人脉</div>*/}
+              {/*<div className="d-flex justify-content-between" style={{padding: '1.40vw 0'}}>*/}
 
-                    {/*{this.state.userFulltext.content.data.map((item, index) => {*/}
-                    {/*return (*/}
-                    {/*<UserCardBarFull*/}
-                    {/*key={index}*/}
-                    {/*id={item.id}*/}
-                    {/*avatar={item.avatar_url}*/}
-                    {/*name={item.first_name+item.content.last_name}*/}
-                    {/*sex={item.gender}*/}
-                    {/*nation={item.nation}*/}
-                    {/*role={item.role[0]}*/}
-                    {/*/>*/}
-                    {/*);*/}
-                    {/*})}*/}
+              {/*{this.state.userFulltext.content.data.map((item, index) => {*/}
+              {/*return (*/}
+              {/*<UserCardBarFull*/}
+              {/*key={index}*/}
+              {/*id={item.id}*/}
+              {/*avatar={item.avatar_url}*/}
+              {/*name={item.first_name+item.content.last_name}*/}
+              {/*sex={item.gender}*/}
+              {/*nation={item.nation}*/}
+              {/*role={item.role[0]}*/}
+              {/*/>*/}
+              {/*);*/}
+              {/*})}*/}
 
-                  </div>
+              {/*</div>*/}
 
 
-                  <div
-                    className={classes.seemore}
-                    onClick={() => {
-                      this.props.history.push('/connection');
-                    }}
-                    style={{cursor: 'pointer'}}
-                  >
-                    查看更多 →
-                  </div>
-                </div>
-              </div>
+              {/*<div*/}
+              {/*className={classes.seemore}*/}
+              {/*onClick={() => {*/}
+              {/*this.props.history.push('/connection');*/}
+              {/*}}*/}
+              {/*style={{cursor: 'pointer'}}*/}
+              {/*>*/}
+              {/*查看更多 →*/}
+              {/*</div>*/}
+              {/*</div>*/}
+              {/*</div>*/}
 
             </div>
           )
