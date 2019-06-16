@@ -101,19 +101,19 @@ class HeaderReact extends React.Component {
                         智慧招聘
                       </a>
                     </li>
-                    <li
-                      className={`${classes.navItem} mr-3 nav-item`}
-                    >
-                      <a
-                        className="nav-link"
-                        onClick={
-                          () => {
-                            this.props.history.push('/connection');
-                          }
-                        }>
-                        人 脉
-                      </a>
-                    </li>
+                    {/*<li*/}
+                    {/*className={`${classes.navItem} mr-3 nav-item`}*/}
+                    {/*>*/}
+                    {/*<a*/}
+                    {/*className="nav-link"*/}
+                    {/*onClick={*/}
+                    {/*() => {*/}
+                    {/*this.props.history.push('/connection');*/}
+                    {/*}*/}
+                    {/*}>*/}
+                    {/*人 脉*/}
+                    {/*</a>*/}
+                    {/*</li>*/}
                     <ul
                       className={`${classes.navItem} nav-item list-inline-item mr-2`}
                     >

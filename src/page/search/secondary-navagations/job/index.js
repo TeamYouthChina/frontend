@@ -137,16 +137,16 @@ class SearchJobsNavItemReact extends React.Component {
                     {/*</MDBNavLink>*/}
                     {/*</MDBDropdownItem>*/}
 
-                    <MDBDropdownItem
-                      className={`p-0 ${classes.dropdownItems}${pathname.includes('/search-connect-result') ? ' active' : ''}`}
-                      onClick={() => this.handleTabsContent('人脉')}>
-                      <MDBNavLink
-                        className="p-2 d-flex justify-content-center align-items-center"
-                        style={navyFont}
-                        to={'/search/connection'}>
-                        <MDBIcon style={navlinkIcon} icon="users" /> 人脉
-                      </MDBNavLink>
-                    </MDBDropdownItem>
+                    {/*<MDBDropdownItem*/}
+                    {/*className={`p-0 ${classes.dropdownItems}${pathname.includes('/search-connect-result') ? ' active' : ''}`}*/}
+                    {/*onClick={() => this.handleTabsContent('人脉')}>*/}
+                    {/*<MDBNavLink*/}
+                    {/*className="p-2 d-flex justify-content-center align-items-center"*/}
+                    {/*style={navyFont}*/}
+                    {/*to={'/search/connection'}>*/}
+                    {/*<MDBIcon style={navlinkIcon} icon="users" /> 人脉*/}
+                    {/*</MDBNavLink>*/}
+                    {/*</MDBDropdownItem>*/}
                   </MDBDropdownMenu>
                 </MDBDropdown>
               </MDBNavItem>

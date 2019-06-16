@@ -45,10 +45,6 @@ class FileGeneralCardReact extends React.Component {
           { /*<div className={classes.modify}>
             {this.props.date}
           </div>*/}
-
-
-
-         
         </div>
        
         
