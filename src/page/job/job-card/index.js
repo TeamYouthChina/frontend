@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter, Link} from 'react-router-dom';
 
 import dateFormat from 'dateformat';
+import {MDBBtn} from 'mdbreact';
 import classes from './index.module.css';
 import {Location} from '../../playground/general-component/location';
 import {IfCollect} from '../../playground/general-component/if-collect';
@@ -64,9 +65,6 @@ class JobCardReact extends React.Component {
             <div>
               {'工作类型：'}{this.props.backend.content.type}
             </div>
-           
-            
-           
 
           </div>
         </div>
@@ -79,16 +77,34 @@ class JobCardReact extends React.Component {
               style={{marginLeft:'5vw'}}
             />
           </div>
-          <div className={`${classes.btn} d-flex`}>
-            <Link 
-              to={{pathname:'/my/file', query:this.props.backend.content.id}} 
-              className="align-self-center w-100" 
-              style={{color:'white'}}
-            >
-              立即申请
-            </Link>
-
+          <div>
+            {
+              this.props.appList.indexOf(this.props.backend.content.id)===-1?(
+                <div>
+                  <MDBBtn color="primary"size="sm">
+                    <Link
+                      to={{pathname:`/send-pdf-resume-to/${this.props.match.params.id}`, query:this.props.backend.content.id}}
+                      className="align-self-center w-100"
+                      style={{color:'white'}}
+                    >
+                      立即申请
+                    </Link>
+                  </MDBBtn>
+                  {/*<Link*/}
+                  {/*to={{pathname:`/send-pdf-resume-to/${this.props.match.params.id}`, query:this.props.backend.content.id}}*/}
+                  {/*className="align-self-center w-100"*/}
+                  {/*style={{color:'white'}}*/}
+                  {/*>*/}
+                  {/*立即申请*/}
+                  {/*</Link>*/}
+                </div>
+                
+              ):(
+                <MDBBtn color="default" disabled size="sm">已申请</MDBBtn>
+              )
+            }
           </div>
+          
         </div>
       
 
@@ -104,7 +120,9 @@ JobCardReact.i18n = [
 
 JobCardReact.propTypes = {
   // self
-  backend: PropTypes.object.isRequired
+  backend: PropTypes.object.isRequired,
+  appList:PropTypes.array.isRequired,
+  match: PropTypes.object.isRequired,
 };
 
 export const JobCard = withRouter(JobCardReact);

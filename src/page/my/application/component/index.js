@@ -15,20 +15,20 @@ class ApplicationCardReact extends React.Component {
     this.text = ApplicationCardReact.i18n[languageHelper()];
   }
 
-  applicationStatus(param) {
-    switch (param) {
-      case '已查阅':
-        return `${classes.reviewed}`;
-      case '已面试':
-        return `${classes.interviewed}`;
-      case '待审阅':
-        return `${classes.pendingReview}`;
-      case '未通过':
-        return `${classes.nopass}`;
-      case '已通过':
-        return `${classes.pass}`;
-    }
-  }
+  // applicationStatus(param) {
+  //   switch (param) {
+  //     case '已查阅':
+  //       return `${classes.reviewed}`;
+  //     case '已面试':
+  //       return `${classes.interviewed}`;
+  //     case '待审阅':
+  //       return `${classes.pendingReview}`;
+  //     case '未通过':
+  //       return `${classes.nopass}`;
+  //     case '已通过':
+  //       return `${classes.pass}`;
+  //   }
+  // }
 
 
   render() {

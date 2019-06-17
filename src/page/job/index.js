@@ -13,7 +13,7 @@ import {JobCard} from './job-card';
 import {JobDesci} from './job-descri';
 import {SimilarJob} from './similar-job';
 
-import {get, isLogin} from '../../tool/api-helper';
+import {get, getAsync, isLogin} from '../../tool/api-helper';
 
 
 class JobReact extends React.Component {
@@ -22,10 +22,13 @@ class JobReact extends React.Component {
     super(props);
     // state
     this.state = {
-      render: 0
+      render: 0,
+      backend:'',
+      app:''
     };
     // i18n
     this.text = JobReact.i18n[languageHelper()];
+    this.appList=[];
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -49,19 +52,25 @@ class JobReact extends React.Component {
     }
   }
 
-  componentDidMount() {
+
+  async componentDidMount() {
     if (!isLogin()) {
       this.setState({
         render: 2,
       });
       return;
     }
-    get(`/jobs/${this.props.match.params.id}`).then((data) => {
-      this.setState({
-        render: 1,
-        backend: data
-      });
+    const app=await getAsync(`/applicants/${localStorage.getItem('id')}/applications`);
+    const backend=await getAsync(`/jobs/${this.props.match.params.id}`);
+    for(let i=0;i<app.content.data.length;i++){
+      this.appList.push(app.content.data[i].id);
+    }
+    this.setState({
+      render:1,
+      backend: backend,
+      app: this.appList,
     });
+    
   }
 
   render() {
@@ -71,6 +80,7 @@ class JobReact extends React.Component {
     }
     switch (this.state.render) {
       case 1:
+       
         return (
           <div className={classes.background}>
             <div className={classes.bg}>
@@ -80,7 +90,7 @@ class JobReact extends React.Component {
               <div className="cell-membrane">
                 <div className="d-flex">
                   <div>
-                    <JobCard backend={this.state.backend} />
+                    <JobCard backend={this.state.backend} appList={this.state.app}/>
                     <JobDesci backend={this.state.backend} />
                     <KnowCompany backend={this.state.backend} />
                     <SimilarJob title={this.state.backend.content.name} />
